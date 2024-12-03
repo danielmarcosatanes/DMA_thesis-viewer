@@ -27,28 +27,26 @@
             j2sPath: "j2s", // Path to JSmol's j2s folder
             color: "white",  // Background color
             use: "HTML5",    // Use HTML5 for rendering
-            script: "load http://chemapps.stolaf.edu/jmol/docs/examples-12/data/caffeine.txt", // Test with known working molecule
+            script: "load molecules/44a-Bipy-Ir(Bpin).txt", // Default molecule to load
             disableJ2SLoadMonitor: true,  // Disable loading monitor
             disableInitialConsole: true  // Disable initial console
         };
-    // Correct initialization process
-    window.onload = function() {
-        jsmolApplet = Jmol.getApplet("jsmolApplet", Info);
-        document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");
-    };
+
+        window.onload = function() {
+            jsmolApplet = Jmol.getApplet("jsmolApplet", Info); // Initialize the JSmol applet
+            document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");
+        };
 
         // Function to load the selected molecule
         function loadMolecule() {
-    var moleculePath = document.getElementById('moleculeSelector').value;
-    console.log("Loading molecule:", moleculePath); // Confirm molecule path
-    if (typeof jsmolApplet === "undefined") {
-        console.error("JSmol applet not initialized properly!");
-    } else {
-        Jmol.script(jsmolApplet, `load ${moleculePath}`);
-    }
-}
-
+            var moleculePath = document.getElementById('moleculeSelector').value;
+            console.log("Loading molecule:", moleculePath); // Log molecule path to console
+            if (typeof jsmolApplet === "undefined") {
+                console.error("JSmol applet not initialized properly!");
+            } else {
+                Jmol.script(jsmolApplet, `load ${moleculePath}`);
+            }
+        }
     </script>
 </body>
 </html>
-
