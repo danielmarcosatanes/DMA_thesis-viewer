@@ -31,17 +31,23 @@
             disableJ2SLoadMonitor: true,  // Disable loading monitor
             disableInitialConsole: true  // Disable initial console
         };
-        Jmol.setDocument(0); // Set the document context for JSmol
-        Jmol.getApplet("jsmolApplet", Info); // Initialize the JSmol applet
+    // Correct initialization process
+    window.onload = function() {
+        jsmolApplet = Jmol.getApplet("jsmolApplet", Info);
         document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");
+    };
 
         // Function to load the selected molecule
         function loadMolecule() {
-            var moleculePath = document.getElementById('moleculeSelector').value;
-            Jmol.script(jsmolApplet, `load ${moleculePath}`);
-console.log(Jmol.getPropertyAsString("error")); // Logs errors if molecule fails to load
+    var moleculePath = document.getElementById('moleculeSelector').value;
+    console.log("Loading molecule:", moleculePath); // Confirm molecule path
+    if (typeof jsmolApplet === "undefined") {
+        console.error("JSmol applet not initialized properly!");
+    } else {
+        Jmol.script(jsmolApplet, `load ${moleculePath}`);
+    }
+}
 
-        }
     </script>
 </body>
 </html>
