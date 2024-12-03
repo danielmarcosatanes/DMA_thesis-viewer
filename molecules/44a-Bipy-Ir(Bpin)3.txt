@@ -1,5 +1,5 @@
 84
-/Users/danielmarcosatanes/Desktop/Tesis/sp3/Estructuras_supporting copy/DG/Bipy (L1)/Ir(Bpin)3/Bipy-Ir(Bpin)3.log	Energy: -1150209.9067283
+44a-Bipy-Ir(Bpin)3
 C          2.24837        3.05252       -0.32922
 H          1.22337        3.39527       -0.17763
 C          3.31270        3.92863       -0.50382
