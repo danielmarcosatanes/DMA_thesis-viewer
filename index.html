@@ -39,14 +39,9 @@
 
         // Function to load the selected molecule
         function loadMolecule() {
-            var moleculePath = document.getElementById('moleculeSelector').value;
-            console.log("Loading molecule:", moleculePath); // Log molecule path to console
-            if (typeof jsmolApplet === "undefined") {
-                console.error("JSmol applet not initialized properly!");
-            } else {
-                Jmol.script(jsmolApplet, `load ${moleculePath}`);
-            }
-        }
+        const selectedMolecule = document.getElementById("moleculeSelector").value;
+        Jmol.script(jmolApplet0, `load 'molecules/${selectedMolecule}';`);
+      }
     </script>
 </body>
 </html>
