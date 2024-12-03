@@ -71,9 +71,10 @@
                 width: 600,
                 height: 400,
                 j2sPath: "j2s",  // Path to JSmol j2s folder
-                script: "load " + moleculeFile
+                script: "load '" + moleculeFile + "'"
             };
 
+            // Initialize the JSmol applet and insert the HTML into the container
             const jsmolApplet = Jmol.getApplet(containerId, info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(containerId);
         }
