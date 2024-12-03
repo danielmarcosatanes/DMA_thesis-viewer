@@ -12,8 +12,8 @@
     
     <!-- Dropdown menu to select the molecule -->
     <select id="moleculeSelector" onchange="loadMolecule()">
-        <option value="molecules/44a-Bipy-Ir(Bpin).xyz">44a-Bipy-Ir(Bpin)</option>
-        <option value="molecules/44a-Bipy-Ir(Bpin)3.xyz">44a-Bipy-Ir(Bpin)3</option>
+        <option value="44a-Bipy-Ir(Bpin).xyz">44a-Bipy-Ir(Bpin)</option>
+        <option value="44a-Bipy-Ir(Bpin)3.xyz">44a-Bipy-Ir(Bpin)3</option>
         <!-- Add more options here for additional molecules -->
     </select>
     
@@ -21,6 +21,8 @@
     <div id="jsmolContainer" style="width: 600px; height: 400px; border: 1px solid black;"></div>
 
     <script type="text/javascript">
+        var jsmolApplet;
+
         var Info = {
             width: 600,
             height: 400,
@@ -39,9 +41,9 @@
 
         // Function to load the selected molecule
         function loadMolecule() {
-        const selectedMolecule = document.getElementById("moleculeSelector").value;
-        Jmol.script(jmolApplet0, `load 'molecules/${selectedMolecule}';`);
-      }
+            const selectedMolecule = document.getElementById("moleculeSelector").value;
+            Jmol.script(jsmolApplet, `load molecules/${selectedMolecule}`);
+        }
     </script>
 </body>
 </html>
