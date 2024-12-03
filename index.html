@@ -1,62 +1,46 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <meta http-equiv="Content-Style-Type" content="text/css">
-  <title></title>
-  <meta name="Generator" content="Cocoa HTML Writer">
-  <meta name="CocoaVersion" content="2575.2">
-  <style type="text/css">
-    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
-    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Molecule Viewer</title>
+    <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-<p class="p1">&lt;!DOCTYPE html&gt;</p>
-<p class="p1">&lt;html lang="en"&gt;</p>
-<p class="p1">&lt;head&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta charset="UTF-8"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;title&gt;3D Molecule Viewer&lt;/title&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/javascript" src="JSmol.min.js"&gt;&lt;/script&gt;</p>
-<p class="p1">&lt;/head&gt;</p>
-<p class="p1">&lt;body&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;h1&gt;3D Molecule Viewer&lt;/h1&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;p&gt;Select a molecule to view:&lt;/p&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Dropdown menu to select the molecule --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;select id="moleculeSelector" onchange="loadMolecule()"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="molecules/molecule1.xyz"&gt;Molecule 1&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;option value="molecules/molecule2.xyz"&gt;Molecule 2&lt;/option&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Add more options here for additional molecules --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/select&gt;</p>
-<p class="p2"><span class="Apple-converted-space">    </span></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- The container for the JSmol viewer --&gt;</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="jsmolContainer" style="width: 600px; height: 400px; border: 1px solid black;"&gt;&lt;/div&gt;</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;script type="text/javascript"&gt;</p>
-<p class="p1"><span class="Apple-converted-space">        </span>var Info = {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>width: 600,</p>
-<p class="p1"><span class="Apple-converted-space">            </span>height: 400,</p>
-<p class="p1"><span class="Apple-converted-space">            </span>j2sPath: "j2s", // Path to JSmol's j2s folder</p>
-<p class="p1"><span class="Apple-converted-space">            </span>color: "white",<span class="Apple-converted-space">  </span>// Background color</p>
-<p class="p1"><span class="Apple-converted-space">            </span>use: "HTML5",<span class="Apple-converted-space">    </span>// Use HTML5 for rendering</p>
-<p class="p1"><span class="Apple-converted-space">            </span>script: "load molecules/molecule1.xyz", // Default molecule to load</p>
-<p class="p1"><span class="Apple-converted-space">            </span>disableJ2SLoadMonitor: true,<span class="Apple-converted-space">  </span>// Disable loading monitor</p>
-<p class="p1"><span class="Apple-converted-space">            </span>disableInitialConsole: true<span class="Apple-converted-space">  </span>// Disable initial console</p>
-<p class="p1"><span class="Apple-converted-space">        </span>};</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Jmol.setDocument(0); // Set the document context for JSmol</p>
-<p class="p1"><span class="Apple-converted-space">        </span>Jmol.getApplet("jsmolApplet", Info); // Initialize the JSmol applet</p>
-<p class="p1"><span class="Apple-converted-space">        </span>document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");</p>
-<p class="p2"><br></p>
-<p class="p1"><span class="Apple-converted-space">        </span>// Function to load the selected molecule</p>
-<p class="p1"><span class="Apple-converted-space">        </span>function loadMolecule() {</p>
-<p class="p1"><span class="Apple-converted-space">            </span>var moleculePath = document.getElementById('moleculeSelector').value;</p>
-<p class="p1"><span class="Apple-converted-space">            </span>Jmol.script(jsmolApplet, `load ${moleculePath}`);</p>
-<p class="p1"><span class="Apple-converted-space">        </span>}</p>
-<p class="p1"><span class="Apple-converted-space">    </span>&lt;/script&gt;</p>
-<p class="p1">&lt;/body&gt;</p>
-<p class="p1">&lt;/html&gt;</p>
-<p class="p2"><br></p>
+    <h1>3D Molecule Viewer</h1>
+    <p>Select a molecule to view:</p>
+    
+    <!-- Dropdown menu to select the molecule -->
+    <select id="moleculeSelector" onchange="loadMolecule()">
+        <option value="molecules/molecule1.xyz">Molecule 1</option>
+        <option value="molecules/molecule2.xyz">Molecule 2</option>
+        <!-- Add more options here for additional molecules -->
+    </select>
+    
+    <!-- The container for the JSmol viewer -->
+    <div id="jsmolContainer" style="width: 600px; height: 400px; border: 1px solid black;"></div>
+
+    <script type="text/javascript">
+        var Info = {
+            width: 600,
+            height: 400,
+            j2sPath: "j2s", // Path to JSmol's j2s folder
+            color: "white",  // Background color
+            use: "HTML5",    // Use HTML5 for rendering
+            script: "load molecules/molecule1.xyz", // Default molecule to load
+            disableJ2SLoadMonitor: true,  // Disable loading monitor
+            disableInitialConsole: true  // Disable initial console
+        };
+        Jmol.setDocument(0); // Set the document context for JSmol
+        Jmol.getApplet("jsmolApplet", Info); // Initialize the JSmol applet
+        document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");
+
+        // Function to load the selected molecule
+        function loadMolecule() {
+            var moleculePath = document.getElementById('moleculeSelector').value;
+            Jmol.script(jsmolApplet, `load ${moleculePath}`);
+        }
+    </script>
 </body>
 </html>
+
