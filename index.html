@@ -3,42 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Molecule Viewer</title>
+    <title>Structures for DMA Thesis</title>
     <link rel="stylesheet" href="styles.css">
-    <script type="text/javascript" src="jsmol.min.js"></script>
+    <script type="text/javascript" src="jsmol.min.js" onload="initializeJSmol()"></script>
 </head>
 <body>
-    <div id="sidebar">
+
+    <div id="menu">
         <h2>Sections</h2>
         <ul>
-            <li><a href="javascript:void(0)" onclick="showSection('section1')">Section 1</a></li>
-            <li><a href="javascript:void(0)" onclick="showSection('section2')">Section 2</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('titleSection')">Title</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('section1')">Section 1</a></li>
+            <li><a href="javascript:void(0);" onclick="showSection('section2')">Section 2</a></li>
         </ul>
     </div>
 
     <div id="content">
-        <main>
-            <!-- Title (default content) -->
-            <section id="titleSection">
-                <h1>Structures for DMA Thesis</h1>
-                <p>Select a section from the menu to view the structure.</p>
-            </section>
+        <!-- Title Section -->
+        <section id="titleSection">
+            <h1>Structures for DMA Thesis</h1>
+        </section>
 
-            <!-- Section 1 (hidden initially) -->
-            <section id="section1" style="display: none;">
-                <h3>Section 1</h3>
-                <div id="jsmol1" class="jsmol-container"></div>
-            </section>
+        <!-- Section 1: JSmol Viewer -->
+        <section id="section1" style="display:none;">
+            <h2>Section 1</h2>
+            <div id="jsmol1"></div>
+        </section>
 
-            <!-- Section 2 (hidden initially) -->
-            <section id="section2" style="display: none;">
-                <h3>Section 2</h3>
-                <div id="jsmol2" class="jsmol-container"></div>
-            </section>
-        </main>
+        <!-- Section 2: JSmol Viewer -->
+        <section id="section2" style="display:none;">
+            <h2>Section 2</h2>
+            <div id="jsmol2"></div>
+        </section>
     </div>
 
     <script type="text/javascript">
+        // Function to initialize JSmol once the script is loaded
+        function initializeJSmol() {
+            console.log("JSmol library is loaded");
+        }
+
         // Function to hide all sections and display the clicked section
         function showSection(sectionId) {
             console.log("Showing section: " + sectionId); // Debugging log
@@ -84,5 +88,6 @@
             showSection('titleSection');  // Show title section on page load
         });
     </script>
+
 </body>
 </html>
