@@ -51,10 +51,3 @@ main {
     border: 1px solid black;
     margin-top: 20px;
 }
-
-/* Styling for dropdown menus */
-select {
-    margin-top: 10px;
-    padding: 5px;
-    font-size: 16px;
-}
