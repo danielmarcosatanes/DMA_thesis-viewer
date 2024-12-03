@@ -39,6 +39,8 @@
         function loadMolecule() {
             var moleculePath = document.getElementById('moleculeSelector').value;
             Jmol.script(jsmolApplet, `load ${moleculePath}`);
+console.log(Jmol.getPropertyAsString("error")); // Logs errors if molecule fails to load
+
         }
     </script>
 </body>
