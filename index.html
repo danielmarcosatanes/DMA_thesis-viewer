@@ -13,7 +13,6 @@
         <ul>
             <li><a href="javascript:void(0)" onclick="showSection('section1')">Section 1</a></li>
             <li><a href="javascript:void(0)" onclick="showSection('section2')">Section 2</a></li>
-            <li><a href="javascript:void(0)" onclick="showSection('section3')">Section 3</a></li>
         </ul>
     </div>
 
@@ -36,18 +35,14 @@
                 <h3>Section 2</h3>
                 <div id="jsmol2" class="jsmol-container"></div>
             </section>
-
-            <!-- Section 3 (hidden initially) -->
-            <section id="section3" style="display: none;">
-                <h3>Section 3</h3>
-                <div id="jsmol3" class="jsmol-container"></div>
-            </section>
         </main>
     </div>
 
     <script type="text/javascript">
         // Function to hide all sections and display the clicked section
         function showSection(sectionId) {
+            console.log("Showing section: " + sectionId); // Debugging log
+
             // Hide all sections
             const sections = document.querySelectorAll("section");
             sections.forEach(section => section.style.display = "none");
@@ -60,13 +55,13 @@
                 loadJSmol('jsmol1', 'molecules/44a-Bipy-Ir(Bpin).xyz');
             } else if (sectionId === 'section2') {
                 loadJSmol('jsmol2', 'molecules/44a-Bipy-Ir(Bpin)3.xyz');
-            } else if (sectionId === 'section3') {
-                loadJSmol('jsmol3', 'molecules/anotherMolecule.xyz');
             }
         }
 
         // Function to initialize the JSmol applet for each section
         function loadJSmol(containerId, moleculeFile) {
+            console.log("Loading JSmol in container: " + containerId + " with file: " + moleculeFile); // Debugging log
+
             const info = {
                 width: 600,
                 height: 400,
@@ -74,9 +69,14 @@
                 script: "load '" + moleculeFile + "'"
             };
 
-            // Initialize the JSmol applet and insert the HTML into the container
-            const jsmolApplet = Jmol.getApplet(containerId, info);
-            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(containerId);
+            try {
+                // Initialize the JSmol applet and insert the HTML into the container
+                const jsmolApplet = Jmol.getApplet(containerId, info);
+                document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(containerId);
+                console.log("JSmol initialized successfully in " + containerId); // Debugging log
+            } catch (e) {
+                console.error("Error loading JSmol: ", e); // Catching and logging any errors
+            }
         }
 
         // By default, show the title section only
