@@ -3,101 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Molecule Viewer</title>
-    <script type="text/javascript" src="JSmol.min.js"></script>
-    <style>
-        /* Basic reset for body and html */
-        body, html {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            display: flex;
-            justify-content: flex-start;
-            align-items: flex-start;
-        }
-
-        /* The container for the JSmol viewer */
-        #jsmolContainer {
-            flex-grow: 1; /* Allow JSmol to take up remaining space */
-            height: 100%;
-            border: 1px solid black;
-            width: 75%; /* Set to 75% width */
-        }
-
-        /* Sidebar for the molecule selector */
-        #sidebar {
-            width: 25%; /* Set sidebar to take 25% of the width */
-            padding: 20px;
-            border-left: 1px solid black;
-            background-color: #f4f4f4;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-start;
-            align-items: center;
-        }
-
-        select {
-            width: 80%; /* Set dropdown to take 80% of sidebar width */
-            padding: 8px;
-            font-size: 16px;
-            margin-top: 20px;
-        }
-
-        h3 {
-            font-size: 20px;
-            margin-bottom: 20px;
-        }
-
-        /* Ensuring the body is correctly laid out */
-        #container {
-            display: flex;
-            height: 100vh;
-            width: 100%;
-        }
-    </style>
+    <title>Molecule Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Main container to hold both the JSmol viewer and the sidebar -->
-    <div id="container">
-        <!-- JSmol container for displaying the 3D molecule -->
-        <div id="jsmolContainer"></div>
+    <div class="container">
+        <!-- Sidebar for navigation -->
+        <nav id="sidebar">
+            <ul>
+                <li><a href="#section1">Section 1</a>
+                    <ul>
+                        <li><a href="#subsection1-1">Subsection 1.1</a></li>
+                        <li><a href="#subsection1-2">Subsection 1.2</a></li>
+                    </ul>
+                </li>
+                <li><a href="#section2">Section 2</a>
+                    <ul>
+                        <li><a href="#subsection2-1">Subsection 2.1</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
 
-        <!-- Sidebar with molecule selector -->
-        <div id="sidebar">
-            <h3>Select a molecule:</h3>
-            <select id="moleculeSelector" onchange="loadMolecule()">
-                <option value="molecules/44a-Bipy-Ir(Bpin).xyz">44a-Bipy-Ir(Bpin)</option>
-                <option value="molecules/44a-Bipy-Ir(Bpin)3.xyz">44a-Bipy-Ir(Bpin)3</option>
-                <!-- Add more options here for additional molecules -->
-            </select>
-        </div>
+        <!-- Content Area -->
+        <main id="content">
+            <section id="section1">
+                <h2>Section 1</h2>
+                <article id="subsection1-1">
+                    <h3>Subsection 1.1</h3>
+                    <div id="jsmol1" style="width: 600px; height: 400px;"></div>
+                </article>
+                <article id="subsection1-2">
+                    <h3>Subsection 1.2</h3>
+                    <div id="jsmol2" style="width: 600px; height: 400px;"></div>
+                </article>
+            </section>
+            
+            <section id="section2">
+                <h2>Section 2</h2>
+                <article id="subsection2-1">
+                    <h3>Subsection 2.1</h3>
+                    <div id="jsmol3" style="width: 600px; height: 400px;"></div>
+                </article>
+            </section>
+        </main>
     </div>
 
-    <script type="text/javascript">
-        var jsmolApplet; // Declare jsmolApplet globally to be accessible inside functions
-
-        var Info = {
-            width: "100%", // JSmol will take up 100% of its container's width
-            height: "100%", // JSmol will take up 100% of its container's height
-            j2sPath: "j2s", // Path to JSmol's j2s folder
-            color: "white",  // Background color
-            use: "HTML5",    // Use HTML5 for rendering
-            script: "load molecules/44a-Bipy-Ir(Bpin).xyz", // Default molecule to load
-            disableJ2SLoadMonitor: true,  // Disable loading monitor
-            disableInitialConsole: true  // Disable initial console
+    <script>
+        // Initialize multiple JSmol instances
+        const info1 = {
+            width: 600,
+            height: 400,
+            j2sPath: "j2s",
+            script: "load molecules/44a-Bipy-Ir(Bpin).xyz"
         };
-
-        // Wait until the DOM is fully loaded
-        document.addEventListener('DOMContentLoaded', function() {
-            jsmolApplet = Jmol.getApplet("jsmolApplet", Info); // Initialize the JSmol applet
-            document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");
-        });
-
-        // Function to load the selected molecule
-        function loadMolecule() {
-            const selectedMolecule = document.getElementById("moleculeSelector").value;
-            Jmol.script(jsmolApplet, `load '${selectedMolecule}';`); // Load the molecule based on selection
-        }
+        const info2 = {
+            width: 600,
+            height: 400,
+            j2sPath: "j2s",
+            script: "load molecules/44a-Bipy-Ir(Bpin)3.xyz"
+        };
+        Jmol.getApplet("jsmol1", info1);
+        Jmol.getApplet("jsmol2", info2);
     </script>
 </body>
 </html>
