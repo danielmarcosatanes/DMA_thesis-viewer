@@ -21,13 +21,13 @@
     <div id="jsmolContainer" style="width: 600px; height: 400px; border: 1px solid black;"></div>
 
     <script type="text/javascript">
-        var jsmolApplet;
+        var jsmolApplet; // Declare jsmolApplet globally to be accessible inside functions
 
         var Info = {
             width: 600,
             height: 400,
             j2sPath: "j2s", // Path to JSmol's j2s folder
-            color: "black",  // Background color
+            color: "white",  // Background color
             use: "HTML5",    // Use HTML5 for rendering
             script: "load molecules/44a-Bipy-Ir(Bpin).xyz", // Default molecule to load
             disableJ2SLoadMonitor: true,  // Disable loading monitor
@@ -35,6 +35,12 @@
         };
 
         window.onload = function() {
+            // Ensure that the molecule selector appears on the page
+            const moleculeSelector = document.getElementById("moleculeSelector");
+            if (!moleculeSelector) {
+                console.error("Molecule selector not found.");
+            }
+            
             jsmolApplet = Jmol.getApplet("jsmolApplet", Info); // Initialize the JSmol applet
             document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");
         };
@@ -42,7 +48,8 @@
         // Function to load the selected molecule
         function loadMolecule() {
             const selectedMolecule = document.getElementById("moleculeSelector").value;
-            Jmol.script(jsmolApplet, `load molecules/${selectedMolecule}`);
+            console.log("Selected molecule: " + selectedMolecule);  // Debugging line to confirm selection
+            Jmol.script(jsmolApplet, `load '${selectedMolecule}';`); // Load the molecule
         }
     </script>
 </body>
