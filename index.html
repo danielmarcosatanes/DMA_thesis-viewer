@@ -11,28 +11,34 @@
     <div id="sidebar">
         <h2>Sections</h2>
         <ul>
-            <li><a href="#section1">Section 1</a></li>
-            <li><a href="#section2">Section 2</a></li>
-            <li><a href="#section3">Section 3</a></li>
+            <li><a href="javascript:void(0)" onclick="showSection('section1')">Section 1</a></li>
+            <li><a href="javascript:void(0)" onclick="showSection('section2')">Section 2</a></li>
+            <li><a href="javascript:void(0)" onclick="showSection('section3')">Section 3</a></li>
         </ul>
     </div>
 
     <div id="content">
         <main>
-            <!-- Section 1 -->
-            <section id="section1">
+            <!-- Title (default content) -->
+            <section id="titleSection">
+                <h1>Structures for DMA Thesis</h1>
+                <p>Select a section from the menu to view the structure.</p>
+            </section>
+
+            <!-- Section 1 (hidden initially) -->
+            <section id="section1" style="display: none;">
                 <h3>Section 1</h3>
                 <div id="jsmol1" class="jsmol-container"></div>
             </section>
 
-            <!-- Section 2 -->
-            <section id="section2">
+            <!-- Section 2 (hidden initially) -->
+            <section id="section2" style="display: none;">
                 <h3>Section 2</h3>
                 <div id="jsmol2" class="jsmol-container"></div>
             </section>
 
-            <!-- Section 3 -->
-            <section id="section3">
+            <!-- Section 3 (hidden initially) -->
+            <section id="section3" style="display: none;">
                 <h3>Section 3</h3>
                 <div id="jsmol3" class="jsmol-container"></div>
             </section>
@@ -40,35 +46,42 @@
     </div>
 
     <script type="text/javascript">
-        // Initialize JSmol applets for each section with fixed molecules
-        const info1 = {
-            width: 600,
-            height: 400,
-            j2sPath: "j2s",  // Path to JSmol j2s folder
-            script: "load molecules/44a-Bipy-Ir(Bpin).xyz"
-        };
-        const info2 = {
-            width: 600,
-            height: 400,
-            j2sPath: "j2s",  // Path to JSmol j2s folder
-            script: "load molecules/44a-Bipy-Ir(Bpin)3.xyz"
-        };
-        const info3 = {
-            width: 600,
-            height: 400,
-            j2sPath: "j2s",  // Path to JSmol j2s folder
-            script: "load molecules/anotherMolecule.xyz"
-        };
+        // Function to hide all sections and display the clicked section
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll("section");
+            sections.forEach(section => section.style.display = "none");
 
-        // Create JSmol applets for each section
-        var jsmol1 = Jmol.getApplet("jsmol1", info1);
-        var jsmol2 = Jmol.getApplet("jsmol2", info2);
-        var jsmol3 = Jmol.getApplet("jsmol3", info3);
+            // Show the selected section
+            document.getElementById(sectionId).style.display = "block";
 
-        // Display JSmol applets in the HTML
-        document.getElementById("jsmol1").innerHTML = Jmol.getAppletHtml("jsmol1");
-        document.getElementById("jsmol2").innerHTML = Jmol.getAppletHtml("jsmol2");
-        document.getElementById("jsmol3").innerHTML = Jmol.getAppletHtml("jsmol3");
+            // Load JSmol for the selected section
+            if (sectionId === 'section1') {
+                loadJSmol('jsmol1', 'molecules/44a-Bipy-Ir(Bpin).xyz');
+            } else if (sectionId === 'section2') {
+                loadJSmol('jsmol2', 'molecules/44a-Bipy-Ir(Bpin)3.xyz');
+            } else if (sectionId === 'section3') {
+                loadJSmol('jsmol3', 'molecules/anotherMolecule.xyz');
+            }
+        }
+
+        // Function to initialize the JSmol applet for each section
+        function loadJSmol(containerId, moleculeFile) {
+            const info = {
+                width: 600,
+                height: 400,
+                j2sPath: "j2s",  // Path to JSmol j2s folder
+                script: "load " + moleculeFile
+            };
+
+            const jsmolApplet = Jmol.getApplet(containerId, info);
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(containerId);
+        }
+
+        // By default, show the title section only
+        document.addEventListener("DOMContentLoaded", function() {
+            showSection('titleSection');  // Show title section on page load
+        });
     </script>
 </body>
 </html>
