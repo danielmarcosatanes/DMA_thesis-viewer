@@ -47,20 +47,30 @@
             font-size: 20px;
             margin-bottom: 20px;
         }
+
+        /* Ensuring the body is correctly laid out */
+        #container {
+            display: flex;
+            height: 100vh;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
-    <!-- JSmol container for displaying the 3D molecule -->
-    <div id="jsmolContainer"></div>
+    <!-- Main container to hold both the JSmol viewer and the sidebar -->
+    <div id="container">
+        <!-- JSmol container for displaying the 3D molecule -->
+        <div id="jsmolContainer"></div>
 
-    <!-- Sidebar with molecule selector -->
-    <div id="sidebar">
-        <h3>Select a molecule:</h3>
-        <select id="moleculeSelector" onchange="loadMolecule()">
-            <option value="molecules/44a-Bipy-Ir(Bpin).xyz">44a-Bipy-Ir(Bpin)</option>
-            <option value="molecules/44a-Bipy-Ir(Bpin)3.xyz">44a-Bipy-Ir(Bpin)3</option>
-            <!-- Add more options here for additional molecules -->
-        </select>
+        <!-- Sidebar with molecule selector -->
+        <div id="sidebar">
+            <h3>Select a molecule:</h3>
+            <select id="moleculeSelector" onchange="loadMolecule()">
+                <option value="molecules/44a-Bipy-Ir(Bpin).xyz">44a-Bipy-Ir(Bpin)</option>
+                <option value="molecules/44a-Bipy-Ir(Bpin)3.xyz">44a-Bipy-Ir(Bpin)3</option>
+                <!-- Add more options here for additional molecules -->
+            </select>
+        </div>
     </div>
 
     <script type="text/javascript">
