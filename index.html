@@ -3,29 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JSmol Debug Test</title>
-    <script type="text/javascript" src="jsmol.min.js"></script>
+    <title>3D Molecule Viewer</title>
+    <script type="text/javascript" src="JSmol.min.js"></script> <!-- Updated path for JSmol.min.js -->
 </head>
 <body>
-    <h1>JSmol Test</h1>
-    <div id="jsmol1" style="width: 600px; height: 400px; border: 1px solid black;"></div>
+    <h1>Structures for DMA Thesis</h1>
+    <p>Click a section to view the molecule:</p>
+
+    <nav>
+        <ul>
+            <li><a href="#" onclick="showSection('section1')">Section 1</a></li>
+            <li><a href="#" onclick="showSection('section2')">Section 2</a></li>
+            <!-- Add more sections as needed -->
+        </ul>
+    </nav>
+
+    <div id="section1" style="display:none;">
+        <h2>Section 1</h2>
+        <div id="jsmol1" style="width: 500px; height: 500px;"></div>
+    </div>
+
+    <div id="section2" style="display:none;">
+        <h2>Section 2</h2>
+        <div id="jsmol2" style="width: 500px; height: 500px;"></div>
+    </div>
 
     <script type="text/javascript">
-        window.onload = function() {
-            const info = {
-                width: 600,
-                height: 400,
-                j2sPath: "j2s",  // Path to JSmol resources
-                script: "load 'molecules/44a-Bipy-Ir(Bpin).xyz'"
-            };
-            
-            try {
-                const jsmolApplet = Jmol.getApplet("jsmol1", info);
-                document.getElementById("jsmol1").innerHTML = Jmol.getAppletHtml("jsmol1");
-                console.log("JSmol initialized successfully.");
-            } catch (e) {
-                console.error("Error initializing JSmol: ", e);
+        var jmolApplet;
+
+        function showSection(sectionId) {
+            // Hide all sections
+            var sections = document.querySelectorAll('div[id^="section"]');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            // Show the selected section
+            document.getElementById(sectionId).style.display = 'block';
+
+            // Load JSmol for the selected section
+            if (sectionId === 'section1') {
+                loadJSmol('jsmol1', 'molecules/44a-Bipy-Ir(Bpin).xyz');
+            } else if (sectionId === 'section2') {
+                loadJSmol('jsmol2', 'molecules/44a-Bipy-Ir(Bpin)3.xyz');
             }
+        }
+
+        function loadJSmol(containerId, moleculeFile) {
+            var Info = {
+                width: 500,
+                height: 500,
+                j2sPath: "j2s",  // Path to the j2s folder (it should be in the root directory)
+                color: "white",
+                use: "HTML5",
+                script: "load '" + moleculeFile + "';",  // Script to load the molecule
+                disableJ2SLoadMonitor: true,
+                disableInitialConsole: true
+            };
+
+            jmolApplet = Jmol.getApplet(containerId, Info);
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(containerId);
+        }
+
+        window.onload = function() {
+            showSection('section1');  // Load default section
         };
     </script>
 </body>
