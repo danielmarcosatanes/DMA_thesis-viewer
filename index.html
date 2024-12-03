@@ -6,44 +6,51 @@
     <title>3D Molecule Viewer</title>
     <script type="text/javascript" src="JSmol.min.js"></script>
     <style>
-        /* Style for the layout */
-        body {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100vh;
+        /* Basic reset for body and html */
+        body, html {
             margin: 0;
             padding: 0;
+            height: 100%;
+            display: flex;
+            justify-content: flex-start;
+            align-items: flex-start;
         }
 
-        /* Container for JSmol */
+        /* The container for the JSmol viewer */
         #jsmolContainer {
-            width: 80%;
+            flex-grow: 1; /* Allow JSmol to take up remaining space */
             height: 100%;
             border: 1px solid black;
+            width: 75%; /* Set to 75% width */
         }
 
-        /* Sidebar for the dropdown menu */
+        /* Sidebar for the molecule selector */
         #sidebar {
-            width: 20%;
-            height: 100%;
-            padding: 10px;
+            width: 25%; /* Set sidebar to take 25% of the width */
+            padding: 20px;
             border-left: 1px solid black;
+            background-color: #f4f4f4;
             display: flex;
             flex-direction: column;
+            justify-content: flex-start;
             align-items: center;
-            justify-content: center;
         }
 
         select {
-            width: 90%;
-            padding: 5px;
+            width: 80%; /* Set dropdown to take 80% of sidebar width */
+            padding: 8px;
             font-size: 16px;
+            margin-top: 20px;
+        }
+
+        h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
         }
     </style>
 </head>
 <body>
-    <!-- JSmol container for displaying 3D molecule -->
+    <!-- JSmol container for displaying the 3D molecule -->
     <div id="jsmolContainer"></div>
 
     <!-- Sidebar with molecule selector -->
@@ -60,8 +67,8 @@
         var jsmolApplet; // Declare jsmolApplet globally to be accessible inside functions
 
         var Info = {
-            width: "100%",
-            height: "100%",
+            width: "100%", // JSmol will take up 100% of its container's width
+            height: "100%", // JSmol will take up 100% of its container's height
             j2sPath: "j2s", // Path to JSmol's j2s folder
             color: "white",  // Background color
             use: "HTML5",    // Use HTML5 for rendering
