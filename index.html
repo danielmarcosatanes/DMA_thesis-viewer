@@ -62,7 +62,6 @@
         <a href="#" onclick="showSection('section1')">Section 1</a>
         <a href="#" onclick="showSection('section2')">Section 2</a>
         <a href="#" onclick="showSection('section3')">Section 3</a>
-        <!-- Add more sections as needed -->
     </div>
 
     <!-- Main content -->
@@ -95,9 +94,9 @@
 
         // Initialize JSmol
         function loadJSmol(containerId, moleculeFile) {
-            var jmolApplet = Jmol.getApplet(containerId, Info);
-            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(containerId);
-            Jmol.script(jmolApplet, "load '" + moleculeFile + "';");
+            var jmolApplet = Jmol.getApplet(containerId, Info); // Initialize JSmol with specified container and info
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(containerId); // Set up HTML for JSmol applet
+            Jmol.script(jmolApplet, "load 'molecules/" + moleculeFile + "';"); // Load the molecule dynamically
         }
 
         // Show the correct section and load the JSmol viewer for the selected molecule
@@ -117,11 +116,11 @@
 
             // Load the JSmol object for the selected section
             if (sectionId === 'section1') {
-                loadJSmol("jsmolContainer", "molecules/44a-Bipy-Ir(Bpin).xyz");
+                loadJSmol("jsmolContainer", "44a-Bipy-Ir(Bpin).xyz");
             } else if (sectionId === 'section2') {
-                loadJSmol("jsmolContainer2", "molecules/44a-Bipy-Ir(Bpin)3.xyz");
+                loadJSmol("jsmolContainer2", "44a-Bipy-Ir(Bpin)3.xyz");
             } else if (sectionId === 'section3') {
-                loadJSmol("jsmolContainer3", "molecules/44a-Bipy-Ir(Bpin).xyz"); // Add another molecule for section 3
+                loadJSmol("jsmolContainer3", "44a-Bipy-Ir(Bpin).xyz"); // Add another molecule for section 3
             }
         }
 
