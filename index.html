@@ -12,8 +12,8 @@
     
     <!-- Dropdown menu to select the molecule -->
     <select id="moleculeSelector" onchange="loadMolecule()">
-        <option value="molecules/44a-Bipy-Ir(Bpin).txt">44a-Bipy-Ir(Bpin)</option>
-        <option value="molecules/44a-Bipy-Ir(Bpin)3.txt">44a-Bipy-Ir(Bpin)3</option>
+        <option value="molecules/44a-Bipy-Ir(Bpin).xyz">44a-Bipy-Ir(Bpin)</option>
+        <option value="molecules/44a-Bipy-Ir(Bpin)3.xyz">44a-Bipy-Ir(Bpin)3</option>
         <!-- Add more options here for additional molecules -->
     </select>
     
@@ -27,7 +27,7 @@
             j2sPath: "j2s", // Path to JSmol's j2s folder
             color: "white",  // Background color
             use: "HTML5",    // Use HTML5 for rendering
-            script: "load molecules/44a-Bipy-Ir(Bpin).txt", // Default molecule to load
+            script: "load molecules/44a-Bipy-Ir(Bpin).xyz", // Default molecule to load
             disableJ2SLoadMonitor: true,  // Disable loading monitor
             disableInitialConsole: true  // Disable initial console
         };
