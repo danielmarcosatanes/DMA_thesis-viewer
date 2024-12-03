@@ -24,8 +24,8 @@
         var jsmolApplet; // Declare jsmolApplet globally to be accessible inside functions
 
         var Info = {
-            width: 600,
-            height: 400,
+            width: 800,
+            height: 600,
             j2sPath: "j2s", // Path to JSmol's j2s folder
             color: "white",  // Background color
             use: "HTML5",    // Use HTML5 for rendering
@@ -34,16 +34,17 @@
             disableInitialConsole: true  // Disable initial console
         };
 
-        window.onload = function() {
-            // Ensure that the molecule selector appears on the page
+        // Wait until the DOM is fully loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            jsmolApplet = Jmol.getApplet("jsmolApplet", Info); // Initialize the JSmol applet
+            document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");
+
+            // Ensure the molecule selector is available
             const moleculeSelector = document.getElementById("moleculeSelector");
             if (!moleculeSelector) {
                 console.error("Molecule selector not found.");
             }
-            
-            jsmolApplet = Jmol.getApplet("jsmolApplet", Info); // Initialize the JSmol applet
-            document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml("jsmolApplet");
-        };
+        });
 
         // Function to load the selected molecule
         function loadMolecule() {
