@@ -3,91 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Structures for DMA Thesis</title>
-    <link rel="stylesheet" href="styles.css">
-    <script type="text/javascript" src="jsmol.min.js" onload="initializeJSmol()"></script>
+    <title>JSmol Debug Test</title>
+    <script type="text/javascript" src="jsmol.min.js"></script>
 </head>
 <body>
-
-    <div id="menu">
-        <h2>Sections</h2>
-        <ul>
-            <li><a href="javascript:void(0);" onclick="showSection('titleSection')">Title</a></li>
-            <li><a href="javascript:void(0);" onclick="showSection('section1')">Section 1</a></li>
-            <li><a href="javascript:void(0);" onclick="showSection('section2')">Section 2</a></li>
-        </ul>
-    </div>
-
-    <div id="content">
-        <!-- Title Section -->
-        <section id="titleSection">
-            <h1>Structures for DMA Thesis</h1>
-        </section>
-
-        <!-- Section 1: JSmol Viewer -->
-        <section id="section1" style="display:none;">
-            <h2>Section 1</h2>
-            <div id="jsmol1"></div>
-        </section>
-
-        <!-- Section 2: JSmol Viewer -->
-        <section id="section2" style="display:none;">
-            <h2>Section 2</h2>
-            <div id="jsmol2"></div>
-        </section>
-    </div>
+    <h1>JSmol Test</h1>
+    <div id="jsmol1" style="width: 600px; height: 400px; border: 1px solid black;"></div>
 
     <script type="text/javascript">
-        // Function to initialize JSmol once the script is loaded
-        function initializeJSmol() {
-            console.log("JSmol library is loaded");
-        }
-
-        // Function to hide all sections and display the clicked section
-        function showSection(sectionId) {
-            console.log("Showing section: " + sectionId); // Debugging log
-
-            // Hide all sections
-            const sections = document.querySelectorAll("section");
-            sections.forEach(section => section.style.display = "none");
-
-            // Show the selected section
-            document.getElementById(sectionId).style.display = "block";
-
-            // Load JSmol for the selected section
-            if (sectionId === 'section1') {
-                loadJSmol('jsmol1', 'molecules/44a-Bipy-Ir(Bpin).xyz');
-            } else if (sectionId === 'section2') {
-                loadJSmol('jsmol2', 'molecules/44a-Bipy-Ir(Bpin)3.xyz');
-            }
-        }
-
-        // Function to initialize the JSmol applet for each section
-        function loadJSmol(containerId, moleculeFile) {
-            console.log("Loading JSmol in container: " + containerId + " with file: " + moleculeFile); // Debugging log
-
+        window.onload = function() {
             const info = {
                 width: 600,
                 height: 400,
-                j2sPath: "j2s",  // Path to JSmol j2s folder
-                script: "load '" + moleculeFile + "'"
+                j2sPath: "j2s",  // Path to JSmol resources
+                script: "load 'molecules/44a-Bipy-Ir(Bpin).xyz'"
             };
-
+            
             try {
-                // Initialize the JSmol applet and insert the HTML into the container
-                const jsmolApplet = Jmol.getApplet(containerId, info);
-                document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(containerId);
-                console.log("JSmol initialized successfully in " + containerId); // Debugging log
+                const jsmolApplet = Jmol.getApplet("jsmol1", info);
+                document.getElementById("jsmol1").innerHTML = Jmol.getAppletHtml("jsmol1");
+                console.log("JSmol initialized successfully.");
             } catch (e) {
-                console.error("Error loading JSmol: ", e); // Catching and logging any errors
+                console.error("Error initializing JSmol: ", e);
             }
-        }
-
-        // By default, show the title section only
-        document.addEventListener("DOMContentLoaded", function() {
-            showSection('titleSection');  // Show title section on page load
-        });
+        };
     </script>
-
 </body>
 </html>
