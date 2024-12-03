@@ -1,0 +1,60 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+/* Sidebar styling */
+#sidebar {
+    width: 250px;
+    background-color: #f4f4f4;
+    padding: 15px;
+    position: fixed;
+    height: 100%;
+}
+
+#sidebar h2 {
+    margin-top: 0;
+}
+
+#sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+#sidebar li {
+    margin: 10px 0;
+}
+
+#sidebar a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+}
+
+/* Content area */
+#content {
+    margin-left: 270px;
+    padding: 20px;
+    width: 100%;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+}
+
+/* JSmol container styling */
+.jsmol-container {
+    border: 1px solid black;
+    margin-top: 20px;
+}
+
+/* Styling for dropdown menus */
+select {
+    margin-top: 10px;
+    padding: 5px;
+    font-size: 16px;
+}
