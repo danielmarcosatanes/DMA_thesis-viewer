@@ -165,6 +165,15 @@
         window.onload = function() {
             showHome();  // Make sure the home page is displayed initially
         };
+
+        function setActiveLink(linkId) {
+            var allLinks = document.querySelectorAll('#menu a');
+            allLinks.forEach(function(link) {
+                link.classList.remove('active'); // Remove active class from all links
+            });
+            document.getElementById(linkId).classList.add('active'); // Add active class to the clicked link
+        }
+
         function searchMenu() {
           var input, filter, links, i, txtValue;
           input = document.getElementById('sidebar-search');
