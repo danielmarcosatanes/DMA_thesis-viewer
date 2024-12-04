@@ -71,6 +71,11 @@ body {
 /* Active link styling */
 #menu a.active {
     font-weight: bold;
+    color: #A85426 !important;
+}
+
+/* Remove any color change from non-active links when hovered */
+#menu a:not(.active):hover {
     color: #A85426;
 }
 
