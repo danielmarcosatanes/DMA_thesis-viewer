@@ -219,8 +219,11 @@
         sidebar.classList.toggle('show');
     });
 
-    // Collapse the sidebar on desktop
+    // Get the elements for the sidebar and the toggle button
     const collapseBtn = document.getElementById('collapse-btn');
+    const sidebar = document.getElementById('sidebar');
+
+    // Toggle the "collapsed" class on click to move the sidebar in and out
     collapseBtn.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
     });
