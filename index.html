@@ -8,11 +8,16 @@
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
+    <!-- Header -->
+    <header>
+        <h1>Structures for DMA Thesis</h1>
+    </header>
+
     <!-- Side menu -->
     <div id="menu">
-        <h3>Structures</h3>
+        <h3>Explore Structures</h3>
         <a href="#" onclick="showSection('section3')">Structures section 7.3</a>
-        <div style="margin-left: 20px;">
+        <div class="submenu">
             <a href="#" onclick="showSection('subsectionIrBpin')">Ir(Bpin)</a>
             <a href="#" onclick="showSection('subsectionIrBpin3')">Ir(Bpin)3</a>
         </div>
@@ -20,7 +25,7 @@
 
     <!-- Main content -->
     <div id="content">
-        <div id="message">Structures for DMA Thesis</div>
+        <div id="message">Select a section to view its structure.</div>
         <div id="section3" style="display:none;">
             <h2>Structures section 7.3</h2>
         </div>
@@ -35,18 +40,18 @@
     </div>
 
     <footer>
-        © 2024 DMA Thesis Viewer
+        <p>© 2024 DMA Thesis Viewer | Built with JSmol</p>
     </footer>
 
     <script type="text/javascript">
         var Info = {
             width: 600,
             height: 400,
-            j2sPath: "j2s", // Path to JSmol's j2s folder
-            color: "white",  // Background color
-            use: "HTML5",    // Use HTML5 for rendering
-            disableJ2SLoadMonitor: true,  // Disable loading monitor
-            disableInitialConsole: true  // Disable initial console
+            j2sPath: "j2s",
+            color: "white",
+            use: "HTML5",
+            disableJ2SLoadMonitor: true,
+            disableInitialConsole: true
         };
 
         function loadJSmol(containerId, moleculeFile) {
@@ -61,14 +66,9 @@
                 section.style.display = 'none';
             });
 
-            // Show the selected section
-            var selectedSection = document.getElementById(sectionId);
-            selectedSection.style.display = 'block';
-
-            // Hide the default message
+            document.getElementById(sectionId).style.display = 'block';
             document.getElementById('message').style.display = 'none';
 
-            // Load JSmol based on section
             if (sectionId === 'subsectionIrBpin') {
                 loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
             } else if (sectionId === 'subsectionIrBpin3') {
@@ -76,7 +76,6 @@
             }
         }
 
-        // Default page load
         window.onload = function() {
             document.getElementById('message').style.display = 'block';
             var sections = document.querySelectorAll('#content > div');
