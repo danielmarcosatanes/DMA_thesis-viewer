@@ -4,58 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMA Thesis 3D Molecule Viewer</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-        }
-        #sidebar {
-            background-color: #D6D6D6;
-            width: 250px;
-            height: 100%;
-            position: fixed;
-            padding-top: 20px;
-        }
-        #sidebar h1 {
-            text-align: center;
-            font-size: 1.5em;
-            color: #28528E;
-            background-color: #A85426;
-            padding: 10px;
-            margin: 0;
-        }
-        #sidebar ul {
-            list-style-type: none;
-            padding-left: 10px;
-        }
-        #sidebar ul li {
-            margin: 15px 0;
-        }
-        #sidebar ul li a {
-            text-decoration: none;
-            font-size: 1.1em;
-            color: #28528E;
-            display: block;
-        }
-        #sidebar ul li a:hover {
-            color: #A85426;
-        }
-        #main-content {
-            margin-left: 270px;
-            padding: 20px;
-        }
-        .jsmolContainer {
-            width: 500px;
-            height: 500px;
-            margin: 20px auto;
-        }
-        .subsection {
-            display: none;
-        }
-        .molecule-title {
-            font-size: 1.2em;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div id="sidebar">
@@ -102,8 +51,14 @@
         </div>
     </div>
 
-    <script src="https://chemapps.stolaf.edu/jmol/jmol.js"></script>
+    <!-- Correct JSmol library path -->
+    <script src="https://chemapps.stolaf.edu/jmol/jsmol.js"></script>
     <script>
+        // Ensure that the JSmol library is fully loaded before calling any functions
+        window.onload = function() {
+            console.log("JSmol Library Loaded");
+        };
+
         // Initialize JSmol with debugging output
         function loadJSmol(containerId, moleculeFile) {
             var container = document.getElementById(containerId);
