@@ -1,148 +1,111 @@
-/* Global body and font styles */
+/* Global styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    justify-content: flex-start;
-    background-color: #D6D6D6;
+    background-color: #F4F4F9;
 }
 
-/* Sidebar Styles */
+/* Styling for the sidebar */
 #sidebar {
-    width: 250px;
     background-color: #D6D6D6;
+    width: 250px;
     height: 100vh;
     position: fixed;
-    top: 0;
-    left: 0;
-    padding-top: 60px; /* Adjust for the header space */
-    color: #28528E;
-    overflow-y: auto;
     display: flex;
     flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box; /* Ensure padding doesn't affect overall height */
 }
 
-/* Sidebar Header Style */
-#sidebar header {
-    background-color: #DDE5F0; /* Set the background color */
-    padding: 10px;
-    width: 100%; /* Ensure the header spans the full width of the sidebar */
-    position: absolute;
-    top: 0; /* Position it at the very top of the sidebar */
-    left: 0;
-    right: 0;
-    text-align: center;
-    font-size: 20px;
+/* Sidebar header and menu */
+#sidebar header h2 {
     color: #28528E;
-    font-weight: bold;
+    margin-top: 0; /* Remove any default margin that might push the content down */
 }
 
-/* Menu Styles */
 #menu {
-    display: flex;
-    flex-direction: column;
-    padding-top: 60px;
+    flex-grow: 1; /* Allow this section to take up remaining space */
 }
 
 #menu a {
-    text-decoration: none;
+    display: block;
     color: #28528E;
-    padding: 10px;
-    font-size: 16px;
-    border-bottom: 1px solid #ccc;
-    transition: background-color 0.3s ease;
+    text-decoration: none;
+    padding: 8px;
+    margin: 5px 0;
 }
 
 #menu a:hover {
-    background-color: #28528E;
-    color: white;
+    color: #A85426;
 }
 
 #menu a.active {
-    background-color: #28528E;
-    color: white;
+    font-weight: bold;
+    color: #A85426;
 }
 
-/* Subsections (hidden by default) */
-.subsections a {
-    text-decoration: none;
-    color: #28528E;
+#structures-menu {
     padding-left: 20px;
-    font-size: 14px;
+    display: none;
 }
 
-.subsections a:hover {
-    background-color: #DDE5F0;
+#structures-menu a {
     color: #28528E;
+    padding-left: 10px;
 }
 
-/* Main Content Area */
-#content {
-    margin-left: 250px;
-    padding: 20px;
-    width: 100%;
+.subsections {
+    padding-left: 20px;
+    display: none;
 }
 
-/* Home Page */
-#home-page {
-    display: block;
-}
-
-#home-header {
-    color: #28528E;
-    font-size: 24px;
-}
-
-#home-page p {
-    color: black;
-    font-size: 18px;
-}
-
-/* Section and Subsection styles */
-h2, h3 {
-    color: #28528E;
-}
-
-/* JSmol Container Style */
-.jsmolContainer {
-    margin-top: 20px;
-    width: 100%;
-    height: 400px;
+.subsections a {
+    color: #4E7890;
 }
 
 /* Sidebar Footer */
-#sidebar-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 10px;
+#sidebar footer {
+    color: #28528E;
     text-align: center;
     font-size: 12px;
-    color: #28528E;
+    margin-top: 20px; /* Add space between footer and last link */
+    margin-bottom: 0; /* Ensure footer is at the very bottom */
 }
 
-/* Footer Content */
-#sidebar-footer p {
-    margin: 0;
+/* Styling for the main content */
+#main-container {
+    display: flex;
 }
 
-/* Color Palette for Styling */
-#sidebar {
-    background-color: #D6D6D6;
+#content {
+    margin-left: 300px;
+    padding: 20px;
+    width: calc(100% - 300px);
 }
 
-#menu a.active {
-    background-color: #28528E;
-    color: white;
+/* Smooth transition effect */
+#content > div {
+    transition: all 0.3s ease-in-out;
 }
 
-#sidebar header {
-    background-color: #DDE5F0;
-    color: #28528E;
+#home-page h1 {
+    font-size: 36px;
 }
 
-#sidebar-footer {
-    background-color: #D6D6D6;
-    color: #28528E;
+#home-page p {
+    font-size: 18px;
+    color: #4E7890;
+}
+
+/* Jmol container styling */
+.jsmolContainer {
+    width: 600px;
+    height: 500px;
+    margin: 20px 0;
+}
+
+#message {
+    font-size: 18px;
+    color: #4E7890;
 }
