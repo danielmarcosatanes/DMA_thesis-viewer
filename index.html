@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DMA Thesis: 3D Molecule Viewer</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
@@ -10,6 +10,9 @@
 <body>
     <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
+        <!-- Mobile Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
+
         <!-- Sidebar -->
         <div id="sidebar">
             <!-- Sidebar header -->
@@ -18,11 +21,12 @@
                 <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
             </header>
 
+            <!-- Menu -->
             <div id="menu">
                 <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
                 <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
 
-                <div id="structures-menu" style="display: none;">
+                <div id="structures-menu" class="sidebar-section" style="display: none;">
                     <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
                     <div id="subsections7.1" class="subsections" style="display: none;">
                         <a href="#" onclick="showSubsection('subsection44aBipyIrBpin'); setActiveLink('subsection44aBipyIrBpin')">44a-Bipy-Ir(Bpin)</a>
@@ -54,8 +58,8 @@
                 <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
             </div>
 
+            <!-- Sections -->
             <div id="message" style="display: none;">Select a structure section</div>
-
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
                 <p>Relevant 3D structures for section 7.1 of the discussion.</p>
@@ -69,29 +73,23 @@
                 <p>Relevant 3D structures for section 7.3 of the discussion.</p>
             </div>
 
-            <!-- Subsections for the structures in 7.1 -->
+            <!-- Subsections -->
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
             </div>
-
             <div id="subsection44aBipyIrBpin5" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)5</h3>
                 <div id="jsmolContainer44aBipyIrBpin5" class="jsmolContainer"></div>
             </div>
-
-            <!-- Subsections for the structures in 7.2 -->
             <div id="subsection44aBipyIrHBPin2" style="display:none;">
                 <h3>44a-Bipy-Ir-H-Bpin2</h3>
                 <div id="jsmolContainer44aBipyIrHBPin2" class="jsmolContainer"></div>
             </div>
-
-            <!-- Subsections for the structures in 7.3 -->
             <div id="subsection44a" style="display:none;">
                 <h3>44a</h3>
                 <div id="jsmolContainer44a" class="jsmolContainer"></div>
             </div>
-
             <div id="subsection45a" style="display:none;">
                 <h3>45a</h3>
                 <div id="jsmolContainer45a" class="jsmolContainer"></div>
@@ -99,10 +97,10 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        var Info = {
+    <script>
+        const Info = {
             width: 700,
-            height: 400,  // Adjust height for better fitting
+            height: 400,
             j2sPath: "j2s",
             color: "white",
             use: "HTML5",
@@ -111,89 +109,103 @@
         };
 
         function loadJSmol(containerId, moleculeFile) {
-            var jsmolApplet = Jmol.getApplet(containerId, Info);
+            const jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+            Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
         }
 
         function showHome() {
-            // Display home page content and hide other sections
-            document.getElementById('home-page').style.display = 'block';
-            document.getElementById('message').style.display = 'none';
-            document.getElementById('section7.1').style.display = 'none';
-            document.getElementById('section7.2').style.display = 'none';
-            document.getElementById('section7.3').style.display = 'none';
-            document.getElementById('subsection44aBipyIrBpin').style.display = 'none';
-            document.getElementById('subsection44aBipyIrBpin5').style.display = 'none';
-            document.getElementById('subsection44aBipyIrHBPin2').style.display = 'none';
-            document.getElementById('subsection44a').style.display = 'none';
-            document.getElementById('subsection45a').style.display = 'none';
-
-            // Ensure the sidebar link is highlighted
-            setActiveLink('home-link');
+            displayOnly('home-page');
         }
 
         function toggleStructuresMenu() {
-            var menu = document.getElementById('structures-menu');
-            if (menu.style.display === 'none' || menu.style.display === '') {
-                menu.style.display = 'block';
-            } else {
-                menu.style.display = 'none';
-            }
+            toggleVisibility('structures-menu');
         }
 
         function showSection(sectionId) {
-            var sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-
-            var subsections = document.querySelectorAll('.subsections');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
-            });
-
-            document.getElementById(sectionId).style.display = 'block';
-            document.getElementById('message').style.display = 'none';
-
-            // Show relevant subsections based on the section
-            document.getElementById('subsections' + sectionId.split('section')[1]).style.display = 'block';
-            setActiveLink(sectionId);
+            displayOnly(sectionId);
+            toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
         function showSubsection(subsectionId) {
+            // Hide all subsections
             var subsections = document.querySelectorAll('#content > div');
             subsections.forEach(function(subsection) {
                 subsection.style.display = 'none';
             });
 
+            // Show the selected subsection
             document.getElementById(subsectionId).style.display = 'block';
-            setActiveLink(subsectionId);
-        }
 
-        function setActiveLink(linkId) {
-            var links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-                link.classList.remove('active');
+            // Define the mapping between subsectionId and the sidebar section to show
+            const sectionMapping = {
+                'subsection44aBipyIrBpin': 'section7.1',
+                'subsection44aBipyIrBpin5': 'section7.1',
+                'subsection44aBipyIrHBPin2': 'section7.2',
+                'subsection44a': 'section7.3',
+                'subsection45a': 'section7.3'
+            };
+
+            // Collapse all sidebar sections
+            var sidebarSections = document.querySelectorAll('.sidebar-section');
+            sidebarSections.forEach(function(section) {
+                section.style.display = 'none';
             });
 
-            var activeLink = document.getElementById(linkId);
-            if (activeLink) {
-                activeLink.classList.add('active');
+            // Show the active sidebar section based on the subsectionId
+            const activeSectionId = sectionMapping[subsectionId];
+            if (activeSectionId) {
+                document.getElementById(activeSectionId).style.display = 'block';
+            }
+
+            // Molecule mapping with container IDs and log file names
+            const molecules = {
+                subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
+                subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
+                subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: '44a-Bipy-Ir-H-Bpin2.log' },
+                subsection44a: { container: 'jsmolContainer44a', file: '44a.log' },
+                subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
+            };
+
+            // Ensure the container exists before loading
+            const molecule = molecules[subsectionId];
+            if (molecule) {
+                loadJSmol(molecule.container, molecule.file);
             }
         }
 
+        function displayOnly(sectionId) {
+            const sections = document.querySelectorAll('#content > div');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
+
+        function toggleVisibility(id, show = false) {
+            const element = document.getElementById(id);
+            element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
+        }
+
         function searchMenu() {
-            var searchQuery = document.getElementById('sidebar-search').value.toLowerCase();
-            var links = document.querySelectorAll('#menu a');
+            const query = document.getElementById('sidebar-search').value.toLowerCase();
+            const links = document.querySelectorAll('#menu a');
             links.forEach(function(link) {
-                if (link.textContent.toLowerCase().indexOf(searchQuery) === -1) {
-                    link.style.display = 'none';
-                } else {
-                    link.style.display = 'block';
-                }
+                const text = link.textContent.trim().toLowerCase();
+                link.style.display = text.includes(query) ? '' : 'none';
             });
         }
+
+        function setActiveLink(id) {
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
+
+        window.addEventListener('resize', resizeJmolForMobile);
+        window.addEventListener('load', resizeJmolForMobile);
     </script>
 </body>
 </html>
