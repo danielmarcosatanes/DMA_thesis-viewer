@@ -14,7 +14,6 @@
         <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
         <button id="collapse-btn" class="collapse-btn" aria-label="Collapse Sidebar" onclick="toggleSidebar()">☰</button>
 
-
         <!-- Sidebar -->
         <div id="sidebar">
             <!-- Sidebar header -->
@@ -209,8 +208,26 @@
 
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
+
+        // Function to filter sidebar links based on search input
+        function searchFunction() {
+            const input = document.getElementById('search-bar').value.toLowerCase();  // Get the search query and convert to lowercase
+            const links = document.querySelectorAll('#menu .menu-link');  // Select all the links in the menu
+
+            // Loop through all the links and hide those that don't match the input
+            links.forEach(link => {
+                const linkText = link.textContent.toLowerCase();  // Get the text of each link and convert it to lowercase
+                if (linkText.indexOf(input) > -1) {
+                    link.style.display = '';  // Show link if it matches the search
+                } else {
+                    link.style.display = 'none';  // Hide link if it doesn't match the search
+                }
+            });
+        }
+
     </script>
-    <script>
+    
+<script>
     // Toggle the sidebar on mobile
     const sidebarToggle = document.getElementById('sidebar-toggle');
     const sidebar = document.getElementById('sidebar');
