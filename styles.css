@@ -11,7 +11,7 @@ body {
 /* Sidebar container */
 #sidebar {
     background-color: #D6D6D6;
-    width: 250px;
+    width: 250px; /* Fixed width on larger screens */
     height: 100vh;
     position: fixed;
     display: flex;
@@ -107,6 +107,7 @@ body {
     width: 100%;
 }
 
+/* Content area styling */
 #content {
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
@@ -129,4 +130,67 @@ body {
 #message {
     font-size: 18px;
     color: #4E7890;
+}
+
+/* Media query for smaller screens (max-width: 768px) */
+@media only screen and (max-width: 768px) {
+
+    /* Make sidebar full-width on small screens */
+    #sidebar {
+        width: 100%;
+        height: auto;
+        position: relative; /* Sidebar will no longer be fixed on small screens */
+    }
+
+    /* Content area adjusts to fill screen width */
+    #content {
+        margin-left: 0;
+        width: 100%;
+        padding: 10px; /* Reduced padding for mobile */
+    }
+
+    /* Sidebar header styling */
+    #sidebar header {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    #sidebar header h2 {
+        font-size: 18px;
+    }
+
+    /* Sidebar search input adjusts width */
+    #sidebar header input[type="text"] {
+        width: 90%; /* Wider input on mobile */
+    }
+
+    /* Adjust menu link padding for better touch experience */
+    #menu a {
+        padding: 12px;
+        font-size: 16px; /* Slightly larger font for readability */
+    }
+
+    /* Reduce font size for active link on smaller screens */
+    #menu a.active {
+        font-weight: bold;
+        color: #A85426 !important;
+        font-size: 16px;
+    }
+
+    /* Ensure submenu links are visible */
+    .subsections {
+        padding-left: 15px;
+    }
+
+    /* Reduce Jmol container size for better fitting on mobile */
+    .jsmolContainer {
+        width: 100%;
+        height: 300px; /* Adjust height for mobile devices */
+    }
+
+    /* Sidebar footer font size */
+    #sidebar footer {
+        font-size: 10px;
+        padding: 5px 0;
+    }
 }
