@@ -11,7 +11,7 @@
     <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
         <!-- Mobile Sidebar Toggle Button -->
-        <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+        <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
 
         <!-- Sidebar -->
         <div id="sidebar">
@@ -26,7 +26,7 @@
                 <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
                 <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
 
-                <div id="structures-menu" style="display: none;">
+                <div id="structures-menu" class="sidebar-section" style="display: none;">
                     <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
                     <div id="subsections7.1" class="subsections" style="display: none;">
                         <a href="#" onclick="showSubsection('subsection44aBipyIrBpin'); setActiveLink('subsection44aBipyIrBpin')">44a-Bipy-Ir(Bpin)</a>
@@ -127,37 +127,36 @@
             toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
-
         function showSubsection(subsectionId) {
-          // Hide all subsections
-          var subsections = document.querySelectorAll('#content > div');
-          subsections.forEach(function(subsection) {
-              subsection.style.display = 'none';
-          });
+            // Hide all subsections
+            var subsections = document.querySelectorAll('#content > div');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
+            });
 
-          // Show the selected subsection
-          document.getElementById(subsectionId).style.display = 'block';
+            // Show the selected subsection
+            document.getElementById(subsectionId).style.display = 'block';
 
-          // Define the mapping between subsectionId and the sidebar section to show
-          const sectionMapping = {
-              'subsection44aBipyIrBpin': 'section7.1',
-              'subsection44aBipyIrBpin5': 'section7.1',
-              'subsection44aBipyIrHBPin2': 'section7.2',
-              'subsection44a': 'section7.3',
-              'subsection45a': 'section7.3'
-          };
+            // Define the mapping between subsectionId and the sidebar section to show
+            const sectionMapping = {
+                'subsection44aBipyIrBpin': 'section7.1',
+                'subsection44aBipyIrBpin5': 'section7.1',
+                'subsection44aBipyIrHBPin2': 'section7.2',
+                'subsection44a': 'section7.3',
+                'subsection45a': 'section7.3'
+            };
 
-          // Collapse all sidebar sections
-          var sidebarSections = document.querySelectorAll('.sidebar-section');
-          sidebarSections.forEach(function(section) {
-              section.style.display = 'none';
-          });
+            // Collapse all sidebar sections
+            var sidebarSections = document.querySelectorAll('.sidebar-section');
+            sidebarSections.forEach(function(section) {
+                section.style.display = 'none';
+            });
 
-          // Show the active sidebar section based on the subsectionId
-          const activeSectionId = sectionMapping[subsectionId];
-          if (activeSectionId) {
-              document.getElementById(activeSectionId).style.display = 'block';
-          }
+            // Show the active sidebar section based on the subsectionId
+            const activeSectionId = sectionMapping[subsectionId];
+            if (activeSectionId) {
+                document.getElementById(activeSectionId).style.display = 'block';
+            }
 
             // Molecule mapping with container IDs and log file names
             const molecules = {
@@ -171,55 +170,42 @@
             // Ensure the container exists before loading
             const molecule = molecules[subsectionId];
             if (molecule) {
-                const container = document.getElementById(molecule.container);
-                if (container) {
-                    loadJSmol(molecule.container, molecule.file);
-                } else {
-                    console.error(`Container with ID ${molecule.container} not found.`);
-                }
-            } else {
-                console.error(`Molecule data for ${subsectionId} not found.`);
+                loadJSmol(molecule.container, molecule.file);
             }
         }
 
+        function displayOnly(sectionId) {
+            const sections = document.querySelectorAll('#content > div');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
 
-        function setActiveLink(linkId) {
-            document.querySelectorAll('#menu a').forEach(link => link.classList.remove('active'));
-            document.getElementById(linkId)?.classList.add('active');
+        function toggleVisibility(id, show = false) {
+            const element = document.getElementById(id);
+            element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
         }
 
         function searchMenu() {
             const query = document.getElementById('sidebar-search').value.toLowerCase();
-            document.querySelectorAll('#menu a').forEach(link => {
-                link.style.display = link.textContent.toLowerCase().includes(query) ? '' : 'none';
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                const text = link.textContent.trim().toLowerCase();
+                link.style.display = text.includes(query) ? '' : 'none';
             });
         }
 
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('show');
-        }
-
-        function toggleVisibility(id, forceShow = false) {
-            const elem = document.getElementById(id);
-            elem.style.display = forceShow || elem.style.display === 'none' ? 'block' : 'none';
-        }
-
-        function displayOnly(idToShow) {
-            document.querySelectorAll('#content > div').forEach(div => {
-                div.style.display = div.id === idToShow ? 'block' : 'none';
+        function setActiveLink(id) {
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
             });
+            document.getElementById(id).classList.add('active');
         }
 
         window.addEventListener('resize', resizeJmolForMobile);
-
-        function resizeJmolForMobile() {
-            const width = window.innerWidth * 0.9;
-            const height = width * 0.7;
-            document.querySelectorAll('.jsmolContainer').forEach(container => {
-                container.style.width = `${width}px`;
-                container.style.height = `${height}px`;
-            });
-        }
+        window.addEventListener('load', resizeJmolForMobile);
     </script>
 </body>
 </html>
