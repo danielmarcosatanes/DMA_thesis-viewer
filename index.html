@@ -191,24 +191,9 @@
         function searchMenu() {
             const query = document.getElementById('sidebar-search').value.toLowerCase();
             const links = document.querySelectorAll('#menu a');
-            let isAnyMatchFound = false;
-
             links.forEach(function(link) {
                 const text = link.textContent.trim().toLowerCase();
-                if (text.includes(query)) {
-                    // Show the link and its parent section if it matches
-                    link.style.display = '';
-                    isAnyMatchFound = true;
-
-                    // Expand the parent sections if the link matches (even if the section is collapsed)
-                    let parentSection = link.closest('.sidebar-section');
-                    if (parentSection && parentSection.style.display === 'none') {
-                        parentSection.style.display = 'block';
-                    }
-                } else {
-                    // Hide the link if it doesn't match the query
-                    link.style.display = 'none';
-                }
+                link.style.display = text.includes(query) ? '' : 'none';
             });
         }
 
@@ -240,7 +225,7 @@
     const sidebar = document.getElementById('sidebar');
 
     // Toggle the "collapsed" class on click to move the sidebar in and out
-    collapseBtn.addEventListener('click', () => {
+      collapseBtn.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
     });
 </script>
