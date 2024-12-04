@@ -27,7 +27,6 @@ body {
 #sidebar header {
     background-color: #DDE5F0;
     width: 100%;
-    height: auto;
     padding: 10px 20px;
     box-sizing: border-box;
     display: flex;
@@ -113,6 +112,7 @@ body {
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
     width: calc(100% - 250px); /* Adjust content width */
+    box-sizing: border-box; /* Ensure padding doesn’t break layout */
 }
 
 /* Smooth transition effect */
@@ -122,12 +122,14 @@ body {
 
 /* Jmol container styling */
 .jsmolContainer {
-    max-width: 100%;
-    max-height: 100%;
-    width: 100%;  /* Allow the container to be 100% of the parent container width */
-    height: auto; /* Automatically adjust height based on width */
-    margin: 0 auto; /* Center the container */
-    display: block; /* Block-level element */
+    width: 100%; /* Full width of the parent container */
+    max-width: 700px; /* Optional: Limit max size for larger screens */
+    height: auto; /* Adjust height based on aspect ratio */
+    margin: 0 auto; /* Center horizontally */
+    display: block;
+    position: relative;  /* Allow positioning inside the container */
+    overflow: hidden;    /* Ensure content doesn’t overflow */
+    aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
 /* Message styling */
@@ -209,11 +211,9 @@ body {
         font-size: 16px;
     }
 
-    /* Jmol container adjusts to smaller screens */
     .jsmolContainer {
-      width: 100% !important; /* Full width */
-      height: 60vw !important; /* Height adjusts based on viewport width */
-      margin: 0; /* Remove any unnecessary margin */
+        width: 90%; /* Take up 90% of screen width on mobile */
+        height: auto; /* Adjust height accordingly */
     }
 
     /* Sidebar footer font size */
