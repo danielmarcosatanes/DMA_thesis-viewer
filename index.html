@@ -235,6 +235,26 @@
           var toggleButton = document.getElementById('sidebar-toggle');
               toggleButton.innerText = '☰';  // Show the menu icon
         }
+        // Function to adjust Jmol container size based on window size
+    function adjustJmolSize() {
+        var windowWidth = window.innerWidth;
+        var jsmolContainers = document.querySelectorAll('.jsmolContainer');
+
+        jsmolContainers.forEach(function(container) {
+            if (windowWidth <= 768) {
+                container.style.width = '100%'; // Full width for mobile
+                container.style.height = '250px'; // Adjust height
+            } else {
+                container.style.width = '700px'; // Default width for larger screens
+                container.style.height = '400px'; // Default height
+            }
+        });
+    }
+
+    // Call the adjustJmolSize function on load and on window resize
+    window.addEventListener('load', adjustJmolSize);
+    window.addEventListener('resize', adjustJmolSize);
+        
     </script>
 </body>
 </html>
