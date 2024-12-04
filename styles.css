@@ -61,6 +61,11 @@ body {
     border: 1px solid #28528E; /* Optional border to match the design */
     border-radius: 5px;
 }
+/* Ensure Home and Structures are always bold */
+#menu #home-link,
+#menu #structures-link {
+    font-weight: bold;
+}
 /* Sidebar menu */
 #menu {
     flex-grow: 1; /* Allow this section to take up remaining space */
