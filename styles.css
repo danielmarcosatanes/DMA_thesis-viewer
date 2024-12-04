@@ -1,89 +1,90 @@
-/* Global styles */
+/* General styles for the page */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #F4F4F9;
-}
-
-/* Styling for the sidebar */
-#sidebar {
-    background-color: #D6D6D6;
-    width: 250px;
+    display: flex;
     height: 100vh;
-    position: fixed;
-    padding: 20px;
 }
 
-#sidebar header h2 {
-    color: #28528E;
+/* Main container with sidebar and content */
+#main-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Sidebar styles */
+#sidebar {
+    background-color: #28528E;
+    color: white;
+    width: 250px;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+#sidebar header {
+    font-size: 1.5em;
+    margin-bottom: 20px;
 }
 
 #menu a {
     display: block;
-    color: black;
+    color: white;
     text-decoration: none;
-    padding: 8px;
-    margin: 5px 0;
+    padding: 10px 0;
+    font-size: 1.2em;
 }
 
-#menu a.active {
+#menu a:hover {
+    background-color: #4E7890;
+}
+
+#menu .active {
     font-weight: bold;
-    color: #A85426;
+    background-color: #4E7890;
 }
 
+/* Structures menu (hidden by default) */
 #structures-menu {
-    padding-left: 20px;
     display: none;
+    padding-left: 20px;
 }
 
 #structures-menu a {
-    color: #28528E;
-    padding-left: 10px;
+    font-size: 1em;
 }
 
-.subsections {
-    padding-left: 20px;
-    display: none;
-}
-
-.subsections a {
-    color: #4E7890;
-}
-
-/* Styling for the main content */
-#main-container {
-    display: flex;
-}
-
+/* Main content area */
 #content {
     margin-left: 250px;
     padding: 20px;
-    width: calc(100% - 250px);
+    flex-grow: 1;
+    overflow-y: auto;
 }
 
-/* Smooth transition effect */
-#content > div {
-    transition: all 0.3s ease-in-out;
+/* Styling for the home page */
+#home-page {
+    display: block;  /* Ensure the home page is shown initially */
 }
 
-#home-page h1 {
-    font-size: 36px;
+/* Styles for the section and subsection links */
+#section7.1, #section7.2, #section7.3 {
+    display: none;  /* Hide all sections by default */
 }
 
-#home-page p {
-    font-size: 18px;
-    color: #4E7890;
+.subsections {
+    display: none;  /* Hide subsections by default */
 }
 
 /* Jmol container styling */
 .jsmolContainer {
     width: 700px;
     height: 400px;
-    margin: 20px 0;
-}
-
-#message {
-    font-size: 18px;
-    color: #4E7890;
+    margin-top: 20px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
 }
