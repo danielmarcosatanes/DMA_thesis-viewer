@@ -149,15 +149,20 @@
             } else if (subsectionId === 'subsectionIrBpin3') {
                 loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.xyz");
             }
+            setActiveLink(subsectionId);
         }
 
         function setActiveLink(linkId) {
-            var links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
+            var allLinks = document.querySelectorAll('#menu a');
+            allLinks.forEach(function(link) {
                 link.classList.remove('active');
             });
             document.getElementById(linkId).classList.add('active');
         }
+
+        window.onload = function() {
+            showHome();  // Make sure the home page is displayed initially
+        };
     </script>
 </body>
 </html>
