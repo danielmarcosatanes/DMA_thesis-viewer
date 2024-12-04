@@ -12,6 +12,8 @@
     <div id="main-container">
         <!-- Mobile Sidebar Toggle Button -->
         <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
+        <!-- Desktop Sidebar Toggle Button -->
+        <button id="collapse-btn" class="collapse-btn" aria-label="Collapse Sidebar">☰</button>
 
         <!-- Sidebar -->
         <div id="sidebar">
@@ -233,12 +235,27 @@
             });
             document.getElementById(id).classList.add('active');
         }
-        
+
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('collapsed');
         }
+        
+        function toggleSidebarDesktop() {
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
 
+            sidebar.classList.toggle('collapsed');
+
+            if (sidebar.classList.contains('collapsed')) {
+                content.style.marginLeft = '70px'; // Adjust for collapsed sidebar
+            } else {
+                content.style.marginLeft = '250px'; // Restore full sidebar width
+            }
+        }
+
+        // Attach event listener
+        document.getElementById('collapse-btn').addEventListener('click', toggleSidebarDesktop);
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
     </script>
