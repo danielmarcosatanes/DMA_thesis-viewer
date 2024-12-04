@@ -8,9 +8,18 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Header -->
+    <header id="header">
+        <div class="container">
+            <h1>3D Molecule Viewer</h1>
+        </div>
+    </header>
+
     <!-- Side menu -->
     <div id="menu">
         <h3>Structures</h3>
+        <a href="#" onclick="showSection('section3')">Structures section 7.1</a>
+        <a href="#" onclick="showSection('section3')">Structures section 7.2</a>
         <a href="#" onclick="showSection('section3')">Structures section 7.3</a>
         <div id="subsections" style="display:none; margin-left: 20px;">
             <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
@@ -33,6 +42,13 @@
             <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer id="footer">
+        <div class="container">
+            <p>© 2024 DMA Thesis. All rights reserved.</p>
+        </div>
+    </footer>
 
     <script type="text/javascript">
         var Info = {
