@@ -3,98 +3,123 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Molecule Viewer</title>
+    <title>DMA Thesis: 3D Molecule Viewer</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Main Container -->
-    <div id="main-container">
-        <!-- Sidebar -->
-        <div id="sidebar">
-            <header>
-                <h1>DMA Thesis</h1>
-                <div id="search-bar">
-                    <input type="text" placeholder="Search structures...">
-                </div>
-            </header>
-            <div id="menu">
-                <a href="#" onclick="showPage('home')">Home</a>
-                <a href="#" class="menu-header" onclick="toggleStructures()">Structures</a>
-                <div id="structures-menu" class="subsections">
-                    <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
-                    <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
-                    <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
-                </div>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <div id="sidebar-header">
+            <h2>DMA Thesis</h2>
+            <input type="text" id="search-bar" placeholder="Search...">
+        </div>
+        <div id="menu">
+            <a href="#" onclick="showHome()" class="menu-item active">Home</a>
+            <a href="#" onclick="toggleStructures()" class="menu-item">Structures</a>
+            <div id="structures-sections" class="hidden">
+                <a href="#" onclick="showSection('section7.1')" class="submenu-item">Structures section 7.1</a>
+                <a href="#" onclick="showSection('section7.2')" class="submenu-item">Structures section 7.2</a>
+                <a href="#" onclick="showSection('section7.3')" class="submenu-item">Structures section 7.3</a>
             </div>
-            <footer>
-                <p>2024 DMA Thesis Viewer. All rights reserved.</p>
-            </footer>
+        </div>
+        <footer>
+            <p>2024 DMA Thesis Viewer. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <!-- Main content area -->
+    <div id="content">
+        <div id="home">
+            <h1>DMA Thesis: 3D Molecule Viewer</h1>
+            <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
         </div>
 
-        <!-- Main Content Area -->
-        <div id="content">
-            <!-- Home Page -->
-            <div id="home">
-                <h2>DMA Thesis: 3D Molecule Visualizer</h2>
-                <p>
-                    Welcome to the 3D Molecule Visualizer for my PhD thesis. This platform allows you to explore and visualize the key molecular structures discussed in my dissertation. Navigate through the sidebar to view detailed structural data and interactive 3D models of the studied compounds.
-                </p>
+        <div id="section7.1" class="section hidden">
+            <h2>Structures section 7.1</h2>
+            <div id="subsectionIrBpin" class="subsection hidden">
+                <h3>Ir(Bpin)</h3>
+                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
             </div>
-            <!-- Structures Pages -->
-            <div id="section7.1" style="display:none;">
-                <h2>Structures section 7.1</h2>
-                <div id="jsmolContainer7.1" class="jsmolContainer"></div>
+            <div id="subsectionIrBpin3" class="subsection hidden">
+                <h3>Ir(Bpin)3</h3>
+                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
             </div>
-            <div id="section7.2" style="display:none;">
-                <h2>Structures section 7.2</h2>
-                <div id="jsmolContainer7.2" class="jsmolContainer"></div>
+        </div>
+
+        <div id="section7.2" class="section hidden">
+            <h2>Structures section 7.2</h2>
+            <div id="subsectionIrBpin" class="subsection hidden">
+                <h3>Ir(Bpin)</h3>
+                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
             </div>
-            <div id="section7.3" style="display:none;">
-                <h2>Structures section 7.3</h2>
-                <div id="jsmolContainer7.3" class="jsmolContainer"></div>
+            <div id="subsectionIrBpin3" class="subsection hidden">
+                <h3>Ir(Bpin)3</h3>
+                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
+            </div>
+        </div>
+
+        <div id="section7.3" class="section hidden">
+            <h2>Structures section 7.3</h2>
+            <div id="subsectionIrBpin" class="subsection hidden">
+                <h3>Ir(Bpin)</h3>
+                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
+            </div>
+            <div id="subsectionIrBpin3" class="subsection hidden">
+                <h3>Ir(Bpin)3</h3>
+                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        function showPage(pageId) {
-            var pages = document.querySelectorAll('#content > div');
-            pages.forEach(function(page) {
-                page.style.display = 'none';
-            });
-            document.getElementById(pageId).style.display = 'block';
+        var Info = {
+            width: 600,
+            height: 400,
+            j2sPath: "j2s",
+            color: "white",
+            use: "HTML5",
+            disableJ2SLoadMonitor: true,
+            disableInitialConsole: true
+        };
+
+        function loadJSmol(containerId, moleculeFile) {
+            var jsmolApplet = Jmol.getApplet(containerId, Info);
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
+            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+        }
+
+        function showHome() {
+            hideAllSections();
+            document.getElementById('home').classList.remove('hidden');
+            setActiveMenuItem('Home');
         }
 
         function toggleStructures() {
-            var menu = document.getElementById('structures-menu');
-            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
+            const sections = document.getElementById('structures-sections');
+            sections.classList.toggle('hidden');
         }
 
         function showSection(sectionId) {
-            showPage(sectionId);
-            loadJSmol(`jsmolContainer${sectionId.slice(-3)}`, `${sectionId}.xyz`);
+            hideAllSections();
+            document.getElementById(sectionId).classList.remove('hidden');
+            document.getElementById('subsectionIrBpin').classList.remove('hidden');
+            loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
         }
 
-        function loadJSmol(containerId, moleculeFile) {
-            var Info = {
-                width: 500,
-                height: 400,
-                j2sPath: "j2s",
-                use: "HTML5",
-                color: "white",
-                disableJ2SLoadMonitor: true,
-                disableInitialConsole: true,
-            };
-            var jsmolApplet = Jmol.getApplet(containerId, Info);
-            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, `load molecules/${moleculeFile};`);
+        function setActiveMenuItem(name) {
+            const items = document.querySelectorAll('#menu .menu-item');
+            items.forEach(item => item.classList.remove('active'));
+            const activeItem = [...items].find(item => item.textContent.trim() === name);
+            if (activeItem) activeItem.classList.add('active');
         }
 
-        window.onload = function() {
-            showPage('home');
-            document.getElementById('structures-menu').style.display = 'none';
-        };
+        function hideAllSections() {
+            const sections = document.querySelectorAll('.section, .subsection');
+            sections.forEach(section => section.classList.add('hidden'));
+        }
+
+        window.onload = showHome;
     </script>
 </body>
 </html>
