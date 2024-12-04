@@ -6,6 +6,7 @@ body {
     background-color: #F4F4F9;
     display: flex;
     height: 100vh;
+    transition: all 0.3s ease-in-out; /* Smooth transition between screen sizes */
 }
 
 /* Sidebar container */
@@ -19,13 +20,13 @@ body {
     padding: 0;
     box-sizing: border-box;
     z-index: 1; /* Ensure sidebar is above other content */
+    transition: all 0.3s ease-in-out; /* Smooth transition for sidebar */
 }
 
 /* Sidebar header */
 #sidebar header {
     background-color: #DDE5F0;
     width: 100%;
-    height: auto;
     padding: 10px 20px;
     box-sizing: border-box;
     display: flex;
@@ -107,11 +108,11 @@ body {
     width: 100%;
 }
 
-/* Content area styling */
 #content {
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
     width: calc(100% - 250px); /* Adjust content width */
+    box-sizing: border-box; /* Ensure padding doesn’t break layout */
 }
 
 /* Smooth transition effect */
@@ -121,9 +122,14 @@ body {
 
 /* Jmol container styling */
 .jsmolContainer {
-    width: 600px;
-    height: 500px;
-    margin: 20px 0;
+    width: 100%; /* Full width of the parent container */
+    max-width: 700px; /* Optional: Limit max size for larger screens */
+    height: auto; /* Adjust height based on aspect ratio */
+    margin: 0 auto; /* Center horizontally */
+    display: block;
+    position: relative;  /* Allow positioning inside the container */
+    overflow: hidden;    /* Ensure content doesn’t overflow */
+    aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
 /* Message styling */
@@ -132,65 +138,92 @@ body {
     color: #4E7890;
 }
 
-/* Media query for smaller screens (max-width: 768px) */
-@media only screen and (max-width: 768px) {
+/* Mobile Sidebar Toggle Button */
+.mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: transparent;
+    color: #28528E;
+    font-size: 30px;
+    border: none;
+    padding: 10px;
+    z-index: 1000; /* Ensure button is on top of other content */
+}
 
-    /* Make sidebar full-width on small screens */
+/* Show Sidebar on mobile when the "show" class is added */
+#sidebar.show {
+    display: block;
+    width: 70%;
+}
+
+/* Design for larger screens (Desktops) */
+@media only screen and (min-width: 769px) {
     #sidebar {
-        width: 100%;
-        height: auto;
-        position: relative; /* Sidebar will no longer be fixed on small screens */
+        width: 250px; /* Sidebar width */
     }
 
-    /* Content area adjusts to fill screen width */
+    #content {
+        margin-left: 250px; /* Space for sidebar */
+    }
+
+    .jsmolContainer {
+        width: 700px; /* Fixed size for desktop */
+        height: 600px;
+    }
+}
+
+/* Design for smaller screens (Mobile) */
+@media only screen and (max-width: 768px) {
+
+    /* Sidebar collapses for mobile screens */
+    #sidebar {
+        display: none; /* Hide sidebar by default on mobile */
+        width: 70%; /* Make sidebar take up less space */
+    }
+
+    /* Toggle sidebar visibility */
+    #sidebar.show {
+        display: block; /* Show sidebar when the "show" class is added */
+    }
+
+    /* Main content occupies full screen width */
     #content {
         margin-left: 0;
         width: 100%;
-        padding: 10px; /* Reduced padding for mobile */
-    }
-
-    /* Sidebar header styling */
-    #sidebar header {
         padding: 10px;
-        font-size: 16px;
     }
 
+    /* Sidebar header font adjustments */
     #sidebar header h2 {
         font-size: 18px;
     }
 
-    /* Sidebar search input adjusts width */
+    /* Make the sidebar search input wider */
     #sidebar header input[type="text"] {
-        width: 90%; /* Wider input on mobile */
+        width: 90%;
     }
 
-    /* Adjust menu link padding for better touch experience */
+    /* Menu link adjustments for better touch experience */
     #menu a {
         padding: 12px;
-        font-size: 16px; /* Slightly larger font for readability */
-    }
-
-    /* Reduce font size for active link on smaller screens */
-    #menu a.active {
-        font-weight: bold;
-        color: #A85426 !important;
         font-size: 16px;
     }
 
-    /* Ensure submenu links are visible */
-    .subsections {
-        padding-left: 15px;
-    }
-
-    /* Reduce Jmol container size for better fitting on mobile */
     .jsmolContainer {
-        width: 100%;
-        height: 300px; /* Adjust height for mobile devices */
+        width: 90%; /* Take up 90% of screen width on mobile */
+        height: auto; /* Adjust height accordingly */
     }
 
     /* Sidebar footer font size */
     #sidebar footer {
         font-size: 10px;
         padding: 5px 0;
+    }
+
+    /* Show the toggle button on mobile */
+    .mobile-toggle {
+        display: block; /* Show toggle button on mobile */
     }
 }
