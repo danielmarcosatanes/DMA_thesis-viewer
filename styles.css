@@ -57,18 +57,20 @@ body {
 
 /* Sidebar collapse button (desktop only) */
 #sidebar .collapse-btn {
-    display: none; /* Hidden by default */
-    position: absolute;
-    top: 20px;
-    right: -35px; /* Position the button on the right side of the sidebar */
-    background-color: #A85426;
-    color: white;
-    font-size: 20px;
-    padding: 8px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    z-index: 2; /* Ensure the button is on top */
+      display: none; /* Hidden by default */
+      position: absolute;
+      top: 20px;
+      right: -35px; /* Position the button on the right side of the sidebar */
+      background-color: white; /* Same color as the hover effect */
+      color: #A85426;
+      font-size: 24px; /* Slightly larger button text */
+      padding: 10px;
+      border: none;
+      border-radius: 50%; /* Round button */
+      cursor: pointer;
+      z-index: 2; /* Ensure the button is on top */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow to make the button stand out */
+
 }
 
 /* Make the collapse button visible on larger screens */
