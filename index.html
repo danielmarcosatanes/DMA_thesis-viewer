@@ -5,51 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Molecule Viewer</title>
     <script type="text/javascript" src="JSmol.min.js"></script>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <!-- Header -->
-    <header id="header">
-        <div class="container">
-            <h1>3D Molecule Viewer</h1>
-        </div>
-    </header>
-
-    <!-- Side menu -->
-    <div id="menu">
-        <h3>Structures</h3>
-        <a href="#" onclick="showSection('section3')">Structures section 7.1</a>
-        <a href="#" onclick="showSection('section3')">Structures section 7.2</a>
-        <a href="#" onclick="showSection('section3')">Structures section 7.3</a>
-        <div id="subsections" style="display:none; margin-left: 20px;">
-            <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-            <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
-        </div>
-    </div>
-
-    <!-- Main content -->
-    <div id="content">
-        <div id="message">Structures for DMA Thesis</div>
-        <div id="section3" style="display:none;">
-            <h2>Structures section 7.3</h2>
-        </div>
-        <div id="subsectionIrBpin" style="display:none;">
-            <h3>Subsection: Ir(Bpin)</h3>
-            <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
-        </div>
-        <div id="subsectionIrBpin3" style="display:none;">
-            <h3>Subsection: Ir(Bpin)3</h3>
-            <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
-        </div>
-    </div>
-
-    <!-- Footer -->
-    <footer id="footer">
-        <div class="container">
-            <p>© 2024 DMA Thesis. All rights reserved.</p>
-        </div>
-    </footer>
-
+    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
     <script type="text/javascript">
         var Info = {
             width: 600,
@@ -73,41 +29,91 @@
                 section.style.display = 'none';
             });
 
-            // Show the selected section
-            var selectedSection = document.getElementById(sectionId);
-            selectedSection.style.display = 'block';
-            document.getElementById('subsections').style.display = 'block';
-
-            // Hide the default message
-            document.getElementById('message').style.display = 'none';
-        }
-
-        function showSubsection(subsectionId) {
-            var subsections = document.querySelectorAll('#content > div');
+            var subsections = document.querySelectorAll('.subsection');
             subsections.forEach(function(subsection) {
                 subsection.style.display = 'none';
             });
 
-            // Show the selected subsection
-            var selectedSubsection = document.getElementById(subsectionId);
-            selectedSubsection.style.display = 'block';
+            // Show the selected section
+            var selectedSection = document.getElementById(sectionId);
+            selectedSection.style.display = 'block';
 
-            // Reload the JSmol viewer for the selected subsection
-            if (subsectionId === 'subsectionIrBpin') {
+            // Hide the default message
+            document.getElementById('message').style.display = 'none';
+
+            // Load the JSmol object for the selected section
+            if (sectionId === 'subsectionIrBpin') {
                 loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
-            } else if (subsectionId === 'subsectionIrBpin3') {
+            } else if (sectionId === 'subsectionIrBpin3') {
                 loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.xyz");
+            }
+
+            // Show respective subsections
+            if (sectionId.includes('section')) {
+                var sectionNumber = sectionId.replace('section', '');
+                document.getElementById('subsectionsSection' + sectionNumber).style.display = 'block';
             }
         }
 
         // Default page load
         window.onload = function() {
             document.getElementById('message').style.display = 'block';
-            var sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
         };
     </script>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <h1>3D Molecule Viewer for DMA Thesis</h1>
+    </header>
+
+    <!-- Side menu -->
+    <div id="menu">
+        <h3>Structures</h3>
+        <a href="#" onclick="showSection('section1')">Structures section 7.1</a>
+        <div id="subsectionsSection1" class="subsection">
+            <a href="#" onclick="showSection('subsectionIrBpin')">Ir(Bpin)</a>
+            <a href="#" onclick="showSection('subsectionIrBpin3')">Ir(Bpin)3</a>
+        </div>
+
+        <a href="#" onclick="showSection('section2')">Structures section 7.2</a>
+        <div id="subsectionsSection2" class="subsection">
+            <a href="#" onclick="showSection('subsectionIrBpin')">Ir(Bpin)</a>
+            <a href="#" onclick="showSection('subsectionIrBpin3')">Ir(Bpin)3</a>
+        </div>
+
+        <a href="#" onclick="showSection('section3')">Structures section 7.3</a>
+        <div id="subsectionsSection3" class="subsection">
+            <a href="#" onclick="showSection('subsectionIrBpin')">Ir(Bpin)</a>
+            <a href="#" onclick="showSection('subsectionIrBpin3')">Ir(Bpin)3</a>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <div id="content">
+        <div id="message">Select a section to view the structures.</div>
+        <div id="section1" class="active-section">
+            <h2 class="section-title">Structures section 7.1</h2>
+        </div>
+        <div id="subsectionIrBpin" style="display:none;">
+            <h3 class="subsection-title">Ir(Bpin)</h3>
+            <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
+        </div>
+        <div id="subsectionIrBpin3" style="display:none;">
+            <h3 class="subsection-title">Ir(Bpin)3</h3>
+            <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
+        </div>
+        <div id="section2" style="display:none;">
+            <h2 class="section-title">Structures section 7.2</h2>
+        </div>
+        <div id="section3" style="display:none;">
+            <h2 class="section-title">Structures section 7.3</h2>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>Attribution: Created by Your Name - DMA Thesis 2024</p>
+    </footer>
 </body>
 </html>
