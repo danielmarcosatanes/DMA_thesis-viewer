@@ -189,44 +189,40 @@
 
         function searchMenu() {
             const query = document.getElementById('sidebar-search').value.toLowerCase();
-            const links = document.querySelectorAll('#menu a');
-            const sections = document.querySelectorAll('.sidebar-section');
-            const subsections = document.querySelectorAll('.subsections');
-
-            // Show all sections and subsections temporarily
-            sections.forEach(section => section.style.display = 'block');
-            subsections.forEach(subsection => subsection.style.display = 'block');
+            const links = document.querySelectorAll('#menu a'); // All sidebar links
+            const sections = document.querySelectorAll('.sidebar-section'); // Top-level sections
+            const subsections = document.querySelectorAll('.subsections'); // Subsections
 
             let hasResults = false;
 
+            // Initially collapse all sections and subsections
+            sections.forEach(section => section.style.display = 'none');
+            subsections.forEach(subsection => subsection.style.display = 'none');
+
+            // Search for matching links
             links.forEach(link => {
                 if (link.textContent.toLowerCase().includes(query)) {
-                    link.style.display = '';
+                    link.style.display = ''; // Show matching links
                     hasResults = true;
+
+                    // Ensure the parent section and subsection are visible
+                    const parentSubsection = link.closest('.subsections');
+                    const parentSection = link.closest('.sidebar-section');
+
+                    if (parentSubsection) {
+                        parentSubsection.style.display = 'block';
+                    }
+                    if (parentSection) {
+                        parentSection.style.display = 'block';
+                    }
                 } else {
-                    link.style.display = 'none';
+                    link.style.display = 'none'; // Hide non-matching links
                 }
             });
 
-            // Collapse sections that don't have any matching visible links
-            sections.forEach(section => {
-                const visibleLinks = section.querySelectorAll('a:not([style*="display: none"])');
-                if (visibleLinks.length === 0) {
-                    section.style.display = 'none';
-                }
-            });
-
-            // Collapse subsections without results
-            subsections.forEach(subsection => {
-                const visibleLinks = subsection.querySelectorAll('a:not([style*="display: none"])');
-                if (visibleLinks.length === 0) {
-                    subsection.style.display = 'none';
-                }
-            });
-
-            // If no results, show a message (optional)
+            // Optional: Show a message if no results are found
             if (!hasResults) {
-                console.log("No results found"); // Replace this with a user-friendly message if needed.
+                console.log('No results found');
             }
         }
 
