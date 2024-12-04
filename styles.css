@@ -12,33 +12,21 @@ body {
     width: 250px;
     height: 100vh;
     position: fixed;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between; /* Ensures footer stays at the bottom */
+    padding: 20px;
 }
 
-#sidebar header {
-    background-color: #A9C9D7; /* Lighter blue background for sidebar header */
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+/* Ensures the content of the sidebar grows and pushes the footer to the bottom */
+#sidebar > header,
+#sidebar > #menu {
+    flex-grow: 1;
 }
 
 #sidebar header h2 {
     color: #28528E;
 }
 
-#search-bar {
-    margin-top: 10px;
-    padding: 5px;
-    width: 80%;
-    border: 1px solid #28528E;
-    border-radius: 5px;
-}
-
-/* Sidebar menu links */
 #menu a {
     display: block;
     color: #28528E;
@@ -75,8 +63,47 @@ body {
     color: #4E7890;
 }
 
-/* Sidebar footer */
+/* Sidebar Footer */
 #sidebar footer {
-    margin-top: 20px;
+    margin-top: auto;
+    color: #28528E;
     text-align: center;
-    font-size:
+    font-size: 12px;
+}
+
+/* Styling for the main content */
+#main-container {
+    display: flex;
+}
+
+#content {
+    margin-left: 300px;
+    padding: 20px;
+    width: calc(100% - 300px);
+}
+
+/* Smooth transition effect */
+#content > div {
+    transition: all 0.3s ease-in-out;
+}
+
+#home-page h1 {
+    font-size: 36px;
+}
+
+#home-page p {
+    font-size: 18px;
+    color: #4E7890;
+}
+
+/* Jmol container styling */
+.jsmolContainer {
+    width: 600px;
+    height: 500px;
+    margin: 20px 0;
+}
+
+#message {
+    font-size: 18px;
+    color: #4E7890;
+}
