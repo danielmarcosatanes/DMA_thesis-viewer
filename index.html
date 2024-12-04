@@ -158,11 +158,14 @@
         }
 
         function setActiveLink(linkId) {
+            // Remove 'active' class from all links first
             var allLinks = document.querySelectorAll('#menu a');
             allLinks.forEach(function(link) {
-                link.classList.remove('active'); // Remove active class from all links
+                link.classList.remove('active');
             });
-            document.getElementById(linkId).classList.add('active'); // Add active class to the clicked link
+
+            // Then add 'active' class to the clicked link
+            document.getElementById(linkId).classList.add('active');
         }
 
         window.onload = function() {

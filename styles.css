@@ -64,7 +64,7 @@ body {
 }
 
 /* Hover effect for sidebar links */
-#menu a:hover {
+a:hover {
     color: #A85426;
 }
 
