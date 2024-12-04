@@ -8,18 +8,21 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Side menu -->
-    <div id="menu">
-        <h3>Structures</h3>
-        <a href="#" onclick="showSection('section3')">Structures section 7.3</a>
-        <div class="submenu">
+
+    <!-- Sidebar Menu -->
+    <div id="sidebar">
+        <div class="sidebar-header">
+            <h2>Structures</h2>
+        </div>
+        <div class="sidebar-links">
+            <a href="#" onclick="showSection('section3')">Structures section 7.3</a>
             <a href="#" onclick="showSection('subsectionIrBpin')">Ir(Bpin)</a>
             <a href="#" onclick="showSection('subsectionIrBpin3')">Ir(Bpin)3</a>
         </div>
     </div>
 
-    <!-- Main content -->
-    <div id="content">
+    <!-- Main Content -->
+    <div id="main-content">
         <header>
             <h1>Structures for DMA Thesis</h1>
         </header>
@@ -63,7 +66,7 @@
         }
 
         function showSection(sectionId) {
-            var sections = document.querySelectorAll('#content > div');
+            var sections = document.querySelectorAll('#main-content > div');
             sections.forEach(function(section) {
                 section.style.display = 'none';
             });
@@ -86,7 +89,7 @@
         // Default page load
         window.onload = function() {
             document.getElementById('message').style.display = 'block';
-            var sections = document.querySelectorAll('#content > div');
+            var sections = document.querySelectorAll('#main-content > div');
             sections.forEach(function(section) {
                 section.style.display = 'none';
             });
