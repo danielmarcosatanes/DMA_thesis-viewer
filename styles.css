@@ -64,12 +64,12 @@ body {
 }
 
 /* Hover effect for sidebar links */
-a:hover {
+#menu a:hover {
     color: #A85426;
 }
 
 /* Active link styling */
-a.active {
+#menu a.active {
     font-weight: bold;
     color: #A85426;
 }
