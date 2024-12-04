@@ -15,6 +15,11 @@ body {
     padding: 20px;
 }
 
+#sidebar header {
+    background-color: #A9C9D7; /* Light blue background for sidebar header */
+    padding: 10px;
+}
+
 #sidebar header h2 {
     color: #28528E;
 }
@@ -55,6 +60,14 @@ body {
     color: #4E7890;
 }
 
+/* Sidebar footer */
+#sidebar footer {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 14px;
+    color: #28528E; /* Blue text */
+}
+
 /* Styling for the main content */
 #main-container {
     display: flex;
@@ -63,31 +76,4 @@ body {
 #content {
     margin-left: 300px;
     padding: 20px;
-    width: calc(100% - 300px);
-}
-
-/* Smooth transition effect */
-#content > div {
-    transition: all 0.3s ease-in-out;
-}
-
-#home-page h1 {
-    font-size: 36px;
-}
-
-#home-page p {
-    font-size: 18px;
-    color: #4E7890;
-}
-
-/* Jmol container styling */
-.jsmolContainer {
-    width: 600px;
-    height: 500px;
-    margin: 20px 0;
-}
-
-#message {
-    font-size: 18px;
-    color: #4E7890;
-}
+    width: calc
