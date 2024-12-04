@@ -3,99 +3,65 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #fff; /* White background */
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    transition: background-color 0.3s;
+    background-color: #fff;
 }
 
 header {
     text-align: center;
-    background-color: #fff;
-    padding: 20px 0;
-    font-size: 1.5rem;
+    padding: 10px 0;  /* Smaller header */
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #28528E; /* Dark blue for the header text */
+    color: #28528E;
 }
 
 footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
     text-align: center;
-    background-color: #fff;
-    padding: 20px 0;
-    font-size: 1rem;
-    color: #28528E; /* Dark blue for the footer text */
-    margin-top: auto;
+    font-size: 0.9rem;
+    color: #28528E;
 }
 
-/* Sidebar styles */
 #main-container {
     display: flex;
     flex: 1;
 }
 
 #sidebar {
-    width: 220px; /* Reduced sidebar width */
-    background-color: #D6D6D6; /* Lighter grey */
-    padding: 20px;
+    width: 180px; /* Narrower sidebar */
+    background-color: #D6D6D6;
+    padding: 10px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     height: 100vh;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#menu {
+    margin-top: 30px; /* Aligns "Structures" with header */
 }
 
 #sidebar h3 {
     color: #28528E;
-    font-size: 1.2rem;
 }
 
-#sidebar a {
-    display: block;
-    margin-bottom: 10px;
-    color: #28528E;
-    font-size: 1rem;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-#sidebar a:hover {
-    color: #A85426; /* Light orange color for hover */
-}
-
-.subsections {
-    margin-left: 20px;
-}
-
-.subsections a {
-    font-size: 0.95rem;
-}
-
-/* Main content area */
 #content {
-    margin-left: 300px;
+    margin-left: 180px; /* Matches sidebar width */
     padding: 20px;
-    flex: 1;
-    overflow-y: auto;
-    background-color: #fff; /* White background */
-}
-
-#content h2, #content h3 {
-    color: #4E7890; /* Soft blue for section titles */
+    background-color: #fff;
 }
 
 .jsmolContainer {
     width: 100%;
-    max-width: 800px; /* Limiting the width */
-    height: 450px; /* Reduced height */
-    margin-top: 20px;
-    border: none; /* Remove border around JSmol object */
-}
-
-/* Smooth Scroll */
-html {
-    scroll-behavior: smooth;
+    max-width: 700px; /* Limited width */
+    height: 400px; /* Reduced height */
+    margin: 10px 0;
+    border: none;
 }
 
 /* Responsive design */
@@ -103,15 +69,13 @@ html {
     #main-container {
         flex-direction: column;
     }
-    
+
     #sidebar {
-        position: relative;
         width: 100%;
         height: auto;
     }
-    
+
     #content {
         margin-left: 0;
     }
 }
-

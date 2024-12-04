@@ -17,22 +17,28 @@
     <div id="main-container">
         <!-- Sidebar -->
         <div id="sidebar">
-            <h3>Structures</h3>
-            <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
-            <div id="subsections7.1" class="subsections">
-                <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
+            <div id="menu">
+                <h3>Structures</h3>
+                <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
+                <div id="subsections7.1" class="subsections">
+                    <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
+                    <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
+                </div>
+                <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
+                <div id="subsections7.2" class="subsections">
+                    <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
+                    <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
+                </div>
+                <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
+                <div id="subsections7.3" class="subsections">
+                    <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
+                    <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
+                </div>
             </div>
-            <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
-            <div id="subsections7.2" class="subsections">
-                <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
-            </div>
-            <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
-            <div id="subsections7.3" class="subsections">
-                <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
-            </div>
+            <!-- Footer inside Sidebar -->
+            <footer>
+                <p>Attribution: Created by Your Name - DMA Thesis 2024</p>
+            </footer>
         </div>
 
         <!-- Main content area -->
@@ -61,20 +67,15 @@
         </div>
     </div>
 
-    <!-- Footer -->
-    <footer>
-        <p>2024 DMA Thesis Viewer. All rights reserved.</p>
-    </footer>
-
     <script type="text/javascript">
         var Info = {
-            width: 800,
-            height: 500,
-            j2sPath: "j2s", // Path to JSmol's j2s folder
-            color: "white",  // Background color
-            use: "HTML5",    // Use HTML5 for rendering
-            disableJ2SLoadMonitor: true,  // Disable loading monitor
-            disableInitialConsole: true  // Disable initial console
+            width: 700,
+            height: 400,  // Reduced height for better fit
+            j2sPath: "j2s",
+            color: "white",
+            use: "HTML5",
+            disableJ2SLoadMonitor: true,
+            disableInitialConsole: true
         };
 
         function loadJSmol(containerId, moleculeFile) {
