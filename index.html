@@ -4,49 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Molecule Viewer</title>
+    <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            display: flex;
-            height: 100vh;
-            margin: 0;
-        }
-        /* Side menu styles */
-        #menu {
-            width: 200px;
-            background-color: #f4f4f4;
-            padding: 20px;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-        #menu a {
-            display: block;
-            margin-bottom: 10px;
-            text-decoration: none;
-            color: #333;
-            font-size: 18px;
-        }
-        #menu a:hover {
-            color: #007bff;
-        }
-        /* Main content area */
-        #content {
-            flex: 1;
-            padding: 20px;
-            overflow-y: auto;
-        }
-        /* JSmol container */
-        .jsmolContainer {
-            width: 600px;
-            height: 600px;
-            border: 0px solid black;
-        }
-        #message {
-            font-size: 24px;
-            text-align: center;
-            margin-top: 100px;
-        }
-    </style>
 </head>
 <body>
     <!-- Side menu -->
@@ -75,12 +34,16 @@
         </div>
     </div>
 
+    <footer>
+        © 2024 DMA Thesis Viewer
+    </footer>
+
     <script type="text/javascript">
         var Info = {
             width: 600,
-            height: 600,
+            height: 400,
             j2sPath: "j2s", // Path to JSmol's j2s folder
-            color: "black",  // Background color
+            color: "white",  // Background color
             use: "HTML5",    // Use HTML5 for rendering
             disableJ2SLoadMonitor: true,  // Disable loading monitor
             disableInitialConsole: true  // Disable initial console
