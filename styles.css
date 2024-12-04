@@ -9,26 +9,24 @@ body {
 
 /* Sidebar Styling */
 #sidebar {
-    width: 220px;
-    background-color: #E0F0FF; /* Lighter blue */
+    width: 200px;
+    background-color: #D6D6D6; /* Gray */
     color: #28528E;
     height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     position: fixed;
-    padding-top: 10px;
 }
 
 #sidebar header {
-    background-color: #A3C0E8;
-    padding: 10px;
+    background-color: #E0F0FF; /* Light Blue */
+    padding: 15px;
     text-align: center;
 }
 
 #search-bar {
-    padding: 10px;
-    background-color: #E0F0FF; /* Matches sidebar */
+    margin-top: 10px;
 }
 
 #search-bar input {
@@ -40,7 +38,6 @@ body {
 
 #menu {
     padding: 10px;
-    margin-top: 10px;
 }
 
 #menu a {
@@ -80,11 +77,11 @@ footer {
 
 /* Content Styling */
 #content {
-    margin-left: 230px;
+    margin-left: 210px;
     padding: 20px;
     background-color: #ffffff;
 }
 
-#home h2 {
-    color: #28528E;
+.jsmolContainer {
+    margin-top: 20px;
 }

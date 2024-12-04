@@ -14,10 +14,10 @@
         <div id="sidebar">
             <header>
                 <h1>DMA Thesis</h1>
+                <div id="search-bar">
+                    <input type="text" placeholder="Search structures...">
+                </div>
             </header>
-            <div id="search-bar">
-                <input type="text" placeholder="Search structures...">
-            </div>
             <div id="menu">
                 <a href="#" onclick="showPage('home')">Home</a>
                 <a href="#" class="menu-header" onclick="toggleStructures()">Structures</a>
@@ -44,12 +44,15 @@
             <!-- Structures Pages -->
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
+                <div id="jsmolContainer7.1" class="jsmolContainer"></div>
             </div>
             <div id="section7.2" style="display:none;">
                 <h2>Structures section 7.2</h2>
+                <div id="jsmolContainer7.2" class="jsmolContainer"></div>
             </div>
             <div id="section7.3" style="display:none;">
                 <h2>Structures section 7.3</h2>
+                <div id="jsmolContainer7.3" class="jsmolContainer"></div>
             </div>
         </div>
     </div>
@@ -70,6 +73,22 @@
 
         function showSection(sectionId) {
             showPage(sectionId);
+            loadJSmol(`jsmolContainer${sectionId.slice(-3)}`, `${sectionId}.xyz`);
+        }
+
+        function loadJSmol(containerId, moleculeFile) {
+            var Info = {
+                width: 500,
+                height: 400,
+                j2sPath: "j2s",
+                use: "HTML5",
+                color: "white",
+                disableJ2SLoadMonitor: true,
+                disableInitialConsole: true,
+            };
+            var jsmolApplet = Jmol.getApplet(containerId, Info);
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
+            Jmol.script(jsmolApplet, `load molecules/${moleculeFile};`);
         }
 
         window.onload = function() {
