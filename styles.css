@@ -139,8 +139,8 @@ body {
     position: fixed;
     top: 20px;
     left: 20px;
-    background-color: #28528E;
-    color: white;
+    background-color: transparent;
+    color: #28528E;
     font-size: 30px;
     border: none;
     padding: 10px;
@@ -214,7 +214,7 @@ body {
 
     /* Jmol container adjusts to smaller screens */
     .jsmolContainer {
-        width: 100%;
+        width: 200px;
         height: 300px; /* Reduced height for mobile */
     }
 

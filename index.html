@@ -187,6 +187,11 @@
             }
 
             setActiveLink(subsectionId);
+
+            // Collapse sidebar on mobile after selecting a structure
+            if (window.innerWidth <= 768) {
+              collapseSidebar();
+            }
         }
 
         function setActiveLink(linkId) {
@@ -214,7 +219,14 @@
         }
 
         function toggleSidebar() {
-            document.getElementById("sidebar").classList.toggle("show");
+          var sidebar = document.getElementById('sidebar');
+          var toggleButton = document.getElementById('sidebar-toggle');
+          if (sidebar.style.display === 'none' || sidebar.style.display === '') {
+              sidebar.style.display = 'block';
+              toggleButton.innerText = '☰';  // Show the menu icon
+          } else {
+              sidebar.style.display = 'none';
+              toggleButton.innerText = '☰';  // Show the menu icon
         }
     </script>
 </body>
