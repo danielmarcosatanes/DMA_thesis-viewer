@@ -191,18 +191,43 @@
             const query = document.getElementById('sidebar-search').value.toLowerCase();
             const links = document.querySelectorAll('#menu a');
             const sections = document.querySelectorAll('.sidebar-section');
+            const subsections = document.querySelectorAll('.subsections');
 
-            sections.forEach(section => section.style.display = 'none'); // Collapse all sections initially
+            // Show all sections and subsections temporarily
+            sections.forEach(section => section.style.display = 'block');
+            subsections.forEach(subsection => subsection.style.display = 'block');
+
+            let hasResults = false;
+
             links.forEach(link => {
-                const text = link.textContent.trim().toLowerCase();
-                if (text.includes(query)) {
-                    link.style.display = ''; // Show matching link
-                    const parentSection = link.closest('.sidebar-section');
-                    if (parentSection) parentSection.style.display = 'block'; // Expand the matching section
+                if (link.textContent.toLowerCase().includes(query)) {
+                    link.style.display = '';
+                    hasResults = true;
                 } else {
                     link.style.display = 'none';
                 }
             });
+
+            // Collapse sections that don't have any matching visible links
+            sections.forEach(section => {
+                const visibleLinks = section.querySelectorAll('a:not([style*="display: none"])');
+                if (visibleLinks.length === 0) {
+                    section.style.display = 'none';
+                }
+            });
+
+            // Collapse subsections without results
+            subsections.forEach(subsection => {
+                const visibleLinks = subsection.querySelectorAll('a:not([style*="display: none"])');
+                if (visibleLinks.length === 0) {
+                    subsection.style.display = 'none';
+                }
+            });
+
+            // If no results, show a message (optional)
+            if (!hasResults) {
+                console.log("No results found"); // Replace this with a user-friendly message if needed.
+            }
         }
 
         function setActiveLink(id) {
