@@ -23,6 +23,11 @@ body {
     transition: all 0.3s ease-in-out; /* Smooth transition for sidebar */
 }
 
+/* Collapsed sidebar */
+#sidebar.collapsed {
+    width: 70px; /* Width of collapsed sidebar */
+}
+
 /* Sidebar header */
 #sidebar header {
     background-color: #DDE5F0;
@@ -50,10 +55,32 @@ body {
     border-radius: 5px;
 }
 
-/* Make Home and Structures links always bold */
-#menu #home-link,
-#menu #structures-link {
-    font-weight: bold;
+/* Sidebar collapse button (desktop only) */
+#sidebar .collapse-btn {
+    display: none; /* Hidden by default */
+    position: absolute;
+    top: 20px;
+    right: -35px; /* Position the button on the right side of the sidebar */
+    background-color: #A85426;
+    color: white;
+    font-size: 20px;
+    padding: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 2; /* Ensure the button is on top */
+}
+
+/* Make the collapse button visible on larger screens */
+@media only screen and (min-width: 769px) {
+    #sidebar .collapse-btn {
+        display: block; /* Show button on desktop */
+    }
+
+    /* When collapsed */
+    #sidebar.collapsed .collapse-btn {
+        right: -35px; /* Adjust position */
+    }
 }
 
 /* Sidebar menu links */
@@ -76,23 +103,6 @@ body {
     color: #A85426 !important;
 }
 
-/* Remove any color change from non-active links when hovered */
-#menu a:not(.active):hover {
-    color: #A85426;
-}
-
-/* Sidebar menu (Structures) */
-#structures-menu {
-    padding-left: 20px;
-    display: none;
-}
-
-/* Subsections */
-.subsections {
-    padding-left: 20px;
-    display: none;
-}
-
 /* Sidebar Footer */
 #sidebar footer {
     color: #28528E;
@@ -113,12 +123,6 @@ body {
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
     width: calc(100% - 250px); /* Adjust content width */
-    box-sizing: border-box; /* Ensure padding doesn’t break layout */
-}
-
-/* Smooth transition effect */
-#content > div {
-    transition: all 0.3s ease-in-out;
 }
 
 /* Jmol container styling */
@@ -131,12 +135,6 @@ body {
     position: relative;  /* Allow positioning inside the container */
     overflow: hidden;    /* Ensure content doesn’t overflow */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
-}
-
-/* Message styling */
-#message {
-    font-size: 18px;
-    color: #4E7890;
 }
 
 /* Mobile Sidebar Toggle Button */
@@ -153,38 +151,15 @@ body {
     z-index: 1000; /* Ensure button is on top of other content */
 }
 
-/* Show Sidebar on mobile when the "show" class is added */
-#sidebar.show {
-    display: block;
-    width: 70%;
-}
-
-/* Design for larger screens (Desktops) */
-@media only screen and (min-width: 769px) {
-    #sidebar {
-        width: 250px; /* Sidebar width */
-    }
-
-    #content {
-        margin-left: 250px; /* Space for sidebar */
-    }
-
-    .jsmolContainer {
-        width: 700px; /* Fixed size for desktop */
-        height: 600px;
-    }
-}
-
 /* Design for smaller screens (Mobile) */
 @media only screen and (max-width: 768px) {
-
     /* Sidebar collapses for mobile screens */
     #sidebar {
         display: none; /* Hide sidebar by default on mobile */
         width: 70%; /* Make sidebar take up less space */
     }
 
-    /* Toggle sidebar visibility */
+    /* Show Sidebar on mobile when the "show" class is added */
     #sidebar.show {
         display: block; /* Show sidebar when the "show" class is added */
     }
@@ -194,22 +169,6 @@ body {
         margin-left: 0;
         width: 100%;
         padding: 10px;
-    }
-
-    /* Sidebar header font adjustments */
-    #sidebar header h2 {
-        font-size: 22px; /* Slightly larger on mobile */
-    }
-
-    /* Make the sidebar search input wider */
-    #sidebar header input[type="text"] {
-        width: 90%;
-    }
-
-    /* Menu link adjustments for better touch experience */
-    #menu a {
-        padding: 12px;
-        font-size: 16px;
     }
 
     .jsmolContainer {
