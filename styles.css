@@ -39,29 +39,50 @@ body {
 
 #menu a {
     display: block;
-    font-weight: bold;
     font-size: 1rem;
     margin: 5px 0;
     text-decoration: none;
     color: #28528E;
 }
 
-.subsections a {
-    font-weight: normal; /* Regular for subsections */
-    font-size: 0.9rem;
-    margin-left: 10px;
-}
-
-.menu-header {
-    font-size: 1.1rem;
-}
-
 #menu a:hover {
     color: #A85426;
 }
 
+#home-link {
+    font-weight: bold;
+}
+
+#structures-link {
+    font-weight: bold;
+}
+
+.subsections a {
+    font-weight: normal;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
 #structures-menu {
     display: none;
+}
+
+/* Content Styling */
+#content {
+    margin-left: 230px;
+    padding: 20px;
+}
+
+.jsmolContainer {
+    margin-top: 20px;
+    border: none;
+}
+
+/* Title Styling */
+h3 {
+    font-size: 1.2rem;
+    color: #28528E;
+    margin-top: 10px;
 }
 
 /* Footer Styling */
@@ -73,17 +94,16 @@ footer {
     margin-top: auto;
 }
 
-/* Content Styling */
-#content {
-    margin-left: 230px;
-    padding: 20px;
-}
+/* Responsive Design */
+@media (max-width: 768px) {
+    #sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
 
-#homeMessage {
-    margin-top: 20px;
-}
-
-.jsmolContainer {
-    margin-top: 20px;
-    border: none;
+    #content {
+        margin-left: 0;
+        padding: 10px;
+    }
 }

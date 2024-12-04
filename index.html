@@ -3,49 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMA Thesis: 3D Molecule Viewer</title>
+    <title>3D Molecule Viewer</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <header>
-            <h3>DMA Thesis</h3>
-        </header>
-        <div id="menu">
-            <a href="#" onclick="showHome()">Home</a>
-            <a href="#" onclick="showSection('structures')">Structures</a>
-            <div id="structures-menu" class="subsections">
-                <a href="#" onclick="showSubsection('7.1')">Structures section 7.1</a>
-                <a href="#" onclick="showSubsection('7.2')">Structures section 7.2</a>
-                <a href="#" onclick="showSubsection('7.3')">Structures section 7.3</a>
-                <div id="moleculeLinks" class="subsections" style="display:none;">
-                    <a href="#" onclick="loadMolecule('Ir(Bpin)')">Ir(Bpin)</a>
-                    <a href="#" onclick="loadMolecule('Ir(Bpin)3')">Ir(Bpin)3</a>
+    <!-- Header -->
+    <header>
+        <h1>DMA Thesis: 3D Molecule Viewer</h1>
+    </header>
+
+    <!-- Main Container with Sidebar and Content -->
+    <div id="main-container">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <header>
+                <h3>DMA Thesis</h3>
+            </header>
+            <div id="search-bar">
+                <input type="text" placeholder="Search...">
+            </div>
+            <div id="menu">
+                <a href="#" id="home-link" onclick="showHome()">Home</a>
+                <a href="#" id="structures-link" onclick="showStructures()">Structures</a>
+                <div id="structures-menu" style="display:none;">
+                    <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
+                    <div id="subsections7.1" class="subsections" style="display:none;">
+                        <a href="#" onclick="showSubsection('IrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('IrBpin3')">Ir(Bpin)3</a>
+                    </div>
+                    <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
+                    <div id="subsections7.2" class="subsections" style="display:none;">
+                        <a href="#" onclick="showSubsection('IrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('IrBpin3')">Ir(Bpin)3</a>
+                    </div>
+                    <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
+                    <div id="subsections7.3" class="subsections" style="display:none;">
+                        <a href="#" onclick="showSubsection('IrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('IrBpin3')">Ir(Bpin)3</a>
+                    </div>
                 </div>
+            </div>
+            <footer>
+                <p>2024 DMA Thesis Viewer. All rights reserved.</p>
+            </footer>
+        </div>
+
+        <!-- Main content area -->
+        <div id="content">
+            <div id="message">Select a structure section</div>
+
+            <!-- Sections -->
+            <div id="section7.1" style="display:none;">
+                <h2>Structures section 7.1</h2>
+            </div>
+            <div id="section7.2" style="display:none;">
+                <h2>Structures section 7.2</h2>
+            </div>
+            <div id="section7.3" style="display:none;">
+                <h2>Structures section 7.3</h2>
+            </div>
+
+            <!-- Subsections (Molecules) -->
+            <div id="subsectionIrBpin" style="display:none;">
+                <h3>Ir(Bpin)</h3>
+                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
+            </div>
+
+            <div id="subsectionIrBpin3" style="display:none;">
+                <h3>Ir(Bpin)3</h3>
+                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
             </div>
         </div>
     </div>
 
-    <!-- Main Content -->
-    <div id="content">
-        <div id="homeMessage">
-            <h1>DMA Thesis: 3D Molecule Viewer</h1>
-            <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
-        </div>
-        <div id="jsmolContainer" class="jsmolContainer"></div>
-    </div>
-
-    <!-- Footer -->
-    <footer>
-        <p>2024 DMA Thesis Viewer. All rights reserved.</p>
-    </footer>
-
     <script type="text/javascript">
         var Info = {
             width: 700,
-            height: 400,
+            height: 400,  // Adjusted height for better fit
             j2sPath: "j2s",
             color: "white",
             use: "HTML5",
@@ -53,35 +88,73 @@
             disableInitialConsole: true
         };
 
-        function loadMolecule(moleculeName) {
-            var containerId = "jsmolContainer";
+        function loadJSmol(containerId, moleculeFile) {
             var jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-
-            // Load respective molecule
-            if (moleculeName === 'Ir(Bpin)') {
-                Jmol.script(jsmolApplet, "load 'molecules/44a-Bipy-Ir(Bpin).xyz';");
-            } else if (moleculeName === 'Ir(Bpin)3') {
-                Jmol.script(jsmolApplet, "load 'molecules/44a-Bipy-Ir(Bpin)3.xyz';");
-            }
+            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
         }
 
         function showHome() {
-            document.getElementById('homeMessage').style.display = 'block';
-            document.getElementById('structures-menu').style.display = 'none';
-            document.getElementById('moleculeLinks').style.display = 'none';
+            var sections = document.querySelectorAll('#content > div');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById('message').style.display = 'block';
+        }
+
+        function showStructures() {
+            document.getElementById('structures-menu').style.display = 'block';
+            document.getElementById('structures-link').style.fontWeight = 'bold';
+            document.getElementById('home-link').style.fontWeight = 'normal';
+            hideMolecule();
         }
 
         function showSection(sectionId) {
-            if (sectionId === 'structures') {
-                document.getElementById('homeMessage').style.display = 'none';
-                document.getElementById('structures-menu').style.display = 'block';
+            var subsections = document.querySelectorAll('.subsections');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
+            });
+
+            var sections = document.querySelectorAll('#content > div');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            document.getElementById(sectionId).style.display = 'block';
+            document.getElementById('message').style.display = 'none';
+
+            document.getElementById('subsections' + sectionId.split('section')[1]).style.display = 'block';
+        }
+
+        function showSubsection(subsectionId) {
+            var subsections = document.querySelectorAll('#content > div');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
+            });
+
+            document.getElementById(subsectionId).style.display = 'block';
+
+            if (subsectionId === 'subsectionIrBpin') {
+                loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
+            } else if (subsectionId === 'subsectionIrBpin3') {
+                loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.xyz");
             }
         }
 
-        function showSubsection(sectionId) {
-            document.getElementById('moleculeLinks').style.display = 'block';
+        function hideMolecule() {
+            var molecules = document.querySelectorAll('.jsmolContainer');
+            molecules.forEach(function(molecule) {
+                molecule.innerHTML = '';
+            });
         }
+
+        window.onload = function() {
+            document.getElementById('message').style.display = 'block';
+            var sections = document.querySelectorAll('#content > div');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+        };
     </script>
 </body>
 </html>
