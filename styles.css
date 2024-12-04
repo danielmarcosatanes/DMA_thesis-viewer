@@ -20,7 +20,12 @@ body {
     padding: 0;
     box-sizing: border-box;
     z-index: 1;
-    transition: all 0.3s ease-in-out;
+    transition: left 0.3s ease-in-out; /* Smooth transition for sidebar movement */
+}
+
+/* When collapsed, the sidebar moves off to the left */
+#sidebar.collapsed {
+    left: -250px; /* Move the sidebar off-screen */
 }
 
 /* Sidebar header */
@@ -78,7 +83,7 @@ body {
     }
 
     #sidebar.collapsed {
-        width: 0; /* Collapse sidebar */
+        left: -250px; /* Move off-screen */
     }
 
     #sidebar {
