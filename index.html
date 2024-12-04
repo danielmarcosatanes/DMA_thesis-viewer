@@ -258,12 +258,15 @@
   function resizeJmolForMobile() {
       var jmolContainers = document.querySelectorAll('.jsmolContainer');
       var width = window.innerWidth;
+      // Calculate new width and height based on the screen width (use 80% for the width and adjust height proportionally)
+      var newWidth = width * 0.9;  // 90% of the screen width
+      var newHeight = newWidth * 0.6;  // Adjust height to maintain a good aspect ratio (you can tweak the multiplier)
 
-    // Adjust the width and height for smaller screens
-    jmolContainers.forEach(function(container) {
-        // Set the width to 90% of the viewport width (you can adjust this value as needed)
-        container.style.width = (width * 0.9) + 'px';
-        container.style.height = (width * 0.7) + 'px'; // Adjust height based on width
+      // Adjust the width and height for smaller screens
+      jmolContainers.forEach(function(container) {
+      // Set the width to 90% of the viewport width (you can adjust this value as needed)
+      container.style.width = (width * 0.9) + 'px';
+      container.style.height = (width * 0.7) + 'px'; // Adjust height based on width
       });
     }
 
