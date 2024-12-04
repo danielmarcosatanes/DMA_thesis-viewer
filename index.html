@@ -165,6 +165,21 @@
         window.onload = function() {
             showHome();  // Make sure the home page is displayed initially
         };
+        function searchMenu() {
+        var input, filter, links, i, txtValue;
+        input = document.getElementById('sidebar-search');
+        filter = input.value.toUpperCase();
+        links = document.querySelectorAll('#menu a');
+
+        for (i = 0; i < links.length; i++) {
+            txtValue = links[i].textContent || links[i].innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                links[i].style.display = "";
+            } else {
+                links[i].style.display = "none";
+            }
+        }
+    }
     </script>
 </body>
 </html>
