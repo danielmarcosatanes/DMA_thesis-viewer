@@ -128,20 +128,27 @@
         }
 
         function showSubsection(subsectionId) {
-            displayOnly(subsectionId); // Show only the selected subsection
-            const molecules = {
-                'subsection44aBipyIrBpin': '44a-Bipy-Ir(Bpin).log',
-                'subsection44aBipyIrBpin5': '44a-Bipy-Ir(Bpin)5.log',
-                'subsection44aBipyIrHBPin2': '44a-Bipy-Ir-H-Bpin2.log',
-                'subsection44a': '44a.log',
-                'subsection45a': '45a.log'
-            };
+            var subsections = document.querySelectorAll('#content > div');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
+            });
 
-            if (molecules[subsectionId]) {
-                const containerId = `jsmolContainer${subsectionId}`;
-                loadJSmol(containerId, molecules[subsectionId]);
-            } else {
-                console.error(`Molecule file not found for subsection: ${subsectionId}`);
+            document.getElementById(subsectionId).style.display = 'block';
+
+            if (subsectionId === 'subsection44aBipyIrBpin') {
+                loadJSmol('jsmolContainer44aBipyIrBpin', '44a-Bipy-Ir(Bpin).log');
+            }
+            if (subsectionId === 'subsection44aBipyIrBpin5') {
+                loadJSmol('jsmolContainer44aBipyIrBpin5', '44a-Bipy-Ir(Bpin)5.log');
+            }
+            if (subsectionId === 'subsection44aBipyIrHBPin2') {
+                loadJSmol('jsmolContainer44aBipyIrHBPin2', '44a-Bipy-Ir-H-Bpin2.log');
+            }
+            if (subsectionId === 'subsection44a') {
+                loadJSmol('jsmolContainer44a', '44a.log');
+            }
+            if (subsectionId === 'subsection45a') {
+                loadJSmol('jsmolContainer45a', '45a.log');
             }
         }
 
