@@ -133,6 +133,19 @@ body {
     color: #4E7890;
 }
 
+/* Mobile Sidebar Toggle Button */
+.mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background-color: #28528E;
+    color: white;
+    font-size: 30px;
+    border: none;
+    padding: 10px;
+    z-index: 1000; /* Ensure button is on top of other content */
+}
 
 /* Design for larger screens (Desktops) */
 @media only screen and (min-width: 769px) {
@@ -167,19 +180,13 @@ body {
 
     /* Sidebar collapses for mobile screens */
     #sidebar {
-        position: absolute; /* Sidebar will now be absolute on smaller screens */
-        width: 100%; /* Full width for sidebar */
-        height: auto; /* Sidebar height is now content-dependent */
-        top: 0;
-        left: 0;
-        background-color: #D6D6D6;
-        z-index: 1;
-        display: none; /* Initially hide the sidebar */
-    }
+      display: none; /* Hide sidebar by default on mobile */
+      width: 70%; /* Make sidebar take up less space */
+  }
 
     /* Toggle sidebar visibility */
     #sidebar.show {
-        display: flex;
+        display: block; /* Show sidebar when the "show" class is added */
     }
 
     /* Main content occupies full screen width */
@@ -215,5 +222,10 @@ body {
     #sidebar footer {
         font-size: 10px;
         padding: 5px 0;
+    }
+
+    /* Show the toggle button on mobile */
+    .mobile-toggle {
+        display: block; /* Show toggle button on mobile */
     }
 }
