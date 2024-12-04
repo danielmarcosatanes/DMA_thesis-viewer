@@ -128,15 +128,21 @@
         }
 
         function showSubsection(subsectionId) {
-            displayOnly(subsectionId);
+            displayOnly(subsectionId); // Show only the selected subsection
             const molecules = {
-                subsection44aBipyIrBpin: '44a-Bipy-Ir(Bpin).log',
-                subsection44aBipyIrBpin5: '44a-Bipy-Ir(Bpin)5.log',
-                subsection44aBipyIrHBPin2: '44a-Bipy-Ir-H-Bpin2.log',
-                subsection44a: '44a.log',
-                subsection45a: '45a.log'
+                'subsection44aBipyIrBpin': '44a-Bipy-Ir(Bpin).log',
+                'subsection44aBipyIrBpin5': '44a-Bipy-Ir(Bpin)5.log',
+                'subsection44aBipyIrHBPin2': '44a-Bipy-Ir-H-Bpin2.log',
+                'subsection44a': '44a.log',
+                'subsection45a': '45a.log'
             };
-            loadJSmol(`jsmolContainer${subsectionId}`, molecules[subsectionId]);
+
+            if (molecules[subsectionId]) {
+                const containerId = `jsmolContainer${subsectionId}`;
+                loadJSmol(containerId, molecules[subsectionId]);
+            } else {
+                console.error(`Molecule file not found for subsection: ${subsectionId}`);
+            }
         }
 
         function setActiveLink(linkId) {
