@@ -20,19 +20,19 @@
                 <a href="#" id="home-link" onclick="showHome()">Home</a>
                 <a href="#" id="structures-link" onclick="toggleStructuresMenu()">Structures</a>
 
-                <div id="structures-menu">
+                <div id="structures-menu" style="display: none;">
                     <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
-                    <div id="subsections7.1" class="subsections">
+                    <div id="subsections7.1" class="subsections" style="display: none;">
                         <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
                         <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                     <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
-                    <div id="subsections7.2" class="subsections">
+                    <div id="subsections7.2" class="subsections" style="display: none;">
                         <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
                         <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                     <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
-                    <div id="subsections7.3" class="subsections">
+                    <div id="subsections7.3" class="subsections" style="display: none;">
                         <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
                         <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
@@ -90,12 +90,14 @@
         }
 
         function showHome() {
-            // Display home page content
+            // Display home page content and hide other sections
             document.getElementById('home-page').style.display = 'block';
             document.getElementById('message').style.display = 'none';
-
-            // Hide other sections
-            hideSections();
+            document.getElementById('section7.1').style.display = 'none';
+            document.getElementById('section7.2').style.display = 'none';
+            document.getElementById('section7.3').style.display = 'none';
+            document.getElementById('subsectionIrBpin').style.display = 'none';
+            document.getElementById('subsectionIrBpin3').style.display = 'none';
 
             // Ensure the sidebar link is highlighted
             setActiveLink('home-link');
