@@ -1,70 +1,80 @@
-/* Global styles */
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
     display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
-header {
-    text-align: center;
-    padding: 10px 0;  /* Smaller header */
-    font-size: 1.2rem;
-    font-weight: bold;
-    color: #28528E;
-}
-
-footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 0.9rem;
-    color: #28528E;
-}
-
-#main-container {
-    display: flex;
-    flex: 1;
-}
-
+/* Sidebar Styling */
 #sidebar {
-    width: 180px; /* Narrower sidebar */
-    background-color: #D6D6D6;
-    padding: 10px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    width: 200px;  /* Slimmer sidebar */
+    background-color: #D6D6D6;  /* Lighter grey */
+    color: #28528E;  /* Dark blue text */
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    position: fixed;
 }
 
-#menu {
-    margin-top: 30px; /* Aligns "Structures" with header */
-}
-
-#sidebar h3 {
+#sidebar header {
+    padding: 10px;
+    font-size: 1.2rem;
+    text-align: center;
     color: #28528E;
 }
 
+#menu {
+    padding: 10px;
+}
+
+#menu h3 {
+    margin-top: 10px;
+    color: #28528E;
+}
+
+#menu a {
+    display: block;
+    margin: 5px 0;
+    text-decoration: none;
+    color: #28528E;
+}
+
+#menu a:hover {
+    text-decoration: underline;
+}
+
+.subsections {
+    display: none;
+    margin-left: 10px;
+}
+
+/* Footer in Sidebar */
+footer {
+    font-size: 0.8rem;
+    text-align: center;
+    padding: 10px;
+    color: #28528E;
+}
+
+/* Content Styling */
 #content {
-    margin-left: 180px; /* Matches sidebar width */
+    margin-left: 210px;
     padding: 20px;
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 .jsmolContainer {
     width: 100%;
-    max-width: 700px; /* Limited width */
-    height: 400px; /* Reduced height */
-    margin: 10px 0;
+    max-width: 600px;
+    height: 350px;
+    margin: 0 auto;
     border: none;
 }
 
-/* Responsive design */
+/* Responsive Design */
 @media (max-width: 768px) {
     #main-container {
         flex-direction: column;
@@ -72,7 +82,7 @@ footer {
 
     #sidebar {
         width: 100%;
-        height: auto;
+        position: relative;
     }
 
     #content {
