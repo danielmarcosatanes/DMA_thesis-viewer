@@ -20,7 +20,8 @@ body {
     padding: 0;
     box-sizing: border-box;
     z-index: 1; /* Ensure sidebar is above other content */
-    transition: all 0.3s ease-in-out; /* Smooth transition for sidebar */
+    transition: width 0.3s ease-in-out; /* Smooth transition for width */
+    overflow: hidden; /* Prevent overflow when collapsed */
 }
 
 /* Sidebar header */
@@ -132,17 +133,17 @@ body {
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
+/* Sidebar collapses */
 #sidebar.collapsed {
-    width: 0;
+    width: 70px; /* Collapsed width */
+    padding: 10px 10px 10px 10px; /* Adjust padding */
 }
 
-#content {
-    margin-left: 250px;
-    transition: margin-left 0.3s ease-in-out;
-}
-
-#sidebar.collapsed + #content {
-    margin-left: 0;
+/* Hide content inside sidebar when collapsed */
+#sidebar.collapsed header,
+#sidebar.collapsed #menu,
+#sidebar.collapsed footer {
+    display: none; /* Hide header, menu, and footer when collapsed */
 }
 
 /* Collapse button */
@@ -187,19 +188,18 @@ body {
 
 /* Desktop Sidebar Collapse Button */
 .collapse-btn {
-    display: none; /* Hidden by default */
-    position: fixed; /* Position near the sidebar */
-    top: 20px; /* Adjust to your preference */
-    left: 260px; /* Slightly outside sidebar's collapsed width */
-    font-size: 24px;
-    background-color: #ffffff; /* Match design */
-    color: #28528E;
-    border: none;
-    cursor: pointer;
-    z-index: 1000; /* Ensure visibility */
-    padding: 10px;
-    border-radius: 5px; /* Optional: Add some rounded corners */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+  display: none; /* Hidden by default on mobile */
+  position: absolute;
+  top: 20px;
+  left: 250px; /* Slightly outside the sidebar */
+  font-size: 24px;
+  background-color: white;
+  color: #28528E;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  z-index: 1000; /* Ensure visibility */
+  border-radius: 5px;
 }
 
 /* Design for larger screens (Desktops) */
@@ -209,20 +209,26 @@ body {
     }
 
     #content {
-        margin-left: 250px; /* Space for sidebar */
+        transition: margin-left 0.3s ease-in-out; /* Smooth transition for content */
+        margin-left: 250px; /* Adjust for sidebar width */
     }
 
     .jsmolContainer {
         width: 700px; /* Fixed size for desktop */
         height: 600px;
     }
-    
+
     .collapse-btn {
         display: block; /* Visible only on desktop */
     }
 
     #sidebar.collapsed + #collapse-btn {
-        left: 10px; /* Adjust when sidebar is collapsed */
+        left: 10px; /* Adjust position when collapsed */
+    }
+
+    /* When sidebar is collapsed, move the content to the left */
+    #sidebar.collapsed + #collapse-btn + #content {
+    margin-left: 70px; /* Adjust for collapsed sidebar width */
     }
 }
 
