@@ -25,18 +25,18 @@
                 <div id="structures-menu" style="display: none;">
                     <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
                     <div id="subsections7.1" class="subsections" style="display: none;">
-                        <a href="#" id="subsectionIrBpin" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
-                        <a href="#" id="subsectionIrBpin3" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                     <a href="#" onclick="showSection('section7.2'); setActiveLink('section7.2')">Structures section 7.2</a>
                     <div id="subsections7.2" class="subsections" style="display: none;">
-                        <a href="#" id="subsectionIrBpin" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
-                        <a href="#" id="subsectionIrBpin3" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                     <a href="#" onclick="showSection('section7.3'); setActiveLink('section7.3')">Structures section 7.3</a>
                     <div id="subsections7.3" class="subsections" style="display: none;">
-                        <a href="#" id="subsectionIrBpin" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
-                        <a href="#" id="subsectionIrBpin3" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                 </div>
             </div>
@@ -148,12 +148,43 @@
             });
 
             document.getElementById(subsectionId).style.display = 'block';
-            loadJSmol("jsmolContainer" + subsectionId, subsectionId + ".xyz");
+
+            if (subsectionId === 'subsectionIrBpin') {
+                loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
+            } else if (subsectionId === 'subsectionIrBpin3') {
+                loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.xyz");
+            }
             setActiveLink(subsectionId);
         }
 
-        // Default to Home section on page load
-        window.onload = showHome;
+        function setActiveLink(linkId) {
+            var allLinks = document.querySelectorAll('#menu a');
+            allLinks.forEach(function(link) {
+                link.classList.remove('active'); // Remove active class from all links
+            });
+            document.getElementById(linkId).classList.add('active'); // Add active class to the clicked link
+        }
+
+        window.onload = function() {
+            showHome();  // Make sure the home page is displayed initially
+        };
+
+        function searchMenu() {
+          var input, filter, links, i, txtValue;
+          input = document.getElementById('sidebar-search');
+          filter = input.value.toUpperCase();
+          links = document.querySelectorAll('#menu a, #structures-menu a'); // Include all nested links
+
+          for (i = 0; i < links.length; i++) {
+              txtValue = links[i].textContent || links[i].innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  links[i].style.display = ""; // Show matching links
+                  links[i].parentElement.style.display = "block"; // Ensure parent div (like structures-menu) is visible if any link inside it is shown
+              } else {
+                  links[i].style.display = "none"; // Hide non-matching links
+              }
+          }
+        }
     </script>
 </body>
 </html>
