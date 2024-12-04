@@ -8,41 +8,36 @@
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>DMA Thesis: 3D Molecule Viewer</h1>
-    </header>
-
-    <!-- Main Container with Sidebar and Content -->
-    <div id="main-container">
-        <!-- Sidebar -->
-        <div id="sidebar">
-            <div id="menu">
-                <h3>DMA Thesis</h3>
-                <a href="#" onclick="showHome()">Home</a>
-                <a href="#" onclick="showSection('structures')">Structures</a>
-                <div id="structuresSubsections" class="subsections" style="display:none;">
-                    <a href="#" onclick="showSubsection('7.1')">Structures section 7.1</a>
-                    <a href="#" onclick="showSubsection('7.2')">Structures section 7.2</a>
-                    <a href="#" onclick="showSubsection('7.3')">Structures section 7.3</a>
-                    <div id="moleculeLinks" class="molecule-links" style="display:none;">
-                        <a href="#" onclick="loadMolecule('Ir(Bpin)')">Ir(Bpin)</a>
-                        <a href="#" onclick="loadMolecule('Ir(Bpin)3')">Ir(Bpin)3</a>
-                    </div>
+    <!-- Sidebar -->
+    <div id="sidebar">
+        <header>
+            <h3>DMA Thesis</h3>
+        </header>
+        <div id="menu">
+            <a href="#" onclick="showHome()">Home</a>
+            <a href="#" onclick="showSection('structures')">Structures</a>
+            <div id="structures-menu" class="subsections">
+                <a href="#" onclick="showSubsection('7.1')">Structures section 7.1</a>
+                <a href="#" onclick="showSubsection('7.2')">Structures section 7.2</a>
+                <a href="#" onclick="showSubsection('7.3')">Structures section 7.3</a>
+                <div id="moleculeLinks" class="subsections" style="display:none;">
+                    <a href="#" onclick="loadMolecule('Ir(Bpin)')">Ir(Bpin)</a>
+                    <a href="#" onclick="loadMolecule('Ir(Bpin)3')">Ir(Bpin)3</a>
                 </div>
             </div>
         </div>
-
-        <!-- Main content area -->
-        <div id="content">
-            <div id="homeMessage">
-                <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
-            </div>
-
-            <div id="jsmolContainer" class="jsmolContainer"></div>
-        </div>
     </div>
 
+    <!-- Main Content -->
+    <div id="content">
+        <div id="homeMessage">
+            <h1>DMA Thesis: 3D Molecule Viewer</h1>
+            <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
+        </div>
+        <div id="jsmolContainer" class="jsmolContainer"></div>
+    </div>
+
+    <!-- Footer -->
     <footer>
         <p>2024 DMA Thesis Viewer. All rights reserved.</p>
     </footer>
@@ -73,21 +68,19 @@
 
         function showHome() {
             document.getElementById('homeMessage').style.display = 'block';
-            document.getElementById('structuresSubsections').style.display = 'none';
+            document.getElementById('structures-menu').style.display = 'none';
             document.getElementById('moleculeLinks').style.display = 'none';
         }
 
         function showSection(sectionId) {
             if (sectionId === 'structures') {
                 document.getElementById('homeMessage').style.display = 'none';
-                document.getElementById('structuresSubsections').style.display = 'block';
+                document.getElementById('structures-menu').style.display = 'block';
             }
         }
 
         function showSubsection(sectionId) {
             document.getElementById('moleculeLinks').style.display = 'block';
-            // Optionally you could show different molecule sets for different sections
-            // for now just show both molecules
         }
     </script>
 </body>

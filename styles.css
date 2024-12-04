@@ -1,48 +1,36 @@
-/* Basic Reset */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Body */
+/* General Styling */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
+    margin: 0;
+    padding: 0;
     display: flex;
-    min-height: 100vh;
+    height: 100vh;
+    background-color: #ffffff;
 }
 
-/* Header */
-header {
-    background-color: #28528E;
-    color: white;
-    padding: 20px;
-    text-align: center;
-}
-
-/* Main Container */
-#main-container {
-    display: flex;
-    flex-grow: 1;
-    min-height: 100vh;
-}
-
-/* Sidebar */
+/* Sidebar Styling */
 #sidebar {
-    width: 250px;
-    background-color: #D6D6D6; /* Gray background */
-    padding-top: 30px;
+    width: 220px;
+    background-color: #D6D6D6;
+    color: #28528E;
+    height: 100vh;
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    position: fixed;
 }
 
-#sidebar h3 {
+#sidebar header {
+    background-color: #E0F0FF;
+    padding: 15px;
     text-align: center;
-    margin-bottom: 20px;
-    font-size: 20px;
-    background-color: #E0F0FF; /* Lighter blue */
-    padding: 10px 0;
+}
+
+#search-bar input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
 }
 
 #menu {
@@ -51,46 +39,51 @@ header {
 
 #menu a {
     display: block;
-    padding: 10px;
-    color: black;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 5px 0;
     text-decoration: none;
-    font-size: 16px;
-}
-
-#menu a:hover {
-    background-color: #A85426;
-    color: white;
-}
-
-.subsections {
-    margin-left: 20px;
-    display: none;
+    color: #28528E;
 }
 
 .subsections a {
-    padding: 5px 10px;
-    font-size: 14px;
+    font-weight: normal; /* Regular for subsections */
+    font-size: 0.9rem;
+    margin-left: 10px;
 }
 
-.subsections a:hover {
-    background-color: #A85426;
-    color: white;
-
-/* Molecule Container */
-.jsmolContainer {
-    width: 700px;
-    height: 400px;
-    margin-top: 20px;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    text-align: center;
+.menu-header {
+    font-size: 1.1rem;
 }
 
-/* Footer */
+#menu a:hover {
+    color: #A85426;
+}
+
+#structures-menu {
+    display: none;
+}
+
+/* Footer Styling */
 footer {
-    background-color: #E0F0FF;
-    padding: 10px;
+    font-size: 0.8rem;
     text-align: center;
-    font-size: 14px;
+    padding: 10px;
+    color: #28528E;
     margin-top: auto;
+}
+
+/* Content Styling */
+#content {
+    margin-left: 230px;
+    padding: 20px;
+}
+
+#homeMessage {
+    margin-top: 20px;
+}
+
+.jsmolContainer {
+    margin-top: 20px;
+    border: none;
 }
