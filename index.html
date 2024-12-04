@@ -205,15 +205,25 @@
             });
             document.getElementById(id).classList.add('active');
         }
-        
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('show');
-            sidebar.classList.toggle('collapsed');
-        }
+
 
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
     </script>
+    <script>
+    // Toggle the sidebar on mobile
+    const sidebarToggle = document.getElementById('sidebar-toggle');
+    const sidebar = document.getElementById('sidebar');
+
+    sidebarToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('show');
+    });
+
+    // Collapse the sidebar on desktop
+    const collapseBtn = document.getElementById('collapse-btn');
+    collapseBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('collapsed');
+    });
+</script>
 </body>
 </html>
