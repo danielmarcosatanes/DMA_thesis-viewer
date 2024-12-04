@@ -46,7 +46,21 @@ body {
     border-radius: 4px;
     font-size: 14px;
 }
+/* Centering the search box in the sidebar */
+#sidebar header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
+#sidebar-search {
+    width: 80%; /* Adjust width as needed */
+    padding: 5px;
+    margin-top: 10px;
+    border: 1px solid #28528E; /* Optional border to match the design */
+    border-radius: 5px;
+}
 /* Sidebar menu */
 #menu {
     flex-grow: 1; /* Allow this section to take up remaining space */
