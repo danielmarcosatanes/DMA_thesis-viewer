@@ -10,20 +10,17 @@
 <body>
     <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
-        <!-- Mobile Sidebar Toggle Button -->
-        <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
+        <!-- Sidebar Toggle Buttons -->
+        <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar">☰</button>
+        <button id="collapse-btn" class="collapse-btn" aria-label="Collapse Sidebar">☰</button>
 
         <!-- Sidebar -->
         <div id="sidebar">
-          <!-- Collapse Button for Desktop -->
-            <button class="collapse-btn">☰</button> <!-- Use an '☰' as the collapse icon -->
-            <!-- Sidebar header -->
             <header>
                 <h2>DMA Thesis</h2>
                 <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
             </header>
 
-            <!-- Menu -->
             <div id="menu">
                 <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
                 <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
@@ -46,55 +43,14 @@
                 </div>
             </div>
 
-            <!-- Sidebar Footer -->
-            <footer>
-                2024 DMA Thesis Viewer. All rights reserved.
-            </footer>
+            <footer>2024 DMA Thesis Viewer. All rights reserved.</footer>
         </div>
 
         <!-- Main Content Area -->
         <div id="content">
-            <!-- Home Page -->
             <div id="home-page" style="display: block;">
                 <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
-                <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
-            </div>
-
-            <!-- Sections -->
-            <div id="message" style="display: none;">Select a structure section</div>
-            <div id="section7.1" style="display:none;">
-                <h2>Structures section 7.1</h2>
-                <p>Relevant 3D structures for section 7.1 of the discussion.</p>
-            </div>
-            <div id="section7.2" style="display:none;">
-                <h2>Structures section 7.2</h2>
-                <p>Relevant 3D structures for section 7.2 of the discussion.</p>
-            </div>
-            <div id="section7.3" style="display:none;">
-                <h2>Structures section 7.3</h2>
-                <p>Relevant 3D structures for section 7.3 of the discussion.</p>
-            </div>
-
-            <!-- Subsections -->
-            <div id="subsection44aBipyIrBpin" style="display:none;">
-                <h3>44a-Bipy-Ir(Bpin)</h3>
-                <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
-            </div>
-            <div id="subsection44aBipyIrBpin5" style="display:none;">
-                <h3>44a-Bipy-Ir(Bpin)5</h3>
-                <div id="jsmolContainer44aBipyIrBpin5" class="jsmolContainer"></div>
-            </div>
-            <div id="subsection44aBipyIrHBPin2" style="display:none;">
-                <h3>44a-Bipy-Ir-H-Bpin2</h3>
-                <div id="jsmolContainer44aBipyIrHBPin2" class="jsmolContainer"></div>
-            </div>
-            <div id="subsection44a" style="display:none;">
-                <h3>44a</h3>
-                <div id="jsmolContainer44a" class="jsmolContainer"></div>
-            </div>
-            <div id="subsection45a" style="display:none;">
-                <h3>45a</h3>
-                <div id="jsmolContainer45a" class="jsmolContainer"></div>
+                <p>Welcome to the DMA Thesis 3D Molecule Visualizer. Use the menu to navigate through various sections.</p>
             </div>
         </div>
     </div>
@@ -113,7 +69,7 @@
         function loadJSmol(containerId, moleculeFile) {
             const jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, load 'molecules/${moleculeFile}';);
+            Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
         }
 
         function showHome() {
@@ -126,62 +82,20 @@
 
         function showSection(sectionId) {
             displayOnly(sectionId);
-            toggleVisibility(subsections${sectionId.split('section')[1]}, true);
+            toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
-        function showSubsection(subsectionId) {
-            // Hide all subsections
-            var subsections = document.querySelectorAll('#content > div');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
+        function searchMenu() {
+            const query = document.getElementById('sidebar-search').value.toLowerCase();
+            const menuItems = document.querySelectorAll('#menu a, .subsections a');
+            menuItems.forEach(item => {
+                if (item.textContent.toLowerCase().includes(query)) {
+                    item.style.display = 'block';
+                    item.closest('.sidebar-section').style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
             });
-
-            // Show the selected subsection
-            document.getElementById(subsectionId).style.display = 'block';
-
-            // Define the mapping between subsectionId and the sidebar section to show
-            const sectionMapping = {
-                'subsection44aBipyIrBpin': 'section7.1',
-                'subsection44aBipyIrBpin5': 'section7.1',
-                'subsection44aBipyIrHBPin2': 'section7.2',
-                'subsection44a': 'section7.3',
-                'subsection45a': 'section7.3'
-            };
-
-            // Collapse all sidebar sections
-            var sidebarSections = document.querySelectorAll('.sidebar-section');
-            sidebarSections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-
-            // Show the active sidebar section based on the subsectionId
-            const activeSectionId = sectionMapping[subsectionId];
-            if (activeSectionId) {
-                document.getElementById(activeSectionId).style.display = 'block';
-            }
-
-            // Molecule mapping with container IDs and log file names
-            const molecules = {
-                subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
-                subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
-                subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: '44a-Bipy-Ir-H-Bpin2.log' },
-                subsection44a: { container: 'jsmolContainer44a', file: '44a.log' },
-                subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
-            };
-
-            // Ensure the container exists before loading
-            const molecule = molecules[subsectionId];
-            if (molecule) {
-                loadJSmol(molecule.container, molecule.file);
-            }
-        }
-
-        function displayOnly(sectionId) {
-            const sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-            document.getElementById(sectionId).style.display = 'block';
         }
 
         function toggleVisibility(id, show = false) {
@@ -189,36 +103,19 @@
             element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
         }
 
-        function searchMenu() {
-            const query = document.getElementById('sidebar-search').value.toLowerCase();
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-                const text = link.textContent.trim().toLowerCase();
-                link.style.display = text.includes(query) ? '' : 'none';
+        function displayOnly(sectionId) {
+            document.querySelectorAll('#content > div').forEach(section => {
+                section.style.display = section.id === sectionId ? 'block' : 'none';
             });
         }
 
-        function setActiveLink(id) {
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-                link.classList.remove('active');
-            });
-            document.getElementById(id).classList.add('active');
-        }
+        document.querySelector('#sidebar-toggle').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('show');
+        });
 
-        window.addEventListener('resize', resizeJmolForMobile);
-        window.addEventListener('load', resizeJmolForMobile);
-    </script>
-    <script>
-      // Mobile Sidebar Toggle
-      document.querySelector('.mobile-toggle').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('show');
-      });
-
-      // Desktop Sidebar Collapse
-      document.querySelector('.collapse-btn').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('collapsed');
-      });
+        document.querySelector('#collapse-btn').addEventListener('click', () => {
+            document.getElementById('sidebar').classList.toggle('collapsed');
+        });
     </script>
 </body>
 </html>
