@@ -191,9 +191,24 @@
         function searchMenu() {
             const query = document.getElementById('sidebar-search').value.toLowerCase();
             const links = document.querySelectorAll('#menu a');
+            let isAnyMatchFound = false;
+
             links.forEach(function(link) {
                 const text = link.textContent.trim().toLowerCase();
-                link.style.display = text.includes(query) ? '' : 'none';
+                if (text.includes(query)) {
+                    // Show the link and its parent section if it matches
+                    link.style.display = '';
+                    isAnyMatchFound = true;
+
+                    // Expand the parent sections if the link matches (even if the section is collapsed)
+                    let parentSection = link.closest('.sidebar-section');
+                    if (parentSection && parentSection.style.display === 'none') {
+                        parentSection.style.display = 'block';
+                    }
+                } else {
+                    // Hide the link if it doesn't match the query
+                    link.style.display = 'none';
+                }
             });
         }
 
@@ -208,37 +223,7 @@
 
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
-
-        // Function to filter sidebar items based on search input
-        function searchFunction() {
-            const input = document.getElementById('search-bar').value.toLowerCase();  // Get the search query and convert to lowercase
-            const sidebarItems = document.querySelectorAll('#sidebar .menu-link');  // Select only menu links (exclude header/footer)
-
-            let found = false;  // Flag to track if we find a match
-
-            // Loop through all sidebar elements and hide those that don't match the input
-            sidebarItems.forEach(item => {
-                // Check if the element's text content matches the search query
-                if (item.textContent.toLowerCase().indexOf(input) > -1) {
-                    item.style.display = '';  // Show item if it matches the search
-                    found = true;
-                    // Ensure that the parent section is expanded if it's not already
-                    const parentSection = item.closest('section'); // Assuming each section has a <section> tag
-                    if (parentSection && parentSection.classList.contains('collapsed')) {
-                        parentSection.classList.remove('collapsed');  // Remove the collapsed class to show the section
-                    }
-                } else {
-                    item.style.display = 'none';  // Hide item if it doesn't match the search
-                }
-            });
-
-            // If no search result is found, reset the search input or display a no results message
-            if (!found) {
-                console.log("No results found");
-                // Optionally, show a message if no results are found
-            }
-        }
-    }    
+    }
     </script>
 
 <script>
