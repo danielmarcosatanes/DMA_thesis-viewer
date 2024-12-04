@@ -5,6 +5,7 @@ body {
     display: flex;
     height: 100vh;
     color: #333;
+    background-color: #fff;
 }
 
 /* Header */
@@ -21,6 +22,10 @@ header {
     background-color: #f4f4f4;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    overflow-y: auto;
 }
 
 #menu h3 {
@@ -45,9 +50,10 @@ header {
     font-size: 16px;
 }
 
-/* Content Area */
+/* Main Content Area */
 #content {
     flex: 1;
+    margin-left: 270px; /* Offset for sidebar */
     padding: 30px;
     background-color: #fff;
     overflow-y: auto;
@@ -78,7 +84,48 @@ footer {
     padding: 10px;
     background-color: #0c233f;
     color: white;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
+    margin-left: 270px; /* Align with main content */
+}
+
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+
+    header {
+        background-color: #1c1c1c;
+    }
+
+    #menu {
+        background-color: #1e1e1e;
+    }
+
+    #menu a {
+        color: #8ab4f8;
+    }
+
+    #menu a:hover {
+        color: #4a90e2;
+    }
+
+    #content {
+        background-color: #1c1c1c;
+    }
+
+    #message {
+        color: #bbbbbb;
+    }
+
+    .jsmolContainer {
+        border-color: #444;
+    }
+
+    footer {
+        background-color: #1c1c1c;
+    }
 }
