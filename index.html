@@ -84,6 +84,53 @@
             displayOnly(sectionId);
             toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
+        
+        function showSubsection(subsectionId) {
+    // Hide all subsections
+    var subsections = document.querySelectorAll('#content > div');
+    subsections.forEach(function(subsection) {
+        subsection.style.display = 'none';
+    });
+
+    // Show the selected subsection
+    document.getElementById(subsectionId).style.display = 'block';
+
+    // Define the mapping between subsectionId and the sidebar section to show
+    const sectionMapping = {
+        'subsection44aBipyIrBpin': 'section7.1',
+        'subsection44aBipyIrBpin5': 'section7.1',
+        'subsection44aBipyIrHBPin2': 'section7.2',
+        'subsection44a': 'section7.3',
+        'subsection45a': 'section7.3'
+    };
+
+    // Collapse all sidebar sections
+    var sidebarSections = document.querySelectorAll('.sidebar-section');
+    sidebarSections.forEach(function(section) {
+        section.style.display = 'none';
+    });
+
+    // Show the active sidebar section based on the subsectionId
+    const activeSectionId = sectionMapping[subsectionId];
+    if (activeSectionId) {
+        document.getElementById(activeSectionId).style.display = 'block';
+    }
+
+    // Molecule mapping with container IDs and log file names
+    const molecules = {
+        subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
+        subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
+        subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: '44a-Bipy-Ir-H-Bpin2.log' },
+        subsection44a: { container: 'jsmolContainer44a', file: '44a.log' },
+        subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
+    };
+
+    // Ensure the container exists before loading
+    const molecule = molecules[subsectionId];
+    if (molecule) {
+        loadJSmol(molecule.container, molecule.file);
+    }
+}
 
         function searchMenu() {
             const query = document.getElementById('sidebar-search').value.toLowerCase();
