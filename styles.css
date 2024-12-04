@@ -163,8 +163,9 @@ body {
 
     /* Jmol container is appropriately sized for desktops */
     .jsmolContainer {
-        width: 600px;
-        height: 500px;
+        width: 700px;
+        height: 600px;
+        margin: 0 auto;
     }
 
     /* Footer and sidebar header remain visible and styled for desktops */
@@ -214,8 +215,9 @@ body {
 
     /* Jmol container adjusts to smaller screens */
     .jsmolContainer {
-        width: 200px;
-        height: 300px; /* Reduced height for mobile */
+      width: 100%; /* Full width */
+      height: 250px; /* Adjust height for mobile */
+      margin: 0; /* Remove any unnecessary margin */
     }
 
     /* Sidebar footer font size */
