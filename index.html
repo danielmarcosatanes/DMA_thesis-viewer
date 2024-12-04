@@ -3,30 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>3D Molecule Viewer</title>
+    <title>DMA Thesis: 3D Molecule Viewer</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Header for the Home page -->
-    <div id="home-header">
-        <h1 style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
-        <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
-    </div>
-
     <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
         <!-- Sidebar -->
         <div id="sidebar">
             <header>
-                <h2>Thesis Menu</h2>
+                <h2>DMA Thesis</h2>
             </header>
 
             <div id="menu">
                 <a href="#" id="home-link" onclick="showHome()">Home</a>
                 <a href="#" id="structures-link" onclick="toggleStructuresMenu()">Structures</a>
 
-                <div id="structures-menu">
+                <div id="structures-menu" style="display:none;">
                     <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
                     <div id="subsections7.1" class="subsections">
                         <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
@@ -48,7 +42,13 @@
 
         <!-- Main Content Area -->
         <div id="content">
-            <div id="message">Select a structure section</div>
+            <!-- Home Page -->
+            <div id="home-header">
+                <h1 style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
+                <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
+            </div>
+
+            <div id="message" style="display:none;">Select a structure section</div>
 
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
@@ -153,7 +153,7 @@
         }
 
         window.onload = function() {
-            document.getElementById('home-header').style.display = 'none';
+            document.getElementById('home-header').style.display = 'block';
             document.getElementById('message').style.display = 'block';
             hideSections();
         };
