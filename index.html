@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>DMA Thesis: 3D Molecule Viewer</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
@@ -254,7 +254,28 @@
     // Call the adjustJmolSize function on load and on window resize
     window.addEventListener('load', adjustJmolSize);
     window.addEventListener('resize', adjustJmolSize);
-        
+
+  function resizeJmolForMobile() {
+      var jmolContainers = document.querySelectorAll('.jsmolContainer');
+      var width = window.innerWidth;
+
+    // Adjust the width and height for smaller screens
+    jmolContainers.forEach(function(container) {
+        // Set the width to 90% of the viewport width (you can adjust this value as needed)
+        container.style.width = (width * 0.9) + 'px';
+        container.style.height = (width * 0.7) + 'px'; // Adjust height based on width
+      });
+    }
+
+    // Call resizeJmolForMobile on page load
+    window.onload = function() {
+    resizeJmolForMobile();
+  };
+
+// Call resizeJmolForMobile whenever the window is resized
+window.onresize = function() {
+    resizeJmolForMobile();
+};
     </script>
 </body>
 </html>
