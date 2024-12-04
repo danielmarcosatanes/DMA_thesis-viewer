@@ -1,19 +1,54 @@
+/* Global Styles */
 body {
     font-family: Arial, sans-serif;
     display: flex;
+    flex-direction: column;
     height: 100vh;
     margin: 0;
     background-color: #f4f4f4;
+    color: #333;
+    scroll-behavior: smooth;
 }
 
-/* Side menu styles */
+/* Header */
+#header {
+    background-color: #2d3e50;
+    color: white;
+    padding: 15px 20px;
+    text-align: center;
+}
+
+#header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+/* Footer */
+#footer {
+    background-color: #2d3e50;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+#footer p {
+    margin: 0;
+}
+
+/* Sidebar Menu */
 #menu {
     width: 220px;
-    background-color: #2d3e50; /* Darker background color similar to Macmillan */
+    background-color: #2d3e50; /* Dark sidebar */
     color: white;
     padding: 20px;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
     height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 #menu h3 {
@@ -32,12 +67,20 @@ body {
     color: #4fc1e8;
 }
 
-/* Main content area */
+#subsections a {
+    color: #b0c4de;
+}
+
+#subsections a:hover {
+    color: #4fc1e8;
+}
+
+/* Main Content */
 #content {
     flex: 1;
     padding: 20px;
-    overflow-y: auto;
-    background-color: #ffffff;
+    margin-left: 240px; /* Adjust for fixed sidebar */
+    background-color: white;
 }
 
 .jsmolContainer {
@@ -53,10 +96,34 @@ body {
     color: #333;
 }
 
-#subsections a {
-    color: #b0c4de;
-}
-
-#subsections a:hover {
-    color: #4fc1e8;
+/* Dark Mode Styles */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #eaeaea;
+    }
+    
+    #header {
+        background-color: #1c2535;
+    }
+    
+    #menu {
+        background-color: #1c2535;
+    }
+    
+    #menu a {
+        color: #eaeaea;
+    }
+    
+    #menu a:hover {
+        color: #4fc1e8;
+    }
+    
+    #footer {
+        background-color: #1c2535;
+    }
+    
+    #footer p {
+        color: #eaeaea;
+    }
 }
