@@ -108,9 +108,29 @@
         };
 
         function loadJSmol(containerId, moleculeFile) {
-            var jsmolApplet = Jmol.getApplet(containerId, Info);
-            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+            var container = document.getElementById(containerId);
+
+            if (container) {
+                var jsmolApplet = Jmol.getApplet(containerId, Info);
+                container.innerHTML = Jmol.getAppletHtml(jsmolApplet);
+                Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+            } else {
+                console.error("Container with ID " + containerId + " not found.");
+            }
+        }
+
+        function showSubsection(subsectionId) {
+            var subsections = document.querySelectorAll('[id^="subsection"]');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
+            });
+
+            document.getElementById(subsectionId).style.display = 'block';
+
+            var containerId = 'jsmolContainer' + subsectionId.split('subsection')[1];
+            var moleculeFile = subsectionId.split('subsection')[1] + '.log';
+
+            loadJSmol(containerId, moleculeFile);
         }
 
         function showHome() {
