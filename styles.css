@@ -14,62 +14,38 @@ body {
     position: fixed;
     display: flex;
     flex-direction: column;
-    padding: 0; /* Remove internal padding for sidebar */
-    box-sizing: border-box; /* Ensure padding doesn't affect overall height */
+    padding: 0;
+    box-sizing: border-box;
 }
 
 /* Sidebar header */
 #sidebar header {
-    background-color: #DDE5F0; /* New background color */
-    width: 100%; /* Ensures the background extends to full sidebar width */
-    height: auto; /* Allow height to adjust based on content */
-    position: absolute; /* Fixes the header at the top of the sidebar */
+    background-color: #DDE5F0;
+    width: 100%;
+    height: auto;
+    position: absolute;
     top: 0;
     left: 0;
-    padding: 10px 20px; /* Internal padding for the header content */
+    padding: 10px 20px;
     box-sizing: border-box;
-}
-
-/* Sidebar header title */
-#sidebar header h2 {
-    color: #28528E;
-    margin-top: 0; /* Remove any default margin that might push the content down */
-    font-size: 20px;
-}
-
-/* Sidebar search bar */
-#sidebar header input[type="text"] {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-    border: 1px solid #28528E;
-    border-radius: 4px;
-    font-size: 14px;
-}
-/* Centering the search box in the sidebar */
-#sidebar header {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 }
 
-#sidebar-search {
-    width: 80%; /* Adjust width as needed */
+#sidebar header h2 {
+    color: #28528E;
+    margin-top: 0;
+    font-size: 20px;
+}
+
+#sidebar header input[type="text"] {
+    width: 80%;
     padding: 5px;
     margin-top: 10px;
-    border: 1px solid #28528E; /* Optional border to match the design */
+    border: 1px solid #28528E;
     border-radius: 5px;
-}
-/* Ensure Home and Structures are always bold */
-#menu #home-link,
-#menu #structures-link {
-    font-weight: bold;
-}
-/* Sidebar menu */
-#menu {
-    flex-grow: 1; /* Allow this section to take up remaining space */
-    margin-top: 100px; /* Push the menu below the header */
 }
 
 /* Sidebar menu links */
@@ -80,25 +56,22 @@ body {
     padding: 8px;
     margin: 5px 0;
 }
+
 /* Hover effect for sidebar links */
 #menu a:hover {
     color: #A85426;
 }
+
 /* Active link styling */
 #menu a.active {
     font-weight: bold;
     color: #A85426;
 }
 
-/* Structures menu */
+/* Sidebar menu (Structures) */
 #structures-menu {
     padding-left: 20px;
     display: none;
-}
-
-#structures-menu a {
-    color: #28528E;
-    padding-left: 10px;
 }
 
 /* Subsections */
@@ -107,17 +80,12 @@ body {
     display: none;
 }
 
-.subsections a {
-    color: #4E7890;
-}
-
 /* Sidebar Footer */
 #sidebar footer {
     color: #28528E;
     text-align: center;
     font-size: 12px;
-    margin-top: 20px; /* Add space between footer and last link */
-    margin-bottom: 0; /* Ensure footer is at the very bottom */
+    margin-top: 20px;
 }
 
 /* Main content layout */
@@ -134,16 +102,6 @@ body {
 /* Smooth transition effect */
 #content > div {
     transition: all 0.3s ease-in-out;
-}
-
-/* Home section styling */
-#home-page h1 {
-    font-size: 36px;
-}
-
-#home-page p {
-    font-size: 18px;
-    color: #4E7890;
 }
 
 /* Jmol container styling */
