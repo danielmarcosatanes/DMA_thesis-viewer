@@ -3,71 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMA Thesis: 3D Molecule Viewer</title>
+    <title>DMA Thesis: 3D Molecule Visualizer</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Sidebar -->
-    <div id="sidebar">
-        <div id="sidebar-header">
-            <h2>DMA Thesis</h2>
-            <input type="text" id="search-bar" placeholder="Search...">
-        </div>
-        <div id="menu">
-            <a href="#" onclick="showHome()" class="menu-item active">Home</a>
-            <a href="#" onclick="toggleStructures()" class="menu-item">Structures</a>
-            <div id="structures-sections" class="hidden">
-                <a href="#" onclick="showSection('section7.1')" class="submenu-item">Structures section 7.1</a>
-                <a href="#" onclick="showSection('section7.2')" class="submenu-item">Structures section 7.2</a>
-                <a href="#" onclick="showSection('section7.3')" class="submenu-item">Structures section 7.3</a>
-            </div>
-        </div>
-        <footer>
-            <p>2024 DMA Thesis Viewer. All rights reserved.</p>
-        </footer>
-    </div>
+    <!-- Header -->
+    <header id="header">
+        <h1>DMA Thesis: 3D Molecule Viewer</h1>
+    </header>
 
-    <!-- Main content area -->
-    <div id="content">
-        <div id="home">
-            <h1>DMA Thesis: 3D Molecule Viewer</h1>
-            <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
-        </div>
-
-        <div id="section7.1" class="section hidden">
-            <h2>Structures section 7.1</h2>
-            <div id="subsectionIrBpin" class="subsection hidden">
-                <h3>Ir(Bpin)</h3>
-                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
-            </div>
-            <div id="subsectionIrBpin3" class="subsection hidden">
-                <h3>Ir(Bpin)3</h3>
-                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
+    <!-- Main Container with Sidebar and Content -->
+    <div id="main-container">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <div id="menu">
+                <h3 id="sidebar-header">DMA Thesis</h3>
+                <a href="#" onclick="showHomePage()">Home</a>
+                <a href="#" onclick="showSection('structures')">Structures</a>
+                <div id="subsections" class="subsections">
+                    <a href="#" onclick="showSubsection('section7.1')">Structures section 7.1</a>
+                    <a href="#" onclick="showSubsection('section7.2')">Structures section 7.2</a>
+                    <a href="#" onclick="showSubsection('section7.3')">Structures section 7.3</a>
+                </div>
+                <div id="molecules" class="subsections" style="display:none;">
+                    <a href="#" onclick="loadMolecule('44a-Bipy-Ir(Bpin)', 'Ir(Bpin)')">Ir(Bpin)</a>
+                    <a href="#" onclick="loadMolecule('44a-Bipy-Ir(Bpin)3', 'Ir(Bpin)3')">Ir(Bpin)3</a>
+                </div>
             </div>
         </div>
 
-        <div id="section7.2" class="section hidden">
-            <h2>Structures section 7.2</h2>
-            <div id="subsectionIrBpin" class="subsection hidden">
-                <h3>Ir(Bpin)</h3>
-                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
+        <!-- Main content area -->
+        <div id="content">
+            <!-- Home Page -->
+            <div id="homePage">
+                <h2>Welcome to the DMA Thesis 3D Molecule Visualizer</h2>
+                <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
             </div>
-            <div id="subsectionIrBpin3" class="subsection hidden">
-                <h3>Ir(Bpin)3</h3>
-                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
-            </div>
-        </div>
 
-        <div id="section7.3" class="section hidden">
-            <h2>Structures section 7.3</h2>
-            <div id="subsectionIrBpin" class="subsection hidden">
-                <h3>Ir(Bpin)</h3>
-                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
+            <!-- Structures and Subsections -->
+            <div id="structuresPage" style="display:none;">
+                <h2>Structures</h2>
+                <p>Select a structure section to view its molecules.</p>
             </div>
-            <div id="subsectionIrBpin3" class="subsection hidden">
-                <h3>Ir(Bpin)3</h3>
-                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
+
+            <!-- Molecule Display -->
+            <div id="moleculeDisplay" style="display:none;">
+                <div id="jsmolContainer" class="jsmolContainer"></div>
             </div>
         </div>
     </div>
@@ -83,43 +65,49 @@
             disableInitialConsole: true
         };
 
+        // Function to load Jmol molecule
         function loadJSmol(containerId, moleculeFile) {
             var jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + ".xyz';");
         }
 
-        function showHome() {
-            hideAllSections();
-            document.getElementById('home').classList.remove('hidden');
-            setActiveMenuItem('Home');
+        // Show the Home page content
+        function showHomePage() {
+            document.getElementById('homePage').style.display = 'block';
+            document.getElementById('structuresPage').style.display = 'none';
+            document.getElementById('moleculeDisplay').style.display = 'none';
+            document.getElementById('molecules').style.display = 'none';
+            document.getElementById('subsections').style.display = 'none';
         }
 
-        function toggleStructures() {
-            const sections = document.getElementById('structures-sections');
-            sections.classList.toggle('hidden');
-        }
-
+        // Show the Structures page and its subsections
         function showSection(sectionId) {
-            hideAllSections();
-            document.getElementById(sectionId).classList.remove('hidden');
-            document.getElementById('subsectionIrBpin').classList.remove('hidden');
-            loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
+            if (sectionId === 'structures') {
+                document.getElementById('homePage').style.display = 'none';
+                document.getElementById('structuresPage').style.display = 'block';
+                document.getElementById('subsections').style.display = 'block';
+                document.getElementById('molecules').style.display = 'none';
+            }
         }
 
-        function setActiveMenuItem(name) {
-            const items = document.querySelectorAll('#menu .menu-item');
-            items.forEach(item => item.classList.remove('active'));
-            const activeItem = [...items].find(item => item.textContent.trim() === name);
-            if (activeItem) activeItem.classList.add('active');
+        // Show the subsections for each section
+        function showSubsection(subsectionId) {
+            document.getElementById('subsections').style.display = 'none';
+            document.getElementById('molecules').style.display = 'block';
         }
 
-        function hideAllSections() {
-            const sections = document.querySelectorAll('.section, .subsection');
-            sections.forEach(section => section.classList.add('hidden'));
+        // Load the corresponding molecule when clicked
+        function loadMolecule(moleculeFile, moleculeName) {
+            document.getElementById('moleculeDisplay').style.display = 'block';
+            document.getElementById('jsmolContainer').innerHTML = ''; // Clear previous molecule
+            loadJSmol("jsmolContainer", moleculeFile);
         }
 
-        window.onload = showHome;
+        // Initialize with the Home page displayed
+        window.onload = function() {
+            showHomePage();
+        };
     </script>
 </body>
 </html>
