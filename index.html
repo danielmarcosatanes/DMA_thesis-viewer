@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Molecule Viewer</title>
-    <link rel="stylesheet" href="style.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Side menu -->
@@ -23,33 +23,37 @@
         <header>
             <h1>Structures for DMA Thesis</h1>
         </header>
-        <div id="message">Select a section to view its structure.</div>
+
+        <div id="message">Welcome! Click on the sections in the sidebar to view molecules.</div>
+
         <div id="section3" style="display:none;">
             <h2>Structures section 7.3</h2>
         </div>
+
         <div id="subsectionIrBpin" style="display:none;">
             <h3>Subsection: Ir(Bpin)</h3>
             <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
         </div>
+
         <div id="subsectionIrBpin3" style="display:none;">
             <h3>Subsection: Ir(Bpin)3</h3>
             <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
         </div>
-    </div>
 
-    <footer>
-        <p>© 2024 DMA Thesis Viewer | Built with JSmol</p>
-    </footer>
+        <footer>
+            <p>&copy; 2024 DMA Thesis</p>
+        </footer>
+    </div>
 
     <script type="text/javascript">
         var Info = {
             width: 600,
             height: 400,
-            j2sPath: "j2s",
-            color: "white",
-            use: "HTML5",
-            disableJ2SLoadMonitor: true,
-            disableInitialConsole: true
+            j2sPath: "j2s", // Path to JSmol's j2s folder
+            color: "white",  // Background color
+            use: "HTML5",    // Use HTML5 for rendering
+            disableJ2SLoadMonitor: true,  // Disable loading monitor
+            disableInitialConsole: true  // Disable initial console
         };
 
         function loadJSmol(containerId, moleculeFile) {
@@ -64,9 +68,14 @@
                 section.style.display = 'none';
             });
 
-            document.getElementById(sectionId).style.display = 'block';
+            // Show the selected section
+            var selectedSection = document.getElementById(sectionId);
+            selectedSection.style.display = 'block';
+
+            // Hide the default message
             document.getElementById('message').style.display = 'none';
 
+            // Load JSmol based on section
             if (sectionId === 'subsectionIrBpin') {
                 loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
             } else if (sectionId === 'subsectionIrBpin3') {
@@ -74,6 +83,7 @@
             }
         }
 
+        // Default page load
         window.onload = function() {
             document.getElementById('message').style.display = 'block';
             var sections = document.querySelectorAll('#content > div');
