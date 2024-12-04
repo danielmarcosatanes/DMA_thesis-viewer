@@ -14,19 +14,19 @@ body {
     position: fixed;
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    padding: 0; /* Remove internal padding for sidebar */
     box-sizing: border-box; /* Ensure padding doesn't affect overall height */
 }
 
 /* Sidebar header */
 #sidebar header {
     background-color: #DDE5F0; /* New background color */
-    padding: 10px;
-    width: 100%; /* Ensures the background is confined to the sidebar width */
-    position: relative; /* Keeps it within the bounds of the sidebar */
+    width: 100%; /* Ensures the background extends to full sidebar width */
+    height: 60px; /* Set a fixed height for the header */
+    position: absolute; /* Fixes the header at the top of the sidebar */
     top: 0;
     left: 0;
-    z-index: 1;
+    padding: 10px 20px; /* Internal padding for the header content */
     box-sizing: border-box;
 }
 
@@ -39,6 +39,7 @@ body {
 /* Sidebar menu */
 #menu {
     flex-grow: 1; /* Allow this section to take up remaining space */
+    margin-top: 60px; /* Push the menu below the header */
 }
 
 /* Sidebar menu links */
