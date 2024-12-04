@@ -43,12 +43,12 @@
         <!-- Main Content Area -->
         <div id="content">
             <!-- Home Page -->
-            <div id="home-page">
+            <div id="home-page" style="display: block;">
                 <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
                 <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
             </div>
 
-            <div id="message">Select a structure section</div>
+            <div id="message" style="display: none;">Select a structure section</div>
 
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
@@ -90,13 +90,14 @@
         }
 
         function showHome() {
+            // Display home page content
             document.getElementById('home-page').style.display = 'block';
-            document.getElementById('message').style.display = 'block';
+            document.getElementById('message').style.display = 'none';
+
+            // Hide other sections
             hideSections();
-            document.getElementById('subsections7.1').style.display = 'none';
-            document.getElementById('subsections7.2').style.display = 'none';
-            document.getElementById('subsections7.3').style.display = 'none';
-            clearMolecule();
+
+            // Ensure the sidebar link is highlighted
             setActiveLink('home-link');
         }
 
@@ -123,6 +124,7 @@
             document.getElementById(sectionId).style.display = 'block';
             document.getElementById('message').style.display = 'none';
 
+            // Show relevant subsections based on the section
             document.getElementById('subsections' + sectionId.split('section')[1]).style.display = 'block';
             setActiveLink(sectionId);
         }
