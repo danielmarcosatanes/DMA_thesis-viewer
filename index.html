@@ -8,11 +8,8 @@
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
-        <!-- Sidebar -->
         <div id="sidebar">
-            <!-- Sidebar header -->
             <header>
                 <h2>DMA Thesis</h2>
                 <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
@@ -41,15 +38,12 @@
                 </div>
             </div>
 
-            <!-- Sidebar Footer -->
             <footer>
                 2024 DMA Thesis Viewer. All rights reserved.
             </footer>
         </div>
 
-        <!-- Main Content Area -->
         <div id="content">
-            <!-- Home Page -->
             <div id="home-page" style="display: block;">
                 <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
                 <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
@@ -120,7 +114,6 @@
         }
 
         function showHome() {
-            // Display home page content and hide other sections
             document.getElementById('home-page').style.display = 'block';
             document.getElementById('message').style.display = 'none';
             document.getElementById('section7.1').style.display = 'none';
@@ -132,18 +125,12 @@
             document.getElementById('subsection44aBipyIrBpin5').style.display = 'none';
             document.getElementById('subsection44a').style.display = 'none';
             document.getElementById('subsection45a').style.display = 'none';
-
-            // Ensure the sidebar link is highlighted
             setActiveLink('home-link');
         }
 
         function toggleStructuresMenu() {
             var menu = document.getElementById('structures-menu');
-            if (menu.style.display === 'none' || menu.style.display === '') {
-                menu.style.display = 'block';
-            } else {
-                menu.style.display = 'none';
-            }
+            menu.style.display = (menu.style.display === 'none' || menu.style.display === '') ? 'block' : 'none';
         }
 
         function showSection(sectionId) {
@@ -152,17 +139,14 @@
                 section.style.display = 'none';
             });
 
-            var subsections = document.querySelectorAll('.subsections');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
-            });
-
             document.getElementById(sectionId).style.display = 'block';
-            document.getElementById('message').style.display = 'none';
-
-            // Show relevant subsections based on the section
-            document.getElementById('subsections' + sectionId.split('section')[1]).style.display = 'block';
-            setActiveLink(sectionId);
+            if (sectionId === 'section7.1') {
+                document.getElementById('subsections7.1').style.display = 'block';
+            } else if (sectionId === 'section7.2') {
+                document.getElementById('subsections7.2').style.display = 'block';
+            } else if (sectionId === 'section7.3') {
+                document.getElementById('subsections7.3').style.display = 'block';
+            }
         }
 
         function showSubsection(subsectionId) {
