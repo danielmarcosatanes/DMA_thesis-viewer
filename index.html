@@ -10,15 +10,18 @@
 <body>
     <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
-      <!-- Mobile Sidebar Toggle Button (outside the sidebar) -->
-       <button class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+        <!-- Mobile Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+
         <!-- Sidebar -->
         <div id="sidebar">
             <!-- Sidebar header -->
             <header>
                 <h2>DMA Thesis</h2>
                 <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
-          </header>
+            </header>
+
+            <!-- Menu -->
             <div id="menu">
                 <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
                 <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
@@ -55,8 +58,8 @@
                 <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
             </div>
 
+            <!-- Sections -->
             <div id="message" style="display: none;">Select a structure section</div>
-
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
                 <p>Relevant 3D structures for section 7.1 of the discussion.</p>
@@ -70,29 +73,23 @@
                 <p>Relevant 3D structures for section 7.3 of the discussion.</p>
             </div>
 
-            <!-- Subsections for the structures in 7.1 -->
+            <!-- Subsections -->
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
             </div>
-
             <div id="subsection44aBipyIrBpin5" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)5</h3>
                 <div id="jsmolContainer44aBipyIrBpin5" class="jsmolContainer"></div>
             </div>
-
-            <!-- Subsections for the structures in 7.2 -->
             <div id="subsection44aBipyIrHBPin2" style="display:none;">
                 <h3>44a-Bipy-Ir-H-Bpin2</h3>
                 <div id="jsmolContainer44aBipyIrHBPin2" class="jsmolContainer"></div>
             </div>
-
-            <!-- Subsections for the structures in 7.3 -->
             <div id="subsection44a" style="display:none;">
                 <h3>44a</h3>
                 <div id="jsmolContainer44a" class="jsmolContainer"></div>
             </div>
-
             <div id="subsection45a" style="display:none;">
                 <h3>45a</h3>
                 <div id="jsmolContainer45a" class="jsmolContainer"></div>
@@ -100,10 +97,10 @@
         </div>
     </div>
 
-    <script type="text/javascript">
-        var Info = {
+    <script>
+        const Info = {
             width: 700,
-            height: 400,  // Adjust height for better fitting
+            height: 400,
             j2sPath: "j2s",
             color: "white",
             use: "HTML5",
@@ -112,180 +109,72 @@
         };
 
         function loadJSmol(containerId, moleculeFile) {
-            var jsmolApplet = Jmol.getApplet(containerId, Info);
+            const jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+            Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
         }
 
         function showHome() {
-            // Display home page content and hide other sections
-            document.getElementById('home-page').style.display = 'block';
-            document.getElementById('message').style.display = 'none';
-            document.getElementById('section7.1').style.display = 'none';
-            document.getElementById('section7.2').style.display = 'none';
-            document.getElementById('section7.3').style.display = 'none';
-            document.getElementById('subsection44aBipyIrBpin').style.display = 'none';
-            document.getElementById('subsection44aBipyIrBpin5').style.display = 'none';
-            document.getElementById('subsection44aBipyIrHBPin2').style.display = 'none';
-            document.getElementById('subsection44a').style.display = 'none';
-            document.getElementById('subsection45a').style.display = 'none';
-
-            // Ensure the sidebar link is highlighted
-            setActiveLink('home-link');
+            displayOnly('home-page');
         }
 
         function toggleStructuresMenu() {
-            var menu = document.getElementById('structures-menu');
-            if (menu.style.display === 'none' || menu.style.display === '') {
-                menu.style.display = 'block';
-            } else {
-                menu.style.display = 'none';
-            }
+            toggleVisibility('structures-menu');
         }
 
         function showSection(sectionId) {
-            var sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-
-            var subsections = document.querySelectorAll('.subsections');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
-            });
-
-            document.getElementById(sectionId).style.display = 'block';
-            document.getElementById('message').style.display = 'none';
-
-            // Show relevant subsections based on the section
-            document.getElementById('subsections' + sectionId.split('section')[1]).style.display = 'block';
-            setActiveLink(sectionId);
+            displayOnly(sectionId);
+            toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
         function showSubsection(subsectionId) {
-            var subsections = document.querySelectorAll('#content > div');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
-            });
-
-            document.getElementById(subsectionId).style.display = 'block';
-
-            if (subsectionId === 'subsection44aBipyIrBpin') {
-                loadJSmol('jsmolContainer44aBipyIrBpin', '44a-Bipy-Ir(Bpin).log');
-            }
-            if (subsectionId === 'subsection44aBipyIrBpin5') {
-                loadJSmol('jsmolContainer44aBipyIrBpin5', '44a-Bipy-Ir(Bpin)5.log');
-            }
-            if (subsectionId === 'subsection44aBipyIrHBPin2') {
-                loadJSmol('jsmolContainer44aBipyIrHBPin2', '44a-Bipy-Ir-H-Bpin2.log');
-            }
-            if (subsectionId === 'subsection44a') {
-                loadJSmol('jsmolContainer44a', '44a.log');
-            }
-            if (subsectionId === 'subsection45a') {
-                loadJSmol('jsmolContainer45a', '45a.log');
-            }
-
-            setActiveLink(subsectionId);
-
-            // Collapse sidebar on mobile after selecting a structure
-            if (window.innerWidth <= 768) {
-              collapseSidebar();
-            }
+            displayOnly(subsectionId);
+            const molecules = {
+                subsection44aBipyIrBpin: '44a-Bipy-Ir(Bpin).log',
+                subsection44aBipyIrBpin5: '44a-Bipy-Ir(Bpin)5.log',
+                subsection44aBipyIrHBPin2: '44a-Bipy-Ir-H-Bpin2.log',
+                subsection44a: '44a.log',
+                subsection45a: '45a.log'
+            };
+            loadJSmol(`jsmolContainer${subsectionId}`, molecules[subsectionId]);
         }
 
         function setActiveLink(linkId) {
-            var links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-                link.classList.remove('active');
-            });
-
-            var activeLink = document.getElementById(linkId);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
+            document.querySelectorAll('#menu a').forEach(link => link.classList.remove('active'));
+            document.getElementById(linkId)?.classList.add('active');
         }
 
         function searchMenu() {
-            var searchQuery = document.getElementById('sidebar-search').value.toLowerCase();
-            var links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-                if (link.textContent.toLowerCase().indexOf(searchQuery) === -1) {
-                    link.style.display = 'none';
-                } else {
-                    link.style.display = 'block';
-                }
+            const query = document.getElementById('sidebar-search').value.toLowerCase();
+            document.querySelectorAll('#menu a').forEach(link => {
+                link.style.display = link.textContent.toLowerCase().includes(query) ? '' : 'none';
             });
         }
 
         function toggleSidebar() {
-          var sidebar = document.getElementById('sidebar');
-          var toggleButton = document.getElementById('sidebar-toggle');
-          if (sidebar.style.display === 'none' || sidebar.style.display === '') {
-              sidebar.style.display = 'block';
-              toggleButton.innerText = '✖';  // Show the menu icon
-          } else {
-              sidebar.style.display = 'none';
-              toggleButton.innerText = '☰';  // Show the menu icon
-          }
+            document.getElementById('sidebar').classList.toggle('show');
         }
-        function collapseSidebar() {
-          var sidebar = document.getElementById('sidebar');
-              sidebar.style.display = 'none';
-          var toggleButton = document.getElementById('sidebar-toggle');
-              toggleButton.innerText = '☰';  // Show the menu icon
+
+        function toggleVisibility(id, forceShow = false) {
+            const elem = document.getElementById(id);
+            elem.style.display = forceShow || elem.style.display === 'none' ? 'block' : 'none';
         }
-        // Function to adjust Jmol container size based on window size
-    function adjustJmolSize() {
-        var windowWidth = window.innerWidth;
-        var jsmolContainers = document.querySelectorAll('.jsmolContainer');
 
-        jsmolContainers.forEach(function(container) {
-            if (windowWidth <= 768) {
-                container.style.width = '100%'; // Full width for mobile
-                container.style.height = '250px'; // Adjust height
-            } else {
-                container.style.width = '700px'; // Default width for larger screens
-                container.style.height = '400px'; // Default height
-            }
-        });
-    }
+        function displayOnly(idToShow) {
+            document.querySelectorAll('#content > div').forEach(div => {
+                div.style.display = div.id === idToShow ? 'block' : 'none';
+            });
+        }
 
-    // Call the adjustJmolSize function on load and on window resize
-    window.addEventListener('load', adjustJmolSize);
-    window.addEventListener('resize', adjustJmolSize);
+        window.addEventListener('resize', resizeJmolForMobile);
 
-  function resizeJmolForMobile() {
-      var jmolContainers = document.querySelectorAll('.jsmolContainer');
-      var width = window.innerWidth;
-      // Calculate new width and height based on the screen width (use 80% for the width and adjust height proportionally)
-      var newWidth = width * 0.9;  // 90% of the screen width
-      var newHeight = newWidth * 0.6;  // Adjust height to maintain a good aspect ratio (you can tweak the multiplier)
-
-      // Adjust the width and height for smaller screens
-      jmolContainers.forEach(function(container) {
-      // Set the width to 90% of the viewport width (you can adjust this value as needed)
-      container.style.width = (width * 0.9) + 'px';
-      container.style.height = (width * 0.7) + 'px'; // Adjust height based on width
-      });
-    }
-
-    // Call resizeJmolForMobile on page load
-    window.onload = function() {
-    resizeJmolForMobile();
-  };
-
-// Call resizeJmolForMobile whenever the window is resized
-window.onresize = function() {
-    resizeJmolForMobile();
-};
-    </script>
-
-    <!-- Script to Toggle Sidebar on Mobile -->
-    <script>
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('show');
+        function resizeJmolForMobile() {
+            const width = window.innerWidth * 0.9;
+            const height = width * 0.7;
+            document.querySelectorAll('.jsmolContainer').forEach(container => {
+                container.style.width = `${width}px`;
+                container.style.height = `${height}px`;
+            });
         }
     </script>
 </body>
