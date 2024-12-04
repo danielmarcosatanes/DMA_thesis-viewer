@@ -209,20 +209,34 @@
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
 
-        // Function to filter sidebar links based on search input
+        // Function to filter sidebar items based on search input
         function searchFunction() {
             const input = document.getElementById('search-bar').value.toLowerCase();  // Get the search query and convert to lowercase
-            const links = document.querySelectorAll('#menu .menu-link');  // Select all the links in the menu
+            const sidebarItems = document.querySelectorAll('#sidebar .menu-link');  // Select only menu links (exclude header/footer)
 
-            // Loop through all the links and hide those that don't match the input
-            links.forEach(link => {
-                const linkText = link.textContent.toLowerCase();  // Get the text of each link and convert it to lowercase
-                if (linkText.indexOf(input) > -1) {
-                    link.style.display = '';  // Show link if it matches the search
+            let found = false;  // Flag to track if we find a match
+
+            // Loop through all sidebar elements and hide those that don't match the input
+            sidebarItems.forEach(item => {
+                // Check if the element's text content matches the search query
+                if (item.textContent.toLowerCase().indexOf(input) > -1) {
+                    item.style.display = '';  // Show item if it matches the search
+                    found = true;
+                    // Ensure that the parent section is expanded if it's not already
+                    const parentSection = item.closest('section'); // Assuming each section has a <section> tag
+                    if (parentSection && parentSection.classList.contains('collapsed')) {
+                        parentSection.classList.remove('collapsed');  // Remove the collapsed class to show the section
+                    }
                 } else {
-                    link.style.display = 'none';  // Hide link if it doesn't match the search
+                    item.style.display = 'none';  // Hide item if it doesn't match the search
                 }
             });
+
+            // If no search result is found, reset the search input or display a no results message
+            if (!found) {
+                console.log("No results found");
+                // Optionally, show a message if no results are found
+            }
         }
     </script>
 
