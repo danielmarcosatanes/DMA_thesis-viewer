@@ -8,33 +8,29 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <!-- Side menu -->
     <div id="menu">
         <h3>Structures</h3>
-        <a href="#" onclick="showSection('section1')">Structures section 7.1</a>
-        <a href="#" onclick="showSection('section2')">Structures section 7.2</a>
         <a href="#" onclick="showSection('section3')">Structures section 7.3</a>
+        <div style="margin-left: 20px;">
+            <a href="#" onclick="showSection('subsectionIrBpin')">Ir(Bpin)</a>
+            <a href="#" onclick="showSection('subsectionIrBpin3')">Ir(Bpin)3</a>
+        </div>
     </div>
 
     <!-- Main content -->
     <div id="content">
         <div id="message">Structures for DMA Thesis</div>
-
-        <!-- Sections -->
-        <div id="section1" style="display:none;">
-            <h2>Structures section 7.1</h2>
-            <div id="jsmolContainer1"></div>
-        </div>
-
-        <div id="section2" style="display:none;">
-            <h2>Structures section 7.2</h2>
-            <div id="jsmolContainer2"></div>
-        </div>
-
         <div id="section3" style="display:none;">
             <h2>Structures section 7.3</h2>
-            <div id="jsmolContainer3"></div>
+        </div>
+        <div id="subsectionIrBpin" style="display:none;">
+            <h3>Subsection: Ir(Bpin)</h3>
+            <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
+        </div>
+        <div id="subsectionIrBpin3" style="display:none;">
+            <h3>Subsection: Ir(Bpin)3</h3>
+            <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
         </div>
     </div>
 
@@ -49,14 +45,12 @@
             disableInitialConsole: true  // Disable initial console
         };
 
-        // Function to initialize JSmol viewer in a given container
         function loadJSmol(containerId, moleculeFile) {
             var jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
             Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
         }
 
-        // Show the selected section and load the corresponding molecule
         function showSection(sectionId) {
             var sections = document.querySelectorAll('#content > div');
             sections.forEach(function(section) {
@@ -70,13 +64,11 @@
             // Hide the default message
             document.getElementById('message').style.display = 'none';
 
-            // Load the JSmol object for the selected section
-            if (sectionId === 'section1') {
-                loadJSmol("jsmolContainer1", "44a-Bipy-Ir(Bpin).xyz");
-            } else if (sectionId === 'section2') {
-                loadJSmol("jsmolContainer2", "44a-Bipy-Ir(Bpin)3.xyz");
-            } else if (sectionId === 'section3') {
-                loadJSmol("jsmolContainer3", "44a-Bipy-Ir(Bpin).xyz"); // Adjust molecule as needed
+            // Load JSmol based on section
+            if (sectionId === 'subsectionIrBpin') {
+                loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
+            } else if (sectionId === 'subsectionIrBpin3') {
+                loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.xyz");
             }
         }
 
