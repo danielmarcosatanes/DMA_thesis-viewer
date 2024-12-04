@@ -9,45 +9,26 @@ body {
 
 /* Sidebar Styling */
 #sidebar {
-    width: 200px;
-    background-color: #D6D6D6;
+    width: 220px;
+    background-color: #E0F0FF; /* Lighter blue */
     color: #28528E;
     height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: fixed;
+    padding-top: 10px;
 }
 
 #sidebar header {
-    background-color: #A3C0E8;  /* Light blue background */
+    background-color: #A3C0E8;
     padding: 10px;
     text-align: center;
 }
 
-#menu {
-    padding: 10px;
-}
-
-#menu h3 {
-    margin-top: 10px;
-    color: #28528E;
-}
-
-#menu a {
-    display: block;
-    margin: 5px 0;
-    text-decoration: none;
-    color: #28528E;
-}
-
-#menu a:hover {
-    color: #A85426;
-}
-
 #search-bar {
     padding: 10px;
-    background-color: #ffffff;
+    background-color: #E0F0FF; /* Matches sidebar */
 }
 
 #search-bar input {
@@ -57,7 +38,39 @@ body {
     border-radius: 4px;
 }
 
-/* Footer in Sidebar */
+#menu {
+    padding: 10px;
+    margin-top: 10px;
+}
+
+#menu a {
+    display: block;
+    font-weight: bold;
+    font-size: 1rem;
+    margin: 5px 0;
+    text-decoration: none;
+    color: #28528E;
+}
+
+.menu-header {
+    font-size: 1.1rem;
+}
+
+#menu a:hover {
+    color: #A85426;
+}
+
+.subsections a {
+    font-weight: normal;
+    font-size: 0.9rem;
+    margin-left: 10px;
+}
+
+#structures-menu {
+    display: none;
+}
+
+/* Footer Styling */
 footer {
     font-size: 0.8rem;
     text-align: center;
@@ -67,17 +80,9 @@ footer {
 
 /* Content Styling */
 #content {
-    margin-left: 210px;
+    margin-left: 230px;
     padding: 20px;
     background-color: #ffffff;
-}
-
-.jsmolContainer {
-    width: 100%;
-    max-width: 600px;
-    height: 350px;
-    margin: 0 auto;
-    border: none;
 }
 
 #home h2 {

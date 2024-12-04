@@ -20,21 +20,11 @@
             </div>
             <div id="menu">
                 <a href="#" onclick="showPage('home')">Home</a>
-                <h3>Structures</h3>
-                <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
-                <div id="subsections7.1" class="subsections">
-                    <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                    <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
-                </div>
-                <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
-                <div id="subsections7.2" class="subsections">
-                    <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                    <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
-                </div>
-                <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
-                <div id="subsections7.3" class="subsections">
-                    <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                    <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
+                <a href="#" class="menu-header" onclick="toggleStructures()">Structures</a>
+                <div id="structures-menu" class="subsections">
+                    <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
+                    <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
+                    <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
                 </div>
             </div>
             <footer>
@@ -51,7 +41,6 @@
                     Welcome to the 3D Molecule Visualizer for my PhD thesis. This platform allows you to explore and visualize the key molecular structures discussed in my dissertation. Navigate through the sidebar to view detailed structural data and interactive 3D models of the studied compounds.
                 </p>
             </div>
-
             <!-- Structures Pages -->
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
@@ -62,36 +51,10 @@
             <div id="section7.3" style="display:none;">
                 <h2>Structures section 7.3</h2>
             </div>
-
-            <!-- Subsection Pages -->
-            <div id="subsectionIrBpin" style="display:none;">
-                <h3>Ir(Bpin)</h3>
-                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
-            </div>
-            <div id="subsectionIrBpin3" style="display:none;">
-                <h3>Ir(Bpin)3</h3>
-                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
-            </div>
         </div>
     </div>
 
     <script type="text/javascript">
-        var Info = {
-            width: 600,
-            height: 350,
-            j2sPath: "j2s",
-            color: "white",
-            use: "HTML5",
-            disableJ2SLoadMonitor: true,
-            disableInitialConsole: true
-        };
-
-        function loadJSmol(containerId, moleculeFile) {
-            var jsmolApplet = Jmol.getApplet(containerId, Info);
-            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
-        }
-
         function showPage(pageId) {
             var pages = document.querySelectorAll('#content > div');
             pages.forEach(function(page) {
@@ -100,23 +63,18 @@
             document.getElementById(pageId).style.display = 'block';
         }
 
-        function showSection(sectionId) {
-            showPage(sectionId);
-            document.querySelectorAll('.subsections').forEach(subsection => subsection.style.display = 'none');
-            document.getElementById('subsections' + sectionId.split('section')[1]).style.display = 'block';
+        function toggleStructures() {
+            var menu = document.getElementById('structures-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
 
-        function showSubsection(subsectionId) {
-            showPage(subsectionId);
-            if (subsectionId === 'subsectionIrBpin') {
-                loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
-            } else if (subsectionId === 'subsectionIrBpin3') {
-                loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.xyz");
-            }
+        function showSection(sectionId) {
+            showPage(sectionId);
         }
 
         window.onload = function() {
             showPage('home');
+            document.getElementById('structures-menu').style.display = 'none';
         };
     </script>
 </body>
