@@ -8,14 +8,18 @@
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Main Container with Sidebar and Content -->
+    <!-- Main Container -->
     <div id="main-container">
         <!-- Sidebar -->
         <div id="sidebar">
             <header>
                 <h1>DMA Thesis</h1>
             </header>
+            <div id="search-bar">
+                <input type="text" placeholder="Search structures...">
+            </div>
             <div id="menu">
+                <a href="#" onclick="showPage('home')">Home</a>
                 <h3>Structures</h3>
                 <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
                 <div id="subsections7.1" class="subsections">
@@ -38,10 +42,17 @@
             </footer>
         </div>
 
-        <!-- Main content area -->
+        <!-- Main Content Area -->
         <div id="content">
-            <div id="message">Select a structure section</div>
+            <!-- Home Page -->
+            <div id="home">
+                <h2>DMA Thesis: 3D Molecule Visualizer</h2>
+                <p>
+                    Welcome to the 3D Molecule Visualizer for my PhD thesis. This platform allows you to explore and visualize the key molecular structures discussed in my dissertation. Navigate through the sidebar to view detailed structural data and interactive 3D models of the studied compounds.
+                </p>
+            </div>
 
+            <!-- Structures Pages -->
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
             </div>
@@ -52,11 +63,11 @@
                 <h2>Structures section 7.3</h2>
             </div>
 
+            <!-- Subsection Pages -->
             <div id="subsectionIrBpin" style="display:none;">
                 <h3>Ir(Bpin)</h3>
                 <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
             </div>
-
             <div id="subsectionIrBpin3" style="display:none;">
                 <h3>Ir(Bpin)3</h3>
                 <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
@@ -67,7 +78,7 @@
     <script type="text/javascript">
         var Info = {
             width: 600,
-            height: 350,  // Adjusted height for better fit
+            height: 350,
             j2sPath: "j2s",
             color: "white",
             use: "HTML5",
@@ -81,31 +92,22 @@
             Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
         }
 
+        function showPage(pageId) {
+            var pages = document.querySelectorAll('#content > div');
+            pages.forEach(function(page) {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageId).style.display = 'block';
+        }
+
         function showSection(sectionId) {
-            var sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-
-            var subsections = document.querySelectorAll('.subsections');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
-            });
-
-            document.getElementById(sectionId).style.display = 'block';
-            document.getElementById('message').style.display = 'none';
-
+            showPage(sectionId);
+            document.querySelectorAll('.subsections').forEach(subsection => subsection.style.display = 'none');
             document.getElementById('subsections' + sectionId.split('section')[1]).style.display = 'block';
         }
 
         function showSubsection(subsectionId) {
-            var subsections = document.querySelectorAll('#content > div');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
-            });
-
-            document.getElementById(subsectionId).style.display = 'block';
-
+            showPage(subsectionId);
             if (subsectionId === 'subsectionIrBpin') {
                 loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
             } else if (subsectionId === 'subsectionIrBpin3') {
@@ -114,11 +116,7 @@
         }
 
         window.onload = function() {
-            document.getElementById('message').style.display = 'block';
-            var sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
+            showPage('home');
         };
     </script>
 </body>

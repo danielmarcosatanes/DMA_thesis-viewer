@@ -9,9 +9,9 @@ body {
 
 /* Sidebar Styling */
 #sidebar {
-    width: 200px;  /* Slimmer sidebar */
-    background-color: #D6D6D6;  /* Lighter grey */
-    color: #28528E;  /* Dark blue text */
+    width: 200px;
+    background-color: #D6D6D6;
+    color: #28528E;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -20,10 +20,9 @@ body {
 }
 
 #sidebar header {
+    background-color: #A3C0E8;  /* Light blue background */
     padding: 10px;
-    font-size: 1.2rem;
     text-align: center;
-    color: #28528E;
 }
 
 #menu {
@@ -43,12 +42,19 @@ body {
 }
 
 #menu a:hover {
-    text-decoration: underline;
+    color: #A85426;
 }
 
-.subsections {
-    display: none;
-    margin-left: 10px;
+#search-bar {
+    padding: 10px;
+    background-color: #ffffff;
+}
+
+#search-bar input {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
 }
 
 /* Footer in Sidebar */
@@ -74,18 +80,6 @@ footer {
     border: none;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    #main-container {
-        flex-direction: column;
-    }
-
-    #sidebar {
-        width: 100%;
-        position: relative;
-    }
-
-    #content {
-        margin-left: 0;
-    }
+#home h2 {
+    color: #28528E;
 }
