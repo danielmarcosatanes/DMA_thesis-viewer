@@ -149,13 +149,13 @@
                 'subsection45a': 'section7.3'
             };
 
-            // Collapse all sidebar sections
+            // Collapse all sidebar sections except the relevant one
             var sidebarSections = document.querySelectorAll('.sidebar-section');
             sidebarSections.forEach(function(section) {
                 section.style.display = 'none';
             });
 
-            // Show the active sidebar section based on the subsectionId
+            // Ensure the relevant sidebar section is displayed
             const activeSectionId = sectionMapping[subsectionId];
             if (activeSectionId) {
                 document.getElementById(activeSectionId).style.display = 'block';
@@ -170,13 +170,26 @@
                 subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
             };
 
-            // Ensure the container exists before loading
+            // Load the molecule in the corresponding container
             const molecule = molecules[subsectionId];
             if (molecule) {
                 loadJSmol(molecule.container, molecule.file);
             }
-        }
 
+            // Keep the sidebar expanded and highlight the selected molecule
+            document.querySelectorAll('#menu a').forEach(link => link.classList.remove('active')); // Remove 'active' class from all links
+            const activeLink = document.getElementById(subsectionId); // Get the selected molecule link
+            if (activeLink) {
+                activeLink.classList.add('active'); // Add 'active' class to the selected molecule
+            }
+
+            // Highlight the entire path in the sidebar (home, structures, sections)
+            const activeSection = document.getElementById(sectionMapping[subsectionId]);
+            if (activeSection) {
+                activeSection.classList.add('active');
+            }
+        }
+        
         function displayOnly(sectionId) {
             const sections = document.querySelectorAll('#content > div');
             sections.forEach(function(section) {
