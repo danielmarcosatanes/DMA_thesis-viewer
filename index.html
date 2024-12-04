@@ -121,7 +121,8 @@
         }
 
         function toggleStructuresMenu() {
-            toggleVisibility('structures-menu');
+            const menu = document.getElementById('structures-menu');
+            menu.style.display = menu.style.display === 'block' ? 'none' : 'block';
         }
 
         function showSection(sectionId) {
@@ -229,12 +230,10 @@
         }
 
         function setActiveLink(id) {
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-                link.classList.remove('active');
-            });
-            document.getElementById(id).classList.add('active');
-        }
+          const links = document.querySelectorAll('#menu a');
+          links.forEach(link => link.classList.remove('active'));
+          document.getElementById(id)?.classList.add('active');
+      }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
