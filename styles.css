@@ -76,6 +76,11 @@ body {
     color: #A85426 !important;
 }
 
+/* Make the sidebar section active (show the selected structure and subsections) */
+.sidebar-section.active {
+    display: block !important; /* Ensure active sections remain visible */
+}
+
 /* Remove any color change from non-active links when hovered */
 #menu a:not(.active):hover {
     color: #A85426;
