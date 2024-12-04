@@ -132,6 +132,33 @@ body {
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
+#sidebar.collapsed {
+    width: 0;
+}
+
+#content {
+    margin-left: 250px;
+    transition: margin-left 0.3s ease-in-out;
+}
+
+#sidebar.collapsed + #content {
+    margin-left: 0;
+}
+
+/* Collapse button */
+#collapse-btn {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1001;
+    background: transparent;
+    border: none;
+    color: #28528E;
+    font-size: 24px;
+    cursor: pointer;
+}
+
 /* Message styling */
 #message {
     font-size: 18px;
