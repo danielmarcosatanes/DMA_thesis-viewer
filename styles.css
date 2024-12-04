@@ -1,109 +1,88 @@
-/* General Styling */
+/* Global styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    display: flex;
-    height: 100vh;
-    background-color: #ffffff;
+    background-color: #F4F4F9;
 }
 
-/* Sidebar Styling */
+/* Styling for the sidebar */
 #sidebar {
-    width: 220px;
     background-color: #D6D6D6;
-    color: #28528E;
+    width: 250px;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
     position: fixed;
+    padding: 20px;
 }
 
-#sidebar header {
-    background-color: #E0F0FF;
-    padding: 15px;
-    text-align: center;
-}
-
-#search-bar input {
-    width: 100%;
-    padding: 5px;
-    border: 1px solid #cccccc;
-    border-radius: 4px;
-}
-
-#menu {
-    padding: 10px;
+#sidebar header h2 {
+    color: #28528E;
 }
 
 #menu a {
     display: block;
-    font-size: 1rem;
-    margin: 5px 0;
+    color: black;
     text-decoration: none;
-    color: #28528E;
+    padding: 8px;
+    margin: 5px 0;
 }
 
-#menu a:hover {
+#menu a.active {
+    font-weight: bold;
     color: #A85426;
 }
 
-#home-link {
-    font-weight: bold;
-}
-
-#structures-link {
-    font-weight: bold;
-}
-
-.subsections a {
-    font-weight: normal;
-    font-size: 0.9rem;
-    margin-left: 10px;
-}
-
 #structures-menu {
+    padding-left: 20px;
     display: none;
 }
 
-/* Content Styling */
+#structures-menu a {
+    color: #28528E;
+    padding-left: 10px;
+}
+
+.subsections {
+    padding-left: 20px;
+    display: none;
+}
+
+.subsections a {
+    color: #4E7890;
+}
+
+/* Styling for the main content */
+#main-container {
+    display: flex;
+}
+
 #content {
-    margin-left: 230px;
+    margin-left: 250px;
     padding: 20px;
+    width: calc(100% - 250px);
 }
 
+/* Smooth transition effect */
+#content > div {
+    transition: all 0.3s ease-in-out;
+}
+
+#home-page h1 {
+    font-size: 36px;
+}
+
+#home-page p {
+    font-size: 18px;
+}
+
+/* Jmol container styles */
 .jsmolContainer {
-    margin-top: 20px;
-    border: none;
+    width: 700px;
+    height: 400px;
+    margin: 20px 0;
 }
 
-/* Title Styling */
-h3 {
-    font-size: 1.2rem;
-    color: #28528E;
-    margin-top: 10px;
-}
-
-/* Footer Styling */
-footer {
-    font-size: 0.8rem;
-    text-align: center;
-    padding: 10px;
-    color: #28528E;
-    margin-top: auto;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    #sidebar {
-        width: 100%;
-        height: auto;
-        position: relative;
-    }
-
-    #content {
-        margin-left: 0;
-        padding: 10px;
-    }
+#message {
+    font-size: 18px;
+    color: #4E7890;
 }
