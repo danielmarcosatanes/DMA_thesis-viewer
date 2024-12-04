@@ -10,13 +10,13 @@
 <body>
     <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
-        <!-- Mobile Sidebar Toggle Button -->
+        <!-- Sidebar Toggle Button -->
         <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
+        <button id="collapse-btn" class="collapse-btn" aria-label="Collapse Sidebar" onclick="toggleSidebar()">☰</button>
+
 
         <!-- Sidebar -->
         <div id="sidebar">
-          <!-- Collapse Button for Desktop -->
-            <button class="collapse-btn">☰</button> <!-- Use an '☰' as the collapse icon -->
             <!-- Sidebar header -->
             <header>
                 <h2>DMA Thesis</h2>
@@ -205,20 +205,15 @@
             });
             document.getElementById(id).classList.add('active');
         }
+        
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+            sidebar.classList.toggle('collapsed');
+        }
 
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
-    </script>
-    <script>
-      // Mobile Sidebar Toggle
-      document.querySelector('.mobile-toggle').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('show');
-      });
-
-      // Desktop Sidebar Collapse
-      document.querySelector('.collapse-btn').addEventListener('click', function() {
-        document.getElementById('sidebar').classList.toggle('collapsed');
-      });
     </script>
 </body>
 </html>
