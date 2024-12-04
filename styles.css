@@ -27,7 +27,7 @@ body {
 #sidebar header {
     background-color: #DDE5F0;
     width: 100%;
-    padding: 10px 20px;
+    padding: 20px 20px; /* Increased padding for a larger header */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -38,9 +38,10 @@ body {
 #sidebar header h2 {
     color: #28528E;
     margin-top: 0;
-    font-size: 20px;
+    font-size: 24px; /* Increased font size */
 }
 
+/* Sidebar search input */
 #sidebar header input[type="text"] {
     width: 80%;
     padding: 5px;
@@ -197,7 +198,7 @@ body {
 
     /* Sidebar header font adjustments */
     #sidebar header h2 {
-        font-size: 18px;
+        font-size: 22px; /* Slightly larger on mobile */
     }
 
     /* Make the sidebar search input wider */
