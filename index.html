@@ -27,13 +27,13 @@
 
     <!-- Main Content Area -->
     <div id="content">
-        <!-- Home Page -->
+        <!-- Home Page (initially visible) -->
         <div id="home-page">
             <h1 id="home-header">DMA Thesis: 3D Molecule Viewer</h1>
             <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
         </div>
 
-        <!-- Molecule Viewer -->
+        <!-- Molecule Viewer (hidden by default) -->
         <div id="molecule-viewer" style="display:none;">
             <h3 id="molecule-title"></h3>
             <div id="jsmol-container"></div>
@@ -51,31 +51,31 @@
             disableInitialConsole: true
         };
 
-        // Show the Home page on load
+        // Show the Home page on load (set as default landing page)
         window.onload = function() {
             showHome();
         };
 
         function showHome() {
-            document.getElementById('home-page').style.display = 'block';
-            document.getElementById('molecule-viewer').style.display = 'none';
-            document.getElementById('structures-menu').style.display = 'none';
+            document.getElementById('home-page').style.display = 'block';  // Show the Home page
+            document.getElementById('molecule-viewer').style.display = 'none';  // Hide molecule viewer
+            document.getElementById('structures-menu').style.display = 'none';  // Hide the structures menu
         }
 
         function showSection(sectionId) {
-            document.getElementById('home-page').style.display = 'none';
-            document.getElementById('molecule-viewer').style.display = 'none';
-            document.getElementById('structures-menu').style.display = 'block';
+            document.getElementById('home-page').style.display = 'none';  // Hide Home page content
+            document.getElementById('molecule-viewer').style.display = 'none';  // Hide molecule viewer
+            document.getElementById('structures-menu').style.display = 'block';  // Show the structures menu
             const subsections = document.querySelectorAll('.subsections');
             subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
+                subsection.style.display = 'none';  // Hide all subsections
             });
 
             if (sectionId === 'structures') {
-                document.getElementById('structures-menu').style.display = 'block';
+                document.getElementById('structures-menu').style.display = 'block';  // Show Structures menu
             } else {
-                document.getElementById(sectionId).style.display = 'block';
-                populateMolecules(sectionId);
+                document.getElementById(sectionId).style.display = 'block';  // Show specific section
+                populateMolecules(sectionId);  // Populate molecules for the section
             }
         }
 
@@ -104,11 +104,11 @@
         }
 
         function showMolecule(moleculeName) {
-            document.getElementById('home-page').style.display = 'none';
-            document.getElementById('structures-menu').style.display = 'none';
-            document.getElementById('molecule-viewer').style.display = 'block';
-            document.getElementById('molecule-title').innerText = moleculeName;
-            loadJSmol(moleculeName);
+            document.getElementById('home-page').style.display = 'none';  // Hide Home page
+            document.getElementById('structures-menu').style.display = 'none';  // Hide Structures menu
+            document.getElementById('molecule-viewer').style.display = 'block';  // Show molecule viewer
+            document.getElementById('molecule-title').innerText = moleculeName;  // Display molecule title
+            loadJSmol(moleculeName);  // Load the molecule visualization
         }
 
         function loadJSmol(moleculeName) {
