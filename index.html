@@ -26,10 +26,11 @@
                     <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
                     <div id="subsections7.1" class="subsections" style="display: none;">
                         <a href="#" onclick="showSubsection('subsection44aBipyIrBpin'); setActiveLink('subsection44aBipyIrBpin')">44a-Bipy-Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsection44aBipyIrBpin5'); setActiveLink('subsection44aBipyIrBpin5')">44a-Bipy-Ir(Bpin)5</a>
                     </div>
                     <a href="#" onclick="showSection('section7.2'); setActiveLink('section7.2')">Structures section 7.2</a>
                     <div id="subsections7.2" class="subsections" style="display: none;">
-                        <a href="#" onclick="showSubsection('subsection44aBipyIrBpin3'); setActiveLink('subsection44aBipyIrBpin3')">44a-Bipy-Ir(Bpin)3</a>
+                        <a href="#" onclick="showSubsection('subsection44aBipyIrHBPin2'); setActiveLink('subsection44aBipyIrHBPin2')">44a-Bipy-Ir-H-Bpin2</a>
                     </div>
                     <a href="#" onclick="showSection('section7.3'); setActiveLink('section7.3')">Structures section 7.3</a>
                     <div id="subsections7.3" class="subsections" style="display: none;">
@@ -74,10 +75,15 @@
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
             </div>
 
+            <div id="subsection44aBipyIrBpin5" style="display:none;">
+                <h3>44a-Bipy-Ir(Bpin)5</h3>
+                <div id="jsmolContainer44aBipyIrBpin5" class="jsmolContainer"></div>
+            </div>
+
             <!-- Subsections for the structures in 7.2 -->
-            <div id="subsection44aBipyIrBpin3" style="display:none;">
-                <h3>44a-Bipy-Ir(Bpin)3</h3>
-                <div id="jsmolContainer44aBipyIrBpin3" class="jsmolContainer"></div>
+            <div id="subsection44aBipyIrHBPin2" style="display:none;">
+                <h3>44a-Bipy-Ir-H-Bpin2</h3>
+                <div id="jsmolContainer44aBipyIrHBPin2" class="jsmolContainer"></div>
             </div>
 
             <!-- Subsections for the structures in 7.3 -->
@@ -118,7 +124,8 @@
             document.getElementById('section7.2').style.display = 'none';
             document.getElementById('section7.3').style.display = 'none';
             document.getElementById('subsection44aBipyIrBpin').style.display = 'none';
-            document.getElementById('subsection44aBipyIrBpin3').style.display = 'none';
+            document.getElementById('subsection44aBipyIrBpin5').style.display = 'none';
+            document.getElementById('subsection44aBipyIrHBPin2').style.display = 'none';
             document.getElementById('subsection44a').style.display = 'none';
             document.getElementById('subsection45a').style.display = 'none';
 
@@ -163,13 +170,19 @@
             document.getElementById(subsectionId).style.display = 'block';
 
             if (subsectionId === 'subsection44aBipyIrBpin') {
-                loadJSmol("jsmolContainer44aBipyIrBpin", "44a-Bipy-Ir(Bpin).log");
-            } else if (subsectionId === 'subsection44aBipyIrBpin3') {
-                loadJSmol("jsmolContainer44aBipyIrBpin3", "44a-Bipy-Ir(Bpin)3.log");
-            } else if (subsectionId === 'subsection44a') {
-                loadJSmol("jsmolContainer44a", "44a.log");
-            } else if (subsectionId === 'subsection45a') {
-                loadJSmol("jsmolContainer45a", "45a.log");
+                loadJSmol('jsmolContainer44aBipyIrBpin', '44a-Bipy-Ir(Bpin).log');
+            }
+            if (subsectionId === 'subsection44aBipyIrBpin5') {
+                loadJSmol('jsmolContainer44aBipyIrBpin5', '44a-Bipy-Ir(Bpin)5.log');
+            }
+            if (subsectionId === 'subsection44aBipyIrHBPin2') {
+                loadJSmol('jsmolContainer44aBipyIrHBPin2', '44a-Bipy-Ir-H-Bpin2.log');
+            }
+            if (subsectionId === 'subsection44a') {
+                loadJSmol('jsmolContainer44a', '44a.log');
+            }
+            if (subsectionId === 'subsection45a') {
+                loadJSmol('jsmolContainer45a', '45a.log');
             }
 
             setActiveLink(subsectionId);
