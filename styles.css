@@ -214,8 +214,10 @@ body {
     }
 
     .jsmolContainer {
-        width: 700px; /* Fixed size for desktop */
-        height: 600px;
+      width: 100%;
+      max-width: 700px;
+      height: auto;
+      aspect-ratio: 1 / 1;
     }
 
     .collapse-btn {
