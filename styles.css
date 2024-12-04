@@ -18,7 +18,7 @@ body {
     flex-direction: column;
     padding: 0;
     box-sizing: border-box;
-    z-index: 1; /* Make sure the sidebar is above other content */
+    z-index: 1; /* Ensure sidebar is above other content */
 }
 
 /* Sidebar header */
@@ -46,6 +46,12 @@ body {
     margin-top: 10px;
     border: 1px solid #28528E;
     border-radius: 5px;
+}
+
+/* Make Home and Structures links always bold */
+#menu #home-link,
+#menu #structures-link {
+    font-weight: bold;
 }
 
 /* Sidebar menu links */
@@ -85,7 +91,9 @@ body {
     color: #28528E;
     text-align: center;
     font-size: 12px;
-    margin-top: 20px;
+    margin-top: auto; /* Ensure footer stays at the bottom */
+    padding: 10px 0; /* Space around footer text */
+    background-color: #D6D6D6; /* Same background as sidebar for consistency */
 }
 
 /* Main content layout */
