@@ -16,10 +16,11 @@
             <header>
                 <h2>DMA Thesis</h2>
                 <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
-                <!-- Toggle button for mobile -->
-                <button id="sidebar-toggle" onclick="toggleSidebar()">☰</button>
           </header>
 
+          <!-- Mobile Sidebar Toggle Button (outside the sidebar) -->
+          <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰</button>
+          
             <div id="menu">
                 <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
                 <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
