@@ -80,11 +80,11 @@ body {
     padding: 8px;
     margin: 5px 0;
 }
-
+/* Hover effect for sidebar links */
 #menu a:hover {
     color: #A85426;
 }
-
+/* Active link styling */
 #menu a.active {
     font-weight: bold;
     color: #A85426;
