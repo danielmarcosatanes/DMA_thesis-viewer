@@ -15,7 +15,7 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    /* Ensure the content starts right after the header */
+    box-sizing: border-box; /* Ensure padding doesn't affect overall height */
 }
 
 /* Sidebar header and menu */
@@ -25,7 +25,7 @@ body {
 }
 
 #menu {
-    flex-grow: 1; /* Allow this section to take up remaining space and push the footer down */
+    flex-grow: 1; /* Allow this section to take up remaining space */
 }
 
 #menu a {
@@ -70,6 +70,7 @@ body {
     text-align: center;
     font-size: 12px;
     margin-top: 20px; /* Add space between footer and last link */
+    margin-bottom: 0; /* Ensure footer is at the very bottom */
 }
 
 /* Styling for the main content */
