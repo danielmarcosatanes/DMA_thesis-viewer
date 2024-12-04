@@ -38,6 +38,11 @@
                     </div>
                 </div>
             </div>
+
+            <!-- Sidebar Footer -->
+            <footer>
+                2024 DMA Thesis Viewer. All rights reserved.
+            </footer>
         </div>
 
         <!-- Main Content Area -->
@@ -145,18 +150,6 @@
                 loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.xyz");
             }
             setActiveLink(subsectionId);
-        }
-
-        function hideSections() {
-            var sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-        }
-
-        function clearMolecule() {
-            document.getElementById('jsmolContainerIrBpin').innerHTML = '';
-            document.getElementById('jsmolContainerIrBpin3').innerHTML = '';
         }
 
         function setActiveLink(linkId) {
