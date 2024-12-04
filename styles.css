@@ -21,6 +21,7 @@ body {
     box-sizing: border-box;
     z-index: 1; /* Ensure sidebar is above other content */
     transition: all 0.3s ease-in-out; /* Smooth transition for sidebar */
+    transition: width 0.3s ease-in-out;
 }
 
 /* Make Home and Structures links always bold */
@@ -61,34 +62,42 @@ body {
     border-radius: 5px;
 }
 
-/* Sidebar collapse button (desktop only) */
-#sidebar .collapse-btn {
-      display: none; /* Hidden by default */
-      position: absolute;
-      top: 20px;
-      right: -35px; /* Position the button on the right side of the sidebar */
-      background-color: white; /* Same color as the hover effect */
-      color: #A85426;
-      font-size: 24px; /* Slightly larger button text */
-      padding: 10px;
-      border: none;
-      border-radius: 50%; /* Round button */
-      cursor: pointer;
-      z-index: 2; /* Ensure the button is on top */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow to make the button stand out */
+/* Sidebar toggle button for mobile */
+#sidebar-toggle {
+    display: none;
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: transparent;
+    border: none;
+    color: #28528E;
+    cursor: pointer;
+}
 
+#collapse-btn {
+    display: none;
+    font-size: 30px;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: transparent;
+    border: none;
+    color: #28528E;
+    cursor: pointer;
 }
 
 /* Make the collapse button visible on larger screens */
 @media only screen and (min-width: 769px) {
-    #sidebar .collapse-btn {
-        display: block; /* Show button on desktop */
-    }
-
-    /* When collapsed */
-    #sidebar.collapsed .collapse-btn {
-        right: -35px; /* Adjust position */
-    }
+  #collapse-btn {
+      display: block;
+  }
+  #sidebar.collapsed {
+      width: 0; /* Collapse sidebar */
+  }
+  #sidebar {
+      transition: all 0.3s ease;
+  }
 }
 
 /* Sidebar menu links */
@@ -162,6 +171,10 @@ body {
 /* Design for smaller screens (Mobile) */
 @media only screen and (max-width: 768px) {
     /* Sidebar collapses for mobile screens */
+    #sidebar-toggle {
+        display: block;
+    }
+
     #sidebar {
         display: none; /* Hide sidebar by default on mobile */
         width: 70%; /* Make sidebar take up less space */
