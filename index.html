@@ -10,12 +10,13 @@
 <body>
     <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
-        <!-- Sidebar Toggle Button -->
+        <!-- Mobile Sidebar Toggle Button -->
         <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
-        <button id="collapse-btn" class="collapse-btn" aria-label="Collapse Sidebar" onclick="toggleSidebar()">☰</button>
 
         <!-- Sidebar -->
         <div id="sidebar">
+          <!-- Collapse Button for Desktop -->
+            <button class="collapse-btn">☰</button> <!-- Use an '☰' as the collapse icon -->
             <!-- Sidebar header -->
             <header>
                 <h2>DMA Thesis</h2>
@@ -26,6 +27,7 @@
             <div id="menu">
                 <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
                 <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
+
                 <div id="structures-menu" class="sidebar-section" style="display: none;">
                     <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
                     <div id="subsections7.1" class="subsections" style="display: none;">
@@ -111,7 +113,7 @@
         function loadJSmol(containerId, moleculeFile) {
             const jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
+            Jmol.script(jsmolApplet, load 'molecules/${moleculeFile}';);
         }
 
         function showHome() {
@@ -124,7 +126,7 @@
 
         function showSection(sectionId) {
             displayOnly(sectionId);
-            toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
+            toggleVisibility(subsections${sectionId.split('section')[1]}, true);
         }
 
         function showSubsection(subsectionId) {
@@ -204,29 +206,19 @@
             document.getElementById(id).classList.add('active');
         }
 
-
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
-    }
     </script>
+    <script>
+      // Mobile Sidebar Toggle
+      document.querySelector('.mobile-toggle').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('show');
+      });
 
-<script>
-    // Toggle the sidebar on mobile
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-    const sidebar = document.getElementById('sidebar');
-
-    sidebarToggle.addEventListener('click', () => {
-        sidebar.classList.toggle('show');
-    });
-
-    // Get the elements for the sidebar and the toggle button
-    const collapseBtn = document.getElementById('collapse-btn');
-    const sidebar = document.getElementById('sidebar');
-
-    // Toggle the "collapsed" class on click to move the sidebar in and out
-      collapseBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('collapsed');
-    });
-</script>
+      // Desktop Sidebar Collapse
+      document.querySelector('.collapse-btn').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+      });
+    </script>
 </body>
 </html>
