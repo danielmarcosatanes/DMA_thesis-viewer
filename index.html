@@ -240,18 +240,20 @@
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('collapsed');
         }
-        
+
         function toggleSidebarDesktop() {
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('content');
+          const sidebar = document.getElementById('sidebar');
+          const content = document.getElementById('content');
 
-            sidebar.classList.toggle('collapsed');
+          // Toggle the collapsed state of the sidebar
+          sidebar.classList.toggle('collapsed');
 
-            if (sidebar.classList.contains('collapsed')) {
-                content.style.marginLeft = '70px'; // Adjust for collapsed sidebar
-            } else {
-                content.style.marginLeft = '250px'; // Restore full sidebar width
-            }
+          // Adjust the content margin depending on the sidebar state
+          if (sidebar.classList.contains('collapsed')) {
+              content.style.marginLeft = '70px'; // Adjust for collapsed sidebar
+          } else {
+              content.style.marginLeft = '250px'; // Restore the full sidebar width
+          }
         }
 
         // Attach event listener
