@@ -1,111 +1,71 @@
-/* Global styles */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F4F4F9;
+/* Main container to hold both sidebar and content */
+#main-container {
+    display: flex;
+    height: 100vh;
 }
 
-/* Styling for the sidebar */
+/* Sidebar styles */
 #sidebar {
-    background-color: #D6D6D6;
     width: 250px;
-    height: 100vh;
-    position: fixed;
+    background-color: #28528E; /* Original color for sidebar */
+    color: #fff;
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    box-sizing: border-box; /* Ensure padding doesn't affect overall height */
+    justify-content: space-between;
 }
 
-/* Sidebar header and menu */
-#sidebar header h2 {
+/* Sidebar header styles */
+#sidebar header {
+    background-color: #DDE5F0; /* New background color for header */
     color: #28528E;
-    margin-top: 0; /* Remove any default margin that might push the content down */
+    padding: 10px 15px;
+    font-size: 1.5em;
+    text-align: center;
+    width: 100%;
+    position: sticky;
+    top: 0; /* Make sure the header sticks to the top of the sidebar */
 }
 
+/* Menu section */
 #menu {
-    flex-grow: 1; /* Allow this section to take up remaining space */
+    flex-grow: 1;
+    padding-top: 10px;
 }
 
 #menu a {
     display: block;
-    color: #28528E;
+    padding: 10px;
+    color: #fff;
     text-decoration: none;
-    padding: 8px;
-    margin: 5px 0;
-}
-
-#menu a:hover {
-    color: #A85426;
 }
 
 #menu a.active {
-    font-weight: bold;
-    color: #A85426;
+    background-color: #A85426; /* Highlight active menu link */
 }
 
-#structures-menu {
-    padding-left: 20px;
-    display: none;
-}
-
-#structures-menu a {
-    color: #28528E;
-    padding-left: 10px;
-}
-
-.subsections {
-    padding-left: 20px;
-    display: none;
-}
-
-.subsections a {
-    color: #4E7890;
-}
-
-/* Sidebar Footer */
-#sidebar footer {
-    color: #28528E;
+/* Footer inside sidebar */
+footer {
+    padding: 10px;
+    background-color: #28528E;
+    color: white;
     text-align: center;
-    font-size: 12px;
-    margin-top: 20px; /* Add space between footer and last link */
-    margin-bottom: 0; /* Ensure footer is at the very bottom */
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }
 
-/* Styling for the main content */
-#main-container {
-    display: flex;
-}
-
+/* Main content area styles */
 #content {
-    margin-left: 300px;
+    flex-grow: 1;
     padding: 20px;
-    width: calc(100% - 300px);
+    background-color: #f7f7f7;
 }
 
-/* Smooth transition effect */
-#content > div {
-    transition: all 0.3s ease-in-out;
+/* Hiding subsections by default */
+.subsections {
+    display: none;
 }
 
-#home-page h1 {
-    font-size: 36px;
-}
-
-#home-page p {
-    font-size: 18px;
-    color: #4E7890;
-}
-
-/* Jmol container styling */
 .jsmolContainer {
-    width: 600px;
-    height: 500px;
-    margin: 20px 0;
-}
-
-#message {
-    font-size: 18px;
-    color: #4E7890;
+    margin-top: 20px;
 }
