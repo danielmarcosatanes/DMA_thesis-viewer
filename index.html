@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3D Molecule Viewer</title>
     <script type="text/javascript" src="JSmol.min.js"></script>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <!-- Side menu -->
     <div id="menu">
         <h3>Structures</h3>
         <a href="#" onclick="showSection('section3')">Structures section 7.3</a>
-        <div style="margin-left: 20px;">
-            <a href="#" onclick="showSection('subsectionIrBpin')">Ir(Bpin)</a>
-            <a href="#" onclick="showSection('subsectionIrBpin3')">Ir(Bpin)3</a>
+        <div id="subsections" style="display:none; margin-left: 20px;">
+            <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
+            <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
         </div>
     </div>
 
@@ -48,7 +48,7 @@
         function loadJSmol(containerId, moleculeFile) {
             var jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+            Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
         }
 
         function showSection(sectionId) {
@@ -60,14 +60,26 @@
             // Show the selected section
             var selectedSection = document.getElementById(sectionId);
             selectedSection.style.display = 'block';
+            document.getElementById('subsections').style.display = 'block';
 
             // Hide the default message
             document.getElementById('message').style.display = 'none';
+        }
 
-            // Load JSmol based on section
-            if (sectionId === 'subsectionIrBpin') {
+        function showSubsection(subsectionId) {
+            var subsections = document.querySelectorAll('#content > div');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
+            });
+
+            // Show the selected subsection
+            var selectedSubsection = document.getElementById(subsectionId);
+            selectedSubsection.style.display = 'block';
+
+            // Reload the JSmol viewer for the selected subsection
+            if (subsectionId === 'subsectionIrBpin') {
                 loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).xyz");
-            } else if (sectionId === 'subsectionIrBpin3') {
+            } else if (subsectionId === 'subsectionIrBpin3') {
                 loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.xyz");
             }
         }
