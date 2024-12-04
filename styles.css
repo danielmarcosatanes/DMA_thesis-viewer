@@ -185,6 +185,23 @@ body {
     width: 70%;
 }
 
+/* Desktop Sidebar Collapse Button */
+.collapse-btn {
+    display: none; /* Hidden by default */
+    position: fixed; /* Position near the sidebar */
+    top: 20px; /* Adjust to your preference */
+    left: 260px; /* Slightly outside sidebar's collapsed width */
+    font-size: 24px;
+    background-color: #ffffff; /* Match design */
+    color: #28528E;
+    border: none;
+    cursor: pointer;
+    z-index: 1000; /* Ensure visibility */
+    padding: 10px;
+    border-radius: 5px; /* Optional: Add some rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow */
+}
+
 /* Design for larger screens (Desktops) */
 @media only screen and (min-width: 769px) {
     #sidebar {
@@ -198,6 +215,14 @@ body {
     .jsmolContainer {
         width: 700px; /* Fixed size for desktop */
         height: 600px;
+    }
+    
+    .collapse-btn {
+        display: block; /* Visible only on desktop */
+    }
+
+    #sidebar.collapsed + #collapse-btn {
+        left: 10px; /* Adjust when sidebar is collapsed */
     }
 }
 
