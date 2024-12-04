@@ -6,28 +6,39 @@ body {
     background-color: #F4F4F9;
     display: flex;
     height: 100vh;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; /* Smooth transition between screen sizes */
 }
 
 /* Sidebar container */
 #sidebar {
     background-color: #D6D6D6;
-    width: 250px;
+    width: 250px; /* Fixed width on larger screens */
     height: 100vh;
     position: fixed;
     display: flex;
     flex-direction: column;
     padding: 0;
     box-sizing: border-box;
-    z-index: 1;
-    transition: all 0.3s ease-in-out;
+    z-index: 1; /* Ensure sidebar is above other content */
+    transition: all 0.3s ease-in-out; /* Smooth transition for sidebar */
+}
+
+/* Make Home and Structures links always bold */
+#menu #home-link,
+#menu #structures-link {
+    font-weight: bold;
+}
+
+/* Collapsed sidebar */
+#sidebar.collapsed {
+    width: 70px; /* Width of collapsed sidebar */
 }
 
 /* Sidebar header */
 #sidebar header {
     background-color: #DDE5F0;
     width: 100%;
-    padding: 20px;
+    padding: 20px 20px; /* Increased padding for a larger header */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -38,51 +49,45 @@ body {
 #sidebar header h2 {
     color: #28528E;
     margin-top: 0;
-    font-size: 24px;
+    font-size: 24px; /* Increased font size */
 }
 
-/* Sidebar toggle button for mobile */
-#sidebar-toggle {
-    display: none;
-    font-size: 30px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: transparent;
-    border: none;
-    color: #28528E;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1000;
+/* Sidebar search input */
+#sidebar header input[type="text"] {
+    width: 80%;
+    padding: 5px;
+    margin-top: 10px;
+    border: 1px solid #28528E;
+    border-radius: 5px;
 }
 
-/* Sidebar collapse button for desktop */
-#collapse-btn {
-    display: none;
-    font-size: 30px;
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    background: transparent;
-    border: none;
-    color: #28528E;
-    cursor: pointer;
-    padding: 10px;
-    z-index: 1000;
+/* Sidebar collapse button (desktop only) */
+#sidebar .collapse-btn {
+      display: none; /* Hidden by default */
+      position: absolute;
+      top: 20px;
+      right: -35px; /* Position the button on the right side of the sidebar */
+      background-color: white; /* Same color as the hover effect */
+      color: #A85426;
+      font-size: 24px; /* Slightly larger button text */
+      padding: 10px;
+      border: none;
+      border-radius: 50%; /* Round button */
+      cursor: pointer;
+      z-index: 2; /* Ensure the button is on top */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow to make the button stand out */
+
 }
 
-/* Show the collapse button on larger screens */
+/* Make the collapse button visible on larger screens */
 @media only screen and (min-width: 769px) {
-    #collapse-btn {
-        display: block; /* Show on desktop */
+    #sidebar .collapse-btn {
+        display: block; /* Show button on desktop */
     }
 
-    #sidebar.collapsed {
-        width: 0; /* Collapse sidebar */
-    }
-
-    #sidebar {
-        transition: all 0.3s ease;
+    /* When collapsed */
+    #sidebar.collapsed .collapse-btn {
+        right: -35px; /* Adjust position */
     }
 }
 
@@ -93,6 +98,11 @@ body {
     text-decoration: none;
     padding: 8px;
     margin: 5px 0;
+}
+
+/* Hover effect for sidebar links */
+#menu a:hover {
+    color: #A85426;
 }
 
 /* Active link styling */
@@ -106,9 +116,9 @@ body {
     color: #28528E;
     text-align: center;
     font-size: 12px;
-    margin-top: auto;
-    padding: 10px 0;
-    background-color: #D6D6D6;
+    margin-top: auto; /* Ensure footer stays at the bottom */
+    padding: 10px 0; /* Space around footer text */
+    background-color: #D6D6D6; /* Same background as sidebar for consistency */
 }
 
 /* Main content layout */
@@ -118,21 +128,21 @@ body {
 }
 
 #content {
-    margin-left: 250px;
+    margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
-    width: calc(100% - 250px);
+    width: calc(100% - 250px); /* Adjust content width */
 }
 
 /* Jmol container styling */
 .jsmolContainer {
-    width: 100%;
-    max-width: 700px;
-    height: auto;
-    margin: 0 auto;
+    width: 100%; /* Full width of the parent container */
+    max-width: 700px; /* Optional: Limit max size for larger screens */
+    height: auto; /* Adjust height based on aspect ratio */
+    margin: 0 auto; /* Center horizontally */
     display: block;
-    position: relative;
-    overflow: hidden;
-    aspect-ratio: 1 / 1;
+    position: relative;  /* Allow positioning inside the container */
+    overflow: hidden;    /* Ensure content doesn’t overflow */
+    aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
 /* Mobile Sidebar Toggle Button */
@@ -146,26 +156,23 @@ body {
     font-size: 30px;
     border: none;
     padding: 10px;
-    z-index: 1000;
+    z-index: 1000; /* Ensure button is on top of other content */
 }
 
-/* Mobile Design */
+/* Design for smaller screens (Mobile) */
 @media only screen and (max-width: 768px) {
     /* Sidebar collapses for mobile screens */
     #sidebar {
-        display: none;
-        width: 70%;
+        display: none; /* Hide sidebar by default on mobile */
+        width: 70%; /* Make sidebar take up less space */
     }
 
+    /* Show Sidebar on mobile when the "show" class is added */
     #sidebar.show {
-        display: block;
+        display: block; /* Show sidebar when the "show" class is added */
     }
 
-    /* Show the sidebar toggle button on mobile */
-    #sidebar-toggle {
-        display: block; /* Show toggle button on mobile */
-    }
-
+    /* Main content occupies full screen width */
     #content {
         margin-left: 0;
         width: 100%;
@@ -173,21 +180,17 @@ body {
     }
 
     .jsmolContainer {
-        width: 90%;
-        height: auto;
+        width: 90%; /* Take up 90% of screen width on mobile */
+        height: auto; /* Adjust height accordingly */
     }
 
+    /* Sidebar footer font size */
     #sidebar footer {
         font-size: 10px;
         padding: 5px 0;
     }
 
-    /* Hide collapse button on mobile */
-    #collapse-btn {
-        display: none;
-    }
-
-    /* Show mobile toggle button */
+    /* Show the toggle button on mobile */
     .mobile-toggle {
         display: block; /* Show toggle button on mobile */
     }
