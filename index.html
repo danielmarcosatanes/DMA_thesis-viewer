@@ -12,11 +12,11 @@
     <div id="main-container">
         <!-- Sidebar -->
         <div id="sidebar">
-          <!-- Sidebar header -->
-          <header>
-              <h2>DMA Thesis</h2>
-              <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
-          </header>
+            <!-- Sidebar header -->
+            <header>
+                <h2>DMA Thesis</h2>
+                <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
+            </header>
 
             <div id="menu">
                 <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
@@ -51,7 +51,7 @@
         <div id="content">
             <!-- Home Page -->
             <div id="home-page" style="display: block;">
-                <h1 id="home-header">DMA Thesis: 3D Molecule Viewer</h1>
+                <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
                 <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
             </div>
 
@@ -179,7 +179,7 @@
               txtValue = links[i].textContent || links[i].innerText;
               if (txtValue.toUpperCase().indexOf(filter) > -1) {
                   links[i].style.display = ""; // Show matching links
-                  links[i].parentElement.style.display = "block"; // Ensure parent menu is visible
+                  links[i].parentElement.style.display = "block"; // Ensure parent div (like structures-menu) is visible if any link inside it is shown
               } else {
                   links[i].style.display = "none"; // Hide non-matching links
               }
