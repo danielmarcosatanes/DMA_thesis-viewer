@@ -19,24 +19,24 @@
           </header>
 
             <div id="menu">
-                <a href="#" id="home-link" onclick="showHome()">Home</a>
-                <a href="#" id="structures-link" onclick="toggleStructuresMenu()">Structures</a>
+                <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
+                <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
 
                 <div id="structures-menu" style="display: none;">
-                    <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
+                    <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
                     <div id="subsections7.1" class="subsections" style="display: none;">
-                        <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                        <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
-                    <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
+                    <a href="#" onclick="showSection('section7.2'); setActiveLink('section7.2')">Structures section 7.2</a>
                     <div id="subsections7.2" class="subsections" style="display: none;">
-                        <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                        <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
-                    <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
+                    <a href="#" onclick="showSection('section7.3'); setActiveLink('section7.3')">Structures section 7.3</a>
                     <div id="subsections7.3" class="subsections" style="display: none;">
-                        <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
-                        <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                 </div>
             </div>
@@ -59,12 +59,15 @@
 
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
+                <p>Relevant 3D structures for section 7.1 of the discussion.</p>
             </div>
             <div id="section7.2" style="display:none;">
                 <h2>Structures section 7.2</h2>
+                <p>Relevant 3D structures for section 7.2 of the discussion.</p>
             </div>
             <div id="section7.3" style="display:none;">
                 <h2>Structures section 7.3</h2>
+                <p>Relevant 3D structures for section 7.3 of the discussion.</p>
             </div>
 
             <div id="subsectionIrBpin" style="display:none;">
@@ -157,22 +160,14 @@
         function setActiveLink(linkId) {
             var allLinks = document.querySelectorAll('#menu a');
             allLinks.forEach(function(link) {
-                link.classList.remove('active');
+                link.classList.remove('active'); // Remove active class from all links
             });
-            document.getElementById(linkId).classList.add('active');
+            document.getElementById(linkId).classList.add('active'); // Add active class to the clicked link
         }
 
         window.onload = function() {
             showHome();  // Make sure the home page is displayed initially
         };
-
-        function setActiveLink(linkId) {
-            var allLinks = document.querySelectorAll('#menu a');
-            allLinks.forEach(function(link) {
-                link.classList.remove('active'); // Remove active class from all links
-            });
-            document.getElementById(linkId).classList.add('active'); // Add active class to the clicked link
-        }
 
         function searchMenu() {
           var input, filter, links, i, txtValue;
