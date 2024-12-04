@@ -150,33 +150,26 @@ body {
     z-index: 1000; /* Ensure button is on top of other content */
 }
 
+/* Show Sidebar on mobile when the "show" class is added */
+#sidebar.show {
+    display: block;
+    width: 70%;
+}
+
 /* Design for larger screens (Desktops) */
 @media only screen and (min-width: 769px) {
-
-    /* Sidebar is fixed and occupies 250px of width */
     #sidebar {
-        width: 250px;
+        width: 250px; /* Sidebar width */
     }
 
-    /* Main content area takes up the remaining space */
     #content {
-        margin-left: 250px;
-        width: calc(100% - 250px);
+        margin-left: 250px; /* Space for sidebar */
     }
 
-    /* Jmol container is appropriately sized for desktops */
     .jsmolContainer {
-        width: 700px;
+        width: 700px; /* Fixed size for desktop */
         height: 600px;
-        margin: 0 auto;
     }
-
-    /* Footer and sidebar header remain visible and styled for desktops */
-    #sidebar footer {
-        font-size: 12px;
-        padding: 10px 0;
-    }
-
 }
 
 /* Design for smaller screens (Mobile) */
@@ -184,9 +177,9 @@ body {
 
     /* Sidebar collapses for mobile screens */
     #sidebar {
-      display: none; /* Hide sidebar by default on mobile */
-      width: 70%; /* Make sidebar take up less space */
-  }
+        display: none; /* Hide sidebar by default on mobile */
+        width: 70%; /* Make sidebar take up less space */
+    }
 
     /* Toggle sidebar visibility */
     #sidebar.show {
@@ -218,8 +211,8 @@ body {
 
     /* Jmol container adjusts to smaller screens */
     .jsmolContainer {
-      width: 90% !important; /* Full width */
-      height: 60vw !important; /* Adjust height for mobile */
+      width: 100% !important; /* Full width */
+      height: 60vw !important; /* Height adjusts based on viewport width */
       margin: 0; /* Remove any unnecessary margin */
     }
 
