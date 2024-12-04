@@ -6,7 +6,6 @@ body {
     background-color: #F4F4F9;
     display: flex;
     height: 100vh;
-    transition: all 0.3s ease-in-out; /* Smooth transition between screen sizes */
 }
 
 /* Sidebar container */
@@ -20,25 +19,14 @@ body {
     padding: 0;
     box-sizing: border-box;
     z-index: 1; /* Ensure sidebar is above other content */
-    transition: all 0.3s ease-in-out; /* Smooth transition for sidebar */
-}
-
-/* Make Home and Structures links always bold */
-#menu #home-link,
-#menu #structures-link {
-    font-weight: bold;
-}
-
-/* Collapsed sidebar */
-#sidebar.collapsed {
-    width: 70px; /* Width of collapsed sidebar */
 }
 
 /* Sidebar header */
 #sidebar header {
     background-color: #DDE5F0;
     width: 100%;
-    padding: 20px 20px; /* Increased padding for a larger header */
+    height: auto;
+    padding: 10px 20px;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -49,10 +37,9 @@ body {
 #sidebar header h2 {
     color: #28528E;
     margin-top: 0;
-    font-size: 24px; /* Increased font size */
+    font-size: 20px;
 }
 
-/* Sidebar search input */
 #sidebar header input[type="text"] {
     width: 80%;
     padding: 5px;
@@ -61,34 +48,10 @@ body {
     border-radius: 5px;
 }
 
-/* Sidebar collapse button (desktop only) */
-#sidebar .collapse-btn {
-      display: none; /* Hidden by default */
-      position: absolute;
-      top: 20px;
-      right: -35px; /* Position the button on the right side of the sidebar */
-      background-color: white; /* Same color as the hover effect */
-      color: #A85426;
-      font-size: 24px; /* Slightly larger button text */
-      padding: 10px;
-      border: none;
-      border-radius: 50%; /* Round button */
-      cursor: pointer;
-      z-index: 2; /* Ensure the button is on top */
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow to make the button stand out */
-
-}
-
-/* Make the collapse button visible on larger screens */
-@media only screen and (min-width: 769px) {
-    #sidebar .collapse-btn {
-        display: block; /* Show button on desktop */
-    }
-
-    /* When collapsed */
-    #sidebar.collapsed .collapse-btn {
-        right: -35px; /* Adjust position */
-    }
+/* Make Home and Structures links always bold */
+#menu #home-link,
+#menu #structures-link {
+    font-weight: bold;
 }
 
 /* Sidebar menu links */
@@ -111,6 +74,23 @@ body {
     color: #A85426 !important;
 }
 
+/* Remove any color change from non-active links when hovered */
+#menu a:not(.active):hover {
+    color: #A85426;
+}
+
+/* Sidebar menu (Structures) */
+#structures-menu {
+    padding-left: 20px;
+    display: none;
+}
+
+/* Subsections */
+.subsections {
+    padding-left: 20px;
+    display: none;
+}
+
 /* Sidebar Footer */
 #sidebar footer {
     color: #28528E;
@@ -127,61 +107,85 @@ body {
     width: 100%;
 }
 
+/* Content area styling */
 #content {
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
     width: calc(100% - 250px); /* Adjust content width */
 }
 
+/* Smooth transition effect */
+#content > div {
+    transition: all 0.3s ease-in-out;
+}
+
 /* Jmol container styling */
 .jsmolContainer {
-    width: 100%; /* Full width of the parent container */
-    max-width: 700px; /* Optional: Limit max size for larger screens */
-    height: auto; /* Adjust height based on aspect ratio */
-    margin: 0 auto; /* Center horizontally */
-    display: block;
-    position: relative;  /* Allow positioning inside the container */
-    overflow: hidden;    /* Ensure content doesn’t overflow */
-    aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
+    width: 600px;
+    height: 500px;
+    margin: 20px 0;
 }
 
-/* Mobile Sidebar Toggle Button */
-.mobile-toggle {
-    display: none;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background-color: transparent;
-    color: #28528E;
-    font-size: 30px;
-    border: none;
-    padding: 10px;
-    z-index: 1000; /* Ensure button is on top of other content */
+/* Message styling */
+#message {
+    font-size: 18px;
+    color: #4E7890;
 }
 
-/* Design for smaller screens (Mobile) */
+/* Media query for smaller screens (max-width: 768px) */
 @media only screen and (max-width: 768px) {
-    /* Sidebar collapses for mobile screens */
+
+    /* Make sidebar full-width on small screens */
     #sidebar {
-        display: none; /* Hide sidebar by default on mobile */
-        width: 70%; /* Make sidebar take up less space */
+        width: 100%;
+        height: auto;
+        position: relative; /* Sidebar will no longer be fixed on small screens */
     }
 
-    /* Show Sidebar on mobile when the "show" class is added */
-    #sidebar.show {
-        display: block; /* Show sidebar when the "show" class is added */
-    }
-
-    /* Main content occupies full screen width */
+    /* Content area adjusts to fill screen width */
     #content {
         margin-left: 0;
         width: 100%;
-        padding: 10px;
+        padding: 10px; /* Reduced padding for mobile */
     }
 
+    /* Sidebar header styling */
+    #sidebar header {
+        padding: 10px;
+        font-size: 16px;
+    }
+
+    #sidebar header h2 {
+        font-size: 18px;
+    }
+
+    /* Sidebar search input adjusts width */
+    #sidebar header input[type="text"] {
+        width: 90%; /* Wider input on mobile */
+    }
+
+    /* Adjust menu link padding for better touch experience */
+    #menu a {
+        padding: 12px;
+        font-size: 16px; /* Slightly larger font for readability */
+    }
+
+    /* Reduce font size for active link on smaller screens */
+    #menu a.active {
+        font-weight: bold;
+        color: #A85426 !important;
+        font-size: 16px;
+    }
+
+    /* Ensure submenu links are visible */
+    .subsections {
+        padding-left: 15px;
+    }
+
+    /* Reduce Jmol container size for better fitting on mobile */
     .jsmolContainer {
-        width: 90%; /* Take up 90% of screen width on mobile */
-        height: auto; /* Adjust height accordingly */
+        width: 100%;
+        height: 300px; /* Adjust height for mobile devices */
     }
 
     /* Sidebar footer font size */
@@ -189,122 +193,4 @@ body {
         font-size: 10px;
         padding: 5px 0;
     }
-
-    /* Show the toggle button on mobile */
-    .mobile-toggle {
-        display: block; /* Show toggle button on mobile */
-    }
-}body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F4F4F9;
-    display: flex;
-    height: 100vh;
-    transition: all 0.3s ease-in-out;
-}
-
-#sidebar {
-    background-color: #D6D6D6;
-    width: 250px;
-    height: 100vh;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    box-sizing: border-box;
-    z-index: 1;
-    transition: all 0.3s ease-in-out;
-}
-
-#sidebar.collapsed {
-    width: 0;
-}
-
-header {
-    background-color: #DDE5F0;
-    padding: 20px;
-    text-align: center;
-}
-
-header h2 {
-    color: #28528E;
-    margin: 0;
-}
-
-#sidebar-search {
-    width: 80%;
-    margin-top: 10px;
-    padding: 5px;
-    border: 1px solid #28528E;
-    border-radius: 5px;
-}
-
-#menu a {
-    display: block;
-    padding: 10px;
-    color: #28528E;
-    text-decoration: none;
-}
-
-#menu a:hover {
-    color: #A85426;
-}
-
-footer {
-    margin-top: auto;
-    padding: 10px;
-    text-align: center;
-    font-size: 12px;
-    background-color: #D6D6D6;
-    color: #28528E;
-}
-
-#sidebar-toggle,
-#collapse-btn {
-    display: none;
-    position: fixed;
-    top: 20px;
-    left: 20px;
-    background: none;
-    border: none;
-    font-size: 30px;
-    cursor: pointer;
-}
-
-#collapse-btn {
-    left: auto;
-    right: 15px;
-    top: 15px;
-}
-
-@media (max-width: 768px) {
-    #sidebar {
-        display: none;
-        width: 70%;
-    }
-
-    #sidebar.show {
-        display: block;
-    }
-
-    #sidebar-toggle {
-        display: block;
-    }
-
-    #collapse-btn {
-        display: none;
-    }
-}
-
-#content {
-    margin-left: 250px;
-    width: calc(100% - 250px);
-    padding: 20px;
-    transition: all 0.3s ease;
-}
-
-#sidebar.collapsed + #content {
-    margin-left: 0;
-    width: 100%;
 }
