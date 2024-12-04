@@ -208,10 +208,15 @@
         window.addEventListener('load', resizeJmolForMobile);
     </script>
     <script>
-  // Toggle sidebar on button click
-  document.querySelector('.mobile-toggle').addEventListener('click', function() {
-    document.getElementById('sidebar').classList.toggle('show');
-  });
+      // Mobile Sidebar Toggle
+      document.querySelector('.mobile-toggle').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('show');
+      });
+
+      // Desktop Sidebar Collapse
+      document.querySelector('.collapse-btn').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('collapsed');
+      });
     </script>
 </body>
 </html>
