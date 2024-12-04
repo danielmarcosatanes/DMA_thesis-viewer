@@ -4,6 +4,8 @@ body {
     margin: 0;
     padding: 0;
     background-color: #F4F4F9;
+    display: flex;
+    height: 100vh;
 }
 
 /* Sidebar container */
@@ -16,6 +18,7 @@ body {
     flex-direction: column;
     padding: 0;
     box-sizing: border-box;
+    z-index: 1; /* Make sure the sidebar is above other content */
 }
 
 /* Sidebar header */
@@ -23,9 +26,6 @@ body {
     background-color: #DDE5F0;
     width: 100%;
     height: auto;
-    position: absolute;
-    top: 0;
-    left: 0;
     padding: 10px 20px;
     box-sizing: border-box;
     display: flex;
@@ -91,12 +91,13 @@ body {
 /* Main content layout */
 #main-container {
     display: flex;
+    width: 100%;
 }
 
 #content {
-    margin-left: 300px;
+    margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
-    width: calc(100% - 300px);
+    width: calc(100% - 250px); /* Adjust content width */
 }
 
 /* Smooth transition effect */
