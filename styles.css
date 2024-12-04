@@ -15,12 +15,17 @@ body {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    justify-content: space-between; /* Ensures the content is aligned at the top, and the footer at the bottom */
+    /* Ensure the content starts right after the header */
 }
 
 /* Sidebar header and menu */
 #sidebar header h2 {
     color: #28528E;
+    margin-top: 0; /* Remove any default margin that might push the content down */
+}
+
+#menu {
+    flex-grow: 1; /* Allow this section to take up remaining space and push the footer down */
 }
 
 #menu a {
@@ -64,7 +69,7 @@ body {
     color: #28528E;
     text-align: center;
     font-size: 12px;
-    margin-top: 20px; /* Space between the footer and the menu */
+    margin-top: 20px; /* Add space between footer and last link */
 }
 
 /* Styling for the main content */
