@@ -115,29 +115,3 @@ html {
     }
 }
 
-@media (prefers-color-scheme: dark) {
-    body {
-        background-color: #333;
-        color: #D6D6D6;
-    }
-
-    #sidebar {
-        background-color: #2E2E2E;
-    }
-
-    #sidebar a {
-        color: #D6D6D6;
-    }
-
-    #sidebar a:hover {
-        color: #A85426;
-    }
-
-    header, footer {
-        color: #D6D6D6;
-    }
-
-    #content h2, #content h3 {
-        color: #D6D6D6;
-    }
-}
