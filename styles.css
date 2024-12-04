@@ -1,121 +1,70 @@
 /* General Styles */
 body {
-    font-family: 'Georgia', serif;
-    margin: 0;
+    font-family: Arial, sans-serif;
     display: flex;
+    margin: 0;
     height: 100vh;
-    color: #333;
-    background-color: #fff;
 }
 
-#sidebar {
-    width: 250px;
-    background-color: #343a40;
-    color: white;
+#menu {
+    width: 200px;
+    background-color: #f4f4f4;
     padding: 20px;
-    position: fixed;
-    top: 0;
-    bottom: 0;
-    overflow-y: auto;
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
 
-.sidebar-header h2 {
-    font-size: 24px;
+#menu h3 {
+    font-size: 20px;
     margin-top: 0;
 }
 
-.sidebar-links a {
+#menu a {
     display: block;
-    margin: 10px 0;
+    margin-bottom: 10px;
     text-decoration: none;
-    color: #ccc;
+    color: #333;
     font-size: 18px;
 }
 
-.sidebar-links a:hover {
+#menu a:hover {
     color: #007bff;
 }
 
-/* Main Content Area */
-#main-content {
+/* Main content area */
+#content {
     flex: 1;
-    margin-left: 270px; /* Offset for sidebar */
-    padding: 30px;
-    background-color: #f8f9fa;
+    padding: 20px;
+    background-color: #fff;
     overflow-y: auto;
 }
 
-header h1 {
-    text-align: center;
-    font-size: 28px;
-}
-
+/* Message text */
 #message {
     font-size: 24px;
     text-align: center;
     margin-top: 100px;
 }
 
-h2, h3 {
-    margin-top: 0;
-}
-
-.jsmolContainer {
+/* JSmol container */
+#jsmolContainer1, #jsmolContainer2, #jsmolContainer3 {
     width: 600px;
     height: 400px;
     border: 1px solid black;
     margin-top: 20px;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 10px;
-    background-color: #343a40;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    margin-left: 270px; /* Align with main content */
-}
-
-/* Dark Mode Styles */
-@media (prefers-color-scheme: dark) {
+/* Responsive design for smaller screens */
+@media (max-width: 768px) {
     body {
-        background-color: #121212;
-        color: #e0e0e0;
+        flex-direction: column;
     }
 
-    header {
-        background-color: #1c1c1c;
+    #menu {
+        width: 100%;
+        padding: 10px;
     }
 
-    #sidebar {
-        background-color: #1e1e1e;
-    }
-
-    #sidebar a {
-        color: #8ab4f8;
-    }
-
-    #sidebar a:hover {
-        color: #4a90e2;
-    }
-
-    #main-content {
-        background-color: #1c1c1c;
-    }
-
-    #message {
-        color: #bbbbbb;
-    }
-
-    .jsmolContainer {
-        border-color: #444;
-    }
-
-    footer {
-        background-color: #1c1c1c;
+    #content {
+        padding: 10px;
     }
 }
