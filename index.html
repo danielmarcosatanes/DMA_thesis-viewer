@@ -3,105 +3,187 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMA Thesis 3D Molecule Viewer</title>
+    <title>DMA Thesis: 3D Molecule Viewer</title>
     <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <div id="sidebar">
-        <h1>DMA Thesis</h1>
-        <ul>
-            <li><a href="javascript:void(0);" onclick="showSubsection('subsection7_1')">7.1 - Molecule Set 1</a></li>
-            <li><a href="javascript:void(0);" onclick="showSubsection('subsection7_2')">7.2 - Molecule Set 2</a></li>
-            <li><a href="javascript:void(0);" onclick="showSubsection('subsection7_3')">7.3 - Molecule Set 3</a></li>
-        </ul>
-        <footer style="position: absolute; bottom: 10px; text-align: center; width: 100%; font-size: 0.8em; color: #28528E;">
-            2024 DMA Thesis Viewer. All rights reserved.
-        </footer>
+    <!-- Main Container with Sidebar and Content -->
+    <div id="main-container">
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <!-- Sidebar header -->
+            <header>
+                <h2>DMA Thesis</h2>
+                <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
+            </header>
+
+            <div id="menu">
+                <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
+                <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
+
+                <div id="structures-menu" style="display: none;">
+                    <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
+                    <div id="subsections7.1" class="subsections" style="display: none;">
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
+                    </div>
+                    <a href="#" onclick="showSection('section7.2'); setActiveLink('section7.2')">Structures section 7.2</a>
+                    <div id="subsections7.2" class="subsections" style="display: none;">
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
+                    </div>
+                    <a href="#" onclick="showSection('section7.3'); setActiveLink('section7.3')">Structures section 7.3</a>
+                    <div id="subsections7.3" class="subsections" style="display: none;">
+                        <a href="#" onclick="showSubsection('subsectionIrBpin'); setActiveLink('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3'); setActiveLink('subsectionIrBpin3')">Ir(Bpin)3</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar Footer -->
+            <footer>
+                2024 DMA Thesis Viewer. All rights reserved.
+            </footer>
+        </div>
+
+        <!-- Main Content Area -->
+        <div id="content">
+            <!-- Home Page -->
+            <div id="home-page" style="display: block;">
+                <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
+                <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
+            </div>
+
+            <div id="message" style="display: none;">Select a structure section</div>
+
+            <div id="section7.1" style="display:none;">
+                <h2>Structures section 7.1</h2>
+                <p>Relevant 3D structures for section 7.1 of the discussion.</p>
+            </div>
+            <div id="section7.2" style="display:none;">
+                <h2>Structures section 7.2</h2>
+                <p>Relevant 3D structures for section 7.2 of the discussion.</p>
+            </div>
+            <div id="section7.3" style="display:none;">
+                <h2>Structures section 7.3</h2>
+                <p>Relevant 3D structures for section 7.3 of the discussion.</p>
+            </div>
+
+            <div id="subsectionIrBpin" style="display:none;">
+                <h3>Ir(Bpin)</h3>
+                <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
+            </div>
+
+            <div id="subsectionIrBpin3" style="display:none;">
+                <h3>Ir(Bpin)3</h3>
+                <div id="jsmolContainerIrBpin3" class="jsmolContainer"></div>
+            </div>
+        </div>
     </div>
 
-    <div id="main-content">
-        <div id="subsection7_1" class="subsection">
-            <h3>7.1 - Molecule Set 1</h3>
-            <div id="jsmolContainer44aBipyIrHBpin2" class="jsmolContainer">
-                <p class="molecule-title">44a-Bipy-Ir-H-Bpin2</p>
-            </div>
-            <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer">
-                <p class="molecule-title">44a-Bipy-Ir(Bpin)</p>
-            </div>
-        </div>
-
-        <div id="subsection7_2" class="subsection">
-            <h3>7.2 - Molecule Set 2</h3>
-            <div id="jsmolContainer44aBipyIrBpin3" class="jsmolContainer">
-                <p class="molecule-title">44a-Bipy-Ir(Bpin)3</p>
-            </div>
-            <div id="jsmolContainer44aBipyIrBpin5" class="jsmolContainer">
-                <p class="molecule-title">44a-Bipy-Ir(Bpin)5</p>
-            </div>
-        </div>
-
-        <div id="subsection7_3" class="subsection">
-            <h3>7.3 - Molecule Set 3</h3>
-            <div id="jsmolContainer44a" class="jsmolContainer">
-                <p class="molecule-title">44a</p>
-            </div>
-            <div id="jsmolContainer45a" class="jsmolContainer">
-                <p class="molecule-title">45a</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Correct JSmol library path -->
-    <script src="https://chemapps.stolaf.edu/jmol/jsmol.js"></script>
-    <script>
-        // Ensure that the JSmol library is fully loaded before calling any functions
-        window.onload = function() {
-            console.log("JSmol Library Loaded");
+    <script type="text/javascript">
+        var Info = {
+            width: 700,
+            height: 400,  // Adjust height for better fitting
+            j2sPath: "j2s",
+            color: "white",
+            use: "HTML5",
+            disableJ2SLoadMonitor: true,
+            disableInitialConsole: true
         };
 
-        // Initialize JSmol with debugging output
         function loadJSmol(containerId, moleculeFile) {
-            var container = document.getElementById(containerId);
-            console.log("Loading JSmol into container: " + containerId);
+            var jsmolApplet = Jmol.getApplet(containerId, Info);
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
+            Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+        }
 
-            if (container) {
-                var Info = {
-                    width: 500,
-                    height: 500,
-                    use: "HTML5",
-                    j2sPath: "https://chemapps.stolaf.edu/jmol/jsmol/j2s",
-                    serverURL: "https://chemapps.stolaf.edu/jmol/jsmol/php/jsmol.php",
-                    script: "load 'molecules/" + moleculeFile + "';"
-                };
-                var jsmolApplet = Jmol.getApplet(containerId, Info);
-                container.innerHTML = Jmol.getAppletHtml(jsmolApplet);
-                Jmol.script(jsmolApplet, "load 'molecules/" + moleculeFile + "';");
+        function showHome() {
+            // Display home page content and hide other sections
+            document.getElementById('home-page').style.display = 'block';
+            document.getElementById('message').style.display = 'none';
+            document.getElementById('section7.1').style.display = 'none';
+            document.getElementById('section7.2').style.display = 'none';
+            document.getElementById('section7.3').style.display = 'none';
+            document.getElementById('subsectionIrBpin').style.display = 'none';
+            document.getElementById('subsectionIrBpin3').style.display = 'none';
+
+            // Ensure the sidebar link is highlighted
+            setActiveLink('home-link');
+        }
+
+        function toggleStructuresMenu() {
+            var menu = document.getElementById('structures-menu');
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'block';
             } else {
-                console.error("Container with ID " + containerId + " not found.");
+                menu.style.display = 'none';
             }
         }
 
-        function showSubsection(subsectionId) {
-            var subsections = document.querySelectorAll('.subsection');
+        function showSection(sectionId) {
+            var sections = document.querySelectorAll('#content > div');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            var subsections = document.querySelectorAll('.subsections');
             subsections.forEach(function(subsection) {
                 subsection.style.display = 'none';
             });
 
-            // Show the selected subsection
-            document.getElementById(subsectionId).style.display = 'block';
-            console.log("Showing subsection: " + subsectionId);
+            document.getElementById(sectionId).style.display = 'block';
+            document.getElementById('message').style.display = 'none';
 
-            // Load molecules in the subsection based on the subsectionId (file name without extension)
-            if (subsectionId === 'subsection7_1') {
-                loadJSmol('jsmolContainer44aBipyIrHBpin2', '44a-Bipy-Ir-H-Bpin2.log');
-                loadJSmol('jsmolContainer44aBipyIrBpin', '44a-Bipy-Ir(Bpin).log');
-            } else if (subsectionId === 'subsection7_2') {
-                loadJSmol('jsmolContainer44aBipyIrBpin3', '44a-Bipy-Ir(Bpin)3.log');
-                loadJSmol('jsmolContainer44aBipyIrBpin5', '44a-Bipy-Ir(Bpin)5.log');
-            } else if (subsectionId === 'subsection7_3') {
-                loadJSmol('jsmolContainer44a', '44a.log');
-                loadJSmol('jsmolContainer45a', '45a.log');
+            // Show relevant subsections based on the section
+            document.getElementById('subsections' + sectionId.split('section')[1]).style.display = 'block';
+            setActiveLink(sectionId);
+        }
+
+        function showSubsection(subsectionId) {
+            var subsections = document.querySelectorAll('#content > div');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
+            });
+
+            document.getElementById(subsectionId).style.display = 'block';
+
+            if (subsectionId === 'subsectionIrBpin') {
+                loadJSmol("jsmolContainerIrBpin", "44a-Bipy-Ir(Bpin).log");
+            } else if (subsectionId === 'subsectionIrBpin3') {
+                loadJSmol("jsmolContainerIrBpin3", "44a-Bipy-Ir(Bpin)3.log");
             }
+            setActiveLink(subsectionId);
+        }
+
+        function setActiveLink(linkId) {
+            var allLinks = document.querySelectorAll('#menu a');
+            allLinks.forEach(function(link) {
+                link.classList.remove('active'); // Remove active class from all links
+            });
+            document.getElementById(linkId).classList.add('active'); // Add active class to the clicked link
+        }
+
+        window.onload = function() {
+            showHome();  // Make sure the home page is displayed initially
+        };
+
+        function searchMenu() {
+          var input, filter, links, i, txtValue;
+          input = document.getElementById('sidebar-search');
+          filter = input.value.toUpperCase();
+          links = document.querySelectorAll('#menu a, #structures-menu a'); // Include all nested links
+
+          for (i = 0; i < links.length; i++) {
+              txtValue = links[i].textContent || links[i].innerText;
+              if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                  links[i].style.display = ""; // Show matching links
+                  links[i].parentElement.style.display = "block"; // Ensure parent div (like structures-menu) is visible if any link inside it is shown
+              } else {
+                  links[i].style.display = "none"; // Hide non-matching links
+              }
+          }
         }
     </script>
 </body>
