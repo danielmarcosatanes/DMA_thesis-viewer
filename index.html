@@ -127,6 +127,7 @@
             toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
+
         function showSubsection(subsectionId) {
             // Hide all subsections
             var subsections = document.querySelectorAll('#content > div');
@@ -137,21 +138,29 @@
             // Show the selected subsection
             document.getElementById(subsectionId).style.display = 'block';
 
-            // Molecule mapping
+            // Molecule mapping with container IDs and log file names
             const molecules = {
-                subsection44aBipyIrBpin: '44a-Bipy-Ir(Bpin).log',
-                subsection44aBipyIrBpin5: '44a-Bipy-Ir(Bpin)5.log',
-                subsection44aBipyIrHBPin2: '44a-Bipy-Ir-H-Bpin2.log',
-                subsection44a: '44a.log',
-                subsection45a: '45a.log'
+                subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
+                subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
+                subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: '44a-Bipy-Ir-H-Bpin2.log' },
+                subsection44a: { container: 'jsmolContainer44a', file: '44a.log' },
+                subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
             };
 
-            // Load the corresponding molecule dynamically
-            const moleculeFile = molecules[subsectionId];
-            if (moleculeFile) {
-                loadJSmol(`jsmolContainer${subsectionId}`, moleculeFile);
+            // Ensure the container exists before loading
+            const molecule = molecules[subsectionId];
+            if (molecule) {
+                const container = document.getElementById(molecule.container);
+                if (container) {
+                    loadJSmol(molecule.container, molecule.file);
+                } else {
+                    console.error(`Container with ID ${molecule.container} not found.`);
+                }
+            } else {
+                console.error(`Molecule data for ${subsectionId} not found.`);
             }
         }
+
 
         function setActiveLink(linkId) {
             document.querySelectorAll('#menu a').forEach(link => link.classList.remove('active'));
