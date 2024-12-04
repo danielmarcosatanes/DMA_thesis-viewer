@@ -8,52 +8,48 @@
     <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-    <!-- Header -->
-    <header>
-        <h1>DMA Thesis: 3D Molecule Viewer</h1>
-    </header>
+    <!-- Header for the Home page -->
+    <div id="home-header">
+        <h1 style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
+        <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
+    </div>
 
     <!-- Main Container with Sidebar and Content -->
     <div id="main-container">
         <!-- Sidebar -->
         <div id="sidebar">
             <header>
-                <h3>DMA Thesis</h3>
+                <h2>Thesis Menu</h2>
             </header>
-            <div id="search-bar">
-                <input type="text" placeholder="Search...">
-            </div>
+
             <div id="menu">
                 <a href="#" id="home-link" onclick="showHome()">Home</a>
-                <a href="#" id="structures-link" onclick="showStructures()">Structures</a>
-                <div id="structures-menu" style="display:none;">
+                <a href="#" id="structures-link" onclick="toggleStructuresMenu()">Structures</a>
+
+                <div id="structures-menu">
                     <a href="#" onclick="showSection('section7.1')">Structures section 7.1</a>
-                    <div id="subsections7.1" class="subsections" style="display:none;">
-                        <a href="#" onclick="showSubsection('IrBpin')">Ir(Bpin)</a>
-                        <a href="#" onclick="showSubsection('IrBpin3')">Ir(Bpin)3</a>
+                    <div id="subsections7.1" class="subsections">
+                        <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                     <a href="#" onclick="showSection('section7.2')">Structures section 7.2</a>
-                    <div id="subsections7.2" class="subsections" style="display:none;">
-                        <a href="#" onclick="showSubsection('IrBpin')">Ir(Bpin)</a>
-                        <a href="#" onclick="showSubsection('IrBpin3')">Ir(Bpin)3</a>
+                    <div id="subsections7.2" class="subsections">
+                        <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                     <a href="#" onclick="showSection('section7.3')">Structures section 7.3</a>
-                    <div id="subsections7.3" class="subsections" style="display:none;">
-                        <a href="#" onclick="showSubsection('IrBpin')">Ir(Bpin)</a>
-                        <a href="#" onclick="showSubsection('IrBpin3')">Ir(Bpin)3</a>
+                    <div id="subsections7.3" class="subsections">
+                        <a href="#" onclick="showSubsection('subsectionIrBpin')">Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsectionIrBpin3')">Ir(Bpin)3</a>
                     </div>
                 </div>
             </div>
-            <footer>
-                <p>2024 DMA Thesis Viewer. All rights reserved.</p>
-            </footer>
         </div>
 
-        <!-- Main content area -->
+        <!-- Main Content Area -->
         <div id="content">
             <div id="message">Select a structure section</div>
 
-            <!-- Sections -->
             <div id="section7.1" style="display:none;">
                 <h2>Structures section 7.1</h2>
             </div>
@@ -64,7 +60,6 @@
                 <h2>Structures section 7.3</h2>
             </div>
 
-            <!-- Subsections (Molecules) -->
             <div id="subsectionIrBpin" style="display:none;">
                 <h3>Ir(Bpin)</h3>
                 <div id="jsmolContainerIrBpin" class="jsmolContainer"></div>
@@ -80,7 +75,7 @@
     <script type="text/javascript">
         var Info = {
             width: 700,
-            height: 400,  // Adjusted height for better fit
+            height: 400,  // Adjust height for better fitting
             j2sPath: "j2s",
             color: "white",
             use: "HTML5",
@@ -95,29 +90,33 @@
         }
 
         function showHome() {
-            var sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
+            document.getElementById('home-header').style.display = 'block';
             document.getElementById('message').style.display = 'block';
+            hideSections();
+            document.getElementById('subsections7.1').style.display = 'none';
+            document.getElementById('subsections7.2').style.display = 'none';
+            document.getElementById('subsections7.3').style.display = 'none';
+            clearMolecule();
         }
 
-        function showStructures() {
-            document.getElementById('structures-menu').style.display = 'block';
-            document.getElementById('structures-link').style.fontWeight = 'bold';
-            document.getElementById('home-link').style.fontWeight = 'normal';
-            hideMolecule();
+        function toggleStructuresMenu() {
+            var menu = document.getElementById('structures-menu');
+            if (menu.style.display === 'none' || menu.style.display === '') {
+                menu.style.display = 'block';
+            } else {
+                menu.style.display = 'none';
+            }
         }
 
         function showSection(sectionId) {
-            var subsections = document.querySelectorAll('.subsections');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
-            });
-
             var sections = document.querySelectorAll('#content > div');
             sections.forEach(function(section) {
                 section.style.display = 'none';
+            });
+
+            var subsections = document.querySelectorAll('.subsections');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
             });
 
             document.getElementById(sectionId).style.display = 'block';
@@ -141,19 +140,22 @@
             }
         }
 
-        function hideMolecule() {
-            var molecules = document.querySelectorAll('.jsmolContainer');
-            molecules.forEach(function(molecule) {
-                molecule.innerHTML = '';
-            });
-        }
-
-        window.onload = function() {
-            document.getElementById('message').style.display = 'block';
+        function hideSections() {
             var sections = document.querySelectorAll('#content > div');
             sections.forEach(function(section) {
                 section.style.display = 'none';
             });
+        }
+
+        function clearMolecule() {
+            document.getElementById('jsmolContainerIrBpin').innerHTML = '';
+            document.getElementById('jsmolContainerIrBpin3').innerHTML = '';
+        }
+
+        window.onload = function() {
+            document.getElementById('home-header').style.display = 'none';
+            document.getElementById('message').style.display = 'block';
+            hideSections();
         };
     </script>
 </body>
