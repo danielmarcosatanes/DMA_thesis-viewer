@@ -150,24 +150,17 @@
                 'subsection45a': 'section7.3'
             };
 
-            // Collapse all sidebar sections except the active one
-            var sidebarSections = document.querySelectorAll('.sidebar-section');
-            sidebarSections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-
-            // Show the active section in the sidebar
+            // Manually show relevant sections (do not collapse others)
             const activeSectionId = sectionMapping[subsectionId];
             if (activeSectionId) {
+                // Keep relevant sections and subsections expanded
                 document.getElementById(activeSectionId).style.display = 'block';
-            }
 
-            // Highlight the active subsection in the sidebar (orange)
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(link => link.classList.remove('active'));
-            const activeLink = document.querySelector(`#menu a[href="#${subsectionId}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
+                // Ensure the selected subsection is also visible
+                const subsectionElement = document.getElementById(subsectionId);
+                if (subsectionElement) {
+                    subsectionElement.style.display = 'block';
+                }
             }
 
             // Molecule mapping with container IDs and log file names
@@ -185,19 +178,33 @@
                 loadJSmol(molecule.container, molecule.file);
             }
         }
-            // Show only the section passed
-        function displayOnly(sectionId) {
-            const sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-            document.getElementById(sectionId).style.display = 'block';
+        // Highlight the active link in the sidebar (orange)
+        const links = document.querySelectorAll('#menu a');
+        links.forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`#menu a[href="#${subsectionId}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
         }
-            // Toggle visibility of the subsections
-        function toggleVisibility(id, show = false) {
-            const element = document.getElementById(id);
-            element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
+
+        // Ensure the sidebar does not collapse when a molecule is selected
+        // Remove collapse behavior and maintain current sidebar structure
+        const structuresMenu = document.getElementById('structures-menu');
+        if (structuresMenu) {
+            structuresMenu.style.display = 'block';
         }
+        const subsections7_1 = document.getElementById('subsections7.1');
+        if (subsections7_1) {
+            subsections7_1.style.display = 'block';
+        }
+        const subsections7_2 = document.getElementById('subsections7.2');
+        if (subsections7_2) {
+            subsections7_2.style.display = 'block';
+        }
+        const subsections7_3 = document.getElementById('subsections7.3');
+        if (subsections7_3) {
+            subsections7_3.style.display = 'block';
+        }
+    }
 
         function searchMenu() {
             const query = document.getElementById('sidebar-search').value.toLowerCase();
