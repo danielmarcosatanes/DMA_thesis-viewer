@@ -200,9 +200,41 @@
             });
         }
 
+        function toggleStructuresMenu() {
+            var structuresMenu = document.getElementById('structures-menu');
+            var subsections1 = document.getElementById('subsections7.1');
+            var subsections2 = document.getElementById('subsections7.2');
+            var subsections3 = document.getElementById('subsections7.3');
+
+            // Ensure the structures menu is shown when it's toggled
+            if (structuresMenu.style.display === 'none') {
+                structuresMenu.style.display = 'block';
+                subsections1.style.display = 'none'; // Initially collapse all subsections
+                subsections2.style.display = 'none';
+                subsections3.style.display = 'none';
+            } else {
+                structuresMenu.style.display = 'none'; // Hide structures menu
+            }
+        }
+
+        function showSection(sectionId) {
+            // Display the corresponding section and ensure the correct subsection is shown
+            displayOnly(sectionId);
+
+            // Identify the subsections related to the section
+            const subsectionId = `subsections${sectionId.split('section')[1]}`;
+
+            // Collapse all subsections first
+            const subsections = document.querySelectorAll('.subsections');
+            subsections.forEach(subsection => subsection.style.display = 'none');
+
+            // Now, display the related subsections only
+            document.getElementById(subsectionId).style.display = 'block';
+        }
+
         function showSubsection(subsectionId) {
-            // Hide all subsections
-            const subsections = document.querySelectorAll('#content > div');
+            // Hide all subsections except the one being clicked
+            var subsections = document.querySelectorAll('#content > div');
             subsections.forEach(function(subsection) {
                 subsection.style.display = 'none';
             });
@@ -215,10 +247,10 @@
                 sidebar.classList.remove('show');  // Collapse the sidebar on mobile
             }
 
-            // Highlight the active subsection link
+            // Highlight the active link
             setActiveLink(subsectionId);
 
-            // Map subsectionId to sectionId
+            // Map the subsection to the correct section to display in the sidebar
             const sectionMapping = {
                 'subsection44aBipyIrBpin': 'section7.1',
                 'subsection44aBipyIrBpin5': 'section7.1',
@@ -227,29 +259,9 @@
                 'subsection45a': 'section7.3'
             };
 
-            // Collapse all sidebar sections except the active one
-            const sidebarSections = document.querySelectorAll('.sidebar-section');
-            sidebarSections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-
             const activeSectionId = sectionMapping[subsectionId];
             if (activeSectionId) {
                 document.getElementById(activeSectionId).style.display = 'block';
-            }
-
-            // Load the relevant molecule into the container
-            const molecules = {
-                subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
-                subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
-                subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: '44a-Bipy-Ir-H-Bpin2.log' },
-                subsection44a: { container: 'jsmolContainer44a', file: '44a.log' },
-                subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
-            };
-
-            const molecule = molecules[subsectionId];
-            if (molecule) {
-                loadJSmol(molecule.container, molecule.file);
             }
         }
 
@@ -265,6 +277,7 @@
         }
 
         function displayOnly(sectionId) {
+            // Hide all sections except the one being displayed
             const sections = document.querySelectorAll('#content > div');
             sections.forEach(function(section) {
                 section.style.display = 'none';
