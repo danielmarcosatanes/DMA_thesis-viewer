@@ -257,6 +257,12 @@ body {
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
 
+      /* When the sidebar is collapsed, expand the JSmol container */
+      #sidebar.collapsed + #content .jsmolContainer {
+        margin-left: 0; /* No margin when sidebar is collapsed */
+        width: 100%; /* Full width when sidebar is collapsed */
+    }
+
 }
 
 /* Design for subsections */
