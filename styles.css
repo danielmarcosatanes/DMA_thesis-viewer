@@ -194,9 +194,9 @@ body {
 
     .jsmolContainer {
     width: 100%;
-    height: calc(100vh - 500px); /* Adjust height, leaving space for top elements (adjust '100px' as needed) */
+    height: calc(100vh - 200px); /* Adjust height, leaving space for top elements (adjust '100px' as needed) */
     margin-left: 0; /* No margin on mobile */
-    top: 100px; /* Ensure it leaves space for the header on mobile */
+    top: 200px; /* Ensure it leaves space for the header on mobile */
     left: 0;
     }
 }
