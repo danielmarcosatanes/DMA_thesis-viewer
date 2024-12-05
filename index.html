@@ -258,6 +258,17 @@
 
         // Attach event listener
         document.getElementById('collapse-btn').addEventListener('click', toggleSidebarDesktop);
+
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show');
+        }
+
+        // This event listener is just for mobile, toggling sidebar visibility
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            toggleSidebar();
+        });
+
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
     </script>
