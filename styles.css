@@ -251,9 +251,9 @@ body {
 
     .jsmolContainer {
         width: 100%; /* Ensure JSmol container fills the space */
-        height: calc(100vh - 20px); /* Full viewport height with padding for aesthetics */
+        height: calc(100% - 250px); /* Full viewport height with padding for aesthetics */
         max-width: 100%;
-        margin: 0 auto; /* Center align */
+        margin-left: 250px; /* Align with the sidebar */
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
 
