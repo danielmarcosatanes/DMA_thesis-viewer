@@ -260,6 +260,12 @@
             sidebar.classList.toggle('collapsed');
             content.classList.toggle('collapsed');
         });
+
+        // Toggle the "show" class for the sidebar when the button is clicked (for desktop)
+        document.querySelector('#collapse-btn').addEventListener('click', function () {
+          document.getElementById('sidebar').classList.toggle('show');
+          document.getElementById('sidebar').classList.toggle('collapsed');
+        });
     </script>
 
 </body>
