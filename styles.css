@@ -184,10 +184,6 @@ body {
         margin-left: 5px;
     }
 
-    #content {
-        padding-top: 6px; /* Ensure there's space between content and the toggle button */
-    }
-
     .mobile-toggle {
         display: block; /* Show toggle button for mobile */
     }
