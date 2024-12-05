@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #F4F4F9;
+    background-color: white;
     display: flex;
     height: 100vh;
     transition: all 0.3s ease-in-out; /* Smooth transition between screen sizes */
@@ -39,7 +39,7 @@ body {
 #sidebar header h2 {
     color: #28528E;
     margin-top: 0;
-    font-size: 20px;
+    font-size: 40px;
 }
 
 #sidebar header input[type="text"] {
