@@ -140,6 +140,11 @@
             // Show the selected subsection
             document.getElementById(subsectionId).style.display = 'block';
 
+            // Collapse sidebar if on mobile
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('show');  // Collapse the sidebar
+            }
+
             // Define the mapping between subsectionId and the sidebar section to show
             const sectionMapping = {
                 'subsection44aBipyIrBpin': 'section7.1',
