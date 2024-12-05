@@ -101,8 +101,8 @@
 
     <script>
         const Info = {
-            width: 900,
-            height: 700,
+            width: 700,
+            height: 400,
             j2sPath: "j2s",
             color: "#F4F4F9",
             use: "HTML5",
@@ -265,22 +265,22 @@
 
     <script>
         // Toggle the sidebar visibility on button click
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            const collapseBtn = document.getElementById('collapse-btn');
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('content');
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+        const sidebarToggle = document.getElementById('sidebar-toggle'); // Mobile button
+        const collapseBtn = document.getElementById('collapse-btn'); // Desktop button
 
-        // Toggle sidebar and collapse content on desktop
-            sidebarToggle.addEventListener('click', function() {
-              sidebar.classList.toggle('show');  // Show or hide sidebar
-              content.classList.toggle('collapsed');  // Move content to the left when collapsed
-            });
+        // Toggle the sidebar visibility for mobile
+        sidebarToggle.addEventListener('click', function() {
+            sidebar.classList.toggle('show');
+            content.classList.toggle('collapsed');  // Move content accordingly
+        });
 
-        // Toggle sidebar on desktop for collapse button
-          collapseBtn.addEventListener('click', function() {
-              sidebar.classList.toggle('collapsed');  // Collapse the sidebar
-              content.classList.toggle('collapsed');  // Move content to the left when sidebar is collapsed
-            });
+        // Toggle the sidebar visibility and content adjustment for desktop
+        collapseBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+        });
   </script>
 
 </body>
