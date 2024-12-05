@@ -236,7 +236,7 @@
             document.getElementById(id).classList.add('active');
         }
 
-        function toggleSidebar() {
+        function collapseSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('collapsed');
         }
@@ -255,16 +255,16 @@
               content.style.marginLeft = '250px'; // Restore the full sidebar width
           }
         }
-
-        // Attach event listener
-        document.getElementById('collapse-btn').addEventListener('click', toggleSidebarDesktop);
+        // Desktop Sidebar Collapse Event Listener
+        document.querySelector('.collapse-btn').addEventListener('click', function() {
+            collapseSidebar();
+        });
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.classList.toggle('show');
         }
-
-        // This event listener is just for mobile, toggling sidebar visibility
+        // Mobile Sidebar Toggle Event Listener
         document.querySelector('.mobile-toggle').addEventListener('click', function() {
             toggleSidebar();
         });
