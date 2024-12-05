@@ -181,17 +181,11 @@ body {
     }
 
     #content h1, #content h2, #content h3 {
-        text-align: center;
         margin-left: 40px;
     }
 
     #content {
         padding-top: 6px; /* Ensure there's space between content and the toggle button */
-    }
-
-    #sidebar header {
-        text-align: left; /* Align sidebar header text to the left */
-        margin-left: 40px; /* Add some padding for a better look */
     }
 
     .mobile-toggle {
