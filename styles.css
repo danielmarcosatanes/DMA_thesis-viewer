@@ -186,7 +186,7 @@ body {
     }
 
     #content {
-        padding-top: 60px; /* Ensure there's space between content and the toggle button */
+        padding-top: 6px; /* Ensure there's space between content and the toggle button */
     }
 
     #sidebar header {
