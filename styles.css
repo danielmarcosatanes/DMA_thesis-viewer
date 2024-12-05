@@ -32,7 +32,7 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     justify-content: center;
 }
 
@@ -210,6 +210,7 @@ body {
   padding: 10px;
   z-index: 1000; /* Ensure visibility */
   border-radius: 5px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 /* Design for larger screens (Desktops) */
@@ -234,13 +235,18 @@ body {
         display: block; /* Visible only on desktop */
     }
 
+    /* Hide mobile toggle button on desktop */
+    .mobile-toggle {
+    display: none;
+}
+
     #sidebar.collapsed + #collapse-btn {
         left: 10px; /* Adjust position when collapsed */
     }
 
     /* When sidebar is collapsed, move the content to the left */
     #sidebar.collapsed + #collapse-btn + #content {
-    margin-left: 70px; /* Adjust for collapsed sidebar width */
+    margin-left: 50px; /* Adjust for collapsed sidebar width */
     }
 }
 
@@ -296,4 +302,10 @@ body {
     .mobile-toggle {
         display: block; /* Show toggle button on mobile */
     }
+
+    /* Hide collapse button on mobile */
+    .collapse-btn {
+        display: none;
+    }
+
 }
