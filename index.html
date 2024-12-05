@@ -100,6 +100,8 @@
     </div>
 
     <script>
+    // Load JSmol function (for molecules)
+    function loadJSmol(containerId, moleculeFile) {
         const Info = {
             width: 700,
             height: 400,
@@ -109,12 +111,10 @@
             disableJ2SLoadMonitor: true,
             disableInitialConsole: true
         };
-
-        function loadJSmol(containerId, moleculeFile) {
-            const jsmolApplet = Jmol.getApplet(containerId, Info);
-            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
-        }
+        const jsmolApplet = Jmol.getApplet(containerId, Info);
+        document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
+        Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
+      }
 
         function showHome() {
             displayOnly('home-page');
@@ -123,81 +123,49 @@
 
         function toggleStructuresMenu() {
             const structuresMenu = document.getElementById('structures-menu');
-            structuresMenu.style.display = structuresMenu.style.display === 'block' ? 'none' : 'block';
+            structuresMenu.style.display = structuresMenu.style.display === 'none' ? 'block' : 'none';  // Toggle structures menu
         }
 
         function showSection(sectionId) {
-            // Show the selected section and its relevant subsections
-            displayOnly(sectionId);
-            const subsections = document.querySelector(`#subsections${sectionId.split('section')[1]}`);
-            if (subsections) subsections.style.display = 'block';
-            setActiveLink(sectionId);
+            // Hide all sections and subsections
+            document.querySelectorAll('.sidebar-section').forEach(section => section.style.display = 'none');
+            document.querySelectorAll('.subsections').forEach(subsection => subsection.style.display = 'none');
+
+            // Display the selected section
+            const section = document.getElementById(sectionId);
+            if (section) {
+                section.style.display = 'block';
+            }
+
+            // Show subsections if available
+            const subsections = document.getElementById('subsections' + sectionId.split('section')[1]);
+            if (subsections) {
+                subsections.style.display = 'block';
+            }
         }
 
         function showSubsection(subsectionId) {
             // Hide all subsections
-            var subsections = document.querySelectorAll('#content > div');
-            subsections.forEach(function(subsection) {
-                subsection.style.display = 'none';
-            });
+            document.querySelectorAll('#content > div').forEach(subsection => subsection.style.display = 'none');
 
-            // Show the selected subsection
+            // Display the clicked subsection
             document.getElementById(subsectionId).style.display = 'block';
 
-            // Define the mapping between subsectionId and the sidebar section to show
-            const sectionMapping = {
-                'subsection44aBipyIrBpin': 'section7.1',
-                'subsection44aBipyIrBpin5': 'section7.1',
-                'subsection44aBipyIrHBPin2': 'section7.2',
-                'subsection44a': 'section7.3',
-                'subsection45a': 'section7.3'
-            };
+            // Highlight the active link in the sidebar
+            setActiveLink(subsectionId);
 
-            // Collapse all sidebar sections except the one selected
-            const activeSectionId = sectionMapping[subsectionId];
-            if (activeSectionId) {
-                document.getElementById(activeSectionId).style.display = 'block';
-            }
-
-            // Molecule mapping with container IDs and log file names
+            // Load the corresponding molecule
             const molecules = {
-                subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
-                subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
-                subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: '44a-Bipy-Ir-H-Bpin2.log' },
-                subsection44a: { container: 'jsmolContainer44a', file: '44a.log' },
-                subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
+                'subsection44aBipyIrBpin': '44a-Bipy-Ir(Bpin).log',
+                'subsection44aBipyIrBpin5': '44a-Bipy-Ir(Bpin)5.log',
+                'subsection44aBipyIrHBPin2': '44a-Bipy-Ir-H-Bpin2.log',
+                'subsection44a': '44a.log',
+                'subsection45a': '45a.log'
             };
 
-            // Ensure the container exists before loading
-            const molecule = molecules[subsectionId];
-            if (molecule) {
-                loadJSmol(molecule.container, molecule.file);
-            }
-
-            // Highlight the active link in the sidebar (orange)
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(link => link.classList.remove('active'));
-            const activeLink = document.querySelector(`#menu a[href="#${subsectionId}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-
-            // Show the selected section and its parent section (Structures)
-            const structuresMenu = document.getElementById('structures-menu');
-            if (structuresMenu) {
-                structuresMenu.style.display = 'block';
-            }
-            const subsections7_1 = document.getElementById('subsections7.1');
-            if (subsections7_1) {
-                subsections7_1.style.display = 'block';
-            }
-            const subsections7_2 = document.getElementById('subsections7.2');
-            if (subsections7_2) {
-                subsections7_2.style.display = 'block';
-            }
-            const subsections7_3 = document.getElementById('subsections7.3');
-            if (subsections7_3) {
-                subsections7_3.style.display = 'block';
+            const moleculeFile = molecules[subsectionId];
+            if (moleculeFile) {
+                loadJSmol('jsmolContainer' + subsectionId, moleculeFile);
             }
         }
 
@@ -211,12 +179,16 @@
         }
 
 
-        function setActiveLink(id) {
+        function setActiveLink(linkId) {
+            // Remove active class from all links
             const links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-              link.classList.remove('active');
-          });
-          document.getElementById(id).classList.add('active');
+            links.forEach(link => link.classList.remove('active'));
+
+            // Add active class to the clicked link
+            const activeLink = document.getElementById(linkId);
+            if (activeLink) {
+                activeLink.classList.add('active');
+            }
         }
 
         function searchMenu() {
@@ -258,9 +230,10 @@
             }
         }
 
+        // Function to toggle the sidebar
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('collapsed');
+            sidebar.classList.toggle('show');
         }
 
         function toggleSidebarDesktop() {
