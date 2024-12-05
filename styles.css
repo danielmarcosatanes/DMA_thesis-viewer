@@ -178,6 +178,13 @@ body {
     .collapse-btn {
         display: none; /* No collapse button on mobile */
     }
+
+    .jsmolContainer {
+    width: 100% !important;
+    height: 50vw;  /* Dynamic height based on the width of the viewport */
+    max-width: 100% !important;
+    margin: 0 auto;
+    }
 }
 
 /* Desktop-Specific */
