@@ -13,6 +13,10 @@ body {
 #sidebar {
     background-color: #D6D6D6;
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-sizing: border-box;
     z-index: 1; /* Ensure sidebar is above other content */
     transform: translateX(-100%); /* Hide sidebar off-screen for mobile */
     transition: transform 0.3s ease-in-out; /* Smooth slide for mobile */
@@ -82,16 +86,13 @@ body {
 /* Main content layout */
 #main-container {
   display: grid;
-  grid-template-columns: 250px auto; /* Sidebar + Content */
-  grid-template-rows: 100%; /* Full height */
-  transition: grid-template-columns 0.3s ease-in-out;
-  height: 100vh; /* Ensure it covers the viewport */
+  grid-template-columns: 250px 1fr; /* Sidebar + Content */
+  grid-template-rows: 100vh; /* Full height */
+  transition: grid-template-columns 0.3s ease-in-out; /
 }
 
 #content {
-    background-color: #F4F4F9; /* Match your main area color */
-    overflow: auto; /* For scrolling if needed */
-    width: calc(100% - 250px); /* Adjust content width */
+    padding: 20px;
     transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth content shift */
 }
 
@@ -148,12 +149,12 @@ body {
 
 /* Adjust grid for collapsed sidebar */
 #main-container.collapsed {
-    grid-template-columns: 0 auto; /* Sidebar hidden, content full width */
+    grid-template-columns: 0px 1fr; /* Sidebar hidden, content full width */
 }
 
 /* Collapsed Desktop Sidebar */
 #sidebar.collapsed {
-    transform: translateX(-250px);
+    transform: translateX(-100%);
 }
 
 #content.collapsed {
@@ -172,7 +173,9 @@ body {
 /* Mobile-Specific */
 @media only screen and (max-width: 768px) {
     #sidebar {
-        transform: translateX(-100%); /* Hidden by default */
+      position: fixed;
+      transform: translateX(-100%); /* Hide off-screen initially */
+      width: 70%;
     }
 
     #sidebar.show {
@@ -185,9 +188,9 @@ body {
     }
 
     #main-container {
-        grid-template-columns: auto; /* Content only when sidebar hidden */
+        grid-template-columns: 1fr; /* Content only when sidebar hidden */
     }
-    
+
     .mobile-toggle {
         display: block; /* Show toggle button for mobile */
     }
