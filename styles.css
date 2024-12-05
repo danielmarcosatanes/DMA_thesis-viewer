@@ -179,9 +179,18 @@ body {
         transform: translateX(0); /* Show when toggled */
     }
 
+    #content h1, #content h2, #content h3 {
+        text-align: left;
+        margin-left: 50px; /* Adjust to create space for the toggle button */
+    }
+
     #content {
-        margin-left: 0;
-        width: 100%;
+        padding-top: 60px; /* Ensure there's space between content and the toggle button */
+    }
+
+    #sidebar header {
+        text-align: left; /* Align sidebar header text to the left */
+        padding-left: 10px; /* Add some padding for a better look */
     }
 
     .mobile-toggle {
@@ -216,18 +225,8 @@ body {
         width: 250px;
     }
 
-    #content h1, #content h2, #content h3 {
-        text-align: left;
-        margin-left: 50px; /* Adjust to create space for the toggle button */
-    }
-
     #content {
-        padding-top: 60px; /* Ensure there's space between content and the toggle button */
-    }
-
-    #sidebar header {
-        text-align: left; /* Align sidebar header text to the left */
-        padding-left: 10px; /* Add some padding for a better look */
+        margin-left: 250px;
     }
 }
 
