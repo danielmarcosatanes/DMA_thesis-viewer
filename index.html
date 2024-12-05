@@ -134,14 +134,15 @@
             setActiveLink(sectionId);
         }
 
+        // Function to show a specific subsection (molecule)
         function showSubsection(subsectionId) {
-            // Hide all subsections
+            // Hide all subsections in the content area
             var subsections = document.querySelectorAll('#content > div');
             subsections.forEach(function(subsection) {
                 subsection.style.display = 'none';
             });
 
-            // Show the selected subsection
+            // Show the selected subsection (molecule)
             document.getElementById(subsectionId).style.display = 'block';
 
             // Define the mapping between subsectionId and the sidebar section to show
@@ -153,10 +154,17 @@
                 'subsection45a': 'section7.3'
             };
 
-            // Collapse all sidebar sections except the one selected
+            // Manually show relevant sections (do not collapse others)
             const activeSectionId = sectionMapping[subsectionId];
             if (activeSectionId) {
+                // Keep relevant sections and subsections expanded
                 document.getElementById(activeSectionId).style.display = 'block';
+
+                // Ensure the selected subsection is also visible
+                const subsectionElement = document.getElementById(subsectionId);
+                if (subsectionElement) {
+                    subsectionElement.style.display = 'block';
+                }
             }
 
             // Molecule mapping with container IDs and log file names
@@ -173,51 +181,34 @@
             if (molecule) {
                 loadJSmol(molecule.container, molecule.file);
             }
-
-            // Highlight the active link in the sidebar (orange)
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(link => link.classList.remove('active'));
-            const activeLink = document.querySelector(`#menu a[href="#${subsectionId}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-
-            // Show the selected section and its parent section (Structures)
-            const structuresMenu = document.getElementById('structures-menu');
-            if (structuresMenu) {
-                structuresMenu.style.display = 'block';
-            }
-            const subsections7_1 = document.getElementById('subsections7.1');
-            if (subsections7_1) {
-                subsections7_1.style.display = 'block';
-            }
-            const subsections7_2 = document.getElementById('subsections7.2');
-            if (subsections7_2) {
-                subsections7_2.style.display = 'block';
-            }
-            const subsections7_3 = document.getElementById('subsections7.3');
-            if (subsections7_3) {
-                subsections7_3.style.display = 'block';
-            }
+        }
+        // Highlight the active link in the sidebar (orange)
+        const links = document.querySelectorAll('#menu a');
+        links.forEach(link => link.classList.remove('active'));
+        const activeLink = document.querySelector(`#menu a[href="#${subsectionId}"]`);
+        if (activeLink) {
+            activeLink.classList.add('active');
         }
 
-        // Function to display only the selected section
-        function displayOnly(sectionId) {
-            const sections = document.querySelectorAll('#content > div');
-            sections.forEach(function(section) {
-                section.style.display = 'none';
-            });
-            document.getElementById(sectionId).style.display = 'block';
+        // Ensure the sidebar does not collapse when a molecule is selected
+        // Remove collapse behavior and maintain current sidebar structure
+        const structuresMenu = document.getElementById('structures-menu');
+        if (structuresMenu) {
+            structuresMenu.style.display = 'block';
         }
-
-
-        function setActiveLink(id) {
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-              link.classList.remove('active');
-          });
-          document.getElementById(id).classList.add('active');
+        const subsections7_1 = document.getElementById('subsections7.1');
+        if (subsections7_1) {
+            subsections7_1.style.display = 'block';
         }
+        const subsections7_2 = document.getElementById('subsections7.2');
+        if (subsections7_2) {
+            subsections7_2.style.display = 'block';
+        }
+        const subsections7_3 = document.getElementById('subsections7.3');
+        if (subsections7_3) {
+            subsections7_3.style.display = 'block';
+        }
+    }
 
         function searchMenu() {
             const query = document.getElementById('sidebar-search').value.toLowerCase();
@@ -256,6 +247,15 @@
             if (!hasResults) {
                 console.log('No results found');
             }
+        }
+
+        // Set the active link in the sidebar
+        function setActiveLink(id) {
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
         }
 
         function toggleSidebar() {
