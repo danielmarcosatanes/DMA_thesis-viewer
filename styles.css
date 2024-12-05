@@ -201,6 +201,13 @@ body {
     opacity: 0.5; /* Optional: dim JSmol when sidebar is visible */
     pointer-events: none; /* Prevent interaction with JSmol when sidebar is open */
     }
+
+    #content h1 {
+    margin-left: 20px; /* Add space from the left */
+    margin-right: 20px; /* Prevent overflow on the right */
+    max-width: calc(100% - 40px); /* Ensure the width stays within the viewport */
+    word-wrap: break-word; /* Wrap long words if necessary */
+  }
 }
 
 /* Desktop-Specific */
