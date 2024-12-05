@@ -136,6 +136,8 @@ body {
   position: absolute;
   top: 15px; /* Adjust to align with the top-left corner of the header */
   left: 15px; /* Adjust to place it to the left of the header */
+  background-color: transparent; /* Default background color when sidebar is closed */
+  color: #A85426; /* Orange color for the button */
   border: none;
   border-radius: 50%; /* Make the button circular */
   padding: 15px; /* Adjust padding to make it round */
@@ -143,17 +145,6 @@ body {
   z-index: 2; /* Ensure the button is on top */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
   transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-#sidebar.show #collapse-btn {
-    background-color: #DDE5F0; /* Light blue background when sidebar is open */
-    color: #28528E; /* Dark blue color for the button icon when open */
-}
-
-/* When the sidebar is collapsed */
-#sidebar.collapsed #collapse-btn {
-    background-color: white; /* White background when sidebar is collapsed */
-    color: #A85426; /* Orange color for the button icon when collapsed */
 }
 
 /* Collapsed Desktop Sidebar */
