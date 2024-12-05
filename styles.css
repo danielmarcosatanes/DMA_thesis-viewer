@@ -247,6 +247,7 @@ body {
     #sidebar.collapsed + #content {
         margin-left: 0; /* No margin when sidebar is collapsed */
         width: 100%; /* Expand content to full width */
+        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
 
     .jsmolContainer {
@@ -261,6 +262,7 @@ body {
       #sidebar.collapsed + #content .jsmolContainer {
         margin-left: 0; /* No margin when sidebar is collapsed */
         width: 100%; /* Full width when sidebar is collapsed */
+        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
 
 }
