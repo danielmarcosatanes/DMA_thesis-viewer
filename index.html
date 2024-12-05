@@ -130,8 +130,9 @@
             toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
+        // Function to show a specific subsection (molecule)
         function showSubsection(subsectionId) {
-            // Hide all subsections in the content
+            // Hide all subsections in the content area
             var subsections = document.querySelectorAll('#content > div');
             subsections.forEach(function(subsection) {
                 subsection.style.display = 'none';
@@ -149,13 +150,13 @@
                 'subsection45a': 'section7.3'
             };
 
-            // Collapse all sidebar sections
+            // Collapse all sidebar sections except the active one
             var sidebarSections = document.querySelectorAll('.sidebar-section');
             sidebarSections.forEach(function(section) {
                 section.style.display = 'none';
             });
 
-            // Show the active sidebar section based on the subsectionId
+            // Show the active section in the sidebar
             const activeSectionId = sectionMapping[subsectionId];
             if (activeSectionId) {
                 document.getElementById(activeSectionId).style.display = 'block';
@@ -188,7 +189,7 @@
                 loadJSmol(molecule.container, molecule.file);
             }
         }
-
+            // Show only the section passed
         function displayOnly(sectionId) {
             const sections = document.querySelectorAll('#content > div');
             sections.forEach(function(section) {
@@ -196,7 +197,7 @@
             });
             document.getElementById(sectionId).style.display = 'block';
         }
-
+            // Toggle visibility of the subsections
         function toggleVisibility(id, show = false) {
             const element = document.getElementById(id);
             element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
@@ -241,11 +242,14 @@
             }
         }
 
+        // Set the active link in the sidebar
         function setActiveLink(id) {
-          const links = document.querySelectorAll('#menu a');
-          links.forEach(link => link.classList.remove('active'));
-          document.getElementById(id)?.classList.add('active');
-      }
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
 
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');
