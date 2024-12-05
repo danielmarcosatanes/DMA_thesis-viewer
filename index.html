@@ -250,15 +250,16 @@
         const sidebar = document.getElementById('sidebar');
         const content = document.getElementById('content');
 
-        // Mobile toggle button
-        document.getElementById('sidebar-toggle').addEventListener('click', function () {
-            sidebar.classList.toggle('show');
+        // Toggle the sidebar visibility for mobile
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('show');  // Toggle visibility
         });
 
-        // Toggle the "show" class for the sidebar when the button is clicked (for desktop)
-        document.querySelector('#collapse-btn').addEventListener('click', function () {
-          document.getElementById('sidebar').classList.toggle('show');
-          document.getElementById('sidebar').classList.toggle('collapsed');
+        // Toggle the sidebar visibility for desktop
+        document.querySelector('#collapse-btn').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show'); // Toggle visibility for desktop
+            sidebar.classList.toggle('collapsed'); // Toggle the collapsed state for desktop
         });
     </script>
 
