@@ -104,10 +104,10 @@ body {
 
 /* Jmol container styling */
 .jsmolContainer {
-    width: 100%;
+    width: calc(100% - 250px);
     max-width: 700px; /* Limit max size for larger screens */
-    height: auto;
-    margin: 0 auto;
+    height: 100vh;
+    margin-left: 300px;  /* Leave space for the sidebar */
     display: block;
     position: relative;
     overflow: hidden;
