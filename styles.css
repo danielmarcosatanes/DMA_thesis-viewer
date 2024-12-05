@@ -105,12 +105,13 @@ body {
 /* Jmol container styling */
 .jsmolContainer {
     width: calc(100% - 250px);
-    max-width: 700px; /* Limit max size for larger screens */
     height: 100vh;
-    margin-left: 300px;  /* Leave space for the sidebar */
+    margin-left: 250px;  /* Leave space for the sidebar */
     display: block;
-    position: relative;
+    position: absolute;
     overflow: hidden;
+    top: 0;  /* Ensure it starts from the top of the page */
+    left: 0;  /* Align with the left edge */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
