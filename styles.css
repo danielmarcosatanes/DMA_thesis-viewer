@@ -132,10 +132,10 @@ body {
 /* Desktop Collapse Button */
 #collapse-btn {
   display: none; /* Hidden by default */
-  font-size: 30px;
+  font-size: 20px;
   position: absolute;
-  top: 15px; /* Adjust to align with the top-left corner of the header */
-  left: 15px; /* Adjust to place it to the left of the header */
+  top: 7px; /* Adjust to align with the top-left corner of the header */
+  left: 7px; /* Adjust to place it to the left of the header */
   background-color: transparent; /* Default background color when sidebar is closed */
   color: #A85426; /* Orange color for the button */
   border: none;
@@ -143,7 +143,7 @@ body {
   padding: 15px; /* Adjust padding to make it round */
   cursor: pointer;
   z-index: 2; /* Ensure the button is on top */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
