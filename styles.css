@@ -194,11 +194,6 @@ body {
         margin-left: 40px; /* Add some padding for a better look */
     }
 
-    #sidebar header input[type="text"] {
-        margin-left: 20px; /* Slightly adjust left margin for the search bar */
-        width: calc(80% - 20px); /* Adjust width to account for margin */
-    }
-
     .mobile-toggle {
         display: block; /* Show toggle button for mobile */
     }
