@@ -240,7 +240,23 @@ body {
 
     #content {
         margin-left: 250px;
+        width: calc(100% - 250px); /* Adjust to fit with sidebar */
+        transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     }
+
+    #sidebar.collapsed + #content {
+        margin-left: 0; /* No margin when sidebar is collapsed */
+        width: 100%; /* Expand content to full width */
+    }
+
+    .jsmolContainer {
+        width: 100%; /* Ensure JSmol container fills the space */
+        height: calc(100vh - 20px); /* Full viewport height with padding for aesthetics */
+        max-width: 100%;
+        margin: 0 auto; /* Center align */
+        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+    }
+
 }
 
 /* Design for subsections */
