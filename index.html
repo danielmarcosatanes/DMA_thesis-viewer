@@ -114,7 +114,7 @@
         function loadJSmol(containerId, moleculeFile) {
             const jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-            Jmol.script(jsmolApplet, load 'molecules/${moleculeFile}';);
+            Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
         }
 
         function showHome() {
@@ -142,7 +142,7 @@
 
         function showSection(sectionId) {
             displayOnly(sectionId);
-            toggleVisibility(subsections${sectionId.split('section')[1]}, true);
+            toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
         function showSubsection(subsectionId) {
@@ -276,28 +276,7 @@
             sidebar.classList.toggle('show'); // Toggle visibility for desktop
             sidebar.classList.toggle('collapsed'); // Toggle the collapsed state for desktop
         });
-
     </script>
-
-    <script>
-        // Toggle the sidebar visibility on button click
-            const sidebarToggle = document.getElementById('sidebar-toggle');
-            const collapseBtn = document.getElementById('collapse-btn');
-            const sidebar = document.getElementById('sidebar');
-            const content = document.getElementById('content');
-
-        // Toggle sidebar and collapse content on desktop
-            sidebarToggle.addEventListener('click', function() {
-              sidebar.classList.toggle('show');  // Show or hide sidebar
-              content.classList.toggle('collapsed');  // Move content to the left when collapsed
-            });
-
-        // Toggle sidebar on desktop for collapse button
-          collapseBtn.addEventListener('click', function() {
-              sidebar.classList.toggle('collapsed');  // Collapse the sidebar
-              content.classList.toggle('collapsed');  // Move content to the left when sidebar is collapsed
-            });
-  </script>
 
 </body>
 </html>
