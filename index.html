@@ -347,11 +347,16 @@
             const jsmolContainers = document.querySelectorAll('.jsmolContainer');
 
             jsmolContainers.forEach(container => {
+                  if (window.innerWidth <= 768) {
+                      // Mobile view adjustments
+                      container.style.width = `${window.innerWidth}px`; // Full width
+                      container.style.height = `${window.innerHeight - 100}px`; // Account for top space (100px for header or nav)
+                  } else {
+                      // Desktop view adjustments
                 const containerWidth = window.innerWidth * 0.8; // 80% of window width
                 const containerHeight = window.innerHeight * 0.6; // 60% of window height
-
-                container.style.width = `${containerWidth}px`;
-                container.style.height = `${containerHeight}px`;
+                      container.style.width = `${containerWidth}px`;
+                      container.style.height = `${containerHeight}px`;
 
                 // Keep the square aspect ratio
                 container.style.aspectRatio = '1 / 1';
