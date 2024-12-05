@@ -171,8 +171,9 @@ body {
 /* Mobile-Specific */
 @media only screen and (max-width: 768px) {
     #sidebar {
-        width: 70%; /* Smaller sidebar for mobile */
+        width: 50%; /* Smaller sidebar for mobile */
         transform: translateX(-100%); /* Hidden by default */
+        z-index: 1000; /* Ensure sidebar is on top */
     }
 
     #sidebar.show {
@@ -181,7 +182,7 @@ body {
 
     #content h1, #content h2, #content h3 {
         text-align: left;
-        margin-left: 50px; /* Adjust to create space for the toggle button */
+        margin-left: 15px; /* Adjust to create space for the toggle button */
     }
 
     #content {
@@ -207,6 +208,12 @@ body {
     margin-left: 0; /* No margin on mobile */
     top: 200px; /* Ensure it leaves space for the header on mobile */
     left: 0;
+    z-index: 1; /* Lower than sidebar */
+    }
+
+    #sidebar.show + .jsmolContainer {
+    opacity: 0.5; /* Optional: dim JSmol when sidebar is visible */
+    pointer-events: none; /* Prevent interaction with JSmol when sidebar is open */
     }
 }
 
