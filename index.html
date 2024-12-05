@@ -118,20 +118,15 @@
 
         function showHome() {
             displayOnly('home-page');
-            setActiveLink('home-link');
         }
 
         function toggleStructuresMenu() {
-            const structuresMenu = document.getElementById('structures-menu');
-            structuresMenu.style.display = structuresMenu.style.display === 'block' ? 'none' : 'block';
+            toggleVisibility('structures-menu');
         }
 
         function showSection(sectionId) {
-            // Show the selected section and its relevant subsections
             displayOnly(sectionId);
-            const subsections = document.querySelector(`#subsections${sectionId.split('section')[1]}`);
-            if (subsections) subsections.style.display = 'block';
-            setActiveLink(sectionId);
+            toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
         function showSubsection(subsectionId) {
@@ -153,7 +148,13 @@
                 'subsection45a': 'section7.3'
             };
 
-            // Collapse all sidebar sections except the one selected
+            // Collapse all sidebar sections
+            var sidebarSections = document.querySelectorAll('.sidebar-section');
+            sidebarSections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+
+            // Show the active sidebar section based on the subsectionId
             const activeSectionId = sectionMapping[subsectionId];
             if (activeSectionId) {
                 document.getElementById(activeSectionId).style.display = 'block';
@@ -173,35 +174,8 @@
             if (molecule) {
                 loadJSmol(molecule.container, molecule.file);
             }
-
-            // Highlight the active link in the sidebar (orange)
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(link => link.classList.remove('active'));
-            const activeLink = document.querySelector(`#menu a[href="#${subsectionId}"]`);
-            if (activeLink) {
-                activeLink.classList.add('active');
-            }
-
-            // Show the selected section and its parent section (Structures)
-            const structuresMenu = document.getElementById('structures-menu');
-            if (structuresMenu) {
-                structuresMenu.style.display = 'block';
-            }
-            const subsections7_1 = document.getElementById('subsections7.1');
-            if (subsections7_1) {
-                subsections7_1.style.display = 'block';
-            }
-            const subsections7_2 = document.getElementById('subsections7.2');
-            if (subsections7_2) {
-                subsections7_2.style.display = 'block';
-            }
-            const subsections7_3 = document.getElementById('subsections7.3');
-            if (subsections7_3) {
-                subsections7_3.style.display = 'block';
-            }
         }
 
-        // Function to display only the selected section
         function displayOnly(sectionId) {
             const sections = document.querySelectorAll('#content > div');
             sections.forEach(function(section) {
@@ -210,13 +184,9 @@
             document.getElementById(sectionId).style.display = 'block';
         }
 
-
-        function setActiveLink(id) {
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-              link.classList.remove('active');
-          });
-          document.getElementById(id).classList.add('active');
+        function toggleVisibility(id, show = false) {
+            const element = document.getElementById(id);
+            element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
         }
 
         function searchMenu() {
@@ -256,6 +226,14 @@
             if (!hasResults) {
                 console.log('No results found');
             }
+        }
+
+        function setActiveLink(id) {
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
         }
 
         function toggleSidebar() {
