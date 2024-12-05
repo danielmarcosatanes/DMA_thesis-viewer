@@ -106,7 +106,7 @@ body {
 /* Jmol container styling */
 .jsmolContainer {
     width: 100%;
-    max-width: 900px; /* Limit max size for larger screens */
+    max-width: 700px; /* Limit max size for larger screens */
     height: auto;
     margin: 0 auto;
     display: block;
