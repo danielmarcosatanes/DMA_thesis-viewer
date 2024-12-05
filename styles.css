@@ -136,8 +136,6 @@ body {
   position: absolute;
   top: 15px; /* Adjust to align with the top-left corner of the header */
   left: 15px; /* Adjust to place it to the left of the header */
-  background-color: white; /* Default background color when sidebar is closed */
-  color: #A85426; /* Orange color for the button */
   border: none;
   border-radius: 50%; /* Make the button circular */
   padding: 15px; /* Adjust padding to make it round */
