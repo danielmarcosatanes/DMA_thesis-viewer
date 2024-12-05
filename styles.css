@@ -181,7 +181,7 @@ body {
 
     .jsmolContainer {
     width: 100% !important;
-    height: 50vw;  /* Dynamic height based on the width of the viewport */
+    height: 100vw;  /* Dynamic height based on the width of the viewport */
     max-width: 100% !important;
     margin: 0 auto;
     }
