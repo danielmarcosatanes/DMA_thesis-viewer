@@ -120,10 +120,12 @@ body {
     top: 20px;
     left: 20px;
     background-color: transparent;
-    color: #28528E;
+    color: #A85426;
     font-size: 30px;
     border: none;
+    border-radius: 50%; /* Make the button circular */
     padding: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
     z-index: 1000; /* Ensure button is on top of other content */
 }
 
