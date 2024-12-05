@@ -39,13 +39,13 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-top: 50px;
 }
 
 #sidebar header h2 {
     color: #28528E;
     margin-top: 10px;
     font-size: 30px;
+    margin-top: 50px;
 }
 
 #sidebar header input[type="text"] {
