@@ -105,7 +105,7 @@
             width: 700,
             height: 400,
             j2sPath: "j2s",
-            color: "#F4F4F9",
+            color: "black",
             use: "HTML5",
             disableJ2SLoadMonitor: true,
             disableInitialConsole: true
@@ -343,7 +343,7 @@
             }
         }
 
-        function resizeJmolForMobile() {
+        function resizeJmol() {
             const jsmolContainers = document.querySelectorAll('.jsmolContainer');
 
             jsmolContainers.forEach(container => {
@@ -363,8 +363,8 @@
             });
         }
 
-        window.addEventListener('resize', resizeJmolForMobile);
-        window.addEventListener('load', resizeJmolForMobile);
+        window.addEventListener('resize', resizeJmol);
+        window.addEventListener('load', resizeJmol);
     </script>
 
     <script>
