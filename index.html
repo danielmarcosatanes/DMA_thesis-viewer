@@ -343,6 +343,21 @@
             }
         }
 
+        function resizeJmolForMobile() {
+            const jsmolContainers = document.querySelectorAll('.jsmolContainer');
+
+            jsmolContainers.forEach(container => {
+                const containerWidth = window.innerWidth * 0.8; // 80% of window width
+                const containerHeight = window.innerHeight * 0.6; // 60% of window height
+
+                container.style.width = `${containerWidth}px`;
+                container.style.height = `${containerHeight}px`;
+
+                // Keep the square aspect ratio
+                container.style.aspectRatio = '1 / 1';
+            });
+        }
+
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
     </script>
