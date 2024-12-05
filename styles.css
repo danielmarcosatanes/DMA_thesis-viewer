@@ -3,7 +3,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: white;
+    background-color: #F4F4F9;
     display: flex;
     height: 100vh;
     transition: all 0.3s ease-in-out; /* Smooth transition between screen sizes */
@@ -20,8 +20,12 @@ body {
     padding: 0;
     box-sizing: border-box;
     z-index: 1; /* Ensure sidebar is above other content */
-    transition: width 0.3s ease-in-out; /* Smooth transition for width */
-    overflow: hidden; /* Prevent overflow when collapsed */
+    transform: translateX(-100%); /* Hide sidebar off-screen for mobile */
+    transition: transform 0.3s ease-in-out; /* Smooth slide for mobile */
+}
+
+#sidebar.show {
+    transform: translateX(0); /* Slide in for mobile */
 }
 
 /* Sidebar header */
@@ -32,14 +36,14 @@ body {
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: left;
+    align-items: center;
     justify-content: center;
 }
 
 #sidebar header h2 {
     color: #28528E;
     margin-top: 0;
-    font-size: 40px;
+    font-size: 20px;
 }
 
 #sidebar header input[type="text"] {
@@ -48,12 +52,6 @@ body {
     margin-top: 10px;
     border: 1px solid #28528E;
     border-radius: 5px;
-}
-
-/* Make Home and Structures links always bold */
-#menu #home-link,
-#menu #structures-link {
-    font-weight: bold;
 }
 
 /* Sidebar menu links */
@@ -76,40 +74,13 @@ body {
     color: #A85426 !important;
 }
 
-/* Make the sidebar section active (show the selected structure and subsections) */
-.sidebar-section.active {
-    display: block !important; /* Ensure active sections remain visible */
-}
-
-/* Remove any color change from non-active links when hovered */
-#menu a:not(.active):hover {
-    color: #A85426;
-}
-
-.menu-link.active {
-    background-color: #A85426; /* Orange background for active link */
-    color: white;
-}
-
-/* Sidebar menu (Structures) */
-#structures-menu {
-    padding-left: 20px;
-    display: none;
-}
-
-/* Subsections */
-.subsections {
-    padding-left: 20px;
-    display: none;
-}
-
 /* Sidebar Footer */
 #sidebar footer {
     color: #28528E;
     text-align: center;
     font-size: 12px;
     margin-top: auto; /* Ensure footer stays at the bottom */
-    padding: 10px 0; /* Space around footer text */
+    padding: 10px 0;
     background-color: #D6D6D6; /* Same background as sidebar for consistency */
 }
 
@@ -123,57 +94,23 @@ body {
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
     width: calc(100% - 250px); /* Adjust content width */
-    box-sizing: border-box; /* Ensure padding doesn’t break layout */
 }
 
-/* Smooth transition effect */
+/* Smooth transition effect for content */
 #content > div {
     transition: all 0.3s ease-in-out;
 }
 
 /* Jmol container styling */
 .jsmolContainer {
-    width: 100%; /* Full width of the parent container */
-    max-width: 700px; /* Optional: Limit max size for larger screens */
-    height: auto; /* Adjust height based on aspect ratio */
-    margin: 0 auto; /* Center horizontally */
+    width: 100%;
+    max-width: 700px; /* Limit max size for larger screens */
+    height: auto;
+    margin: 0 auto;
     display: block;
-    position: relative;  /* Allow positioning inside the container */
-    overflow: hidden;    /* Ensure content doesn’t overflow */
+    position: relative;
+    overflow: hidden;
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
-}
-
-/* Sidebar collapses */
-#sidebar.collapsed {
-    width: 70px; /* Collapsed width */
-    padding: 10px 10px 10px 10px; /* Adjust padding */
-}
-
-/* Hide content inside sidebar when collapsed */
-#sidebar.collapsed header,
-#sidebar.collapsed #menu,
-#sidebar.collapsed footer {
-    display: none; /* Hide header, menu, and footer when collapsed */
-}
-
-/* Collapse button */
-#collapse-btn {
-    display: block;
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1001;
-    background: transparent;
-    border: none;
-    color: #28528E;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-/* Message styling */
-#message {
-    font-size: 18px;
-    color: #4E7890;
 }
 
 /* Mobile Sidebar Toggle Button */
@@ -190,122 +127,86 @@ body {
     z-index: 1000; /* Ensure button is on top of other content */
 }
 
-/* Show Sidebar on mobile when the "show" class is added */
-#sidebar.show {
-    display: block;
-    width: 70%;
-}
-
-/* Desktop Sidebar Collapse Button */
+/* Desktop Collapse Button */
 .collapse-btn {
-  display: none; /* Hidden by default on mobile */
-  position: absolute;
-  top: 20px;
-  left: 250px; /* Slightly outside the sidebar */
-  font-size: 24px;
-  background-color: white;
-  color: #28528E;
-  border: none;
-  cursor: pointer;
-  padding: 10px;
-  z-index: 1000; /* Ensure visibility */
-  border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Design for larger screens (Desktops) */
-@media only screen and (min-width: 769px) {
-    #sidebar {
-        width: 250px; /* Sidebar width */
-    }
-
-    #content {
-        transition: margin-left 0.3s ease-in-out; /* Smooth transition for content */
-        margin-left: 250px; /* Adjust for sidebar width */
-    }
-
-    .jsmolContainer {
-      width: 100%;
-      max-width: 700px;
-      height: auto;
-      aspect-ratio: 1 / 1;
-    }
-
-    .collapse-btn {
-        display: block; /* Visible only on desktop */
-    }
-
-    /* Hide mobile toggle button on desktop */
-    .mobile-toggle {
     display: none;
+    position: fixed;
+    top: 20px;
+    left: 260px; /* Slightly offset from sidebar */
+    background-color: #D6D6D6;
+    color: #28528E;
+    font-size: 30px;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 1000;
 }
 
-    #sidebar.collapsed + #collapse-btn {
-        left: 10px; /* Adjust position when collapsed */
-    }
-
-    /* When sidebar is collapsed, move the content to the left */
-    #sidebar.collapsed + #collapse-btn + #content {
-    margin-left: 50px; /* Adjust for collapsed sidebar width */
-    }
+/* Collapsed Desktop Sidebar */
+#sidebar.collapsed {
+    width: 0;
+    transform: translateX(-250px);
 }
 
-/* Design for smaller screens (Mobile) */
+#content.collapsed {
+    margin-left: 0;
+    width: 100%;
+}
+
+/* Responsive Design */
+
+/* Mobile-Specific */
 @media only screen and (max-width: 768px) {
-
-    /* Sidebar collapses for mobile screens */
     #sidebar {
-        display: none; /* Hide sidebar by default on mobile */
-        width: 70%; /* Make sidebar take up less space */
+        width: 70%; /* Smaller sidebar for mobile */
+        transform: translateX(-100%); /* Hidden by default */
     }
 
-    /* Toggle sidebar visibility */
     #sidebar.show {
-        display: block; /* Show sidebar when the "show" class is added */
+        transform: translateX(0); /* Show when toggled */
     }
 
-    /* Main content occupies full screen width */
     #content {
         margin-left: 0;
         width: 100%;
-        padding: 10px;
     }
 
-    /* Sidebar header font adjustments */
-    #sidebar header h2 {
-        font-size: 18px;
-    }
-
-    /* Make the sidebar search input wider */
-    #sidebar header input[type="text"] {
-        width: 90%;
-    }
-
-    /* Menu link adjustments for better touch experience */
-    #menu a {
-        padding: 12px;
-        font-size: 16px;
-    }
-
-    .jsmolContainer {
-        width: 90%; /* Take up 90% of screen width on mobile */
-        height: auto; /* Adjust height accordingly */
-    }
-
-    /* Sidebar footer font size */
-    #sidebar footer {
-        font-size: 10px;
-        padding: 5px 0;
-    }
-
-    /* Show the toggle button on mobile */
     .mobile-toggle {
-        display: block; /* Show toggle button on mobile */
+        display: block; /* Show toggle button for mobile */
     }
 
-    /* Hide collapse button on mobile */
     .collapse-btn {
-        display: none;
+        display: none; /* No collapse button on mobile */
+    }
+}
+
+/* Desktop-Specific */
+@media only screen and (min-width: 769px) {
+    .mobile-toggle {
+        display: none; /* Hide toggle button on desktop */
     }
 
+    .collapse-btn {
+        display: block; /* Show collapse button on desktop */
+    }
+
+    #sidebar {
+        transform: translateX(0); /* Always visible on desktop */
+        width: 250px;
+    }
+
+    #content {
+        margin-left: 250px;
+    }
+}
+
+/* Design for subsections */
+#structures-menu {
+    padding-left: 20px;
+    display: none; /* Hidden by default */
+}
+
+.subsections {
+    padding-left: 20px;
+    display: none;
 }
