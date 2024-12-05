@@ -159,12 +159,6 @@ body {
     transition: margin-left 0.3s ease; /* Smooth transition */
 }
 
-/* When the sidebar is collapsed */
-#sidebar.collapsed ~ #content {
-    margin-left: 20px; /* Adjust the left margin when sidebar is closed */
-    transition: margin-left 0.3s ease; /* Smooth transition */
-}
-
 /* Make Home and Structures links always bold */
 #menu #home-link,
 #menu #structures-link {
