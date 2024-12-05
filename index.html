@@ -125,8 +125,21 @@
        }
 
        function showSection(sectionId) {
-           displayOnly(sectionId);
-           toggleVisibility(subsections${sectionId.split('section')[1]}, true);
+         console.log("Showing section:", sectionId);
+
+         displayOnly(sectionId);
+
+         const subsectionId = `subsections${sectionId.split('section')[1]}`;
+         console.log("Toggling visibility of subsection:", subsectionId);
+
+         toggleVisibility(subsectionId, true);
+
+         // Add error handling if the subsection is not found
+         const subsection = document.getElementById(subsectionId);
+         if (!subsection) {
+           console.error("Subsection not found:", subsectionId);
+           return;
+         }
        }
 
        function showSubsection(subsectionId) {
