@@ -95,6 +95,7 @@ body {
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
     width: calc(100% - 250px); /* Adjust content width */
+    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth content shift */
 }
 
 /* Smooth transition effect for content */
@@ -156,6 +157,7 @@ body {
 
 #content.collapsed {
     margin-left: 0px;
+    width: 100%;
     transition: margin-left 0.3s ease; /* Smooth transition */
 }
 
