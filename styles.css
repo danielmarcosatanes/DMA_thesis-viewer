@@ -216,9 +216,9 @@ body {
     #content h1,
     #content h2,
     #content h3 {
-        margin-left: 20px; /* Ensure consistent padding */
+        margin-left: 30px; /* Ensure consistent padding */
         margin-right: 20px; /* Prevent overflow on the right */
-        max-width: calc(100% - 40px); /* Keep the text within visible bounds */
+        max-width: calc(100% - 50px); /* Keep the text within visible bounds */
         word-wrap: break-word;
     }
 }
