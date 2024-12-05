@@ -173,7 +173,7 @@ body {
     #sidebar {
         width: 50%; /* Smaller sidebar for mobile */
         transform: translateX(-100%); /* Hidden by default */
-        z-index: 1000; /* Ensure sidebar is on top */
+        z-index: 10; /* Ensure sidebar is on top */
     }
 
     #sidebar.show {
