@@ -12,13 +12,7 @@ body {
 /* Sidebar container */
 #sidebar {
     background-color: #D6D6D6;
-    width: 250px; /* Fixed width on larger screens */
-    height: 100vh;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    box-sizing: border-box;
+    height: 100%;
     z-index: 1; /* Ensure sidebar is above other content */
     transform: translateX(-100%); /* Hide sidebar off-screen for mobile */
     transition: transform 0.3s ease-in-out; /* Smooth slide for mobile */
@@ -87,13 +81,16 @@ body {
 
 /* Main content layout */
 #main-container {
-    display: flex;
-    width: 100%;
+  display: grid;
+  grid-template-columns: 250px auto; /* Sidebar + Content */
+  grid-template-rows: 100%; /* Full height */
+  transition: grid-template-columns 0.3s ease-in-out;
+  height: 100vh; /* Ensure it covers the viewport */
 }
 
 #content {
-    margin-left: 250px; /* Adjust for sidebar width */
-    padding: 20px;
+    background-color: #F4F4F9; /* Match your main area color */
+    overflow: auto; /* For scrolling if needed */
     width: calc(100% - 250px); /* Adjust content width */
     transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth content shift */
 }
@@ -149,16 +146,18 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+/* Adjust grid for collapsed sidebar */
+#main-container.collapsed {
+    grid-template-columns: 0 auto; /* Sidebar hidden, content full width */
+}
+
 /* Collapsed Desktop Sidebar */
 #sidebar.collapsed {
-    width: 0;
     transform: translateX(-250px);
-    transition: transform 0.3s ease, width 0.3s ease; /* Smooth transitions */
 }
 
 #content.collapsed {
-    margin-left: 0;
-    width: 100%;
+    margin-left: 20px;
     transition: margin-left 0.3s ease; , width 0.3s ease-in-out;/* Smooth transition */
 }
 
@@ -173,7 +172,6 @@ body {
 /* Mobile-Specific */
 @media only screen and (max-width: 768px) {
     #sidebar {
-        width: 70%; /* Smaller sidebar for mobile */
         transform: translateX(-100%); /* Hidden by default */
     }
 
@@ -186,6 +184,10 @@ body {
         width: 100%;
     }
 
+    #main-container {
+        grid-template-columns: auto; /* Content only when sidebar hidden */
+    }
+    
     .mobile-toggle {
         display: block; /* Show toggle button for mobile */
     }
