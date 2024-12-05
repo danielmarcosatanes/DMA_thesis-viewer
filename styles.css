@@ -173,7 +173,7 @@ body {
     #sidebar {
         width: 60%; /* Smaller sidebar for mobile */
         transform: translateX(-100%); /* Hidden by default */
-        z-index: 10; /* Ensure sidebar is on top */
+        z-index: 50; /* Ensure sidebar is on top */
     }
 
     #sidebar.show {
@@ -202,12 +202,25 @@ body {
     pointer-events: none; /* Prevent interaction with JSmol when sidebar is open */
     }
 
-    #content h1 {
-    margin-left: 20px; /* Add space from the left */
-    margin-right: 20px; /* Prevent overflow on the right */
-    max-width: calc(100% - 40px); /* Ensure the width stays within the viewport */
-    word-wrap: break-word; /* Wrap long words if necessary */
-  }
+    #content {
+        margin-left: 0; /* Remove static margin to allow dynamic adjustment */
+        width: 100%; /* Ensure it uses full width when sidebar is hidden */
+        transition: margin-left 0.3s ease-in-out; /* Smooth transition */
+    }
+
+    #sidebar.show + #content {
+        margin-left: 70%; /* Adjust dynamically based on sidebar width */
+        width: calc(100% - 70%); /* Match remaining space for the content */
+    }
+
+    #content h1,
+    #content h2,
+    #content h3 {
+        margin-left: 20px; /* Ensure consistent padding */
+        margin-right: 20px; /* Prevent overflow on the right */
+        max-width: calc(100% - 40px); /* Keep the text within visible bounds */
+        word-wrap: break-word;
+    }
 }
 
 /* Desktop-Specific */
