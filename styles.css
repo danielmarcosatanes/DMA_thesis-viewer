@@ -119,15 +119,15 @@ body {
 .mobile-toggle {
     display: none;
     position: fixed;
-    top: 20px;
-    left: 20px;
+    top: 10px;
+    left: 10px;
     background-color: transparent;
     color: #A85426;
-    font-size: 30px;
+    font-size: 20px;
     border: none;
     border-radius: 50%; /* Make the button circular */
     padding: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
     z-index: 1000; /* Ensure button is on top of other content */
 }
 
@@ -181,8 +181,8 @@ body {
     }
 
     #content h1, #content h2, #content h3 {
-        text-align: left;
-        margin-left: 15px; /* Adjust to create space for the toggle button */
+        text-align: center;
+        margin-left: 40px;
     }
 
     #content {
@@ -191,7 +191,12 @@ body {
 
     #sidebar header {
         text-align: left; /* Align sidebar header text to the left */
-        padding-left: 10px; /* Add some padding for a better look */
+        margin-left: 40px; /* Add some padding for a better look */
+    }
+
+    #sidebar header input[type="text"] {
+        margin-left: 20px; /* Slightly adjust left margin for the search bar */
+        width: calc(80% - 20px); /* Adjust width to account for margin */
     }
 
     .mobile-toggle {
