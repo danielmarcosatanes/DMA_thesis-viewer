@@ -265,16 +265,19 @@
 
     <script>
     const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
     const mainContainer = document.getElementById('main-container');
     const collapseBtn = document.getElementById('collapse-btn');
+    const sidebarToggle = document.getElementById('sidebar-toggle');
 
-    collapseBtn.addEventListener('click', function () {
+    // Desktop collapse functionality
+    collapseBtn.addEventListener('click', () => {
         sidebar.classList.toggle('collapsed');
         mainContainer.classList.toggle('collapsed');
     });
 
-    // For mobile sidebar toggle
-    document.querySelector('.mobile-toggle').addEventListener('click', function () {
+    // Mobile toggle functionality
+    sidebarToggle.addEventListener('click', () => {
         sidebar.classList.toggle('show');
     });
   </script>
