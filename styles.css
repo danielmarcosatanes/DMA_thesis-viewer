@@ -159,21 +159,6 @@ body {
     transition: margin-left 0.3s ease; /* Smooth transition */
 }
 
-/* Style for the content header (title + toggle button) */
-#content-header {
-    display: flex; /* Use flexbox layout */
-    align-items: center; /* Vertically center the items */
-    justify-content: space-between; /* Space between the items */
-    margin-bottom: 20px; /* Add some space below the header */
-}
-
-/* Main content layout */
-#content {
-    margin-left: 0; /* Adjust for mobile */
-    padding: 10px;
-    width: 100%;
-}
-
 /* Make Home and Structures links always bold */
 #menu #home-link,
 #menu #structures-link {
@@ -184,16 +169,6 @@ body {
 
 /* Mobile-Specific */
 @media only screen and (max-width: 768px) {
-
-  #content-header {
-      flex-direction: row; /* Side by side layout for mobile */
-      padding: 10px; /* Add padding to header */
-  }
-
-  #home-header {
-      font-size: 20px; /* Adjust font size if needed for mobile */
-  }
-
     #sidebar {
         width: 70%; /* Smaller sidebar for mobile */
         transform: translateX(-100%); /* Hidden by default */
