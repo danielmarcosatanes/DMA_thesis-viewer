@@ -50,7 +50,7 @@ body {
 #sidebar header input[type="text"] {
     width: 80%;
     padding: 5px;
-    margin-top: 10px;
+    margin-top: 5px;
     border: 1px solid #28528E;
     border-radius: 5px;
 }
@@ -156,6 +156,12 @@ body {
 
 #content.collapsed {
     margin-left: 20px;
+    transition: margin-left 0.3s ease; /* Smooth transition */
+}
+
+/* When the sidebar is collapsed */
+#sidebar.collapsed ~ #content {
+    margin-left: 20px; /* Adjust the left margin when sidebar is closed */
     transition: margin-left 0.3s ease; /* Smooth transition */
 }
 
