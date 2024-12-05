@@ -12,7 +12,9 @@ body {
 /* Sidebar container */
 #sidebar {
     background-color: #D6D6D6;
-    height: 100%;
+    width: 250px; /* Fixed width on larger screens */
+    height: 100vh;
+    position: fixed;
     display: flex;
     flex-direction: column;
     padding: 0;
@@ -85,15 +87,14 @@ body {
 
 /* Main content layout */
 #main-container {
-  display: grid;
-  grid-template-columns: 250px 1fr; /* Sidebar + Content */
-  grid-template-rows: 100vh; /* Full height */
-  transition: grid-template-columns 0.3s ease-in-out; /
+    display: flex;
+    width: 100%;
 }
 
 #content {
+    margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
-    transition: margin-left 0.3s ease, width 0.3s ease; /* Smooth content shift */
+    width: calc(100% - 250px); /* Adjust content width */
 }
 
 /* Smooth transition effect for content */
@@ -104,7 +105,7 @@ body {
 /* Jmol container styling */
 .jsmolContainer {
     width: 100%;
-    max-width: 700px; /* Limit max size for larger screens */
+    max-width: 900px; /* Limit max size for larger screens */
     height: auto;
     margin: 0 auto;
     display: block;
@@ -147,19 +148,15 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Adjust grid for collapsed sidebar */
-#main-container.collapsed {
-    grid-template-columns: 0px 1fr; /* Sidebar hidden, content full width */
-}
-
 /* Collapsed Desktop Sidebar */
 #sidebar.collapsed {
-    transform: translateX(-100%);
+    width: 0;
+    transform: translateX(-250px);
 }
 
 #content.collapsed {
-    margin-left: 20px;
-    transition: margin-left 0.3s ease; , width 0.3s ease-in-out;/* Smooth transition */
+    margin-left: 0px;
+    transition: margin-left 0.3s ease; /* Smooth transition */
 }
 
 /* Make Home and Structures links always bold */
@@ -173,9 +170,8 @@ body {
 /* Mobile-Specific */
 @media only screen and (max-width: 768px) {
     #sidebar {
-      position: fixed;
-      transform: translateX(-100%); /* Hide off-screen initially */
-      width: 70%;
+        width: 70%; /* Smaller sidebar for mobile */
+        transform: translateX(-100%); /* Hidden by default */
     }
 
     #sidebar.show {
@@ -185,10 +181,6 @@ body {
     #content {
         margin-left: 0;
         width: 100%;
-    }
-
-    #main-container {
-        grid-template-columns: 1fr; /* Content only when sidebar hidden */
     }
 
     .mobile-toggle {
