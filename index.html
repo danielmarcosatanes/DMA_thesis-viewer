@@ -203,38 +203,15 @@
             element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
         }
 
+          // Search function to filter sidebar items
         function searchMenu() {
             const query = document.getElementById('sidebar-search').value.toLowerCase();
-            const links = document.querySelectorAll('#menu a'); // All sidebar links
-            const sections = document.querySelectorAll('.sidebar-section'); // Top-level sections
-            const subsections = document.querySelectorAll('.subsections'); // Subsections
-
-            let hasResults = false;
-
-            // Initially collapse all sections and subsections
-            sections.forEach(section => section.style.display = 'none');
-            subsections.forEach(subsection => subsection.style.display = 'none');
-
-            // Search for matching links
-            links.forEach(link => {
-                if (link.textContent.toLowerCase().includes(query)) {
-                    link.style.display = ''; // Show matching links
-                    hasResults = true;
-
-                    // Ensure the parent section and subsection are visible
-                    const parentSubsection = link.closest('.subsections');
-                    const parentSection = link.closest('.sidebar-section');
-
-                    if (parentSubsection) {
-                        parentSubsection.style.display = 'block';
-                    }
-                    if (parentSection) {
-                        parentSection.style.display = 'block';
-                    }
-                } else {
-                    link.style.display = 'none'; // Hide non-matching links
-                }
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                const text = link.textContent.trim().toLowerCase();
+                link.style.display = text.includes(query) ? '' : 'none';
             });
+        }
 
             // Optional: Show a message if no results are found
             if (!hasResults) {
