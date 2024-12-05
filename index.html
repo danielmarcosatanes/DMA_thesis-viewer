@@ -12,6 +12,7 @@
     <div id="main-container">
         <!-- Mobile Sidebar Toggle Button -->
         <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
+
         <!-- Desktop Sidebar Toggle Button -->
         <button id="collapse-btn" class="collapse-btn" aria-label="Collapse Sidebar">☰</button>
 
@@ -236,26 +237,25 @@
             document.getElementById(id).classList.add('active');
         }
 
-        function collapseSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('collapsed');
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            sidebar.classList.toggle('show'); // Adds show class for mobile
-
-            if (window.innerWidth >= 769) {
-                collapseSidebar(); // Desktop behavior
-            }
-        }
-
-        // Event listeners
-        document.getElementById('sidebar-toggle').addEventListener('click', toggleSidebar);
-        document.getElementById('collapse-btn').addEventListener('click', toggleSidebar);
-
         window.addEventListener('resize', resizeJmolForMobile);
         window.addEventListener('load', resizeJmolForMobile);
     </script>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
+
+        // Mobile toggle button
+        document.getElementById('sidebar-toggle').addEventListener('click', function () {
+            sidebar.classList.toggle('show');
+        });
+
+        // Desktop collapse button
+        document.getElementById('collapse-btn').addEventListener('click', function () {
+            sidebar.classList.toggle('collapsed');
+            content.classList.toggle('collapsed');
+        });
+    </script>
+
 </body>
 </html>
