@@ -162,16 +162,12 @@
                 document.getElementById(activeSectionId).style.display = 'block';
             }
 
-            // Highlight the active subsection (molecule) in the sidebar
-            const activeMoleculeLink = document.getElementById(subsectionId);
-            if (activeMoleculeLink) {
-                activeMoleculeLink.classList.add('active'); // Highlight active molecule
-            }
-
-            // Also highlight the active section in the sidebar
-            const activeSectionLink = document.getElementById(activeSectionId);
-            if (activeSectionLink) {
-                activeSectionLink.classList.add('active'); // Highlight active section
+            // Highlight the active subsection in the sidebar (orange)
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(link => link.classList.remove('active'));
+            const activeLink = document.querySelector(`#menu a[href="#${subsectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.add('active');
             }
 
             // Molecule mapping with container IDs and log file names
