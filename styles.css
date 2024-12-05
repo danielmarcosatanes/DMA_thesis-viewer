@@ -264,7 +264,10 @@ body {
         width: 100%; /* Full width when sidebar is collapsed */
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
-
+    #sidebar.collapsed+ #content h1, #content h2, #content h3 {
+        margin-left: 40px; /* Ensure consistent padding */
+        word-wrap: break-word;
+    }
 }
 
 /* Design for subsections */
