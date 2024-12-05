@@ -153,12 +153,13 @@ body {
 #sidebar.collapsed {
     width: 0;
     transform: translateX(-250px);
+    transition: transform 0.3s ease, width 0.3s ease; /* Smooth transitions */
 }
 
 #content.collapsed {
-    margin-left: 0px;
+    margin-left: 0;
     width: 100%;
-    transition: margin-left 0.3s ease; /* Smooth transition */
+    transition: margin-left 0.3s ease; , width 0.3s ease-in-out;/* Smooth transition */
 }
 
 /* Make Home and Structures links always bold */
