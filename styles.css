@@ -128,7 +128,7 @@ body {
 }
 
 /* Desktop Collapse Button */
-.collapse-btn {
+#collapse-btn {
   display: none; /* Hidden by default */
   font-size: 30px;
   position: absolute;
@@ -189,13 +189,13 @@ body {
         display: block; /* Show toggle button for mobile */
     }
 
-    .collapse-btn {
+    #collapse-btn {
         display: none; /* No collapse button on mobile */
     }
 
     .jsmolContainer {
     width: 100% !important;
-    height: 100vw;  /* Dynamic height based on the width of the viewport */
+    height: 90vw;  /* Dynamic height based on the width of the viewport */
     max-width: 100% !important;
     margin: 0 auto;
     }
@@ -207,7 +207,7 @@ body {
         display: none; /* Hide toggle button on desktop */
     }
 
-    .collapse-btn {
+    #collapse-btn {
         display: block; /* Show collapse button on desktop */
     }
 
