@@ -121,31 +121,41 @@
            displayOnly('home-page');
        }
 
+       // This will toggle the visibility of the structures menu
        function toggleStructuresMenu() {
-         const structuresMenu = document.getElementById('structures-menu');
-         // Toggle the visibility of the structures menu
-         if (structuresMenu.style.display === 'none' || structuresMenu.style.display === '') {
-             structuresMenu.style.display = 'block'; // Show the menu
-         } else {
-             structuresMenu.style.display = 'none'; // Hide the menu
-         }
-     }
+           const structuresMenu = document.getElementById('structures-menu');
+           // Toggle the structures menu
+           if (structuresMenu.style.display === 'none' || structuresMenu.style.display === '') {
+               structuresMenu.style.display = 'block'; // Show the menu
+           } else {
+               structuresMenu.style.display = 'none'; // Hide the menu
+           }
+       }
 
-     function showSection(sectionId) {
-         console.log("Showing section:", sectionId);
+       function showSection(sectionId) {
+           console.log("Showing section:", sectionId);
 
-         displayOnly(sectionId);
+           displayOnly(sectionId); // This function will display only the section
 
-         const subsectionId = `subsections${sectionId.split('section')[1]}`;
-         console.log("Toggling visibility of subsection:", subsectionId);
+           // Get the subsection ID dynamically
+           const subsectionId = `subsections${sectionId.split('section')[1]}`;
+           console.log("Toggling visibility of subsection:", subsectionId);
 
-         toggleVisibility(subsectionId, true); // Ensure subsections are shown when the section is shown
+           // Show the subsection by toggling visibility
+           toggleVisibility(subsectionId, true);
 
-         // Add error handling if the subsection is not found
-         const subsection = document.getElementById(subsectionId);
-         if (!subsection) {
-             console.error("Subsection not found:", subsectionId);
-             return;
+           // Handle error if the subsection is not found
+           const subsection = document.getElementById(subsectionId);
+           if (!subsection) {
+               console.error("Subsection not found:", subsectionId);
+               return;
+           }
+       }
+
+     function toggleVisibility(id, show = false) {
+         const element = document.getElementById(id);
+         if (element) {
+             element.style.display = show ? 'block' : 'none'; // Show or hide the element
          }
      }
 
