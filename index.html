@@ -264,23 +264,19 @@
     </script>
 
     <script>
-        // Toggle the sidebar visibility on button click
-        const sidebar = document.getElementById('sidebar');
-        const content = document.getElementById('content');
-        const sidebarToggle = document.getElementById('sidebar-toggle'); // Mobile button
-        const collapseBtn = document.getElementById('collapse-btn'); // Desktop button
+    const sidebar = document.getElementById('sidebar');
+    const mainContainer = document.getElementById('main-container');
+    const collapseBtn = document.getElementById('collapse-btn');
 
-        // Toggle the sidebar visibility for mobile
-        sidebarToggle.addEventListener('click', function() {
-            sidebar.classList.toggle('show');
-            content.classList.toggle('collapsed');  // Move content accordingly
-        });
+    collapseBtn.addEventListener('click', function () {
+        sidebar.classList.toggle('collapsed');
+        mainContainer.classList.toggle('collapsed');
+    });
 
-        // Toggle the sidebar visibility and content adjustment for desktop
-        collapseBtn.addEventListener('click', function() {
-            sidebar.classList.toggle('collapsed');
-            content.classList.toggle('collapsed');
-        });
+    // For mobile sidebar toggle
+    document.querySelector('.mobile-toggle').addEventListener('click', function () {
+        sidebar.classList.toggle('show');
+    });
   </script>
 
 </body>
