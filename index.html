@@ -1,317 +1,288 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   <title>DMA Thesis: 3D Molecule Viewer</title>
-   <link rel="stylesheet" href="styles.css">
-   <script type="text/javascript" src="JSmol.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>DMA Thesis: 3D Molecule Viewer</title>
+    <link rel="stylesheet" href="styles.css">
+    <script type="text/javascript" src="JSmol.min.js"></script>
 </head>
 <body>
-   <!-- Main Container with Sidebar and Content -->
-   <div id="main-container">
-       <!-- Mobile Sidebar Toggle Button -->
-       <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
+    <!-- Main Container with Sidebar and Content -->
+    <div id="main-container">
+        <!-- Mobile Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
 
-       <!-- Desktop Sidebar Toggle Button -->
-       <button id="collapse-btn" class="collapse-btn" aria-label="Collapse Sidebar">☰</button>
+        <!-- Desktop Sidebar Toggle Button -->
+        <button id="collapse-btn" class="collapse-btn" aria-label="Collapse Sidebar">☰</button>
 
-       <!-- Sidebar -->
-       <div id="sidebar">
-           <!-- Sidebar header -->
-           <header>
-               <h2>DMA Thesis</h2>
-               <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
-           </header>
+        <!-- Sidebar -->
+        <div id="sidebar">
+            <!-- Sidebar header -->
+            <header>
+                <h2>DMA Thesis</h2>
+                <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
+            </header>
 
-           <!-- Menu -->
-           <div id="menu">
-               <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
-               <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
-               <div id="structures-menu" class="sidebar-section" style="display: none;">
-                   <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
-                   <div id="subsections7.1" class="subsections" style="display: none;">
-                       <a href="#" onclick="showSubsection('subsection44aBipyIrBpin'); setActiveLink('subsection44aBipyIrBpin')">44a-Bipy-Ir(Bpin)</a>
-                       <a href="#" onclick="showSubsection('subsection44aBipyIrBpin5'); setActiveLink('subsection44aBipyIrBpin5')">44a-Bipy-Ir(Bpin)5</a>
-                   </div>
-                   <a href="#" onclick="showSection('section7.2'); setActiveLink('section7.2')">Structures section 7.2</a>
-                   <div id="subsections7.2" class="subsections" style="display: none;">
-                       <a href="#" onclick="showSubsection('subsection44aBipyIrHBPin2'); setActiveLink('subsection44aBipyIrHBPin2')">44a-Bipy-Ir-H-Bpin2</a>
-                   </div>
-                   <a href="#" onclick="showSection('section7.3'); setActiveLink('section7.3')">Structures section 7.3</a>
-                   <div id="subsections7.3" class="subsections" style="display: none;">
-                       <a href="#" onclick="showSubsection('subsection44a'); setActiveLink('subsection44a')">44a</a>
-                       <a href="#" onclick="showSubsection('subsection45a'); setActiveLink('subsection45a')">45a</a>
-                   </div>
-               </div>
-           </div>
+            <!-- Menu -->
+            <div id="menu">
+                <a href="#" id="home-link" onclick="showHome(); setActiveLink('home-link')">Home</a>
+                <a href="#" id="structures-link" onclick="toggleStructuresMenu(); setActiveLink('structures-link')">Structures</a>
 
-           <!-- Sidebar Footer -->
-           <footer>
-               2024 DMA Thesis Viewer. All rights reserved.
-           </footer>
-       </div>
+                <div id="structures-menu" class="sidebar-section" style="display: none;">
+                    <a href="#" onclick="showSection('section7.1'); setActiveLink('section7.1')">Structures section 7.1</a>
+                    <div id="subsections7.1" class="subsections" style="display: none;">
+                        <a href="#" onclick="showSubsection('subsection44aBipyIrBpin'); setActiveLink('subsection44aBipyIrBpin')">44a-Bipy-Ir(Bpin)</a>
+                        <a href="#" onclick="showSubsection('subsection44aBipyIrBpin5'); setActiveLink('subsection44aBipyIrBpin5')">44a-Bipy-Ir(Bpin)5</a>
+                    </div>
+                    <a href="#" onclick="showSection('section7.2'); setActiveLink('section7.2')">Structures section 7.2</a>
+                    <div id="subsections7.2" class="subsections" style="display: none;">
+                        <a href="#" onclick="showSubsection('subsection44aBipyIrHBPin2'); setActiveLink('subsection44aBipyIrHBPin2')">44a-Bipy-Ir-H-Bpin2</a>
+                    </div>
+                    <a href="#" onclick="showSection('section7.3'); setActiveLink('section7.3')">Structures section 7.3</a>
+                    <div id="subsections7.3" class="subsections" style="display: none;">
+                        <a href="#" onclick="showSubsection('subsection44a'); setActiveLink('subsection44a')">44a</a>
+                        <a href="#" onclick="showSubsection('subsection45a'); setActiveLink('subsection45a')">45a</a>
+                    </div>
+                </div>
+            </div>
 
-       <!-- Main Content Area -->
-       <div id="content">
-           <!-- Home Page -->
-           <div id="home-page" style="display: block;">
-               <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
-               <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
-           </div>
+            <!-- Sidebar Footer -->
+            <footer>
+                2024 DMA Thesis Viewer. All rights reserved.
+            </footer>
+        </div>
 
-           <!-- Sections -->
-           <div id="message" style="display: none;">Select a structure section</div>
-           <div id="section7.1" style="display:none;">
-               <h2>Structures section 7.1</h2>
-               <p>Relevant 3D structures for section 7.1 of the discussion.</p>
-           </div>
-           <div id="section7.2" style="display:none;">
-               <h2>Structures section 7.2</h2>
-               <p>Relevant 3D structures for section 7.2 of the discussion.</p>
-           </div>
-           <div id="section7.3" style="display:none;">
-               <h2>Structures section 7.3</h2>
-               <p>Relevant 3D structures for section 7.3 of the discussion.</p>
-           </div>
+        <!-- Main Content Area -->
+        <div id="content">
+            <!-- Home Page -->
+            <div id="home-page" style="display: block;">
+                <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
+                <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
+            </div>
 
-           <!-- Subsections -->
-           <div id="subsection44aBipyIrBpin" style="display:none;">
-               <h3>44a-Bipy-Ir(Bpin)</h3>
-               <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
-           </div>
-           <div id="subsection44aBipyIrBpin5" style="display:none;">
-               <h3>44a-Bipy-Ir(Bpin)5</h3>
-               <div id="jsmolContainer44aBipyIrBpin5" class="jsmolContainer"></div>
-           </div>
-           <div id="subsection44aBipyIrHBPin2" style="display:none;">
-               <h3>44a-Bipy-Ir-H-Bpin2</h3>
-               <div id="jsmolContainer44aBipyIrHBPin2" class="jsmolContainer"></div>
-           </div>
-           <div id="subsection44a" style="display:none;">
-               <h3>44a</h3>
-               <div id="jsmolContainer44a" class="jsmolContainer"></div>
-           </div>
-           <div id="subsection45a" style="display:none;">
-               <h3>45a</h3>
-               <div id="jsmolContainer45a" class="jsmolContainer"></div>
-           </div>
-       </div>
-   </div>
+            <!-- Sections -->
+            <div id="message" style="display: none;">Select a structure section</div>
+            <div id="section7.1" style="display:none;">
+                <h2>Structures section 7.1</h2>
+                <p>Relevant 3D structures for section 7.1 of the discussion.</p>
+            </div>
+            <div id="section7.2" style="display:none;">
+                <h2>Structures section 7.2</h2>
+                <p>Relevant 3D structures for section 7.2 of the discussion.</p>
+            </div>
+            <div id="section7.3" style="display:none;">
+                <h2>Structures section 7.3</h2>
+                <p>Relevant 3D structures for section 7.3 of the discussion.</p>
+            </div>
 
-   <script>
-       const Info = {
-           width: 700,
-           height: 400,
-           j2sPath: "j2s",
-           color: "#F4F4F9",
-           use: "HTML5",
-           disableJ2SLoadMonitor: true,
-           disableInitialConsole: true
-       };
+            <!-- Subsections -->
+            <div id="subsection44aBipyIrBpin" style="display:none;">
+                <h3>44a-Bipy-Ir(Bpin)</h3>
+                <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
+            </div>
+            <div id="subsection44aBipyIrBpin5" style="display:none;">
+                <h3>44a-Bipy-Ir(Bpin)5</h3>
+                <div id="jsmolContainer44aBipyIrBpin5" class="jsmolContainer"></div>
+            </div>
+            <div id="subsection44aBipyIrHBPin2" style="display:none;">
+                <h3>44a-Bipy-Ir-H-Bpin2</h3>
+                <div id="jsmolContainer44aBipyIrHBPin2" class="jsmolContainer"></div>
+            </div>
+            <div id="subsection44a" style="display:none;">
+                <h3>44a</h3>
+                <div id="jsmolContainer44a" class="jsmolContainer"></div>
+            </div>
+            <div id="subsection45a" style="display:none;">
+                <h3>45a</h3>
+                <div id="jsmolContainer45a" class="jsmolContainer"></div>
+            </div>
+        </div>
+    </div>
 
-       function loadJSmol(containerId, moleculeFile) {
-           const jsmolApplet = Jmol.getApplet(containerId, Info);
-           document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
-           Jmol.script(jsmolApplet, load 'molecules/${moleculeFile}';);
-       }
+    <script>
+        const Info = {
+            width: 900,
+            height: 900,
+            j2sPath: "j2s",
+            color: "transparent",
+            use: "HTML5",
+            disableJ2SLoadMonitor: true,
+            disableInitialConsole: true
+        };
 
-       function showHome() {
-           displayOnly('home-page');
-       }
+        function loadJSmol(containerId, moleculeFile) {
+            const jsmolApplet = Jmol.getApplet(containerId, Info);
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
+            Jmol.script(jsmolApplet, load 'molecules/${moleculeFile}';);
+        }
 
-       // This will toggle the visibility of the structures menu
-       function toggleStructuresMenu() {
-           const structuresMenu = document.getElementById('structures-menu');
-           // Toggle the structures menu
-           if (structuresMenu.style.display === 'none' || structuresMenu.style.display === '') {
-               structuresMenu.style.display = 'block'; // Show the menu
-           } else {
-               structuresMenu.style.display = 'none'; // Hide the menu
-           }
-       }
+        function showHome() {
+            displayOnly('home-page');
+        }
 
-       function showSection(sectionId) {
-           console.log("Showing section:", sectionId);
+        function toggleStructuresMenu() {
+            toggleVisibility('structures-menu');
+        }
 
-           displayOnly(sectionId); // This function will display only the section
+        function showSection(sectionId) {
+            displayOnly(sectionId);
+            toggleVisibility(subsections${sectionId.split('section')[1]}, true);
+        }
 
-           // Get the subsection ID dynamically
-           const subsectionId = `subsections${sectionId.split('section')[1]}`;
-           console.log("Toggling visibility of subsection:", subsectionId);
+        function showSubsection(subsectionId) {
+            // Hide all subsections
+            var subsections = document.querySelectorAll('#content > div');
+            subsections.forEach(function(subsection) {
+                subsection.style.display = 'none';
+            });
 
-           // Show the subsection by toggling visibility
-           toggleVisibility(subsectionId, true);
+            // Show the selected subsection
+            document.getElementById(subsectionId).style.display = 'block';
 
-           // Handle error if the subsection is not found
-           const subsection = document.getElementById(subsectionId);
-           if (!subsection) {
-               console.error("Subsection not found:", subsectionId);
-               return;
-           }
-       }
+            // Collapse sidebar if on mobile
+            if (window.innerWidth <= 768) {
+                sidebar.classList.remove('show');  // Collapse the sidebar
+            }
 
-     function toggleVisibility(id, show = false) {
-         const element = document.getElementById(id);
-         if (element) {
-             element.style.display = show ? 'block' : 'none'; // Show or hide the element
-         }
-     }
+            // Define the mapping between subsectionId and the sidebar section to show
+            const sectionMapping = {
+                'subsection44aBipyIrBpin': 'section7.1',
+                'subsection44aBipyIrBpin5': 'section7.1',
+                'subsection44aBipyIrHBPin2': 'section7.2',
+                'subsection44a': 'section7.3',
+                'subsection45a': 'section7.3'
+            };
 
-       function showSubsection(subsectionId) {
-           // Hide all subsections
-           var subsections = document.querySelectorAll('#content > div');
-           subsections.forEach(function(subsection) {
-               subsection.style.display = 'none';
-           });
+            // Collapse all sidebar sections
+            var sidebarSections = document.querySelectorAll('.sidebar-section');
+            sidebarSections.forEach(function(section) {
+                section.style.display = 'none';
+            });
 
-           // Show the selected subsection
-           document.getElementById(subsectionId).style.display = 'block';
+            // Show the active sidebar section based on the subsectionId
+            const activeSectionId = sectionMapping[subsectionId];
+            if (activeSectionId) {
+                document.getElementById(activeSectionId).style.display = 'block';
+            }
 
-           // Collapse sidebar if on mobile
-           if (window.innerWidth <= 768) {
-               sidebar.classList.remove('show');  // Collapse the sidebar
-           }
+            // Molecule mapping with container IDs and log file names
+            const molecules = {
+                subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
+                subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
+                subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: '44a-Bipy-Ir-H-Bpin2.log' },
+                subsection44a: { container: 'jsmolContainer44a', file: '44a.log' },
+                subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
+            };
 
-           // Define the mapping between subsectionId and the sidebar section to show
-           const sectionMapping = {
-               'subsection44aBipyIrBpin': 'section7.1',
-               'subsection44aBipyIrBpin5': 'section7.1',
-               'subsection44aBipyIrHBPin2': 'section7.2',
-               'subsection44a': 'section7.3',
-               'subsection45a': 'section7.3'
-           };
+            // Ensure the container exists before loading
+            const molecule = molecules[subsectionId];
+            if (molecule) {
+                loadJSmol(molecule.container, molecule.file);
+            }
+        }
 
-           // Collapse all sidebar sections
-           var sidebarSections = document.querySelectorAll('.sidebar-section');
-           sidebarSections.forEach(function(section) {
-               section.style.display = 'none';
-           });
+        function displayOnly(sectionId) {
+            const sections = document.querySelectorAll('#content > div');
+            sections.forEach(function(section) {
+                section.style.display = 'none';
+            });
+            document.getElementById(sectionId).style.display = 'block';
+        }
 
-           // Show the active sidebar section based on the subsectionId
-           const activeSectionId = sectionMapping[subsectionId];
-           if (activeSectionId) {
-               document.getElementById(activeSectionId).style.display = 'block';
-           }
+        function toggleVisibility(id, show = false) {
+            const element = document.getElementById(id);
+            element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
+        }
 
-           // Molecule mapping with container IDs and log file names
-           const molecules = {
-               subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
-               subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
-               subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: '44a-Bipy-Ir-H-Bpin2.log' },
-               subsection44a: { container: 'jsmolContainer44a', file: '44a.log' },
-               subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
-           };
+        function searchMenu() {
+            const query = document.getElementById('sidebar-search').value.toLowerCase();
+            const links = document.querySelectorAll('#menu a'); // All sidebar links
+            const sections = document.querySelectorAll('.sidebar-section'); // Top-level sections
+            const subsections = document.querySelectorAll('.subsections'); // Subsections
 
-           // Ensure the container exists before loading
-           const molecule = molecules[subsectionId];
-           if (molecule) {
-               loadJSmol(molecule.container, molecule.file);
-           }
-       }
+            let hasResults = false;
 
-       function displayOnly(sectionId) {
-           const sections = document.querySelectorAll('#content > div');
-           sections.forEach(function(section) {
-               section.style.display = 'none';
-           });
-           document.getElementById(sectionId).style.display = 'block';
-       }
+            // Initially collapse all sections and subsections
+            sections.forEach(section => section.style.display = 'none');
+            subsections.forEach(subsection => subsection.style.display = 'none');
 
-       function toggleVisibility(id, show = false) {
-           const element = document.getElementById(id);
-           element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
-       }
+            // Search for matching links
+            links.forEach(link => {
+                if (link.textContent.toLowerCase().includes(query)) {
+                    link.style.display = ''; // Show matching links
+                    hasResults = true;
 
-       function searchMenu() {
-           const query = document.getElementById('sidebar-search').value.toLowerCase();
-           const links = document.querySelectorAll('#menu a'); // All sidebar links
-           const sections = document.querySelectorAll('.sidebar-section'); // Top-level sections
-           const subsections = document.querySelectorAll('.subsections'); // Subsections
+                    // Ensure the parent section and subsection are visible
+                    const parentSubsection = link.closest('.subsections');
+                    const parentSection = link.closest('.sidebar-section');
 
-           let hasResults = false;
+                    if (parentSubsection) {
+                        parentSubsection.style.display = 'block';
+                    }
+                    if (parentSection) {
+                        parentSection.style.display = 'block';
+                    }
+                } else {
+                    link.style.display = 'none'; // Hide non-matching links
+                }
+            });
 
-           // Initially collapse all sections and subsections
-           sections.forEach(section => section.style.display = 'none');
-           subsections.forEach(subsection => subsection.style.display = 'none');
+            // Optional: Show a message if no results are found
+            if (!hasResults) {
+                console.log('No results found');
+            }
+        }
 
-           // Search for matching links
-           links.forEach(link => {
-               if (link.textContent.toLowerCase().includes(query)) {
-                   link.style.display = ''; // Show matching links
-                   hasResults = true;
+        function setActiveLink(id) {
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+            document.getElementById(id).classList.add('active');
+        }
 
-                   // Ensure the parent section and subsection are visible
-                   const parentSubsection = link.closest('.subsections');
-                   const parentSection = link.closest('.sidebar-section');
+        window.addEventListener('resize', resizeJmolForMobile);
+        window.addEventListener('load', resizeJmolForMobile);
+    </script>
 
-                   if (parentSubsection) {
-                       parentSubsection.style.display = 'block';
-                   }
-                   if (parentSection) {
-                       parentSection.style.display = 'block';
-                   }
-               } else {
-                   link.style.display = 'none'; // Hide non-matching links
-               }
-           });
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const content = document.getElementById('content');
 
-           // Optional: Show a message if no results are found
-           if (!hasResults) {
-               console.log('No results found');
-           }
-       }
+        // Toggle the sidebar visibility for mobile
+        document.querySelector('.mobile-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('show');  // Toggle visibility
+        });
 
-       function setActiveLink(id) {
-           const links = document.querySelectorAll('#menu a');
-           links.forEach(function(link) {
-               link.classList.remove('active');
-           });
-           document.getElementById(id).classList.add('active');
-       }
+        // Toggle the sidebar visibility for desktop
+        document.querySelector('#collapse-btn').addEventListener('click', function() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('show'); // Toggle visibility for desktop
+            sidebar.classList.toggle('collapsed'); // Toggle the collapsed state for desktop
+        });
 
-       window.addEventListener('resize', resizeJmolForMobile);
-       window.addEventListener('load', resizeJmolForMobile);
-   </script>
+    </script>
 
-   <script>
-       const sidebar = document.getElementById('sidebar');
-       const content = document.getElementById('content');
+    <script>
+        // Toggle the sidebar visibility on button click
+            const sidebarToggle = document.getElementById('sidebar-toggle');
+            const collapseBtn = document.getElementById('collapse-btn');
+            const sidebar = document.getElementById('sidebar');
+            const content = document.getElementById('content');
 
-       // Toggle the sidebar visibility for mobile
-       document.querySelector('.mobile-toggle').addEventListener('click', function() {
-           document.getElementById('sidebar').classList.toggle('show');  // Toggle visibility
-       });
+        // Toggle sidebar and collapse content on desktop
+            sidebarToggle.addEventListener('click', function() {
+              sidebar.classList.toggle('show');  // Show or hide sidebar
+              content.classList.toggle('collapsed');  // Move content to the left when collapsed
+            });
 
-       // Toggle the sidebar visibility for desktop
-       document.querySelector('#collapse-btn').addEventListener('click', function() {
-           const sidebar = document.getElementById('sidebar');
-           sidebar.classList.toggle('show'); // Toggle visibility for desktop
-           sidebar.classList.toggle('collapsed'); // Toggle the collapsed state for desktop
-       });
-
-   </script>
-
-   <script>
-       // Toggle the sidebar visibility on button click
-           const sidebarToggle = document.getElementById('sidebar-toggle');
-           const collapseBtn = document.getElementById('collapse-btn');
-           const sidebar = document.getElementById('sidebar');
-           const content = document.getElementById('content');
-
-       // Toggle sidebar and collapse content on desktop
-           sidebarToggle.addEventListener('click', function() {
-             sidebar.classList.toggle('show');  // Show or hide sidebar
-             content.classList.toggle('collapsed');  // Move content to the left when collapsed
-           });
-
-       // Toggle sidebar on desktop for collapse button
-         collapseBtn.addEventListener('click', function() {
-             sidebar.classList.toggle('collapsed');  // Collapse the sidebar
-             content.classList.toggle('collapsed');  // Move content to the left when sidebar is collapsed
-           });
- </script>
+        // Toggle sidebar on desktop for collapse button
+          collapseBtn.addEventListener('click', function() {
+              sidebar.classList.toggle('collapsed');  // Collapse the sidebar
+              content.classList.toggle('collapsed');  // Move content to the left when sidebar is collapsed
+            });
+  </script>
 
 </body>
 </html>
