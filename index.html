@@ -55,9 +55,13 @@
 
         <!-- Main Content Area -->
         <div id="content">
+            <div id="content-header">
+                <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
+            <!-- Mobile Sidebar Toggle Button -->
+                <button id="sidebar-toggle" class="mobile-toggle" aria-label="Toggle sidebar" onclick="toggleSidebar()">☰</button>
+            </div>
             <!-- Home Page -->
             <div id="home-page" style="display: block;">
-                <h1 id="home-header" style="color: #28528E;">DMA Thesis: 3D Molecule Viewer</h1>
                 <p>Welcome to the DMA Thesis 3D Molecule Visualizer. This tool allows you to explore the molecular structures discussed in the thesis. Use the menu to navigate through various sections and visualize the corresponding molecules.</p>
             </div>
 
@@ -105,7 +109,7 @@
             width: 700,
             height: 400,
             j2sPath: "j2s",
-            color: "transparent",
+            color: "#F4F4F9",
             use: "HTML5",
             disableJ2SLoadMonitor: true,
             disableInitialConsole: true
