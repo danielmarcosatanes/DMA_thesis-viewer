@@ -165,9 +165,44 @@
             }
         }
 
+        function toggleStructuresMenu() {
+            const structuresMenu = document.getElementById('structures-menu');
+            const subsections1 = document.getElementById('subsections7.1');
+            const subsections2 = document.getElementById('subsections7.2');
+            const subsections3 = document.getElementById('subsections7.3');
+
+            // Show the structures menu and subsections if hidden
+            if (structuresMenu.style.display === 'none') {
+                structuresMenu.style.display = 'block';
+                subsections1.style.display = 'block';
+                subsections2.style.display = 'block';
+                subsections3.style.display = 'block';
+            } else {
+                structuresMenu.style.display = 'none';
+                subsections1.style.display = 'none';
+                subsections2.style.display = 'none';
+                subsections3.style.display = 'none';
+            }
+        }
+
+        function showSection(sectionId) {
+            // Display the corresponding section and collapse the other subsections
+            displayOnly(sectionId);
+            const subsectionId = `subsections${sectionId.split('section')[1]}`;
+            toggleVisibility(subsectionId, true);
+
+            // Collapse all subsections except the selected one
+            const subsections = document.querySelectorAll('.subsections');
+            subsections.forEach(subsection => {
+                if (subsection.id !== subsectionId) {
+                    subsection.style.display = 'none';
+                }
+            });
+        }
+
         function showSubsection(subsectionId) {
             // Hide all subsections
-            var subsections = document.querySelectorAll('#content > div');
+            const subsections = document.querySelectorAll('#content > div');
             subsections.forEach(function(subsection) {
                 subsection.style.display = 'none';
             });
@@ -180,7 +215,10 @@
                 sidebar.classList.remove('show');  // Collapse the sidebar on mobile
             }
 
-            // Define the mapping between subsectionId and the sidebar section to show
+            // Highlight the active subsection link
+            setActiveLink(subsectionId);
+
+            // Map subsectionId to sectionId
             const sectionMapping = {
                 'subsection44aBipyIrBpin': 'section7.1',
                 'subsection44aBipyIrBpin5': 'section7.1',
@@ -189,19 +227,18 @@
                 'subsection45a': 'section7.3'
             };
 
-            // Collapse all sidebar sections
-            var sidebarSections = document.querySelectorAll('.sidebar-section');
+            // Collapse all sidebar sections except the active one
+            const sidebarSections = document.querySelectorAll('.sidebar-section');
             sidebarSections.forEach(function(section) {
                 section.style.display = 'none';
             });
 
-            // Show the active sidebar section based on the subsectionId
             const activeSectionId = sectionMapping[subsectionId];
             if (activeSectionId) {
                 document.getElementById(activeSectionId).style.display = 'block';
             }
 
-            // Molecule mapping with container IDs and log file names
+            // Load the relevant molecule into the container
             const molecules = {
                 subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: '44a-Bipy-Ir(Bpin).log' },
                 subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: '44a-Bipy-Ir(Bpin)5.log' },
@@ -210,14 +247,21 @@
                 subsection45a: { container: 'jsmolContainer45a', file: '45a.log' }
             };
 
-            // Ensure the container exists before loading
             const molecule = molecules[subsectionId];
             if (molecule) {
                 loadJSmol(molecule.container, molecule.file);
             }
+        }
 
-            // Highlight the active subsection link
-            setActiveLink(subsectionId);
+        function setActiveLink(id) {
+            // Remove 'active' class from all links
+            const links = document.querySelectorAll('#menu a');
+            links.forEach(function(link) {
+                link.classList.remove('active');
+            });
+
+            // Add 'active' class to the clicked link
+            document.getElementById(id).classList.add('active');
         }
 
         function displayOnly(sectionId) {
@@ -270,14 +314,6 @@
             if (!hasResults) {
                 console.log('No results found');
             }
-        }
-
-        function setActiveLink(id) {
-            const links = document.querySelectorAll('#menu a');
-            links.forEach(function(link) {
-                link.classList.remove('active');
-            });
-            document.getElementById(id).classList.add('active');
         }
 
         window.addEventListener('resize', resizeJmolForMobile);
