@@ -102,10 +102,10 @@
 
     <script>
         const Info = {
-            width: 900,
-            height: 900,
+            width: 700,
+            height: 400,
             j2sPath: "j2s",
-            color: "transparent",
+            color: "#F4F4F9",
             use: "HTML5",
             disableJ2SLoadMonitor: true,
             disableInitialConsole: true
@@ -122,7 +122,22 @@
         }
 
         function toggleStructuresMenu() {
-            toggleVisibility('structures-menu');
+            var structuresMenu = document.getElementById('structures-menu');
+            var subsections1 = document.getElementById('subsections7.1');
+            var subsections2 = document.getElementById('subsections7.2');
+            var subsections3 = document.getElementById('subsections7.3');
+            // Show or hide the structures menu and subsections
+            if (structuresMenu.style.display === 'none') {
+                structuresMenu.style.display = 'block';
+                subsections1.style.display = 'block';
+                subsections2.style.display = 'block';
+                subsections3.style.display = 'block';
+            } else {
+                structuresMenu.style.display = 'none';
+                subsections1.style.display = 'none';
+                subsections2.style.display = 'none';
+                subsections3.style.display = 'none';
+            }
         }
 
         function showSection(sectionId) {
