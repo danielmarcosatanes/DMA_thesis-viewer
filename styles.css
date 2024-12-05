@@ -86,6 +86,11 @@ body {
     color: #A85426;
 }
 
+.menu-link.active {
+    background-color: #A85426; /* Orange background for active link */
+    color: white;
+}
+
 /* Sidebar menu (Structures) */
 #structures-menu {
     padding-left: 20px;
