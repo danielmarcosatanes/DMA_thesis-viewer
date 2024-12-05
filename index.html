@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -121,10 +122,16 @@
        }
 
        function toggleStructuresMenu() {
-           toggleVisibility('structures-menu');
-       }
+         const structuresMenu = document.getElementById('structures-menu');
+         // Toggle the visibility of the structures menu
+         if (structuresMenu.style.display === 'none' || structuresMenu.style.display === '') {
+             structuresMenu.style.display = 'block'; // Show the menu
+         } else {
+             structuresMenu.style.display = 'none'; // Hide the menu
+         }
+     }
 
-       function showSection(sectionId) {
+     function showSection(sectionId) {
          console.log("Showing section:", sectionId);
 
          displayOnly(sectionId);
@@ -132,15 +139,15 @@
          const subsectionId = `subsections${sectionId.split('section')[1]}`;
          console.log("Toggling visibility of subsection:", subsectionId);
 
-         toggleVisibility(subsectionId, true);
+         toggleVisibility(subsectionId, true); // Ensure subsections are shown when the section is shown
 
          // Add error handling if the subsection is not found
          const subsection = document.getElementById(subsectionId);
          if (!subsection) {
-           console.error("Subsection not found:", subsectionId);
-           return;
+             console.error("Subsection not found:", subsectionId);
+             return;
          }
-       }
+     }
 
        function showSubsection(subsectionId) {
            // Hide all subsections
