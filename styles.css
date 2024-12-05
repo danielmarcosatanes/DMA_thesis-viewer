@@ -180,6 +180,15 @@ body {
         transform: translateX(0); /* Show when toggled */
     }
 
+    #content h1,
+    #content h2,
+    #content h3 {
+        margin-left: 10px; /* Add space from the left */
+        margin-right: 10px; /* Prevent overflow on the right */
+        max-width: calc(100% - 20px); /* Ensure the width stays within the viewport */
+        word-wrap: break-word; /* Wrap long words if necessary */
+    }
+
     .mobile-toggle {
         display: block; /* Show toggle button for mobile */
     }
