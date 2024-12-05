@@ -344,22 +344,18 @@
         }
 
         function resizeJmolForMobile() {
-          const jsmolContainers = document.querySelectorAll('.jsmolContainer');
+            const jsmolContainers = document.querySelectorAll('.jsmolContainer');
 
-          jsmolContainers.forEach(container => {
-              // Set width to leave space for the sidebar (250px)
-              const containerWidth = window.innerWidth - 250;  // Subtract the sidebar width
+            jsmolContainers.forEach(container => {
+                const containerWidth = window.innerWidth * 0.8; // 80% of window width
+                const containerHeight = window.innerHeight * 0.6; // 60% of window height
 
-              // Set the height to fill the entire viewport height
-              const containerHeight = window.innerHeight;
+                container.style.width = `${containerWidth}px`;
+                container.style.height = `${containerHeight}px`;
 
-              // Apply the new width and height
-              container.style.width = `${containerWidth}px`;
-              container.style.height = `${containerHeight}px`;
-
-              // Keep the aspect ratio as 1:1 (optional)
-              container.style.aspectRatio = '1 / 1';
-          });
+                // Keep the square aspect ratio
+                container.style.aspectRatio = '1 / 1';
+            });
         }
 
         window.addEventListener('resize', resizeJmolForMobile);
