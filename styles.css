@@ -110,6 +110,7 @@ body {
     align-items: center; /* Center content horizontally */
     width: 100%;
     margin-bottom: 20px; /* Add space between container and buttons */
+    position: relative;
 }
 
 
@@ -183,6 +184,9 @@ body {
     justify-content: center;
     gap: 10px;
     margin-top: 10px;
+    position: absolute;
+    bottom: 0;  /* Position buttons at the bottom of the section */
+    width: 100%;  /* Ensure buttons span the entire width */
 }
 
 /* Button styling */
