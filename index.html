@@ -79,7 +79,7 @@
             <!-- Subsections -->
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
-                <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div
+                <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
                 <div class="button-container" id="controls44aBipyIrBpin">
                   <button onclick="rotateMolecule()">Rotate</button>
                   <button onclick="resetMolecule()">Reset</button>
@@ -396,8 +396,8 @@
             document.getElementById(subsectionId).style.display = "block";
             const controlsId = `controls${subsectionId.replace("subsection", "")}`;
             document.getElementById(controlsId).style.display = "flex";
-        }
-
+          }
+      }
         window.addEventListener('resize', resizeJmol);
         window.addEventListener('load', resizeJmol);
     </script>
