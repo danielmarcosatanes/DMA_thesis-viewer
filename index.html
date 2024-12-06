@@ -80,7 +80,7 @@
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
-                <div class="button-container" id="controls44aBipyIrBpin">
+                <div id="controls44aBipyIrBpin" class="button-container" >
                   <button onclick="rotateMolecule()">Rotate</button>
                   <button onclick="resetMolecule()">Reset</button>
                   <button onclick="zoomInMolecule()">Zoom In</button>
@@ -243,6 +243,18 @@
             if (molecule) {
                 loadJSmol(molecule.container, molecule.file);
             }
+
+            // Hide all other controls
+            document.querySelectorAll(".button-container").forEach(buttonContainer => {
+                buttonContainer.style.display = "none";
+            });
+
+            // Display the JSmol container and buttons for the selected molecule
+            document.getElementById(subsectionId).style.display = "block";
+            const controlsId = `controls${subsectionId.replace("subsection", "")}`;
+            document.getElementById(controlsId).style.display = "flex";
+          }
+
         }
 
         function setActiveLink(id) {
@@ -345,18 +357,6 @@
             Jmol.script(jsmolApplet, "zoom 80");
         }
 
-        // Ensure buttons are hidden when the JSmol container is not displayed
-        function showSubsection(subsectionId) {
-            // Hide all other controls
-            document.querySelectorAll(".button-container").forEach(buttonContainer => {
-                buttonContainer.style.display = "none";
-            });
-
-            // Display the JSmol container and buttons for the selected molecule
-            document.getElementById(subsectionId).style.display = "block";
-            const controlsId = `controls${subsectionId.replace("subsection", "")}`;
-            document.getElementById(controlsId).style.display = "flex";
-          }
         window.addEventListener('resize', resizeJmol);
         window.addEventListener('load', resizeJmol);
     </script>
