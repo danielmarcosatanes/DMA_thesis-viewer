@@ -102,6 +102,17 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
+/* Container that holds JSmol and buttons */
+.subsections {
+    display: flex;
+    flex-direction: column;  /* Stack elements vertically */
+    justify-content: flex-start; /* Align at the top */
+    align-items: center; /* Center content horizontally */
+    width: 100%;
+    margin-bottom: 20px; /* Add space between container and buttons */
+}
+
+
 /* Jmol container styling */
 .jsmolContainer {
     width: calc(100% - 250px);
@@ -186,8 +197,7 @@ body {
 }
 
 .button-container button:hover {
-    background-color: #28528E;
-    color: #FFFFFF;
+    background-color: #A85426;
 }
 
 /* Responsive Design */
@@ -224,6 +234,10 @@ body {
     #sidebar.show + .jsmolContainer {
     opacity: 0.5; /* Optional: dim JSmol when sidebar is visible */
     pointer-events: none; /* Prevent interaction with JSmol when sidebar is open */
+    }
+
+    .button-container {
+        flex-direction: column; /* Stack buttons vertically in mobile view */
     }
 
     #content {
