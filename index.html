@@ -379,22 +379,18 @@
         }
 
         function rotateMolecule() {
-          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
-            Jmol.script(jsmolApplet, "rotate 10 0 1");
+            Jmol.script(jsmolApplet, "rotate 360");
         }
 
         function resetMolecule() {
-          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
             Jmol.script(jsmolApplet, "reset");
         }
 
         function zoomInMolecule() {
-          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
             Jmol.script(jsmolApplet, "zoom 120");
         }
 
         function zoomOutMolecule() {
-          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
             Jmol.script(jsmolApplet, "zoom 80");
         }
 
