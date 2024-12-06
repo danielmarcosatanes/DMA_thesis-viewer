@@ -292,7 +292,7 @@
             document.getElementById(subsectionId).style.display = "block";
             const controlsId = `controls${subsectionId.replace("subsection", "")}`;
             document.getElementById(controlsId).style.display = "flex";
-        }  
+        }
 
         function setActiveLink(id) {
             // Remove 'active' class from all links
@@ -379,18 +379,22 @@
         }
 
         function rotateMolecule() {
-            Jmol.script(jsmolApplet, "rotate 360");
+          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
+            Jmol.script(jsmolApplet, "rotate 10 0 1");
         }
 
         function resetMolecule() {
+          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
             Jmol.script(jsmolApplet, "reset");
         }
 
         function zoomInMolecule() {
+          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
             Jmol.script(jsmolApplet, "zoom 120");
         }
 
         function zoomOutMolecule() {
+          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
             Jmol.script(jsmolApplet, "zoom 80");
         }
 
