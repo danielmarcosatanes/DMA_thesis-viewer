@@ -151,46 +151,6 @@
             toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
         }
 
-        function toggleStructuresMenu() {
-            var structuresMenu = document.getElementById('structures-menu');
-            var subsections1 = document.getElementById('subsections7.1');
-            var subsections2 = document.getElementById('subsections7.2');
-            var subsections3 = document.getElementById('subsections7.3');
-
-            // Show or hide the structures menu and subsections
-            if (structuresMenu.style.display === 'none') {
-                structuresMenu.style.display = 'block';
-                subsections1.style.display = 'block';
-                subsections2.style.display = 'block';
-                subsections3.style.display = 'block';
-            } else {
-                structuresMenu.style.display = 'none';
-                subsections1.style.display = 'none';
-                subsections2.style.display = 'none';
-                subsections3.style.display = 'none';
-            }
-        }
-
-        function toggleStructuresMenu() {
-            const structuresMenu = document.getElementById('structures-menu');
-            const subsections1 = document.getElementById('subsections7.1');
-            const subsections2 = document.getElementById('subsections7.2');
-            const subsections3 = document.getElementById('subsections7.3');
-
-            // Show the structures menu and subsections if hidden
-            if (structuresMenu.style.display === 'none') {
-                structuresMenu.style.display = 'block';
-                subsections1.style.display = 'block';
-                subsections2.style.display = 'block';
-                subsections3.style.display = 'block';
-            } else {
-                structuresMenu.style.display = 'none';
-                subsections1.style.display = 'none';
-                subsections2.style.display = 'none';
-                subsections3.style.display = 'none';
-            }
-        }
-
         function showSection(sectionId) {
             // Display the corresponding section and collapse the other subsections
             displayOnly(sectionId);
