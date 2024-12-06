@@ -62,6 +62,10 @@ body {
     text-decoration: none;
     padding: 3px;
     margin: 2px 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%
 }
 
 /* Hover effect for sidebar links */
