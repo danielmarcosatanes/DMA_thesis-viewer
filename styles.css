@@ -303,11 +303,11 @@ body {
 
 /* Design for subsections */
 #structures-menu {
-    padding-left: 20px;
+    padding-left: 10px;
     display: none; /* Hidden by default */
 }
 
 .subsections {
-    padding-left: 20px;
+    padding-left: 10px;
     display: none;
 }
