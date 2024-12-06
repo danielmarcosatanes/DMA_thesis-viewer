@@ -379,35 +379,24 @@
         }
 
         function rotateMolecule() {
-          console.log('Rotate button clicked');
-          var jsmolApplet = document.getElementById('jsmolContainer44aBipyIrBpin').jsmolApplet; // Access JSmol instance
-          Jmol.script(jsmolApplet, "rotate 10 0 1");
+          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
+            Jmol.script(jsmolApplet, "rotate 10 0 1");
         }
 
         function resetMolecule() {
-          console.log('Reset button clicked');
-          var jsmolApplet = document.getElementById('jsmolContainer44aBipyIrBpin').jsmolApplet; // Access JSmol instance
-          Jmol.script(jsmolApplet, "reset");
+          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
+            Jmol.script(jsmolApplet, "reset");
         }
 
         function zoomInMolecule() {
-          console.log('Zoom In button clicked');
-          var jsmolApplet = document.getElementById('jsmolContainer44aBipyIrBpin').jsmolApplet; // Access JSmol instance
-          Jmol.script(jsmolApplet, "zoom 120");
+          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
+            Jmol.script(jsmolApplet, "zoom 120");
         }
 
         function zoomOutMolecule() {
-          console.log('Zoom In button clicked');
-          var jsmolApplet = document.getElementById('jsmolContainer44aBipyIrBpin').jsmolApplet; // Access JSmol instance
-          Jmol.script(jsmolApplet, "zoom 80");
+          const jsmolApplet = Jmol.getApplet('jsmolContainer44aBipyIrBpin', Info);
+            Jmol.script(jsmolApplet, "zoom 80");
         }
-
-        // Event listeners for buttons
-        document.getElementById('rotateMolecule()').addEventListener('click', rotate);
-        document.getElementById('resetMolecule()').addEventListener('click', reset);
-        document.getElementById('zoomInMolecule()').addEventListener('click', zoomIn);
-        document.getElementById('zoomOutMolecule').addEventListener('click', zoomOut);
-
 
         window.addEventListener('resize', resizeJmol);
         window.addEventListener('load', resizeJmol);
