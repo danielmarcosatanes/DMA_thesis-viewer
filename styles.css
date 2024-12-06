@@ -109,11 +109,9 @@ body {
     justify-content: flex-start; /* Align at the top */
     align-items: center; /* Center content horizontally */
     width: 100%;
-    height: 100%;  /* Ensure it takes up the full available height */
+    height: auto;  /* Ensure it takes up the full available height */
     margin-bottom: 20px; /* Add space between container and buttons */
-    position: relative;
 }
-
 
 /* Jmol container styling */
 .jsmolContainer {
@@ -121,9 +119,8 @@ body {
     height: calc(100vh - 200px);
     margin-left: 250px;  /* Leave space for the sidebar */
     display: block;
-    position: absolute;
     overflow: hidden;
-    margin-bottom: 20px; /* Space between the JSmol container and buttons */
+    margin-bottom: 10px; /* Space between the JSmol container and buttons */
     top: 200;  /* Ensure it starts from the top of the page */
     left: 0;  /* Align with the left edge */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
@@ -185,7 +182,7 @@ body {
     justify-content: center;
     gap: 10px;
     margin-top: 10px; /* Space between JSmol container and buttons */
-    padding-bottom: 20px;  /* Optional: space between buttons and bottom of the section */
+    padding-bottom: 10px;  /* Optional: space between buttons and bottom of the section */
 }
 
 /* Button styling */
