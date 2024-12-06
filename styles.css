@@ -166,6 +166,30 @@ body {
     font-weight: bold;
 }
 
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+}
+
+.button-container button {
+    padding: 10px 20px;
+    font-size: 14px;
+    border: 1px solid #28528E;
+    background-color: #D6D6D6;
+    color: #28528E;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.button-container button:hover {
+    background-color: #28528E;
+    color: #FFFFFF;
+}
+
 /* Responsive Design */
 
 /* Mobile-Specific */
