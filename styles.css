@@ -108,7 +108,7 @@ body {
     flex-direction: column;  /* Stack elements vertically */
     justify-content: flex-start; /* Align at the top */
     align-items: left; /* Center content horizontally */
-    width: 100%;
+    width: calc(100% - 250px);
     height: auto;  /* Ensure it takes up the full available height */
     margin-bottom: 20px; /* Add space between container and buttons */
 }
@@ -121,7 +121,7 @@ body {
     display: block;
     overflow: hidden;
     margin-bottom: 10px; /* Space between the JSmol container and buttons */
-    top: 200;  /* Ensure it starts from the top of the page */
+    top: 220;  /* Ensure it starts from the top of the page */
     left: 0;  /* Align with the left edge */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
@@ -290,7 +290,7 @@ body {
     }
 
       /* When the sidebar is collapsed, expand the JSmol container */
-      #sidebar.collapsed + #content .jsmolContainer {
+    #sidebar.collapsed + #content .jsmolContainer {
         margin-left: 0; /* No margin when sidebar is collapsed */
         width: 100%; /* Full width when sidebar is collapsed */
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
