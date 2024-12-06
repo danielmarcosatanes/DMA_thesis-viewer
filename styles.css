@@ -107,7 +107,7 @@ body {
     display: flex;
     flex-direction: column;  /* Stack elements vertically */
     justify-content: flex-start; /* Align at the top */
-    align-items: center; /* Center content horizontally */
+    align-items: left; /* Center content horizontally */
     width: 100%;
     height: auto;  /* Ensure it takes up the full available height */
     margin-bottom: 20px; /* Add space between container and buttons */
