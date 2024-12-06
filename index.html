@@ -79,7 +79,13 @@
             <!-- Subsections -->
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
-                <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
+                <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div
+                <div class="button-container" id="controls44aBipyIrBpin">
+                  <button onclick="rotateMolecule()">Rotate</button>
+                  <button onclick="resetMolecule()">Reset</button>
+                  <button onclick="zoomInMolecule()">Zoom In</button>
+                  <button onclick="zoomOutMolecule()">Zoom Out</button>
+                </div>
             </div>
             <div id="subsection44aBipyIrBpin5" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)5</h3>
@@ -361,6 +367,35 @@
                 // Keep the square aspect ratio
                 container.style.aspectRatio = '1 / 1';
             });
+        }
+
+        function rotateMolecule() {
+            Jmol.script(jsmolApplet, "rotate 360");
+        }
+
+        function resetMolecule() {
+            Jmol.script(jsmolApplet, "reset");
+        }
+
+        function zoomInMolecule() {
+            Jmol.script(jsmolApplet, "zoom 120");
+        }
+
+        function zoomOutMolecule() {
+            Jmol.script(jsmolApplet, "zoom 80");
+        }
+
+        // Ensure buttons are hidden when the JSmol container is not displayed
+        function showSubsection(subsectionId) {
+            // Hide all other controls
+            document.querySelectorAll(".button-container").forEach(buttonContainer => {
+                buttonContainer.style.display = "none";
+            });
+
+            // Display the JSmol container and buttons for the selected molecule
+            document.getElementById(subsectionId).style.display = "block";
+            const controlsId = `controls${subsectionId.replace("subsection", "")}`;
+            document.getElementById(controlsId).style.display = "flex";
         }
 
         window.addEventListener('resize', resizeJmol);
