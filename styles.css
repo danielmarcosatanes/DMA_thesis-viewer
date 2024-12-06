@@ -119,7 +119,6 @@ body {
     height: calc(100vh - 200px);
     margin-left: 250px;  /* Leave space for the sidebar */
     display: block;
-    position: relative;
     overflow: hidden;
     margin-bottom: 20px; /* Space between the JSmol container and buttons */
     top: 200;  /* Ensure it starts from the top of the page */
