@@ -80,7 +80,7 @@
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
-                <div id="controls44aBipyIrBpin" class="button-container" >
+                <div class="button-container" id="controls44aBipyIrBpin">
                   <button onclick="rotateMolecule()">Rotate</button>
                   <button onclick="resetMolecule()">Reset</button>
                   <button onclick="zoomInMolecule()">Zoom In</button>
@@ -149,6 +149,46 @@
         function showSection(sectionId) {
             displayOnly(sectionId);
             toggleVisibility(`subsections${sectionId.split('section')[1]}`, true);
+        }
+
+        function toggleStructuresMenu() {
+            var structuresMenu = document.getElementById('structures-menu');
+            var subsections1 = document.getElementById('subsections7.1');
+            var subsections2 = document.getElementById('subsections7.2');
+            var subsections3 = document.getElementById('subsections7.3');
+
+            // Show or hide the structures menu and subsections
+            if (structuresMenu.style.display === 'none') {
+                structuresMenu.style.display = 'block';
+                subsections1.style.display = 'block';
+                subsections2.style.display = 'block';
+                subsections3.style.display = 'block';
+            } else {
+                structuresMenu.style.display = 'none';
+                subsections1.style.display = 'none';
+                subsections2.style.display = 'none';
+                subsections3.style.display = 'none';
+            }
+        }
+
+        function toggleStructuresMenu() {
+            const structuresMenu = document.getElementById('structures-menu');
+            const subsections1 = document.getElementById('subsections7.1');
+            const subsections2 = document.getElementById('subsections7.2');
+            const subsections3 = document.getElementById('subsections7.3');
+
+            // Show the structures menu and subsections if hidden
+            if (structuresMenu.style.display === 'none') {
+                structuresMenu.style.display = 'block';
+                subsections1.style.display = 'block';
+                subsections2.style.display = 'block';
+                subsections3.style.display = 'block';
+            } else {
+                structuresMenu.style.display = 'none';
+                subsections1.style.display = 'none';
+                subsections2.style.display = 'none';
+                subsections3.style.display = 'none';
+            }
         }
 
         function showSection(sectionId) {
@@ -243,7 +283,6 @@
             if (molecule) {
                 loadJSmol(molecule.container, molecule.file);
             }
-
             // Hide all other controls
             document.querySelectorAll(".button-container").forEach(buttonContainer => {
                 buttonContainer.style.display = "none";
@@ -253,9 +292,7 @@
             document.getElementById(subsectionId).style.display = "block";
             const controlsId = `controls${subsectionId.replace("subsection", "")}`;
             document.getElementById(controlsId).style.display = "flex";
-          }
-
-        }
+        }  
 
         function setActiveLink(id) {
             // Remove 'active' class from all links
