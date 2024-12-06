@@ -183,8 +183,6 @@ body {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 10px;
-    position: absolute;
     margin-top: 10px; /* Space between JSmol container and buttons */
     padding-bottom: 20px;  /* Optional: space between buttons and bottom of the section */
 }
