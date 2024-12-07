@@ -80,6 +80,7 @@
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
+
                  <div class="button-container" id="controls44aBipyIrBpin">
                   <button id="resetBtn">Reset</button>
                   <button id="zoomInBtn">Zoom In</button>
@@ -87,6 +88,16 @@
                   <label for="spinCheckbox">
                     <input type="checkbox" id="spinCheckbox"> Spin
                   </label>
+                  <label for="vibrationCheckbox">
+                    <input type="checkbox" id="vibrationCheckbox"> Vibration
+                  </label>
+                  <select id="vibrationSelect" disabled>
+                    <option value="">Select Frequency</option>
+                    <option value="vibration1">Frequency 1</option>
+                    <option value="vibration2">Frequency 2</option>
+                    <option value="vibration3">Frequency 3</option>
+                    <option value="vibration3">Frequency 4</option>
+                    <option value="vibration3">Frequency 5</option>
                 </div>
             </div>
             <div id="subsection44aBipyIrBpin5" style="display:none;">
@@ -127,6 +138,11 @@
 
             // Once the molecule is loaded, initialize button functionalities
             addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
+
+            // Vibration functionality will be handled here
+            // Start listening for changes in the vibration checkbox and dropdown menu
+            document.getElementById('vibrationCheckbox').addEventListener('change', toggleVibration);
+            document.getElementById('vibrationSelect').addEventListener('change', changeFrequency);
         }
 
 
@@ -162,6 +178,27 @@
             });
         }
 
+        // Toggle vibration animation based on the checkbox state
+        function toggleVibration() {
+            const vibrationCheckbox = document.getElementById('vibrationCheckbox');
+            const vibrationSelect = document.getElementById('vibrationSelect');
+
+            if (vibrationCheckbox.checked) {
+                vibrationSelect.disabled = false; // Enable dropdown when checkbox is checked
+            } else {
+                vibrationSelect.disabled = true; // Disable dropdown when checkbox is unchecked
+                Jmol.script(jsmolApplet, "stop vibration"); // Stop the vibration when unchecked
+            }
+        }
+
+        // Change the frequency based on the selection in the dropdown
+        function changeFrequency() {
+            const selectedFrequency = document.getElementById('vibrationSelect').value;
+
+            if (selectedFrequency) {
+                Jmol.script(jsmolApplet, `start vibration ${selectedFrequency}`);
+            }
+        }
 
         function showHome() {
             displayOnly('home-page');
