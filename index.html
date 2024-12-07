@@ -115,6 +115,9 @@
             const jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
             Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
+
+            // Add the reset button functionality once the applet is loaded
+            Jmol.jmolButton(jsmolApplet, "reset", "Reset to original orientation");
         }
 
         function showHome() {
