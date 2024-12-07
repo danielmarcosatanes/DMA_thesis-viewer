@@ -90,6 +90,7 @@
                   <label for="vibrationCheckbox">
                     <input type="checkbox" id="vibrationCheckbox"> Enable Vibrations
                   </label>
+                  <label for="modelsSelect">Select Model:</label>
                   <select id="modelsSelect">
                       <option value="">--Select Model--</option>
                   </select>
@@ -330,36 +331,6 @@
                 loadJSmol(molecule.container, molecule.file);
             }
         }
-
-        function parseModelsInfo(modelsInfo) {
-            const modelPattern = /Model (\d+):/g;
-            const matches = [...modelsInfo.matchAll(modelPattern)];
-            return matches.map(match => parseInt(match[1], 10)); // Extract model numbers
-        }
-
-        function populateModelsDropdown(jsmolApplet) {
-            const modelsInfo = Jmol.scriptWaitOutput(jsmolApplet, "show models");
-            const availableModels = parseModelsInfo(modelsInfo);
-
-            const modelsSelect = document.getElementById("modelsSelect");
-            modelsSelect.innerHTML = '<option value="">--Select Model--</option>'; // Reset dropdown
-
-            availableModels.forEach(model => {
-                modelsSelect.add(new Option(`Model ${model}`, model));
-            });
-
-            // Event listener to switch models
-            modelsSelect.addEventListener("change", function (event) {
-                const selectedModel = event.target.value;
-                if (selectedModel) {
-                    Jmol.script(jsmolApplet, `model ${selectedModel}`);
-                }
-            });
-        }
-
-        // Call this function after the molecule is loaded
-        populateModelsDropdown(jsmolApplet);
-
 
         // Event listener for vibration checkbox
         document.getElementById("vibrationCheckbox").addEventListener("change", function (event) {
