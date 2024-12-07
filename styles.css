@@ -107,7 +107,7 @@ body {
     width: calc(100% - 250px);
     height: calc(100vh - 200px);
     margin-left: 20px;  /* Leave space for the sidebar */
-    margin-bottom: 20px; /* Adjust spacing below JSmol */
+    margin-bottom: 5px; /* Adjust spacing below JSmol */
     display: block;
     position: relative;
     overflow: hidden;
@@ -151,7 +151,7 @@ body {
 
 /* Style for the checkbox label */
 label[for="spinCheckbox"] {
-    font-size: 11px;
+    font-size: 14px;
     color: #28528E;
     margin-left: 10px; /* Adds space between the checkbox and the label */
     cursor: pointer; /* Makes it clickable */
@@ -159,8 +159,8 @@ label[for="spinCheckbox"] {
 
 /* You can add a custom appearance for the checkbox as well */
 input[type="checkbox"] {
-    width: 20px; /* Resize the checkbox */
-    height: 20px;
+    width: 15px; /* Resize the checkbox */
+    height: 15px;
     vertical-align: middle; /* Aligns it with the text */
     margin: 0; /* Removes default margins */
 }
