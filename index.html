@@ -81,10 +81,11 @@
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
                 <div class="button-container" id="controls44aBipyIrBpin">
-                  <button onclick="rotateMolecule()">Rotate</button>
-                  <button onclick="resetMolecule()">Reset</button>
-                  <button onclick="zoomInMolecule()">Zoom In</button>
-                  <button onclick="zoomOutMolecule()">Zoom Out</button>
+                    <button id="rotateBtn">Rotate</button>
+                    <button id="resetBtn">Reset</button>
+                    <button id="zoomInBtn">Zoom In</button>
+                    <button id="zoomOutBtn">Zoom Out</button>
+                </div>
                 </div>
             </div>
             <div id="subsection44aBipyIrBpin5" style="display:none;">
@@ -378,54 +379,19 @@
             });
         }
 
-        function getCurrentApplet() {
-            const activeContainer = document.querySelector('.jsmolContainer:not([style*="display: none"])');
-            if (activeContainer) {
-                return Jmol.getApplet(activeContainer.id);
-            }
-            return null;
+        function loadJSmol(containerId, moleculeFile) {
+            console.log(`Loading JSmol applet into ${containerId} with file ${moleculeFile}`);
+            const applet = Jmol.getApplet(containerId, Info); // Ensure Info is defined correctly
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(applet);
+            Jmol.script(applet, `load 'molecules/${moleculeFile}';`);
+            console.log("Molecule loading complete.");
+
+            // Add the reset button functionality once the applet is loaded
+            Jmol.jmolButton(applet, "reset", "Reset to original orientation");
         }
 
-        function rotateMolecule() {
-            const applet = getCurrentApplet();
-            if (applet) {
-                console.log("Rotating molecule");
-                Jmol.scriptWait(applet, "rotate y 90");
-            } else {
-                console.error("No active applet found for rotation.");
-            }
-        }
-
-        function resetMolecule() {
-            const applet = getCurrentApplet();
-            if (applet) {
-                console.log("Resetting molecule");
-                Jmol.scriptWait(applet, "reset");
-            } else {
-                console.error("No active applet found for reset.");
-            }
-        }
-
-        function zoomInMolecule() {
-            const applet = getCurrentApplet();
-            if (applet) {
-                console.log("Zooming in");
-                Jmol.scriptWait(applet, "zoom 120");
-            } else {
-                console.error("No active applet found for zoom in.");
-            }
-        }
-
-        function zoomOutMolecule() {
-            const applet = getCurrentApplet();
-            if (applet) {
-                console.log("Zooming out");
-                Jmol.scriptWait(applet, "zoom 80");
-            } else {
-                console.error("No active applet found for zoom out.");
-            }
-        }
-
+        // Call this function when you want to load the applet into the container
+        loadJSmol("jsmolContainer44aBipyIrBpin", "44a-Bipy-Ir(Bpin).log");
 
         window.addEventListener('resize', resizeJmol);
         window.addEventListener('load', resizeJmol);
