@@ -109,7 +109,7 @@ body {
     margin-left: 250px;  /* Leave space for the sidebar */
     margin-bottom: 20px; /* Adjust spacing below JSmol */
     display: block;
-    position: relative;
+    position: absolute;
     overflow: hidden;
     top: 200;  /* Ensure it starts from the top of the page */
     left: 0;  /* Align with the left edge */
@@ -119,7 +119,7 @@ body {
 
 /* Positioning the button container below the JSmol container */
 .button-container {
-    position: relative;
+    position: absolute;
     bottom: 0;
     display: flex;
     justify-content: center;
