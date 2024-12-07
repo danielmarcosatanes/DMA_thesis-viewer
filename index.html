@@ -332,6 +332,46 @@
             }
         }
 
+                // Function to load models into dropdown
+                function loadModels(jsmolApplet) {
+                    Jmol.scriptWait(jsmolApplet, "show models");
+                    const modelInfo = Jmol.evaluate(jsmolApplet, "script('show models')");
+                    const models = parseModelInfo(modelInfo);
+                    populateDropdown(models);
+                }
+
+                // Parse model information
+                function parseModelInfo(modelInfo) {
+                    const models = [];
+                    const lines = modelInfo.split("\n");
+                    lines.forEach((line) => {
+                        const match = line.match(/<model index="(\d+)"[^>]*name="([^"]+)"/);
+                        if (match) {
+                            models.push({ index: match[1], name: match[2] });
+                        }
+                    });
+                    return models;
+                }
+
+                // Populate dropdown menu
+                function populateDropdown(models) {
+                    const selector = document.getElementById("model-selector");
+                    models.forEach((model) => {
+                        const option = document.createElement("option");
+                        option.value = model.index;
+                        option.textContent = model.name;
+                        selector.appendChild(option);
+                    });
+                }
+
+                // Select model based on dropdown selection
+                function selectModel() {
+                    const modelIndex = document.getElementById("model-selector").value;
+                    if (modelIndex) {
+                        Jmol.script(jsmolApplet, `model ${modelIndex}`);
+                    }
+                }
+
         // Event listener for vibration checkbox
         document.getElementById("vibrationCheckbox").addEventListener("change", function (event) {
             if (event.target.checked) {
