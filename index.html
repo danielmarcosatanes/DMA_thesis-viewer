@@ -177,27 +177,37 @@
             });
         }
 
-        // Load models and populate the dropdown
-        function loadModels(applet) {
-            const modelCount = Jmol.getModelCount(applet);
-            const selector = document.getElementById("model-selector");
 
-            for (let i = 1; i <= modelCount; i++) {
-                const modelName = Jmol.getModelName(applet, i);  // Get the name of each model
-                const option = document.createElement("option");
-                option.value = i;
-                option.textContent = modelName || `Model ${i}`;  // Fallback name if none exists
-                selector.appendChild(option);
-            }
-        }
+                // Load models and populate the clickable menu
+                function loadModels() {
+                    const menuContainer = document.getElementById("model-menu");
+                    menuContainer.innerHTML = "";  // Clear any existing content in the menu
 
-        // Select a model from the dropdown
-        function selectModel() {
-            const modelIndex = document.getElementById("model-selector").value;
-            if (modelIndex) {
-                Jmol.script(jsmolApplet, `model ${modelIndex}`);
-            }
-        }
+                    if (modelCount > 0) {
+                        for (let i = 1; i <= modelCount; i++) {
+                            const modelName = `Model ${i}`;  // You can customize this name, or use data from your file
+                            console.log(`Model ${i}:`, modelName);  // Log each model's name
+
+                            // Create a clickable link for each model
+                            const modelLink = document.createElement("a");
+                            modelLink.href = "#";
+                            modelLink.textContent = modelName;
+                            modelLink.onclick = function() {
+                                selectModel(i);  // Load the selected model when clicked
+                            };
+                            modelLink.style.display = "block";  // Make each link appear on a new line
+                            menuContainer.appendChild(modelLink);
+                        }
+                    } else {
+                        console.log("No models found");
+                        menuContainer.textContent = "No models available";
+                    }
+                }
+
+                // Select a model from the menu
+                function selectModel(modelIndex) {
+                    Jmol.script(jsmolApplet, `model ${modelIndex}`);  // Switch to the selected model
+                }
 
         function showHome() {
             displayOnly('home-page');
