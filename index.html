@@ -90,8 +90,7 @@
                   <label for="vibrationCheckbox">
                     <input type="checkbox" id="vibrationCheckbox"> Enable Vibrations
                   </label>
-                  <label for="modelsSelect">Select Model:</label>
-                  <select id="modelsSelect">
+                  <select id="model-selector"  onchange="selectModel()">
                       <option value="">--Select Model--</option>
                   </select>
                 </div>
@@ -123,7 +122,7 @@
             color: "#EBEBEB",
             use: "HTML5",
             disableJ2SLoadMonitor: true,
-            disableInitialConsole: true,
+            disableInitialConsole: true
         };
 
         function loadJSmol(containerId, moleculeFile) {
@@ -134,7 +133,6 @@
 
             // Once the molecule is loaded, initialize button functionalities
             addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
-            loadModels(jsmolApplet);
         }
 
 
@@ -179,6 +177,27 @@
             });
         }
 
+        // Load models and populate the dropdown
+        function loadModels(applet) {
+            const modelCount = Jmol.getModelCount(applet);
+            const selector = document.getElementById("model-selector");
+
+            for (let i = 1; i <= modelCount; i++) {
+                const modelName = Jmol.getModelName(applet, i);  // Get the name of each model
+                const option = document.createElement("option");
+                option.value = i;
+                option.textContent = modelName || `Model ${i}`;  // Fallback name if none exists
+                selector.appendChild(option);
+            }
+        }
+
+        // Select a model from the dropdown
+        function selectModel() {
+            const modelIndex = document.getElementById("model-selector").value;
+            if (modelIndex) {
+                Jmol.script(jsmolApplet, `model ${modelIndex}`);
+            }
+        }
 
         function showHome() {
             displayOnly('home-page');
@@ -341,47 +360,6 @@
                 loadJSmol(molecule.container, molecule.file);
             }
         }
-
-                // Function to load models into dropdown
-                function loadModels(applet) {
-                    Jmol.scriptWait(applet, "show models");
-                    const modelInfo = Jmol.evaluate(applet, "script('show models')");
-                    console.log("Model Info:", modelInfo); // Debug
-                    const models = parseModelInfo(modelInfo);
-                    populateDropdown(models);
-                }
-
-                // Parse model information
-                function parseModelInfo(modelInfo) {
-                    const models = [];
-                    const lines = modelInfo.split("\n");
-                    lines.forEach((line) => {
-                        const match = line.match(/<model index="(\d+)"[^>]*name="([^"]+)"/);
-                        if (match) {
-                            models.push({ index: match[1], name: match[2] });
-                        }
-                    });
-                    return models;
-                }
-
-                // Populate dropdown menu
-                function populateDropdown(models) {
-                    const selector = document.getElementById("model-selector");
-                    models.forEach((model) => {
-                        const option = document.createElement("option");
-                        option.value = model.index;
-                        option.textContent = model.name;
-                        selector.appendChild(option);
-                    });
-                }
-
-                // Select model based on dropdown selection
-                function selectModel() {
-                    const modelIndex = document.getElementById("model-selector").value;
-                    if (modelIndex) {
-                        Jmol.script(jsmolApplet, `model ${modelIndex}`);
-                    }
-                }
 
         function setActiveLink(id) {
             // Remove 'active' class from all links
