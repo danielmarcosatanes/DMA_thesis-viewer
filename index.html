@@ -123,7 +123,7 @@
             color: "#EBEBEB",
             use: "HTML5",
             disableJ2SLoadMonitor: true,
-            disableInitialConsole: true
+            disableInitialConsole: true,
         };
 
         function loadJSmol(containerId, moleculeFile) {
@@ -134,6 +134,7 @@
 
             // Once the molecule is loaded, initialize button functionalities
             addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
+            loadModels(jsmolApplet);
         }
 
 
@@ -165,6 +166,15 @@
                 } else {
                     Jmol.script(applet, "spin off");
                     console.log("Spin disabled");
+                }
+            });
+
+            // Event listener for vibration checkbox
+            document.getElementById("vibrationCheckbox").addEventListener("change", function (event) {
+                if (event.target.checked) {
+                    Jmol.script(jsmolApplet, "vibration on");
+                } else {
+                    Jmol.script(jsmolApplet, "vibration off");
                 }
             });
         }
@@ -333,9 +343,10 @@
         }
 
                 // Function to load models into dropdown
-                function loadModels(jsmolApplet) {
-                    Jmol.scriptWait(jsmolApplet, "show models");
-                    const modelInfo = Jmol.evaluate(jsmolApplet, "script('show models')");
+                function loadModels(applet) {
+                    Jmol.scriptWait(applet, "show models");
+                    const modelInfo = Jmol.evaluate(applet, "script('show models')");
+                    console.log("Model Info:", modelInfo); // Debug
                     const models = parseModelInfo(modelInfo);
                     populateDropdown(models);
                 }
@@ -371,15 +382,6 @@
                         Jmol.script(jsmolApplet, `model ${modelIndex}`);
                     }
                 }
-
-        // Event listener for vibration checkbox
-        document.getElementById("vibrationCheckbox").addEventListener("change", function (event) {
-            if (event.target.checked) {
-                Jmol.script(jsmolApplet, "vibration on");
-            } else {
-                Jmol.script(jsmolApplet, "vibration off");
-            }
-        });
 
         function setActiveLink(id) {
             // Remove 'active' class from all links
