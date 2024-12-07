@@ -80,13 +80,6 @@
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
-                <div class="button-container" id="controls44aBipyIrBpin">
-                    <button id="rotateBtn">Rotate</button>
-                    <button id="resetBtn">Reset</button>
-                    <button id="zoomInBtn">Zoom In</button>
-                    <button id="zoomOutBtn">Zoom Out</button>
-                </div>
-                </div>
             </div>
             <div id="subsection44aBipyIrBpin5" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)5</h3>
@@ -122,9 +115,6 @@
             const jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
             Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
-
-            // Add the reset button functionality once the applet is loaded
-            Jmol.jmolButton(jsmolApplet, "reset", "Reset to original orientation");
         }
 
         function showHome() {
@@ -286,16 +276,10 @@
             const molecule = molecules[subsectionId];
             if (molecule) {
                 loadJSmol(molecule.container, molecule.file);
-            }
-            // Hide all other controls
-            document.querySelectorAll(".button-container").forEach(buttonContainer => {
-                buttonContainer.style.display = "none";
-            });
 
-            // Display the JSmol container and buttons for the selected molecule
-            document.getElementById(subsectionId).style.display = "block";
-            const controlsId = `controls${subsectionId.replace("subsection", "")}`;
-            document.getElementById(controlsId).style.display = "flex";
+                // Add the reset button functionality once the applet is loaded
+                Jmol.jmolButton(jsmolApplet, "reset", "Reset to original orientation");
+            }
         }
 
         function setActiveLink(id) {
