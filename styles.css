@@ -60,12 +60,8 @@ body {
     display: block;
     color: #28528E;
     text-decoration: none;
-    padding: 3px;
-    margin: 2px 0;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 250px;
+    padding: 8px;
+    margin: 5px 0;
 }
 
 /* Hover effect for sidebar links */
@@ -106,26 +102,15 @@ body {
     transition: all 0.3s ease-in-out;
 }
 
-/* Container that holds JSmol and buttons */
-.subsections {
-    display: flex;
-    flex-direction: column;  /* Stack elements vertically */
-    justify-content: flex-start; /* Align at the top */
-    align-items: left; /* Center content horizontally */
-    width: calc(100% - 250px);
-    height: auto;  /* Ensure it takes up the full available height */
-    margin-bottom: 20px; /* Add space between container and buttons */
-}
-
 /* Jmol container styling */
 .jsmolContainer {
     width: calc(100% - 250px);
     height: calc(100vh - 200px);
-    margin-left: 5px;  /* Leave space for the sidebar */
+    margin-left: 250px;  /* Leave space for the sidebar */
     display: block;
+    position: absolute;
     overflow: hidden;
-    margin-bottom: 10px; /* Space between the JSmol container and buttons */
-    top: 220;  /* Ensure it starts from the top of the page */
+    top: 200;  /* Ensure it starts from the top of the page */
     left: 0;  /* Align with the left edge */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
@@ -181,30 +166,6 @@ body {
     font-weight: bold;
 }
 
-.button-container {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px; /* Space between JSmol container and buttons */
-    padding-bottom: 20px;  /* Optional: space between buttons and bottom of the section */
-}
-
-/* Button styling */
-.button-container button {
-    padding: 10px 20px;
-    font-size: 14px;
-    border: 1px solid #28528E;
-    background-color: #D6D6D6;
-    color: #28528E;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.button-container button:hover {
-    background-color: #A85426;
-}
-
 /* Responsive Design */
 
 /* Mobile-Specific */
@@ -239,10 +200,6 @@ body {
     #sidebar.show + .jsmolContainer {
     opacity: 0.5; /* Optional: dim JSmol when sidebar is visible */
     pointer-events: none; /* Prevent interaction with JSmol when sidebar is open */
-    }
-
-    .button-container {
-        flex-direction: column; /* Stack buttons vertically in mobile view */
     }
 
     #content {
@@ -293,8 +250,16 @@ body {
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
 
+    .jsmolContainer {
+        width: 100%; /* Ensure JSmol container fills the space */
+        height: calc(100% - 250px); /* Full viewport height with padding for aesthetics */
+        max-width: 100%;
+        margin-left: 250px; /* Align with the sidebar */
+        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+    }
+
       /* When the sidebar is collapsed, expand the JSmol container */
-    #sidebar.collapsed + #content .jsmolContainer {
+      #sidebar.collapsed + #content .jsmolContainer {
         margin-left: 0; /* No margin when sidebar is collapsed */
         width: 100%; /* Full width when sidebar is collapsed */
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
@@ -307,11 +272,11 @@ body {
 
 /* Design for subsections */
 #structures-menu {
-    padding-left: 5px;
+    padding-left: 20px;
     display: none; /* Hidden by default */
 }
 
 .subsections {
-    padding-left: 5px;
+    padding-left: 20px;
     display: none;
 }
