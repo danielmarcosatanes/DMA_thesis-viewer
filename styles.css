@@ -106,10 +106,10 @@ body {
 .jsmolContainer {
     width: calc(100% - 250px);
     height: calc(100vh - 200px);
-    margin-left: 250px;  /* Leave space for the sidebar */
+    margin-left: 20px;  /* Leave space for the sidebar */
     margin-bottom: 20px; /* Adjust spacing below JSmol */
     display: block;
-    position: absolute;
+    position: relative;
     overflow: hidden;
     top: 200;  /* Ensure it starts from the top of the page */
     left: 0;  /* Align with the left edge */
@@ -119,8 +119,8 @@ body {
 
 /* Positioning the button container below the JSmol container */
 .button-container {
-    position: absolute;
-    bottom: 10;
+    position: relative;
+    bottom: 0;
     display: flex;
     justify-content: center;
     gap: 10px;
