@@ -80,6 +80,14 @@
             <div id="subsection44aBipyIrBpin" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
+                 <div class="button-container" id="controls44aBipyIrBpin">
+                  <button id="resetBtn">Reset</button>
+                  <button id="zoomInBtn">Zoom In</button>
+                  <button id="zoomOutBtn">Zoom Out</button>
+                  <label for="spinCheckbox">
+                    <input type="checkbox" id="spinCheckbox"> Spin
+                  </label>
+                </div>
             </div>
             <div id="subsection44aBipyIrBpin5" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)5</h3>
@@ -114,14 +122,46 @@
         function loadJSmol(containerId, moleculeFile) {
             const jsmolApplet = Jmol.getApplet(containerId, Info);
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
+
             Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
 
-            // Add the reset button functionality once the applet is loaded
-            Jmol.jmolButton(jsmolApplet, "reset", "Reset to original orientation");
-            Jmol.jmolButton(jsmolApplet, "zoom IN", "Zoom in");
-            Jmol.jmolButton(jsmolApplet, "zoom OUT", "Zoom Out");
-            Jmol.jmolCheckbox(jsmolApplet, "spin on", "spin off", "spin");
+            // Once the molecule is loaded, initialize button functionalities
+            addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
         }
+
+
+        function addButtonFunctionality(applet) {
+            // Reset button functionality
+            document.getElementById("resetBtn").onclick = function() {
+                Jmol.script(applet, "reset");
+                console.log("Resetting molecule");
+            };
+
+            // Zoom In button functionality
+            document.getElementById("zoomInBtn").onclick = function() {
+                Jmol.script(applet, "zoom 120");
+                console.log("Zooming In");
+            };
+
+            // Zoom Out button functionality
+            document.getElementById("zoomOutBtn").onclick = function() {
+                Jmol.script(applet, "zoom 80");
+                console.log("Zooming Out");
+            };
+
+            // Spin checkbox functionality
+            const spinCheckbox = document.getElementById("spinCheckbox");
+            spinCheckbox.addEventListener("change", function() {
+                if (spinCheckbox.checked) {
+                    Jmol.script(applet, "spin on");
+                    console.log("Spin enabled");
+                } else {
+                    Jmol.script(applet, "spin off");
+                    console.log("Spin disabled");
+                }
+            });
+        }
+
 
         function showHome() {
             displayOnly('home-page');
