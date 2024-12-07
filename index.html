@@ -81,12 +81,14 @@
                 <h3>44a-Bipy-Ir(Bpin)</h3>
                 <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
                 <div class="button-container" id="controls44aBipyIrBpin">
-                  <button id="rotateBtn">Rotate</button>
                   <button id="resetBtn">Reset</button>
                   <button id="zoomInBtn">Zoom In</button>
                   <button id="zoomOutBtn">Zoom Out</button>
+                  <label for="spinCheckbox">
+                    <input type="checkbox" id="spinCheckbox"> Spin
+                  </label>
                 </div>
-            </div>    
+            </div>
             <div id="subsection44aBipyIrBpin5" style="display:none;">
                 <h3>44a-Bipy-Ir(Bpin)5</h3>
                 <div id="jsmolContainer44aBipyIrBpin5" class="jsmolContainer"></div>
@@ -124,6 +126,7 @@
 
             // Add the reset button functionality once the applet is loaded
             Jmol.jmolButton(jsmolApplet, "reset", "Reset to original orientation");
+            Jmol.jmolCheckbox(jsmolApplet, "spin on", "spin off", "spin");
         }
 
         function showHome() {
@@ -288,6 +291,7 @@
 
                 // Add the reset button functionality once the applet is loaded
                 Jmol.jmolButton(jsmolApplet, "reset", "Reset to original orientation");
+                Jmol.jmolCheckbox(jsmolApplet, "spin on", "spin off", "spin");
             }
         }
 
