@@ -378,20 +378,55 @@
             });
         }
 
+        // Helper function to get the current applet ID
+        function getCurrentApplet() {
+            // Find the currently visible subsection
+            const visibleSubsection = document.querySelector("#content > div:where(:not([style*='display:none'])) .jsmolContainer");
+            if (visibleSubsection) {
+                return Jmol.getApplet(visibleSubsection.id); // Return the applet for the visible subsection
+            }
+            return null; // No visible applet found
+        }
+
+        // Button functions
         function rotateMolecule() {
-            Jmol.script(jsmolApplet, "rotate 360");
+            const applet = getCurrentApplet();
+            if (applet) {
+                console.log("Rotating molecule");
+                Jmol.script(applet, "rotate y 360");
+            } else {
+                console.error("No active applet found for rotation.");
+            }
         }
 
         function resetMolecule() {
-            Jmol.script(jsmolApplet, "reset");
+            const applet = getCurrentApplet();
+            if (applet) {
+                console.log("Resetting molecule");
+                Jmol.script(applet, "reset");
+            } else {
+                console.error("No active applet found for reset.");
+            }
         }
 
         function zoomInMolecule() {
-            Jmol.script(jsmolApplet, "zoom 120");
+            const applet = getCurrentApplet();
+            if (applet) {
+                console.log("Zooming in");
+                Jmol.script(applet, "zoom 120");
+            } else {
+                console.error("No active applet found for zoom in.");
+            }
         }
 
         function zoomOutMolecule() {
-            Jmol.script(jsmolApplet, "zoom 80");
+            const applet = getCurrentApplet();
+            if (applet) {
+                console.log("Zooming out");
+                Jmol.script(applet, "zoom 80");
+            } else {
+                console.error("No active applet found for zoom out.");
+            }
         }
 
         window.addEventListener('resize', resizeJmol);
