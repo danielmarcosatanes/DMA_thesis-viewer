@@ -129,6 +129,40 @@
             addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
         }
 
+
+        function addButtonFunctionality(applet) {
+            // Reset button functionality
+            document.getElementById("resetBtn").onclick = function() {
+                Jmol.script(applet, "reset");
+                console.log("Resetting molecule");
+            };
+
+            // Zoom In button functionality
+            document.getElementById("zoomInBtn").onclick = function() {
+                Jmol.script(applet, "zoom 120");
+                console.log("Zooming In");
+            };
+
+            // Zoom Out button functionality
+            document.getElementById("zoomOutBtn").onclick = function() {
+                Jmol.script(applet, "zoom 80");
+                console.log("Zooming Out");
+            };
+
+            // Spin checkbox functionality
+            const spinCheckbox = document.getElementById("spinCheckbox");
+            spinCheckbox.addEventListener("change", function() {
+                if (spinCheckbox.checked) {
+                    Jmol.script(applet, "spin on");
+                    console.log("Spin enabled");
+                } else {
+                    Jmol.script(applet, "spin off");
+                    console.log("Spin disabled");
+                }
+            });
+        }
+
+
         function showHome() {
             displayOnly('home-page');
         }
