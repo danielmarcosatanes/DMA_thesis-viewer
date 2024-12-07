@@ -119,8 +119,8 @@ body {
 
 /* Positioning the button container below the JSmol container */
 .button-container {
-    position: relative;
-    bottom: 0;
+    position: absolute;
+    bottom: 100;
     display: flex;
     justify-content: center;
     gap: 10px;
