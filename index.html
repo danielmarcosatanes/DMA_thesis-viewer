@@ -119,6 +119,18 @@
             disableInitialConsole: true
         };
 
+        function loadJSmol(containerId, moleculeFile) {
+            const jsmolApplet = Jmol.getApplet(containerId, Info);
+            document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
+            Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
+
+            // Add the reset button functionality once the applet is loaded
+            Jmol.jmolButton(jsmolApplet, "reset", "Reset to original orientation");
+            Jmol.jmolButton(jsmolApplet, "zoom IN", "Zoom in");
+            Jmol.jmolButton(jsmolApplet, "zoom OUT", "Zoom Out");
+            Jmol.jmolCheckbox(jsmolApplet, "spin on", "spin off", "spin");
+        }
+
         function showHome() {
             displayOnly('home-page');
         }
