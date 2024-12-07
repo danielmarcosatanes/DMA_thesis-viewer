@@ -143,8 +143,11 @@
             // Start listening for changes in the vibration checkbox and dropdown menu
             document.getElementById('vibrationCheckbox').addEventListener('change', toggleVibration);
             document.getElementById('vibrationSelect').addEventListener('change', changeFrequency);
-        }
 
+            // Fetch the frequencies from the log file and populate the dropdown
+            fetchFrequencies(moleculeFile);
+
+        }
 
         function addButtonFunctionality(applet) {
             // Reset button functionality
@@ -178,25 +181,60 @@
             });
         }
 
-        // Toggle vibration animation based on the checkbox state
+        // Function to fetch the frequency data from the log file
+        function fetchFrequencies(moleculeFile) {
+            fetch(`molecules/${moleculeFile}`)
+                .then(response => response.text())  // Read the file as text
+                .then(logData => {
+                    // Parse the frequencies from the log file (this depends on the format of the log file)
+                    const frequencies = extractFrequencies(logData);
+
+                    // Populate the dropdown with the frequencies
+                    const vibrationSelect = document.getElementById('vibrationSelect');
+                    vibrationSelect.innerHTML = '';  // Clear any existing options
+                    vibrationSelect.disabled = false;  // Enable the dropdown
+
+                    // Add an initial empty option
+                    vibrationSelect.add(new Option('Select Frequency', ''));
+
+                    // Add each frequency as an option in the dropdown
+                    frequencies.forEach((freq, index) => {
+                        vibrationSelect.add(new Option(`Frequency ${index + 1}: ${freq} cm^-1`, freq));
+                    });
+                })
+                .catch(err => console.error('Error fetching log file:', err));
+        }
+
+        // Function to extract frequencies from the log file (modify as needed based on your log file format)
+        function extractFrequencies(logData) {
+            // Regex to match frequency values in the log file (you may need to modify this based on your log file format)
+            const frequencyPattern = /Frequencies?\s*\d+\s*=\s*(\d+\.\d+)/g;
+            const frequencies = [];
+            let match;
+            while ((match = frequencyPattern.exec(logData)) !== null) {
+                frequencies.push(parseFloat(match[1]));  // Push the frequency value (cm^-1)
+            }
+            return frequencies;
+        }
+
+        // Function to start the vibration animation with the selected frequency
+        function changeFrequency() {
+            const selectedFrequency = document.getElementById('vibrationSelect').value;
+            if (selectedFrequency) {
+                Jmol.script(jsmolApplet, `start vibration ${selectedFrequency}`);
+            }
+        }
+
+        // Function to stop the vibration animation when the checkbox is unchecked
         function toggleVibration() {
             const vibrationCheckbox = document.getElementById('vibrationCheckbox');
             const vibrationSelect = document.getElementById('vibrationSelect');
 
             if (vibrationCheckbox.checked) {
-                vibrationSelect.disabled = false; // Enable dropdown when checkbox is checked
+                vibrationSelect.disabled = false;  // Enable dropdown when checkbox is checked
             } else {
-                vibrationSelect.disabled = true; // Disable dropdown when checkbox is unchecked
-                Jmol.script(jsmolApplet, "stop vibration"); // Stop the vibration when unchecked
-            }
-        }
-
-        // Change the frequency based on the selection in the dropdown
-        function changeFrequency() {
-            const selectedFrequency = document.getElementById('vibrationSelect').value;
-
-            if (selectedFrequency) {
-                Jmol.script(jsmolApplet, `start vibration ${selectedFrequency}`);
+                vibrationSelect.disabled = true;  // Disable dropdown when checkbox is unchecked
+                Jmol.script(jsmolApplet, "stop vibration");  // Stop the vibration when unchecked
             }
         }
 
