@@ -149,6 +149,22 @@ body {
     color: #28528E;
 }
 
+/* Style for the checkbox label */
+label[for="spinCheckbox"] {
+    font-size: 11px;
+    color: #28528E;
+    margin-left: 10px; /* Adds space between the checkbox and the label */
+    cursor: pointer; /* Makes it clickable */
+}
+
+/* You can add a custom appearance for the checkbox as well */
+input[type="checkbox"] {
+    width: 20px; /* Resize the checkbox */
+    height: 20px;
+    vertical-align: middle; /* Aligns it with the text */
+    margin: 0; /* Removes default margins */
+}
+
 /* Mobile Sidebar Toggle Button */
 .mobile-toggle {
     display: none;
