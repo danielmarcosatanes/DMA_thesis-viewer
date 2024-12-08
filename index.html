@@ -126,7 +126,8 @@
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
 
             Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
-
+            Jmol.script(jsmolApplet, model 2);
+            
             // Once the molecule is loaded, initialize button functionalities
             addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
         }
@@ -322,8 +323,8 @@
 
             // Load the relevant molecule into the container
             const molecules = {
-                subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: 'Bipy-Ir(Bpin).log' },
-                subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: 'Bipy-OA-TS-Ir(R-H)(Bpin)3.log' },
+                subsection44aBipyIrBpin: { container: 'jsmolContainer44aBipyIrBpin', file: 'Bipy-OA-TS-Ir(R-H)(Bpin)3.log' },
+                subsection44aBipyIrBpin5: { container: 'jsmolContainer44aBipyIrBpin5', file: 'Bipy-Ir(Bpin).log' },
                 subsection44aBipyIrHBPin2: { container: 'jsmolContainer44aBipyIrHBPin2', file: 'Bipy-isoS-Ir(Bpin)3(R)(H).log' },
                 subsection44a: { container: 'jsmolContainer44a', file: 'Bipy-RE-TS-Ir(Bpin)3(R)(H).log' },
                 subsection45a: { container: 'jsmolContainer45a', file: 'Bipy-RE-TS-isoS-Ir(Bpin)3(R)(H).log' }
