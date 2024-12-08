@@ -156,6 +156,14 @@ label[for="spinCheckbox"] {
     cursor: pointer; /* Makes it clickable */
 }
 
+/* Style for the checkbox label */
+label[for="vibrationCheckbox"] {
+    font-size: 14px;
+    color: #28528E;
+    margin-left: 10px; /* Adds space between the checkbox and the label */
+    cursor: pointer; /* Makes it clickable */
+}
+
 /* You can add a custom appearance for the checkbox as well */
 input[type="checkbox"] {
     width: 15px; /* Resize the checkbox */
