@@ -126,8 +126,8 @@
             document.getElementById(containerId).innerHTML = Jmol.getAppletHtml(jsmolApplet);
 
             Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
-            Jmol.script(jsmolApplet, model 2);
-            
+            Jmol.script(jsmolApplet, "model 2");
+
             // Once the molecule is loaded, initialize button functionalities
             addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
         }
