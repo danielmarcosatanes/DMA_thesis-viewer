@@ -141,13 +141,13 @@
 
             // Zoom In button functionality
             document.getElementById("zoomInBtn").onclick = function() {
-                Jmol.script(applet, "zoom 120");
+                Jmol.script(applet, "zoom +20");
                 console.log("Zooming In");
             };
 
             // Zoom Out button functionality
             document.getElementById("zoomOutBtn").onclick = function() {
-                Jmol.script(applet, "zoom 80");
+                Jmol.script(applet, "zoom -20");
                 console.log("Zooming Out");
             };
 
@@ -166,9 +166,9 @@
             // Event listener for vibration checkbox
             document.getElementById("vibrationCheckbox").addEventListener("change", function (event) {
                 if (event.target.checked) {
-                    Jmol.script(jsmolApplet, "vibration on");
+                    Jmol.script(applet, "vibration on");
                 } else {
-                    Jmol.script(jsmolApplet, "vibration off");
+                    Jmol.script(applet, "vibration off");
                 }
             });
         }
