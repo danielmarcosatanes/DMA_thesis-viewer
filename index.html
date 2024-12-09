@@ -34,6 +34,11 @@
             <div id="home-page">
                 <h1>DMA Thesis: 3D Molecule Viewer</h1>
                 <p>Welcome to the DMA Thesis 3D Molecule Visualizer. Use the menu to explore molecules.</p>
+
+                <!-- Gaussian Oracle Section -->
+                <h2>Gaussian Tips</h2>
+                <p id="quote-display">Loading quote...</p>
+                <button id="new-quote-btn">More Tips</button>
             </div>
         </div>
     </div>
@@ -333,13 +338,45 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
           <div id="home-page">
             <h1>DMA Thesis: 3D Molecule Viewer</h1>
             <p>Welcome to the DMA Thesis 3D Molecule Visualizer. Use the menu to explore molecules.</p>
+
+            <h2>Gaussian Tips</h2>
+            <p id="quote-display">Loading quote...</p>
+            <button id="new-quote-btn">New Tip</button>
             </div>
         `;
+
+        // Fetch quotes and display a random one
+        loadRandomQuote();
+
+        // Set event listener to the "Get New Quote" button
+        document.getElementById("new-quote-btn").onclick = loadRandomQuote;
+
         // Hide other content sections and only show home page
         const sections = document.querySelectorAll('#menu > div');
         sections.forEach(section => {
             section.style.display = 'none';
         });
+    }
+
+    function loadRandomQuote() {
+        // Fetch the Gaussian quotes text file
+        fetch('g16_quotes.txt')
+            .then(response => response.text())
+            .then(text => {
+                // Split the file content into an array of quotes, separated by blank lines
+                const quotes = text.split('\n\n').filter(quote => quote.trim() !== "");
+
+                // Get a random quote
+                const randomIndex = Math.floor(Math.random() * quotes.length);
+                const randomQuote = quotes[randomIndex];
+
+                // Display the random quote
+                document.getElementById("quote-display").textContent = randomQuote;
+            })
+            .catch(error => {
+                console.error('Error loading Gaussian quotes:', error);
+                document.getElementById("quote-display").textContent = "Failed to load quote.";
+            });
     }
 
     function toggleSection(id) {
