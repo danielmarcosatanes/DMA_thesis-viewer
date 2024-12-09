@@ -131,29 +131,33 @@
     }
 
     function resetMolecule() {
-        Jmol.script(Jmol.getApplet("jsmolContainer"), "reset");
+        if (currentApplet) {
+            Jmol.script(currentApplet, "reset");
+        }
     }
 
     function zoomInMolecule() {
-        Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom +30");
+        if (currentApplet) {
+            Jmol.script(currentApplet, "zoom 120");
+        }
     }
 
     function zoomOutMolecule() {
-        Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom -30");
+        if (currentApplet) {
+            Jmol.script(currentApplet, "zoom 80");
+        }
     }
 
     function toggleSpin(spin) {
-        Jmol.script(Jmol.getApplet("jsmolContainer"), spin ? "spin on" : "spin off");
-    }
-
-    function toggleVibration(vibration) {
-        Jmol.script(Jmol.getApplet("jsmolContainer"), vibration ? "vibration on" : "vibration off");
+        if (currentApplet) {
+            Jmol.script(currentApplet, spin ? "spin on" : "spin off");
+        }
     }
 
     window.onload = function () {
         const menu = document.getElementById("menu");
         createSidebarMenu(structureData, menu);
     };
-</script>
+  </script>
 </body>
 </html>
