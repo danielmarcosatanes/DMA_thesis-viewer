@@ -360,7 +360,7 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
 
     function loadRandomQuote() {
         // Fetch the Gaussian quotes text file
-        fetch('gaussian-quotes.txt')
+        fetch('g16_quotes.txt')
             .then(response => response.text())
             .then(text => {
                 const quotes = text.split('\n').map(quote => quote.trim()).filter(quote => quote !== '');
