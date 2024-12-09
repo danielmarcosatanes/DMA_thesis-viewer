@@ -373,8 +373,6 @@
 
         // Once the molecule is loaded, initialize button functionalities
         addButtonFunctionality(applet);  // Add button and checkbox functionality after applet is ready
-
-        highlightActiveLink(filePath);
     }
 
     function addButtonFunctionality(applet) {
@@ -418,42 +416,30 @@
         });
     }
 
-    function collapseSidebar(filePath) {
-      const allSections = document.querySelectorAll("#menu .sidebar-section");
-      allSections.forEach(section => {
-        section.style.display = "none";
-      });
+            function setActiveLink(id) {
+                // Remove 'active' class from all links
+                const links = document.querySelectorAll('#menu a');
+                links.forEach(function(link) {
+                    link.classList.remove('active');
+                });
 
-      // Expand the section related to the molecule
-      const pathParts = filePath.split("/"); // Example: ["Structures section 7.1", "fileName"]
-      const section = pathParts[0];  // First part is the section name
-      const subsectionPath = pathParts.slice(1).join("/");  // The rest is the path
+                // Add 'active' class to the clicked link
+                document.getElementById(id).classList.add('active');
+            }
 
-      const sectionElement = document.querySelector(`#section-${section}`);
-      if (sectionElement) {
-        sectionElement.style.display = "block";
-      }
+            function displayOnly(sectionId) {
+                // Hide all sections except the one being displayed
+                const sections = document.querySelectorAll('#content > div');
+                sections.forEach(function(section) {
+                    section.style.display = 'none';
+                });
+                document.getElementById(sectionId).style.display = 'block';
+            }
 
-      // Expand the relevant subsection
-      const subsectionElement = document.querySelector(`#section-${subsectionPath}`);
-      if (subsectionElement) {
-        subsectionElement.style.display = "block";
-      }
-    }
-
-    function highlightActiveLink(filePath) {
-        // Remove 'active' class from all links
-        const links = document.querySelectorAll("#menu a");
-        links.forEach(function(link) {
-            link.classList.remove("active");
-        });
-
-        // Add 'active' class to the clicked link (with the molecule name)
-        const fileLink = document.querySelector(`a[href="#"][onclick*="${filePath}"]`);
-        if (fileLink) {
-            fileLink.classList.add("active");
-        }
-    }
+            function toggleVisibility(id, show = false) {
+                const element = document.getElementById(id);
+                element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
+            }
 
     window.onload = function () {
         const menu = document.getElementById("menu");
