@@ -374,26 +374,7 @@
         // Once the molecule is loaded, initialize button functionalities
         addButtonFunctionality(applet);  // Add button and checkbox functionality after applet is ready
 
-        // Collapse all sections
-        const sections = document.querySelectorAll("#menu .sidebar-section");
-        sections.forEach(section => {
-            section.style.display = "none";
-        });
-
-        // Expand the relevant section based on the filePath
-        const sectionToExpand = filePath.split("/")[1];  // Extract the relevant section (e.g., "Structures section 7.1")
-        const subsectionToExpand = filePath.split("/").slice(2).join("/");  // Path to the molecule
-        const relevantSection = document.querySelector(`#section-${sectionToExpand}`);
-        const relevantSubsection = document.querySelector(`#section-${subsectionToExpand}`);
-
-        if (relevantSection) {
-            relevantSection.style.display = "block";
-        }
-        if (relevantSubsection) {
-            relevantSubsection.style.display = "block";
-        }
-
-        highlightActiveLink(filepath);
+        highlightActiveLink(filePath);
     }
 
     function addButtonFunctionality(applet) {
@@ -437,7 +418,30 @@
         });
     }
 
-    function highlightActiveLink(filepath) {
+    function collapseSidebar(filePath) {
+      const allSections = document.querySelectorAll("#menu .sidebar-section");
+      allSections.forEach(section => {
+        section.style.display = "none";
+      });
+
+      // Expand the section related to the molecule
+      const pathParts = filePath.split("/"); // Example: ["Structures section 7.1", "fileName"]
+      const section = pathParts[0];  // First part is the section name
+      const subsectionPath = pathParts.slice(1).join("/");  // The rest is the path
+
+      const sectionElement = document.querySelector(`#section-${section}`);
+      if (sectionElement) {
+        sectionElement.style.display = "block";
+      }
+
+      // Expand the relevant subsection
+      const subsectionElement = document.querySelector(`#section-${subsectionPath}`);
+      if (subsectionElement) {
+        subsectionElement.style.display = "block";
+      }
+    }
+
+    function highlightActiveLink(filePath) {
         // Remove 'active' class from all links
         const links = document.querySelectorAll("#menu a");
         links.forEach(function(link) {
