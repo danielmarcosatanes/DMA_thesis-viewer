@@ -156,18 +156,19 @@ body {
     display: flex;
     flex-direction: column; /* Stack Jmol and button containers vertically */
     align-items: center;    /* Center horizontally */
-    justify-content: center; /* Center vertically, if needed */
+    justify-content: flex-start; /* Center vertically, if needed */
     gap: 15px; /* Space between Jmol container and buttons */
     margin-left: 20px; /* Add space around and center the container itself */
     width: 80%; /* Optional: Limit width of the overall container */
     max-width: 900px; /* Optional: Set a maximum width for the layout */
+    margin-bottom: 10px; /* To prevent the bottom margin overflow */
 }
 
 /* Jmol container styling */
 .jsmolContainer {
     width: 100%;
     height: auto;
-    margin-left: 20px;  /* Leave space for the sidebar */
+    margin-left: 0;  /* Leave space for the sidebar */
     margin-bottom: 2px; /* Adjust spacing below JSmol */
     display: block;
     overflow: hidden;
