@@ -131,27 +131,23 @@
     }
 
     function resetMolecule() {
-        if (applet) {
-            Jmol.script(applet, "reset");
-        }
+        Jmol.script(Jmol.getApplet("jsmolContainer"), "reset");
     }
 
     function zoomInMolecule() {
-        if (applet) {
-            Jmol.script(applet, "zoom 120");
-        }
+        Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom +30");
     }
 
     function zoomOutMolecule() {
-        if (applet) {
-            Jmol.script(applet, "zoom 80");
-        }
+        Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom -30");
     }
 
     function toggleSpin(spin) {
-        if (applet) {
-            Jmol.script(applet, spin ? "spin on" : "spin off");
-        }
+        Jmol.script(Jmol.getApplet("jsmolContainer"), spin ? "spin on" : "spin off");
+    }
+
+    function toggleVibration(vibration) {
+        Jmol.script(Jmol.getApplet("jsmolContainer"), vibration ? "vibration on" : "vibration off");
     }
 
     window.onload = function () {
