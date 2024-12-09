@@ -286,6 +286,15 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
     Object.keys(data).forEach((key) => {
         console.log(`Processing key: ${key}, basePath: ${basePath}`); // Debugging log
 
+        if (key === "Home") {
+            // Special case for Home link
+            const homeLink = document.createElement("a");
+            homeLink.textContent = "Home";
+            homeLink.href = "#";
+            homeLink.onclick = () => loadHomePage(); // Call the loadHomePage function when clicked
+            parent.appendChild(homeLink);
+        }
+
         if (Array.isArray(data[key])) {
             // Section with molecule files
             const sectionLink = document.createElement("a");
