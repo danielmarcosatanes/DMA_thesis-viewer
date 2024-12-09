@@ -284,21 +284,28 @@
 
 function createSidebarMenu(data, parent, basePath = "molecules") {
     Object.keys(data).forEach((key) => {
-        if (Array.isArray(data[key])) {
-            // Create the section link for files
+        if (typeof data[key] === "string") {
+            // Home page logic: display Home but don't create a subsection
+            const homeLink = document.createElement("a");
+            homeLink.textContent = "Home";
+            homeLink.href = "#";
+            homeLink.onclick = () => showHomePage();
+            parent.appendChild(homeLink);
+        } else if (Array.isArray(data[key])) {
+            // Section Link
             const sectionLink = document.createElement("a");
             sectionLink.textContent = key;
             sectionLink.href = "#";
             sectionLink.onclick = () => toggleSection(`section-${key}`);
             parent.appendChild(sectionLink);
 
-            // Create subsection div
+            // Create Subsections
             const subsectionDiv = document.createElement("div");
             subsectionDiv.id = `section-${key}`;
             subsectionDiv.style.display = "none";
 
             data[key].forEach((file) => {
-                const moleculeName = file.replace('.log', ''); // Remove .log extension
+                const moleculeName = file.replace('.log', ''); // Remove .log
                 const fileLink = document.createElement("a");
                 fileLink.textContent = moleculeName;
                 fileLink.href = "#";
@@ -307,15 +314,15 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
             });
 
             parent.appendChild(subsectionDiv);
-        } else if (typeof data[key] === "object") {
-            // Create folder link for nested objects
+        } else {
+            // Folder Link
             const folderLink = document.createElement("a");
             folderLink.textContent = key;
             folderLink.href = "#";
             folderLink.onclick = () => toggleSection(`section-${key}`);
             parent.appendChild(folderLink);
 
-            // Create subfolder div and recurse
+            // Create subfolders recursively
             const subfolderDiv = document.createElement("div");
             subfolderDiv.id = `section-${key}`;
             subfolderDiv.style.display = "none";
@@ -323,16 +330,8 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
             createSidebarMenu(data[key], subfolderDiv, `${basePath}/${key}`);
             parent.appendChild(subfolderDiv);
         }
-    });
-}
-
-// Function to toggle display of sections
-function toggleSection(id) {
-    const section = document.getElementById(id);
-    if (section) {
-        section.style.display = section.style.display === "none" ? "block" : "none";
+      });
     }
-}
 
     function showHomePage() {
         const content = document.getElementById("content");
