@@ -359,27 +359,24 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
     }
 
     function loadRandomQuote() {
-        // Fetch the Gaussian quotes text file
-        fetch('g16_quotes.txt')
-            .then(response => response.text())
-            .then(text => {
-                const quotes = text.split('\n').map(quote => quote.trim()).filter(quote => quote !== '');
-                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                document.getElementById('quote-display').innerText = randomQuote;
-            })
-            .catch(error => console.error('Error loading quotes:', error));
+      // Fetch the Gaussian quotes text file
+      fetch('g16_quotes.txt')
+          .then(response => response.text())
+          .then(text => {
+              // Split the file content into an array of quotes, separated by blank lines
+              const quotes = text.split('\n\n').filter(quote => quote.trim() !== "");
 
-            // Call the function to show a quote when the page is loaded
-            window.onload = function() {
-                showRandomQuote();  // Show a random quote when the page loads
+              // Get a random quote
+              const randomIndex = Math.floor(Math.random() * quotes.length);
+              const randomQuote = quotes[randomIndex];
 
-                // Add event listener for the button to show a new random quote
-                document.getElementById('new-quote-btn').addEventListener('click', showRandomQuote);
-            };
-            .catch(error => {
-                console.error('Error loading Gaussian quotes:', error);
-                document.getElementById("quote-display").textContent = "Failed to load quote.";
-            });
+              // Display the random quote
+              document.getElementById("quote-display").textContent = randomQuote;
+          })
+          .catch(error => {
+              console.error('Error loading Gaussian quotes:', error);
+              document.getElementById("quote-display").textContent = "Failed to load quote.";
+          });
     }
 
     function toggleSection(id) {
