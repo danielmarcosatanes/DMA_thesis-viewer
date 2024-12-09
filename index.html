@@ -350,8 +350,14 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
     }
 
     function toggleSection(id) {
+        console.log(`Toggling section: ${id}`); // Log the section being toggled
         const section = document.getElementById(id);
-        section.style.display = section.style.display === "none" ? "block" : "none";
+        if (section) {
+            section.style.display = section.style.display === "none" ? "block" : "none";
+            console.log(`Section ${id} is now ${section.style.display}`); // Log the updated display state
+        } else {
+            console.error(`Section with id ${id} not found!`); // Log error if section not found
+        }
     }
 
     function searchMenu() {
