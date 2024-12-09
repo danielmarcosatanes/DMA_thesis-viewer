@@ -152,37 +152,32 @@ body {
     background-color: #6C8B71; /* Change to a different color on hover */
 }
 
-.viewer-container {
-    display: flex;
-    flex-direction: column; /* Stack Jmol and button containers vertically */
-    align-items: center;    /* Center horizontally */
-    justify-content: flex-start; /* Center vertically, if needed */
-    gap: 2px; /* Space between Jmol container and buttons */
-    margin-left: 20px; /* Add space around and center the container itself */
-    width: 80%; /* Optional: Limit width of the overall container */
-    max-width: 900px; /* Optional: Set a maximum width for the layout */
-    margin-bottom: 10px; /* To prevent the bottom margin overflow */
-    height: auto;
-    overflow: hidden;
-}
 
 /* Jmol container styling */
 .jsmolContainer {
-    width: 100%;
-    height: auto;
-    margin-left: 0;  /* Leave space for the sidebar */
+    width: calc(100% - 250px);
+    height: calc(100vh - 200px);
+    margin-left: 20px;  /* Leave space for the sidebar */
     margin-bottom: 2px; /* Adjust spacing below JSmol */
     display: block;
+    position: relative;
     overflow: hidden;
+    top: 200;  /* Ensure it starts from the top of the page */
+    left: 0;  /* Align with the left edge */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
 
 /* Positioning the button container below the JSmol container */
 .button-container {
+    position: relative;
+    bottom: 0;
     flex-wrap: wrap;
     display: flex;
+    padding: 10px;
     gap: 10px;
+    margin-top: 10px; /* Space between JSmol and buttons */
+    margin-left: 20px;  /* Leave space for the sidebar */
 }
 
 /* Ensure buttons are styled nicely */
@@ -379,6 +374,14 @@ body {
     #sidebar.collapsed + #content {
         margin-left: 0; /* No margin when sidebar is collapsed */
         width: 100%; /* Expand content to full width */
+        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
+    }
+
+    .jsmolContainer {
+        width: 100%; /* Ensure JSmol container fills the space */
+        height: calc(100% - 250px); /* Full viewport height with padding for aesthetics */
+        max-width: 100%;
+        margin-left: 20px; /* Align with the sidebar */
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
 
