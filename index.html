@@ -373,8 +373,27 @@
 
         // Once the molecule is loaded, initialize button functionalities
         addButtonFunctionality(applet);  // Add button and checkbox functionality after applet is ready
-        highlightActiveLink(moleculeName);
-        collapseSidebarSections(moleculeName);
+
+        // Collapse all sections
+        const sections = document.querySelectorAll("#menu .sidebar-section");
+        sections.forEach(section => {
+            section.style.display = "none";
+        });
+
+        // Expand the relevant section based on the filePath
+        const sectionToExpand = filePath.split("/")[1];  // Extract the relevant section (e.g., "Structures section 7.1")
+        const subsectionToExpand = filePath.split("/").slice(2).join("/");  // Path to the molecule
+        const relevantSection = document.querySelector(`#section-${sectionToExpand}`);
+        const relevantSubsection = document.querySelector(`#section-${subsectionToExpand}`);
+
+        if (relevantSection) {
+            relevantSection.style.display = "block";
+        }
+        if (relevantSubsection) {
+            relevantSubsection.style.display = "block";
+        }
+
+        highlightActiveLink(filepath);
     }
 
     function addButtonFunctionality(applet) {
@@ -418,7 +437,7 @@
         });
     }
 
-    function highlightActiveLink(moleculeName) {
+    function highlightActiveLink(filepath) {
         // Remove 'active' class from all links
         const links = document.querySelectorAll("#menu a");
         links.forEach(function(link) {
@@ -426,22 +445,9 @@
         });
 
         // Add 'active' class to the clicked link (with the molecule name)
-        const activeLink = document.querySelector(`#menu a:contains(${moleculeName})`);
-        if (activeLink) {
-            activeLink.classList.add("active");
-        }
-    }
-
-    function collapseSidebarSections(moleculeName) {
-        const sections = document.querySelectorAll('.sidebar-section');
-        sections.forEach(function(section) {
-            section.style.display = 'none';  // Hide all sections
-        });
-
-        // Show only the section corresponding to the molecule
-        const activeSection = document.querySelector(`#section-${moleculeName}`);
-        if (activeSection) {
-            activeSection.style.display = 'block';  // Show the section of the current molecule
+        const fileLink = document.querySelector(`a[href="#"][onclick*="${filePath}"]`);
+        if (fileLink) {
+            fileLink.classList.add("active");
         }
     }
 
