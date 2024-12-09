@@ -283,17 +283,16 @@
 };
 
 function createSidebarMenu(data, parent, basePath = "molecules") {
+
+        // Add Home link first
+         const homeLink = document.createElement("a");
+         homeLink.textContent = "Home";
+         homeLink.href = "#";
+         homeLink.onclick = () => loadHomePage(); // Call the loadHomePage function when clicked
+         parent.appendChild(homeLink);
+
     Object.keys(data).forEach((key) => {
         console.log(`Processing key: ${key}, basePath: ${basePath}`); // Debugging log
-
-        if (key === "Home") {
-            // Special case for Home link
-            const homeLink = document.createElement("a");
-            homeLink.textContent = "Home";
-            homeLink.href = "#";
-            homeLink.onclick = () => loadHomePage(); // Call the loadHomePage function when clicked
-            parent.appendChild(homeLink);
-        }
 
         if (Array.isArray(data[key])) {
             // Section with molecule files
@@ -340,8 +339,10 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
     function showHomePage() {
         const content = document.getElementById("content");
         content.innerHTML = `
+          <div id="home-page">
             <h1>DMA Thesis: 3D Molecule Viewer</h1>
             <p>Welcome to the DMA Thesis 3D Molecule Visualizer. Use the menu to explore molecules.</p>
+            </div>
         `;
     }
 
