@@ -50,7 +50,7 @@
             }
         };
 
-        function createSidebarMenu(data, parent) {
+        function createSidebarMenu(data, parent, basePath = "molecules") {
             Object.keys(data).forEach((key) => {
                 if (Array.isArray(data[key])) {
                     const section = document.createElement("a");
@@ -67,7 +67,7 @@
                         const link = document.createElement("a");
                         link.textContent = file;
                         link.href = "#";
-                        link.onclick = () => loadMolecule(file);
+                        link.onclick = () => loadMolecule(`${basePath}/${file}`);
                         subsection.appendChild(link);
                     });
 
@@ -83,7 +83,7 @@
                     subfolder.id = `section-${key}`;
                     subfolder.style.display = "none";
 
-                    createSidebarMenu(data[key], subfolder);
+                    createSidebarMenu(data[key], subfolder, `${basePath}/${key}`);
                     parent.appendChild(subfolder);
                 }
             });
@@ -96,10 +96,10 @@
             }
         }
 
-        function loadMolecule(file) {
+        function loadMolecule(filePath) {
             const content = document.getElementById("content");
             content.innerHTML = `
-                <h3>${file}</h3>
+                <h3>${filePath}</h3>
                 <div id="jsmolContainer" class="jsmolContainer"></div>
                 <div class="button-container">
                     <button onclick="resetMolecule()">Reset</button>
@@ -121,7 +121,7 @@
             };
             const applet = Jmol.getApplet("jsmolContainer", Info);
             document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(applet);
-            Jmol.script(applet, `load 'molecules/${file}';`);
+            Jmol.script(applet, `load '${filePath}';`);
         }
 
         function resetMolecule() {
