@@ -340,9 +340,10 @@
     function loadMolecule(filePath) {
         console.log(`Loading molecule from: ${filePath}`);
         const content = document.getElementById("content");
-        const moleculeName = file.replace('.log', ''); // Remove the .log extension
         content.innerHTML = `
-            <h3>"moleculeName"</h3>
+            <h3>44a-Bipy-Ir(Bpin)</h3>
+            <div class="molecule-name" id="molecule-name-44aBipyIrBpin"></div> <!-- Molecule name placeholder -->
+            <div id="jsmolContainer44aBipyIrBpin" class="jsmolContainer"></div>
             <div id="jsmolContainer" class="jsmolContainer"></div>
             <div class="button-container">
                 <button id="resetBtn">Reset</button>
@@ -356,6 +357,10 @@
                 </label>
             </div>
         `;
+
+        const moleculeName = moleculeFile.replace(/\.log$/, ''); // Remove .log extension to get the name
+        const moleculeNameDiv = document.getElementById('molecule-name-' + containerId); // Get the molecule name container
+        moleculeNameDiv.textContent = moleculeName; // Set the name above the Jmol container
 
         const Info = {
             width: 700,
