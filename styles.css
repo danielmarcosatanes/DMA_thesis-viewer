@@ -126,7 +126,7 @@ body {
     font-style: italic;
     font-size: 20px;
     color: #4E7890; /* Subtle color for the quote */
-    margin: 20px 0;
+    margin: 10px auto;
     padding: 10px;
     background-color: #F4F4F9; /* Light background to make the quote stand out */
     width: calc(100% - 250px);
@@ -315,6 +315,7 @@ body {
     .button-container {
           flex-direction: column;
           align-items: center;
+          z-index: 10;
       }
 
     .button-container button,
