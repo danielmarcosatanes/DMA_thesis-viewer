@@ -299,12 +299,12 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
             subsectionDiv.style.display = "none";
 
             data[key].forEach((file) => {
-                console.log(`Creating link for file: ${file}, path: ${basePath}/${file}`); // Debugging log
+                console.log(`Creating link for file: ${file}, path: ${basePath}/${key}/${file}`); // Debugging log
                 const moleculeName = file.replace('.log', ''); // Remove .log extension
                 const fileLink = document.createElement("a");
                 fileLink.textContent = moleculeName;
                 fileLink.href = "#";
-                fileLink.onclick = () => loadMolecule(`${basePath}/${file}`, moleculeName);
+                fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`, moleculeName);
                 subsectionDiv.appendChild(fileLink);
             });
 
