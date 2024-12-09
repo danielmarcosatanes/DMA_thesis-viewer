@@ -38,8 +38,8 @@
 
   <script>
     const structureData = {
-            "Home": {
-                "description": "Welcome to the DMA Thesis 3D Molecule Viewer. Use the menu to explore molecules."
+      "Home": {
+        "description": "Welcome to the DMA Thesis 3D Molecule Viewer. Use the menu to explore molecules."
       },
       "Structures": {
       "Structures section 7.1": [
@@ -288,10 +288,11 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
          const homeLink = document.createElement("a");
          homeLink.textContent = "Home";
          homeLink.href = "#";
-         homeLink.onclick = () => loadHomePage(); // Call the loadHomePage function when clicked
+         homeLink.onclick = () => showHomePage(); // Call the loadHomePage function when clicked
          parent.appendChild(homeLink);
 
     Object.keys(data).forEach((key) => {
+        if (key !== "Home") { // Skip the Home section here
         console.log(`Processing key: ${key}, basePath: ${basePath}`); // Debugging log
 
         if (Array.isArray(data[key])) {
