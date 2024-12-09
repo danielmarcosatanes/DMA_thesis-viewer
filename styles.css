@@ -162,6 +162,7 @@ body {
     width: 80%; /* Optional: Limit width of the overall container */
     max-width: 900px; /* Optional: Set a maximum width for the layout */
     margin-bottom: 10px; /* To prevent the bottom margin overflow */
+    height: auto;
 }
 
 /* Jmol container styling */
