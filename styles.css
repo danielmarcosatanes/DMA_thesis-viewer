@@ -173,7 +173,6 @@ body {
     position: relative;
     bottom: 0;
     flex-wrap: wrap;
-    justify-content: center;
     display: flex;
     padding: 10px;
     gap: 10px;
