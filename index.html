@@ -295,7 +295,7 @@
                     const fileLink = document.createElement("a");
                     fileLink.textContent = moleculeName;
                     fileLink.href = "#";
-                    fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`);
+                    fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`, moleculeName);
                     subsectionDiv.appendChild(fileLink);
                 });
 
@@ -327,7 +327,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
         const menu = document.getElementById("menu");
-        createSidebarMenu(moleculesData, menu);
+        createSidebarMenu(structureData, menu);
     });
 
     function toggleSection(id) {
@@ -337,7 +337,7 @@
         }
     }
 
-    function loadMolecule(filePath) {
+    function loadMolecule(filePath, moleculeName) {
         console.log(`Loading molecule from: ${filePath}`);
         const content = document.getElementById("content");
         content.innerHTML = `
