@@ -340,8 +340,9 @@
     function loadMolecule(filePath) {
         console.log(`Loading molecule from: ${filePath}`);
         const content = document.getElementById("content");
+        const moleculeName = file.replace('.log', ''); // Remove the .log extension
         content.innerHTML = `
-            <h3>moleculeName</h3>
+            <h3>"moleculeName"</h3>
             <div id="jsmolContainer" class="jsmolContainer"></div>
             <div class="button-container">
                 <button id="resetBtn">Reset</button>
