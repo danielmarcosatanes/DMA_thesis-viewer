@@ -153,6 +153,7 @@ body {
     cursor: pointer;
     display: block;
     margin: 20px auto;
+    z-index:100;
     transition: background-color 0.3s ease;
 }
 
@@ -298,6 +299,12 @@ input[type="checkbox"] {
 
     .mobile-toggle {
         display: block; /* Show toggle button for mobile */
+    }
+
+    #quote-display {
+        width: 90%; /* Adjust to fit within the screen */
+        margin: 10px auto; /* Center on smaller screens */
+        text-align: center;
     }
 
     #collapse-btn {
