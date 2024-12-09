@@ -33,117 +33,118 @@
         </div>
     </div>
 
-    <script>
-        const structureData = {
-            "Structures section 7.1": [
-                "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-                "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-                "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log"
-            ],
-            "Structures section 7.3": {
-                "44a": {
-                    "5-CF3-Bipy": {
-                        "Ir(Bpin)": ["L27-Ir(Bpin).log"],
-                        "Ir(Bpin)3": ["L27-Ir(Bpin)3.log"]
-                    }
+  <script>
+    const structureData = {
+        "Structures section 7.1": [
+            "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
+            "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
+            "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log"
+        ],
+        "Structures section 7.3": {
+            "44a": {
+                "5-CF3-Bipy": {
+                    "Ir(Bpin)": ["L27-Ir(Bpin).log"],
+                    "Ir(Bpin)3": ["L27-Ir(Bpin)3.log"]
                 }
             }
-        };
-
-        function createSidebarMenu(data, parent, basePath = "molecules") {
-            Object.keys(data).forEach((key) => {
-                if (Array.isArray(data[key])) {
-                    const section = document.createElement("a");
-                    section.textContent = key;
-                    section.href = "#";
-                    section.onclick = () => toggleSection(`section-${key}`);
-                    parent.appendChild(section);
-
-                    const subsection = document.createElement("div");
-                    subsection.id = `section-${key}`;
-                    subsection.style.display = "none";
-
-                    data[key].forEach((file) => {
-                        const link = document.createElement("a");
-                        link.textContent = file;
-                        link.href = "#";
-                        link.onclick = () => loadMolecule(`${basePath}/${file}`);
-                        subsection.appendChild(link);
-                    });
-
-                    parent.appendChild(subsection);
-                } else {
-                    const folder = document.createElement("a");
-                    folder.textContent = key;
-                    folder.href = "#";
-                    folder.onclick = () => toggleSection(`section-${key}`);
-                    parent.appendChild(folder);
-
-                    const subfolder = document.createElement("div");
-                    subfolder.id = `section-${key}`;
-                    subfolder.style.display = "none";
-
-                    createSidebarMenu(data[key], subfolder, `${basePath}/${key}`);
-                    parent.appendChild(subfolder);
-                }
-            });
         }
+    };
 
-        function toggleSection(id) {
-            const section = document.getElementById(id);
-            if (section) {
-                section.style.display = section.style.display === "none" ? "block" : "none";
+    function createSidebarMenu(data, parent, basePath = "molecules") {
+        Object.keys(data).forEach((key) => {
+            if (Array.isArray(data[key])) {
+                const sectionLink = document.createElement("a");
+                sectionLink.textContent = key;
+                sectionLink.href = "#";
+                sectionLink.onclick = () => toggleSection(`section-${key}`);
+                parent.appendChild(sectionLink);
+
+                const subsectionDiv = document.createElement("div");
+                subsectionDiv.id = `section-${key}`;
+                subsectionDiv.style.display = "none";
+
+                data[key].forEach((file) => {
+                    const fileLink = document.createElement("a");
+                    fileLink.textContent = file;
+                    fileLink.href = "#";
+                    fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`);
+                    subsectionDiv.appendChild(fileLink);
+                });
+
+                parent.appendChild(subsectionDiv);
+            } else {
+                const folderLink = document.createElement("a");
+                folderLink.textContent = key;
+                folderLink.href = "#";
+                folderLink.onclick = () => toggleSection(`section-${key}`);
+                parent.appendChild(folderLink);
+
+                const subfolderDiv = document.createElement("div");
+                subfolderDiv.id = `section-${key}`;
+                subfolderDiv.style.display = "none";
+
+                createSidebarMenu(data[key], subfolderDiv, `${basePath}/${key}`);
+                parent.appendChild(subfolderDiv);
             }
+        });
+    }
+
+    function toggleSection(id) {
+        const section = document.getElementById(id);
+        if (section) {
+            section.style.display = section.style.display === "none" ? "block" : "none";
         }
+    }
 
-        function loadMolecule(filePath) {
-            const content = document.getElementById("content");
-            content.innerHTML = `
-                <h3>${filePath}</h3>
-                <div id="jsmolContainer" class="jsmolContainer"></div>
-                <div class="button-container">
-                    <button onclick="resetMolecule()">Reset</button>
-                    <button onclick="zoomInMolecule()">Zoom In</button>
-                    <button onclick="zoomOutMolecule()">Zoom Out</button>
-                    <label>
-                        <input type="checkbox" onchange="toggleSpin(this.checked)"> Spin
-                    </label>
-                </div>
-            `;
+    function loadMolecule(filePath) {
+        console.log(`Loading molecule from: ${filePath}`);
+        const content = document.getElementById("content");
+        content.innerHTML = `
+            <h3>${filePath}</h3>
+            <div id="jsmolContainer" class="jsmolContainer"></div>
+            <div class="button-container">
+                <button onclick="resetMolecule()">Reset</button>
+                <button onclick="zoomInMolecule()">Zoom In</button>
+                <button onclick="zoomOutMolecule()">Zoom Out</button>
+                <label>
+                    <input type="checkbox" onchange="toggleSpin(this.checked)"> Spin
+                </label>
+            </div>
+        `;
 
-            const Info = {
-                width: 700,
-                height: 400,
-                j2sPath: "j2s",
-                use: "HTML5",
-                disableJ2SLoadMonitor: true,
-                disableInitialConsole: true
-            };
-            const applet = Jmol.getApplet("jsmolContainer", Info);
-            document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(applet);
-            Jmol.script(applet, `load '${filePath}';`);
-        }
-
-        function resetMolecule() {
-            Jmol.script(Jmol.getApplet("jsmolContainer"), "reset");
-        }
-
-        function zoomInMolecule() {
-            Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom 120");
-        }
-
-        function zoomOutMolecule() {
-            Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom 80");
-        }
-
-        function toggleSpin(spin) {
-            Jmol.script(Jmol.getApplet("jsmolContainer"), spin ? "spin on" : "spin off");
-        }
-
-        window.onload = function () {
-            const menu = document.getElementById("menu");
-            createSidebarMenu(structureData, menu);
+        const Info = {
+            width: 700,
+            height: 400,
+            j2sPath: "j2s",
+            use: "HTML5",
+            disableJ2SLoadMonitor: true,
+            disableInitialConsole: true
         };
-    </script>
+        const applet = Jmol.getApplet("jsmolContainer", Info);
+        document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(applet);
+        Jmol.script(applet, `load '${filePath}';`);
+    }
+
+    function resetMolecule() {
+        Jmol.script(Jmol.getApplet("jsmolContainer"), "reset");
+    }
+
+    function zoomInMolecule() {
+        Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom 120");
+    }
+
+    function zoomOutMolecule() {
+        Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom 80");
+    }
+
+    function toggleSpin(spin) {
+        Jmol.script(Jmol.getApplet("jsmolContainer"), spin ? "spin on" : "spin off");
+    }
+
+    window.onload = function () {
+        const menu = document.getElementById("menu");
+        createSidebarMenu(structureData, menu);
+    };
+</script>
 </body>
 </html>
