@@ -114,14 +114,18 @@ body {
 
 /* Style for the Gaussian Tips Section */
 #home-page h2 {
-    font-size: 1.8em;
+    font-size: 25px;
     margin-top: 30px;
     color: #28528E; /* Matching your color palette */
+    margin-left: 250px; /* Adjust for sidebar width */
+    padding: 20px;
+    width: calc(100% - 250px); /* Adjust content width */
 }
 
 #quote-display {
+    font-family: 'Georgia', serif; /* Makes the quote appear more elegant */
     font-style: italic;
-    font-size: 1.2em;
+    font-size: 20px;
     color: #4E7890; /* Subtle color for the quote */
     margin: 20px 0;
     padding: 10px;
@@ -138,7 +142,7 @@ body {
     padding: 10px 20px;
     background-color: #A85426; /* Use one of your theme colors */
     color: white;
-    font-size: 1.1em;
+    font-size: 15px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
