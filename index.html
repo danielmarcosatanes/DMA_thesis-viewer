@@ -282,54 +282,55 @@
   }
 };
 
-    function createSidebarMenu(data, parent, basePath = "molecules") {
-        Object.keys(data).forEach((key) => {
-          if (typeof data[key] === "string") {
-              // Home page logic
-                const homeLink = document.createElement("a");
-                homeLink.textContent = "Home";
-                homeLink.href = "#";
-                homeLink.onclick = () => showHomePage();
-                parent.appendChild(homeLink);
-          }  else if (Array.isArray(data[key])) {
-              // Section Link
-                const sectionLink = document.createElement("a");
-                sectionLink.textContent = key;
-                sectionLink.href = "#";
-                sectionLink.onclick = () => toggleSection(`section-${key}`);
-                parent.appendChild(sectionLink);
+function createSidebarMenu(data, parent, basePath = "molecules") {
+    Object.keys(data).forEach((key) => {
+        if (typeof data[key] === "string") {
+            // Home page logic: display Home but don't create a subsection
+            const homeLink = document.createElement("a");
+            homeLink.textContent = "Home";
+            homeLink.href = "#";
+            homeLink.onclick = () => showHomePage();
+            parent.appendChild(homeLink);
+        } else if (Array.isArray(data[key])) {
+            // Section Link
+            const sectionLink = document.createElement("a");
+            sectionLink.textContent = key;
+            sectionLink.href = "#";
+            sectionLink.onclick = () => toggleSection(`section-${key}`);
+            parent.appendChild(sectionLink);
 
-                const subsectionDiv = document.createElement("div");
-                subsectionDiv.id = `section-${key}`;
-                subsectionDiv.style.display = "none";
+            // Create Subsections
+            const subsectionDiv = document.createElement("div");
+            subsectionDiv.id = `section-${key}`;
+            subsectionDiv.style.display = "none";
 
-                data[key].forEach((file) => {
-                    const moleculeName = file.replace('.log', ''); // Remove the .log extension
-                    const fileLink = document.createElement("a");
-                    fileLink.textContent = moleculeName;
-                    fileLink.href = "#";
-                    fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`, moleculeName);
-                    subsectionDiv.appendChild(fileLink);
-                });
+            data[key].forEach((file) => {
+                const moleculeName = file.replace('.log', ''); // Remove .log
+                const fileLink = document.createElement("a");
+                fileLink.textContent = moleculeName;
+                fileLink.href = "#";
+                fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`, moleculeName);
+                subsectionDiv.appendChild(fileLink);
+            });
 
-                parent.appendChild(subsectionDiv);
-            } else {
-                // Folder Link
-                const folderLink = document.createElement("a");
-                folderLink.textContent = key;
-                folderLink.href = "#";
-                folderLink.onclick = () => toggleSection(`section-${key}`);
-                parent.appendChild(folderLink);
+            parent.appendChild(subsectionDiv);
+        } else {
+            // Folder Link
+            const folderLink = document.createElement("a");
+            folderLink.textContent = key;
+            folderLink.href = "#";
+            folderLink.onclick = () => toggleSection(`section-${key}`);
+            parent.appendChild(folderLink);
 
-                // Create subfolders
-                const subfolderDiv = document.createElement("div");
-                subfolderDiv.id = `section-${key}`;
-                subfolderDiv.style.display = "none";
+            // Create subfolders recursively
+            const subfolderDiv = document.createElement("div");
+            subfolderDiv.id = `section-${key}`;
+            subfolderDiv.style.display = "none";
 
-                createSidebarMenu(data[key], subfolderDiv, `${basePath}/${key}`);
-                parent.appendChild(subfolderDiv);
-            }
-        });
+            createSidebarMenu(data[key], subfolderDiv, `${basePath}/${key}`);
+            parent.appendChild(subfolderDiv);
+        }
+      });
     }
 
     function showHomePage() {
