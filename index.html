@@ -34,7 +34,6 @@
     </div>
 
   <script>
-  let currentApplet = null; // Declare as a global variable
     const structureData = {
         "Structures section 7.1": [
             "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
@@ -131,7 +130,7 @@
         Jmol.script(applet, "set ambientPercent 25; set specularPower 100; set specularPercent 22; set specularExponent 4; set cartoonsFancy on; set antialiasDisplay on; set hermiteLevel 20;");
 
         // Once the molecule is loaded, initialize button functionalities
-        addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
+        addButtonFunctionality(applet);  // Add button and checkbox functionality after applet is ready
 
     }
 
