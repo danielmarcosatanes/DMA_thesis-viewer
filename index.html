@@ -442,6 +442,9 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
         // Collapse other sections
         collapseSections(moleculeName);
 
+        if (window.innerWidth <= 768) {
+            document.getElementById('sidebar').classList.remove('show');
+        }
     }
 
     function addButtonFunctionality(applet) {
@@ -518,8 +521,8 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
         jsmolContainers.forEach(container => {
               if (window.innerWidth <= 768) {
                   // Mobile view adjustments
-                  container.style.width = `${window.innerWidth}px`; // Full width
-                  container.style.height = `${window.innerHeight - 100}px`; // Account for top space (100px for header or nav)
+                  container.style.width = '100%'; // Full width
+                  container.style.height = `300px`; // Account for top space (100px for header or nav)
               } else {
                   // Desktop view adjustments
             const containerWidth = window.innerWidth * 0.8; // 80% of window width
