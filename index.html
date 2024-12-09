@@ -341,6 +341,7 @@
         console.log(`Loading molecule from: ${filePath}`);
         const content = document.getElementById("content");
         content.innerHTML = `
+            <h3 id="moleculeName">${moleculeName}</h3>
             <div id="jsmolContainer" class="jsmolContainer"></div>
             <div class="button-container">
                 <button id="resetBtn">Reset</button>
@@ -372,7 +373,8 @@
 
         // Once the molecule is loaded, initialize button functionalities
         addButtonFunctionality(applet);  // Add button and checkbox functionality after applet is ready
-
+        highlightActiveLink(moleculeName);
+        collapseSidebarSections(moleculeName);
     }
 
     function addButtonFunctionality(applet) {
@@ -414,6 +416,33 @@
                 Jmol.script(applet, "vibration off");
             }
         });
+    }
+
+    function highlightActiveLink(moleculeName) {
+        // Remove 'active' class from all links
+        const links = document.querySelectorAll("#menu a");
+        links.forEach(function(link) {
+            link.classList.remove("active");
+        });
+
+        // Add 'active' class to the clicked link (with the molecule name)
+        const activeLink = document.querySelector(`#menu a:contains(${moleculeName})`);
+        if (activeLink) {
+            activeLink.classList.add("active");
+        }
+    }
+
+    function collapseSidebarSections(moleculeName) {
+        const sections = document.querySelectorAll('.sidebar-section');
+        sections.forEach(function(section) {
+            section.style.display = 'none';  // Hide all sections
+        });
+
+        // Show only the section corresponding to the molecule
+        const activeSection = document.querySelector(`#section-${moleculeName}`);
+        if (activeSection) {
+            activeSection.style.display = 'block';  // Show the section of the current molecule
+        }
     }
 
     window.onload = function () {
