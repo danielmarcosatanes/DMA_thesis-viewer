@@ -92,6 +92,46 @@
         });
     }
 
+    function searchMenu() {
+        const query = document.getElementById("sidebar-search").value.toLowerCase();
+        const links = document.querySelectorAll("#menu a"); // All sidebar links
+        const sections = document.querySelectorAll(".sidebar-section"); // Top-level sections
+        const subsections = document.querySelectorAll(".subsections"); // Subsections
+
+        let hasResults = false;
+
+        // Initially collapse all sections and subsections
+        sections.forEach(section => (section.style.display = "none"));
+        subsections.forEach(subsection => (subsection.style.display = "none"));
+
+        // Search for matching links
+        links.forEach(link => {
+            const linkText = link.textContent.toLowerCase();
+            if (linkText.includes(query)) {
+                link.style.display = ""; // Show matching links
+                hasResults = true;
+
+                // Ensure the parent section and subsection are visible
+                const parentSubsection = link.closest(".subsections");
+                const parentSection = link.closest(".sidebar-section");
+
+                if (parentSubsection) {
+                    parentSubsection.style.display = "block";
+                }
+                if (parentSection) {
+                    parentSection.style.display = "block";
+                }
+            } else {
+                link.style.display = "none"; // Hide non-matching links
+            }
+        });
+
+        // Optional: Show a message if no results are found
+        if (!hasResults) {
+            console.log("No results found.");
+        }
+    }
+
     function toggleSection(id) {
         const section = document.getElementById(id);
         if (section) {
@@ -122,6 +162,7 @@
             width: 700,
             height: 400,
             j2sPath: "j2s",
+            color: "#EBEBEB",
             use: "HTML5",
             disableJ2SLoadMonitor: true,
             disableInitialConsole: true
