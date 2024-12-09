@@ -166,11 +166,10 @@ body {
 /* Jmol container styling */
 .jsmolContainer {
     width: 100%;
-    height: calc(100vh - 200px);
+    height: auto;
     margin-left: 20px;  /* Leave space for the sidebar */
-    margin-top: 100px;
+    margin-bottom: 2px; /* Adjust spacing below JSmol */
     display: block;
-    position: relative;
     overflow: hidden;
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
@@ -178,14 +177,9 @@ body {
 
 /* Positioning the button container below the JSmol container */
 .button-container {
-    position: relative;
     flex-wrap: wrap;
     display: flex;
-    padding: 10px;
     gap: 10px;
-    justify-content: center; /* Center the buttons horizontally */
-    margin-top: 5px; /* Space between JSmol and buttons */
-    margin-left: 20px;  /* Leave space for the sidebar */
 }
 
 /* Ensure buttons are styled nicely */
@@ -310,11 +304,6 @@ body {
         display: none; /* No collapse button on mobile */
     }
 
-    .viewer-container {
-        width: 100%; /* Take full width on mobile */
-        padding: 10px;
-    }
-
     .jsmolContainer {
     width: 100%;
     height: calc(100vh - 200px); /* Adjust height, leaving space for top elements (adjust '100px' as needed) */
@@ -387,14 +376,6 @@ body {
     #sidebar.collapsed + #content {
         margin-left: 0; /* No margin when sidebar is collapsed */
         width: 100%; /* Expand content to full width */
-        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
-    }
-
-    .jsmolContainer {
-        width: 100%; /* Ensure JSmol container fills the space */
-        height: calc(100% - 250px); /* Full viewport height with padding for aesthetics */
-        max-width: 100%;
-        margin-left: 20px; /* Align with the sidebar */
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
 
