@@ -127,6 +127,7 @@
 
             Jmol.script(jsmolApplet, `load 'molecules/${moleculeFile}';`);
             Jmol.script(jsmolApplet, "model 2");
+            Jmol.script(jsmolApplet, "set ambientPercent 25; set specularPower 100; set specularPercent 22; set specularExponent 4; set cartoonsFancy on; set antialiasDisplay on; set hermiteLevel 20;");
 
             // Once the molecule is loaded, initialize button functionalities
             addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
