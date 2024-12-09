@@ -21,7 +21,9 @@
                 <h2>DMA Thesis</h2>
                 <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
             </header>
-            <div id="menu"></div>
+            <div id="menu">
+                <a href="#" id="home-link" onclick="showHomePage(); setActiveLink('home-link')">Home</a>
+            </div>
             <footer>
                 2024 DMA Thesis Viewer. All rights reserved.
             </footer>
@@ -38,9 +40,6 @@
 
   <script>
     const structureData = {
-      "Home": {
-        "description": "Welcome to the DMA Thesis 3D Molecule Viewer. Use the menu to explore molecules."
-      },
       "Structures": {
       "Structures section 7.1": [
           "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
@@ -336,6 +335,11 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
             <p>Welcome to the DMA Thesis 3D Molecule Visualizer. Use the menu to explore molecules.</p>
             </div>
         `;
+        // Hide other content sections and only show home page
+        const sections = document.querySelectorAll('#menu > div');
+        sections.forEach(section => {
+            section.style.display = 'none';
+        });
     }
 
     function toggleSection(id) {
