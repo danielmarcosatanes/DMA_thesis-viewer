@@ -126,9 +126,8 @@
         const applet = Jmol.getApplet("jsmolContainer", Info);
         document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(applet);
         Jmol.script(applet, `load '${filePath}';`);
-        Jmol.script(jsmolApplet, "model 2");
-        Jmol.script(jsmolApplet, "set ambientPercent 25; set specularPower 100; set specularPercent 22; set specularExponent 4; set cartoonsFancy on; set antialiasDisplay on; set hermiteLevel 20;");
-
+        Jmol.script(applet, "model 2");
+        Jmol.script(applet, "set ambientPercent 25; set specularPower 100; set specularPercent 22; set specularExponent 4; set cartoonsFancy on; set antialiasDisplay on; set hermiteLevel 20;");
     }
 
     function resetMolecule() {
