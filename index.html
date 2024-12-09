@@ -53,6 +53,69 @@
         }
     };
 
+
+    const menu = document.getElementById("menu");
+
+    for (const [section, data] of Object.entries(moleculesData)) {
+        const sectionDiv = document.createElement("div");
+        sectionDiv.className = "sidebar-section";
+
+        const sectionLink = document.createElement("a");
+        sectionLink.href = "#";
+        sectionLink.onclick = () => showSection(section);
+        sectionLink.innerText = section;
+        sectionDiv.appendChild(sectionLink);
+
+        if (Array.isArray(data)) {
+            const subsectionDiv = document.createElement("div");
+            subsectionDiv.className = "subsections";
+            for (const file of data) {
+                const subsectionLink = document.createElement("a");
+                subsectionLink.href = "#";
+                subsectionLink.onclick = () => showSubsection(file);
+                subsectionLink.innerText = file;
+                subsectionDiv.appendChild(subsectionLink);
+            }
+            sectionDiv.appendChild(subsectionDiv);
+        } else if (typeof data === "object") {
+            // Nested subsections
+            for (const [subsection, nestedData] of Object.entries(data)) {
+                const subsectionDiv = document.createElement("div");
+                subsectionDiv.className = "subsections";
+
+                const subsectionLink = document.createElement("a");
+                subsectionLink.href = "#";
+                subsectionLink.onclick = () => showSubsection(subsection);
+                subsectionLink.innerText = subsection;
+                subsectionDiv.appendChild(subsectionLink);
+
+                // Add nested links
+                for (const [nestedName, files] of Object.entries(nestedData)) {
+                    const nestedDiv = document.createElement("div");
+                    nestedDiv.className = "subsections";
+
+                    const nestedLink = document.createElement("a");
+                    nestedLink.href = "#";
+                    nestedLink.onclick = () => showSubsection(nestedName);
+                    nestedLink.innerText = nestedName;
+                    nestedDiv.appendChild(nestedLink);
+
+                    // Add files
+                    for (const file of files) {
+                        const fileLink = document.createElement("a");
+                        fileLink.href = "#";
+                        fileLink.onclick = () => showSubsection(file);
+                        fileLink.innerText = file;
+                        nestedDiv.appendChild(fileLink);
+                    }
+                    subsectionDiv.appendChild(nestedDiv);
+                }
+                sectionDiv.appendChild(subsectionDiv);
+            }
+        }
+        menu.appendChild(sectionDiv);
+    }
+
     function createSidebarMenu(data, parent, basePath = "molecules") {
         Object.keys(data).forEach((key) => {
             if (Array.isArray(data[key])) {
