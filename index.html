@@ -131,26 +131,26 @@
     }
 
     function resetMolecule() {
-        if (currentApplet) {
-            Jmol.script(currentApplet, "reset");
+        if (applet) {
+            Jmol.script(applet, "reset");
         }
     }
 
     function zoomInMolecule() {
-        if (currentApplet) {
-            Jmol.script(currentApplet, "zoom 120");
+        if (applet) {
+            Jmol.script(applet, "zoom 120");
         }
     }
 
     function zoomOutMolecule() {
-        if (currentApplet) {
-            Jmol.script(currentApplet, "zoom 80");
+        if (applet) {
+            Jmol.script(applet, "zoom 80");
         }
     }
 
     function toggleSpin(spin) {
-        if (currentApplet) {
-            Jmol.script(currentApplet, spin ? "spin on" : "spin off");
+        if (applet) {
+            Jmol.script(applet, spin ? "spin on" : "spin off");
         }
     }
 
