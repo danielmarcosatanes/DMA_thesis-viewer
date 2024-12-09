@@ -284,47 +284,42 @@
 
 function createSidebarMenu(data, parent, basePath = "molecules") {
     Object.keys(data).forEach((key) => {
-        if (typeof data[key] === "string") {
-            // Handle "Home" with a single description
-            const homeLink = document.createElement("a");
-            homeLink.textContent = "Home";
-            homeLink.href = "#";
-            homeLink.onclick = () => showHomePage();
-            parent.appendChild(homeLink);
-        } else if (Array.isArray(data[key])) {
-            // Section Link
+        console.log(`Processing key: ${key}, basePath: ${basePath}`); // Debugging log
+
+        if (Array.isArray(data[key])) {
+            // Section with molecule files
             const sectionLink = document.createElement("a");
             sectionLink.textContent = key;
             sectionLink.href = "#";
-            sectionLink.onclick = () => toggleSection(`section-${key}`);
+            sectionLink.onclick = () => toggleSection(`section-${basePath}-${key}`);
             parent.appendChild(sectionLink);
 
-            // Subsections for files
             const subsectionDiv = document.createElement("div");
-            subsectionDiv.id = `section-${key}`;
+            subsectionDiv.id = `section-${basePath}-${key}`;
             subsectionDiv.style.display = "none";
 
             data[key].forEach((file) => {
-                const moleculeName = file.replace('.log', ''); // Remove .log
+                console.log(`Creating link for file: ${file}, path: ${basePath}/${file}`); // Debugging log
+                const moleculeName = file.replace('.log', ''); // Remove .log extension
                 const fileLink = document.createElement("a");
                 fileLink.textContent = moleculeName;
                 fileLink.href = "#";
-                fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`, moleculeName);
+                fileLink.onclick = () => loadMolecule(`${basePath}/${file}`, moleculeName);
                 subsectionDiv.appendChild(fileLink);
             });
 
             parent.appendChild(subsectionDiv);
         } else if (typeof data[key] === "object") {
-            // Folder Link
+            // Nested folder
+            console.log(`Creating folder for key: ${key}, path: ${basePath}/${key}`); // Debugging log
             const folderLink = document.createElement("a");
             folderLink.textContent = key;
             folderLink.href = "#";
-            folderLink.onclick = () => toggleSection(`section-${key}`);
+            folderLink.onclick = () => toggleSection(`section-${basePath}-${key}`);
             parent.appendChild(folderLink);
 
-            // Recursively handle subfolders
             const subfolderDiv = document.createElement("div");
-            subfolderDiv.id = `section-${key}`;
+            subfolderDiv.id = `section-${basePath}-${key}`;
             subfolderDiv.style.display = "none";
 
             createSidebarMenu(data[key], subfolderDiv, `${basePath}/${key}`);
