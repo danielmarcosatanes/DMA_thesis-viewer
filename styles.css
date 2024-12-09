@@ -130,7 +130,6 @@ body {
     padding: 10px;
     background-color: #F4F4F9; /* Light background to make the quote stand out */
     width: calc(100% - 250px);
-    height: calc(100vh - 200px);
     max-width: 600px;
     margin-left: 250px; /* Adjust for sidebar width */
     text-align: center;
@@ -146,7 +145,6 @@ body {
     cursor: pointer;
     display: block;
     margin: 20px auto;
-    z-index:100;
     transition: background-color 0.3s ease;
 }
 
