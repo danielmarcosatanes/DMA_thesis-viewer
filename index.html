@@ -284,8 +284,10 @@
 
 function createSidebarMenu(data, parent, basePath = "molecules") {
     Object.keys(data).forEach((key) => {
+        console.log(`Processing key: ${key}, basePath: ${basePath}`); // Log the current key and basePath
+
         if (Array.isArray(data[key])) {
-            // Handle files directly within the current folder
+            console.log(`Adding files in folder: ${key}`); // Log folder name
             const sectionLink = document.createElement("a");
             sectionLink.textContent = key;
             sectionLink.href = "#";
@@ -297,17 +299,20 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
             subsectionDiv.style.display = "none";
 
             data[key].forEach((file) => {
+                const filePath = `${basePath}/${key}/${file}`;
+                console.log(`Adding file link: ${filePath}`); // Log file path
+
                 const moleculeName = file.replace('.log', ''); // Remove the .log extension
                 const fileLink = document.createElement("a");
                 fileLink.textContent = moleculeName;
                 fileLink.href = "#";
-                fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`, moleculeName);
+                fileLink.onclick = () => loadMolecule(filePath, moleculeName);
                 subsectionDiv.appendChild(fileLink);
             });
 
             parent.appendChild(subsectionDiv);
         } else if (typeof data[key] === "object") {
-            // Check if the child is a folder containing files (nested folders)
+            console.log(`Descending into folder: ${key}`); // Log folder descent
             const folderLink = document.createElement("a");
             folderLink.textContent = key;
             folderLink.href = "#";
@@ -318,20 +323,19 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
             subfolderDiv.id = `section-${key}`;
             subfolderDiv.style.display = "none";
 
-            // Recursively process the folder contents
             createSidebarMenu(data[key], subfolderDiv, `${basePath}/${key}`);
             parent.appendChild(subfolderDiv);
         } else {
-            // Handle the case where a folder contains a single file
-            const subfolderDiv = document.createElement("div");
-            const folderPath = `${basePath}/${key}`;
+            console.log(`Adding single file in folder: ${key}`); // Log single file in folder
+            const filePath = `${basePath}/${key}/${data[key]}`;
+            console.log(`Single file path: ${filePath}`); // Log the path for single files
+
+            const moleculeName = data[key].replace('.log', ''); // Remove the .log extension
             const fileLink = document.createElement("a");
-            const moleculeName = key.replace('.log', ''); // Remove the .log extension for display
             fileLink.textContent = moleculeName;
             fileLink.href = "#";
-            fileLink.onclick = () => loadMolecule(`${folderPath}/${data[key]}`, moleculeName);
-            subfolderDiv.appendChild(fileLink);
-            parent.appendChild(subfolderDiv);
+            fileLink.onclick = () => loadMolecule(filePath, moleculeName);
+            parent.appendChild(fileLink);
         }
     });
 }
