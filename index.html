@@ -179,6 +179,47 @@
         const menu = document.getElementById("menu");
         createSidebarMenu(structureData, menu);
     };
+
+
+    function resizeJmol() {
+        const jsmolContainers = document.querySelectorAll('.jsmolContainer');
+
+        jsmolContainers.forEach(container => {
+              if (window.innerWidth <= 768) {
+                  // Mobile view adjustments
+                  container.style.width = `${window.innerWidth}px`; // Full width
+                  container.style.height = `${window.innerHeight - 100}px`; // Account for top space (100px for header or nav)
+              } else {
+                  // Desktop view adjustments
+            const containerWidth = window.innerWidth * 0.8; // 80% of window width
+            const containerHeight = window.innerHeight * 0.6; // 60% of window height
+                  container.style.width = `${containerWidth}px`;
+                  container.style.height = `${containerHeight}px`;
+              }
+            // Keep the square aspect ratio
+            container.style.aspectRatio = '1 / 1';
+        });
+    }
+
+    window.addEventListener('resize', resizeJmol);
+    window.addEventListener('load', resizeJmol);
+
   </script>
+  <script>
+    const sidebar = document.getElementById('sidebar');
+    const content = document.getElementById('content');
+
+    // Toggle the sidebar visibility for mobile
+    document.querySelector('.mobile-toggle').addEventListener('click', function() {
+        document.getElementById('sidebar').classList.toggle('show');  // Toggle visibility
+    });
+
+    // Toggle the sidebar visibility for desktop
+    document.querySelector('#collapse-btn').addEventListener('click', function() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('show'); // Toggle visibility for desktop
+        sidebar.classList.toggle('collapsed'); // Toggle the collapsed state for desktop
+    });
+</script>
 </body>
 </html>
