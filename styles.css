@@ -176,13 +176,14 @@ body {
     justify-content: center;
     display: flex;
     padding: 10px;
-    margin-top: 2px; /* Space between JSmol and buttons */
+    gap: 10px;
+    margin-top: 10px; /* Space between JSmol and buttons */
     margin-left: 20px;  /* Leave space for the sidebar */
 }
 
 /* Ensure buttons are styled nicely */
 .button-container button {
-    padding: 8px 16px;
+    padding: 10px 15px;
     font-size: 14px;
     background-color: #DDE5F0;
     color: #28528E;
@@ -196,35 +197,21 @@ body {
 }
 
 .button-container input[type="checkbox"] {
-    font-size: 11px;
+    font-size: 14px;
     margin-left: 10px;
     margin-top: 5px;
     color: #28528E;
 }
 
-/* Style for the checkbox label */
-label[for="spinCheckbox"] {
+.button-container label {
     font-size: 14px;
+    display: flex;
+    align-items: center;
     color: #28528E;
     margin-left: 10px; /* Adds space between the checkbox and the label */
     cursor: pointer; /* Makes it clickable */
 }
 
-/* Style for the checkbox label */
-label[for="vibrationCheckbox"] {
-    font-size: 14px;
-    color: #28528E;
-    margin-left: 10px; /* Adds space between the checkbox and the label */
-    cursor: pointer; /* Makes it clickable */
-}
-
-/* You can add a custom appearance for the checkbox as well */
-input[type="checkbox"] {
-    width: 15px; /* Resize the checkbox */
-    height: 15px;
-    vertical-align: middle; /* Aligns it with the text */
-    margin: 0; /* Removes default margins */
-}
 
 /* Mobile Sidebar Toggle Button */
 .mobile-toggle {
