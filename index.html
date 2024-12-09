@@ -38,6 +38,10 @@
 
   <script>
     const structureData = {
+            "Home": {
+                "description": "Welcome to the DMA Thesis 3D Molecule Viewer. Use the menu to explore molecules."
+      },
+      "Structures": {
       "Structures section 7.1": [
           "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
           "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
@@ -275,11 +279,20 @@
         }
       }
     }
-  };
+  }
+};
 
     function createSidebarMenu(data, parent, basePath = "molecules") {
         Object.keys(data).forEach((key) => {
-            if (Array.isArray(data[key])) {
+          if (typeof data[key] === "string") {
+              // Home page logic
+                const homeLink = document.createElement("a");
+                homeLink.textContent = "Home";
+                homeLink.href = "#";
+                homeLink.onclick = () => showHomePage();
+                parent.appendChild(homeLink);
+          }  else if (Array.isArray(data[key])) {
+              // Section Link
                 const sectionLink = document.createElement("a");
                 sectionLink.textContent = key;
                 sectionLink.href = "#";
@@ -301,12 +314,14 @@
 
                 parent.appendChild(subsectionDiv);
             } else {
+                // Folder Link
                 const folderLink = document.createElement("a");
                 folderLink.textContent = key;
                 folderLink.href = "#";
                 folderLink.onclick = () => toggleSection(`section-${key}`);
                 parent.appendChild(folderLink);
 
+                // Create subfolders
                 const subfolderDiv = document.createElement("div");
                 subfolderDiv.id = `section-${key}`;
                 subfolderDiv.style.display = "none";
@@ -317,6 +332,19 @@
         });
     }
 
+    function showHomePage() {
+        const content = document.getElementById("content");
+        content.innerHTML = `
+            <h1>DMA Thesis: 3D Molecule Viewer</h1>
+            <p>Welcome to the DMA Thesis 3D Molecule Visualizer. Use the menu to explore molecules.</p>
+        `;
+    }
+
+    function toggleSection(id) {
+        const section = document.getElementById(id);
+        section.style.display = section.style.display === "none" ? "block" : "none";
+    }
+
     function searchMenu() {
         const query = document.getElementById("sidebar-search").value.toLowerCase();
         const links = document.querySelectorAll("#menu a");
@@ -325,17 +353,6 @@
         });
     }
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const menu = document.getElementById("menu");
-        createSidebarMenu(structureData, menu);
-    });
-
-    function toggleSection(id) {
-        const section = document.getElementById(id);
-        if (section) {
-            section.style.display = section.style.display === "none" ? "block" : "none";
-        }
-    }
 
     function loadMolecule(filePath, moleculeName) {
         console.log(`Loading molecule from: ${filePath}`);
@@ -373,6 +390,13 @@
 
         // Once the molecule is loaded, initialize button functionalities
         addButtonFunctionality(applet);  // Add button and checkbox functionality after applet is ready
+
+        // After loading the molecule, highlight the selected link
+        setActiveLink(moleculeName);
+
+        // Collapse other sections
+        collapseSections(moleculeName);
+
     }
 
     function addButtonFunctionality(applet) {
@@ -416,30 +440,33 @@
         });
     }
 
-            function setActiveLink(id) {
-                // Remove 'active' class from all links
-                const links = document.querySelectorAll('#menu a');
-                links.forEach(function(link) {
-                    link.classList.remove('active');
-                });
-
-                // Add 'active' class to the clicked link
-                document.getElementById(id).classList.add('active');
+    function setActiveLink(moleculeName) {
+        const links = document.querySelectorAll('#menu a');
+          links.forEach(link => {
+            link.classList.remove('active');
+            if (link.textContent === moleculeName) {
+                link.classList.add('active');
             }
+        });
+    }
 
-            function displayOnly(sectionId) {
-                // Hide all sections except the one being displayed
-                const sections = document.querySelectorAll('#content > div');
-                sections.forEach(function(section) {
-                    section.style.display = 'none';
-                });
-                document.getElementById(sectionId).style.display = 'block';
-            }
 
-            function toggleVisibility(id, show = false) {
-                const element = document.getElementById(id);
-                element.style.display = show ? 'block' : (element.style.display === 'block' ? 'none' : 'block');
+    function collapseSections(selectedMolecule) {
+        const sections = document.querySelectorAll('#menu > div');
+        sections.forEach(section => {
+            const sectionName = section.querySelector('a').textContent;
+            if (sectionName !== selectedMolecule) {
+                section.style.display = 'none';  // Collapse non-relevant sections
+            } else {
+                section.style.display = 'block';  // Keep the relevant section open
             }
+        });
+    }
+
+    window.onload = function () {
+        const menu = document.getElementById("menu");
+        createSidebarMenu(structureData, menu);
+    };
 
     window.onload = function () {
         const menu = document.getElementById("menu");
