@@ -323,12 +323,13 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
             subfolderDiv.id = `section-${key}`;
             subfolderDiv.style.display = "none";
 
+            // Recursive call to handle nested folders
             createSidebarMenu(data[key], subfolderDiv, `${basePath}/${key}`);
             parent.appendChild(subfolderDiv);
         } else {
-            console.log(`Adding single file in folder: ${key}`); // Log single file in folder
+            console.log(`Found a single file in folder: ${key}`); // Log single files in folders
             const filePath = `${basePath}/${key}/${data[key]}`;
-            console.log(`Single file path: ${filePath}`); // Log the path for single files
+            console.log(`Adding single file link: ${filePath}`);
 
             const moleculeName = data[key].replace('.log', ''); // Remove the .log extension
             const fileLink = document.createElement("a");
