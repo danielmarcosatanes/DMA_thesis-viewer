@@ -76,6 +76,10 @@ body {
     color: #A85426 !important;
 }
 
+#menu div {
+    margin-left: 20px;  /* Indentation for subsections */
+}
+
 /* Sidebar Footer */
 #sidebar footer {
     color: #28528E;
