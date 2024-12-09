@@ -273,6 +273,7 @@
             "Ligand_C-H-TS": ["L28-Ligand_C-H-TS.log"],
             "OA-TS-Ir(LX)(R-H)(Bpin)3": ["L28-OA-TS-Ir(LX)(R-H)(Bpin)3.log"]
         }
+      }  
     }
   };
 
@@ -290,8 +291,9 @@
                 subsectionDiv.style.display = "none";
 
                 data[key].forEach((file) => {
+                    const moleculeName = file.replace('.log', ''); // Remove the .log extension
                     const fileLink = document.createElement("a");
-                    fileLink.textContent = file;
+                    fileLink.textContent = moleculeName;
                     fileLink.href = "#";
                     fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`);
                     subsectionDiv.appendChild(fileLink);
