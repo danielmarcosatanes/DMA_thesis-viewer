@@ -104,14 +104,14 @@
             <h3>${filePath}</h3>
             <div id="jsmolContainer" class="jsmolContainer"></div>
             <div class="button-container">
-                <button onclick="resetMolecule()">Reset</button>
-                <button onclick="zoomInMolecule()">Zoom In</button>
-                <button onclick="zoomOutMolecule()">Zoom Out</button>
+                <button id="resetBtn" onclick="resetMolecule()">Reset</button>
+                <button id="zoomInBtn" onclick="zoomInMolecule()">Zoom In</button>
+                <button id="zoomOutBtn" onclick="zoomOutMolecule()">Zoom Out</button>
                 <label>
                     <input type="checkbox" id="spinCheckbox" onchange="toggleSpin(this.checked)"> Spin
                 </label>
                 <label>
-                    <input type="checkbox" onchange="toggleVibration(this.checked)"> imaginary freq.
+                    <input type="checkbox" id="vibrationCheckbox" onchange="toggleVibration(this.checked)"> imaginary freq.
                 </label>
             </div>
         `;
@@ -129,50 +129,51 @@
         Jmol.script(applet, `load '${filePath}';`);
         Jmol.script(applet, "model 2");
         Jmol.script(applet, "set ambientPercent 25; set specularPower 100; set specularPercent 22; set specularExponent 4; set cartoonsFancy on; set antialiasDisplay on; set hermiteLevel 20;");
+
+        // Once the molecule is loaded, initialize button functionalities
+        addButtonFunctionality(jsmolApplet);  // Add button and checkbox functionality after applet is ready
+
     }
 
-    function resetMolecule() {
-      if (typeof currentApplet !== "undefined" && currentApplet) {
-          Jmol.script(currentApplet, "reset");
-      } else {
-          console.error("No applet is loaded.");
-      }
-    }
+    function addButtonFunctionality(applet) {
+        // Reset button functionality
+        document.getElementById("resetBtn").onclick = function() {
+            Jmol.script(applet, "reset");
+            console.log("Resetting molecule");
+        };
 
-    function zoomInMolecule() {
-      if (typeof currentApplet !== "undefined" && currentApplet) {
-          Jmol.script(currentApplet, "zoom +30");
-      } else {
-          console.error("No applet is loaded.");
-      }
-    }
+        // Zoom In button functionality
+        document.getElementById("zoomInBtn").onclick = function() {
+            Jmol.script(applet, "zoom +20");
+            console.log("Zooming In");
+        };
 
-    function zoomOutMolecule() {
-        if (typeof currentApplet !== "undefined" && currentApplet) {
-            Jmol.script(currentApplet, "zoom -30");
-        } else {
-            console.error("No applet is loaded.");
-        }
-    }
+        // Zoom Out button functionality
+        document.getElementById("zoomOutBtn").onclick = function() {
+            Jmol.script(applet, "zoom -20");
+            console.log("Zooming Out");
+        };
 
-    // Spin checkbox functionality
-    const spinCheckbox = document.getElementById("spinCheckbox");
-    spinCheckbox.addEventListener("change", function() {
-        if (spinCheckbox.checked) {
-            Jmol.script(applet, "spin on");
-            console.log("Spin enabled");
-        } else {
-            Jmol.script(applet, "spin off");
-            console.log("Spin disabled");
-        }
-    });
+        // Spin checkbox functionality
+        const spinCheckbox = document.getElementById("spinCheckbox");
+        spinCheckbox.addEventListener("change", function() {
+            if (spinCheckbox.checked) {
+                Jmol.script(applet, "spin on");
+                console.log("Spin enabled");
+            } else {
+                Jmol.script(applet, "spin off");
+                console.log("Spin disabled");
+            }
+        });
 
-    function toggleVibration(vibration) {
-      if (typeof currentApplet !== "undefined" && currentApplet) {
-          Jmol.script(currentApplet, vibration ? "vibration on" : "vibration off");
-      } else {
-          console.error("No applet is loaded.");
-      }
+        // Event listener for vibration checkbox
+        document.getElementById("vibrationCheckbox").addEventListener("change", function (event) {
+            if (event.target.checked) {
+                Jmol.script(applet, "vibration on");
+            } else {
+                Jmol.script(applet, "vibration off");
+            }
+        });
     }
 
     window.onload = function () {
