@@ -34,6 +34,7 @@
     </div>
 
   <script>
+  let currentApplet = null; // Declare as a global variable
     const structureData = {
         "Structures section 7.1": [
             "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
@@ -131,23 +132,43 @@
     }
 
     function resetMolecule() {
-        Jmol.script(applet, "reset");
+      if (typeof currentApplet !== "undefined" && currentApplet) {
+          Jmol.script(currentApplet, "reset");
+      } else {
+          console.error("No applet is loaded.");
+      }
     }
 
     function zoomInMolecule() {
-        Jmol.script(applet, "zoom +30");
+      if (typeof currentApplet !== "undefined" && currentApplet) {
+          Jmol.script(currentApplet, "zoom +30");
+      } else {
+          console.error("No applet is loaded.");
+      }
     }
 
     function zoomOutMolecule() {
-        Jmol.script(applet, "zoom -30");
+        if (typeof currentApplet !== "undefined" && currentApplet) {
+            Jmol.script(currentApplet, "zoom -30");
+        } else {
+            console.error("No applet is loaded.");
+        }
     }
 
     function toggleSpin(spin) {
-        Jmol.script(applet, spin ? "spin on" : "spin off");
+        if (typeof currentApplet !== "undefined" && currentApplet) {
+            Jmol.script(currentApplet, spin ? "spin on" : "spin off");
+        } else {
+            console.error("No applet is loaded.");
+        }
     }
 
     function toggleVibration(vibration) {
-        Jmol.script(applet, vibration ? "vibration on" : "vibration off");
+      if (typeof currentApplet !== "undefined" && currentApplet) {
+          Jmol.script(currentApplet, vibration ? "vibration on" : "vibration off");
+      } else {
+          console.error("No applet is loaded.");
+      }
     }
 
     window.onload = function () {
