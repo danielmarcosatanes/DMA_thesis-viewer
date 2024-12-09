@@ -109,8 +109,8 @@
                 <label>
                     <input type="checkbox" onchange="toggleSpin(this.checked)"> Spin
                 </label>
-                <label for="vibrationCheckbox">
-                    <input type="checkbox" id="vibrationCheckbox"> imaginary freq.
+                <label>
+                    <input type="checkbox" onchange="toggleVibration(this.checked)"> imaginary freq.
                 </label>
             </div>
         `;
@@ -142,26 +142,13 @@
         Jmol.script(Jmol.getApplet("jsmolContainer"), "zoom -30");
     }
 
-    // Spin checkbox functionality
-    const spinCheckbox = document.getElementById("spinCheckbox");
-    spinCheckbox.addEventListener("change", function() {
-        if (spinCheckbox.checked) {
-            Jmol.script(Jmol.getApplet("jsmolContainer"), "spin on");
-            console.log("Spin enabled");
-        } else {
-            Jmol.script(Jmol.getApplet("jsmolContainer"), "spin off");
-            console.log("Spin disabled");
-        }
-    });
+    function toggleSpin(spin) {
+        Jmol.script(Jmol.getApplet("jsmolContainer"), spin ? "spin on" : "spin off");
+    }
 
-    // Event listener for vibration checkbox
-    document.getElementById("vibrationCheckbox").addEventListener("change", function (event) {
-        if (event.target.checked) {
-            Jmol.script(Jmol.getApplet("jsmolContainer"), "vibration on");
-        } else {
-            Jmol.script(Jmol.getApplet("jsmolContainer"), "vibration off");
-        }
-    });
+    function toggleVibration(vibration) {
+        Jmol.script(Jmol.getApplet("jsmolContainer"), vibration ? "vibration on" : "vibration off");
+    }
 
     window.onload = function () {
         const menu = document.getElementById("menu");
