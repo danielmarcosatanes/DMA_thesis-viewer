@@ -283,16 +283,7 @@
 };
 
 function createSidebarMenu(data, parent, basePath = "molecules") {
-
-        // Add Home link first
-         const homeLink = document.createElement("a");
-         homeLink.textContent = "Home";
-         homeLink.href = "#";
-         homeLink.onclick = () => showHomePage; // Call the showHomePage function when clicked
-         parent.appendChild(homeLink);
-
     Object.keys(data).forEach((key) => {
-        if (key !== "Home") { // Skip the Home section here
         console.log(`Processing key: ${key}, basePath: ${basePath}`); // Debugging log
 
         if (Array.isArray(data[key])) {
