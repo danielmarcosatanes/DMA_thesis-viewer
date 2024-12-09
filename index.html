@@ -38,83 +38,21 @@
 
   <script>
     const structureData = {
-        "Structures section 7.1": [
-            "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-            "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-            "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log"
-        ],
-        "Structures section 7.3": {
-            "44a": {
-                "5-CF3-Bipy": {
-                    "Ir(Bpin)": ["L27-Ir(Bpin).log"],
-                    "Ir(Bpin)3": ["L27-Ir(Bpin)3.log"]
-                }
-            }
-        }
-    };
-
-
-    const menu = document.getElementById("menu");
-
-    for (const [section, data] of Object.entries(moleculesData)) {
-        const sectionDiv = document.createElement("div");
-        sectionDiv.className = "sidebar-section";
-
-        const sectionLink = document.createElement("a");
-        sectionLink.href = "#";
-        sectionLink.onclick = () => showSection(section);
-        sectionLink.innerText = section;
-        sectionDiv.appendChild(sectionLink);
-
-        if (Array.isArray(data)) {
-            const subsectionDiv = document.createElement("div");
-            subsectionDiv.className = "subsections";
-            for (const file of data) {
-                const subsectionLink = document.createElement("a");
-                subsectionLink.href = "#";
-                subsectionLink.onclick = () => showSubsection(file);
-                subsectionLink.innerText = file;
-                subsectionDiv.appendChild(subsectionLink);
-            }
-            sectionDiv.appendChild(subsectionDiv);
-        } else if (typeof data === "object") {
-            // Nested subsections
-            for (const [subsection, nestedData] of Object.entries(data)) {
-                const subsectionDiv = document.createElement("div");
-                subsectionDiv.className = "subsections";
-
-                const subsectionLink = document.createElement("a");
-                subsectionLink.href = "#";
-                subsectionLink.onclick = () => showSubsection(subsection);
-                subsectionLink.innerText = subsection;
-                subsectionDiv.appendChild(subsectionLink);
-
-                // Add nested links
-                for (const [nestedName, files] of Object.entries(nestedData)) {
-                    const nestedDiv = document.createElement("div");
-                    nestedDiv.className = "subsections";
-
-                    const nestedLink = document.createElement("a");
-                    nestedLink.href = "#";
-                    nestedLink.onclick = () => showSubsection(nestedName);
-                    nestedLink.innerText = nestedName;
-                    nestedDiv.appendChild(nestedLink);
-
-                    // Add files
-                    for (const file of files) {
-                        const fileLink = document.createElement("a");
-                        fileLink.href = "#";
-                        fileLink.onclick = () => showSubsection(file);
-                        fileLink.innerText = file;
-                        nestedDiv.appendChild(fileLink);
-                    }
-                    subsectionDiv.appendChild(nestedDiv);
-                }
-                sectionDiv.appendChild(subsectionDiv);
-            }
-        }
-        menu.appendChild(sectionDiv);
-    }
+      "Structures section 7.1": [
+          "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
+          "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
+          "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log"
+      ],
+      "Structures section 7.3": {
+          "44a": {
+              "5-CF3-Bipy": ["L27-Ir(Bpin).log", "L27-Ir(Bpin)3.log"]
+          },
+          "Bipy": {
+              "Ir(Bpin)": ["Bipy-Ir(Bpin).log"],
+              "Ir(Bpin)3": ["Bipy-Ir(Bpin)3.log"]
+          }
+      }
+  };
 
     function createSidebarMenu(data, parent, basePath = "molecules") {
         Object.keys(data).forEach((key) => {
@@ -157,43 +95,16 @@
 
     function searchMenu() {
         const query = document.getElementById("sidebar-search").value.toLowerCase();
-        const links = document.querySelectorAll("#menu a"); // All sidebar links
-        const sections = document.querySelectorAll(".sidebar-section"); // Top-level sections
-        const subsections = document.querySelectorAll(".subsections"); // Subsections
-
-        let hasResults = false;
-
-        // Initially collapse all sections and subsections
-        sections.forEach(section => (section.style.display = "none"));
-        subsections.forEach(subsection => (subsection.style.display = "none"));
-
-        // Search for matching links
+        const links = document.querySelectorAll("#menu a");
         links.forEach(link => {
-            const linkText = link.textContent.toLowerCase();
-            if (linkText.includes(query)) {
-                link.style.display = ""; // Show matching links
-                hasResults = true;
-
-                // Ensure the parent section and subsection are visible
-                const parentSubsection = link.closest(".subsections");
-                const parentSection = link.closest(".sidebar-section");
-
-                if (parentSubsection) {
-                    parentSubsection.style.display = "block";
-                }
-                if (parentSection) {
-                    parentSection.style.display = "block";
-                }
-            } else {
-                link.style.display = "none"; // Hide non-matching links
-            }
+            link.style.display = link.textContent.toLowerCase().includes(query) ? "" : "none";
         });
-
-        // Optional: Show a message if no results are found
-        if (!hasResults) {
-            console.log("No results found.");
-        }
     }
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const menu = document.getElementById("menu");
+        createSidebarMenu(moleculesData, menu);
+    });
 
     function toggleSection(id) {
         const section = document.getElementById(id);
