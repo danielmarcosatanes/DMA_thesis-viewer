@@ -288,7 +288,7 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
          const homeLink = document.createElement("a");
          homeLink.textContent = "Home";
          homeLink.href = "#";
-         homeLink.onclick = () => showHomePage(); // Call the loadHomePage function when clicked
+         homeLink.onclick = () => showHomePage; // Call the showHomePage function when clicked
          parent.appendChild(homeLink);
 
     Object.keys(data).forEach((key) => {
