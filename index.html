@@ -38,7 +38,7 @@
                 <!-- Gaussian Oracle Section -->
                 <h2>Gaussian Tips</h2>
                 <p id="quote-display">Loading quote...</p>
-                <button id="new-quote-btn">New Tips</button>
+                <button id="new-quote-btn">New Tip</button>
             </div>
         </div>
     </div>
@@ -513,7 +513,6 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
         const menu = document.getElementById("menu");
         createSidebarMenu(structureData, menu);
         showHomePage();
-        loadRandomQuote();  // Show a random quote when the page loads
     };
 
     function resizeJmol() {
@@ -522,14 +521,16 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
         jsmolContainers.forEach(container => {
               if (window.innerWidth <= 768) {
                   // Mobile view adjustments
-                  container.style.width = '100%'; // Full width
-                  container.style.height = `300px`; // Account for top space (100px for header or nav)
+                  jsmolContainer.style.width = '90%';
+                  jsmolContainer.style.height = `${window.innerHeight * 0.5}px`; // 50% of viewport height
+                  buttonContainer.style.width = '90%';
               } else {
                   // Desktop view adjustments
             const containerWidth = window.innerWidth * 0.8; // 80% of window width
             const containerHeight = window.innerHeight * 0.6; // 60% of window height
                   container.style.width = `${containerWidth}px`;
                   container.style.height = `${containerHeight}px`;
+                  buttonContainer.style.width = 'auto';
               }
             // Keep the square aspect ratio
             container.style.aspectRatio = '1 / 1';
