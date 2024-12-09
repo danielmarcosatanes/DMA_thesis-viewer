@@ -108,7 +108,7 @@
                 <button onclick="zoomInMolecule()">Zoom In</button>
                 <button onclick="zoomOutMolecule()">Zoom Out</button>
                 <label>
-                    <input type="checkbox" onchange="toggleSpin(this.checked)"> Spin
+                    <input type="checkbox" id="spinCheckbox" onchange="toggleSpin(this.checked)"> Spin
                 </label>
                 <label>
                     <input type="checkbox" onchange="toggleVibration(this.checked)"> imaginary freq.
@@ -155,13 +155,17 @@
         }
     }
 
-    function toggleSpin(spin) {
-        if (typeof currentApplet !== "undefined" && currentApplet) {
-            Jmol.script(currentApplet, spin ? "spin on" : "spin off");
+    // Spin checkbox functionality
+    const spinCheckbox = document.getElementById("spinCheckbox");
+    spinCheckbox.addEventListener("change", function() {
+        if (spinCheckbox.checked) {
+            Jmol.script(applet, "spin on");
+            console.log("Spin enabled");
         } else {
-            console.error("No applet is loaded.");
+            Jmol.script(applet, "spin off");
+            console.log("Spin disabled");
         }
-    }
+    });
 
     function toggleVibration(vibration) {
       if (typeof currentApplet !== "undefined" && currentApplet) {
