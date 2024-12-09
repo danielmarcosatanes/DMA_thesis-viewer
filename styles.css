@@ -19,6 +19,7 @@ body {
     flex-direction: column;
     padding: 0;
     box-sizing: border-box;
+    overflow-y: auto; /* Allow vertical scrolling */
     z-index: 1; /* Ensure sidebar is above other content */
     transform: translateX(-100%); /* Hide sidebar off-screen for mobile */
     transition: transform 0.3s ease-in-out; /* Smooth slide for mobile */
@@ -69,12 +70,6 @@ body {
     color: #A85426;
 }
 
-/* Active link styling */
-#menu a.active {
-    font-weight: bold;
-    color: #A85426 !important;
-}
-
 /* Sidebar Footer */
 #sidebar footer {
     color: #28528E;
@@ -83,6 +78,11 @@ body {
     margin-top: auto; /* Ensure footer stays at the bottom */
     padding: 10px 0;
     background-color: #D6D6D6; /* Same background as sidebar for consistency */
+}
+
+/* Add some space between links */
+#sidebar .subsections {
+    margin-left: 20px;
 }
 
 /* Main content layout */
