@@ -80,12 +80,6 @@ body {
     margin-left: 20px;  /* Indentation for subsections */
 }
 
-/* Make Home and Structures links always bold */
-#menu #home-link,
-#menu #structures-link {
-    font-weight: bold;
-}
-
 /* Sidebar Footer */
 #sidebar footer {
     color: #28528E;
@@ -125,7 +119,6 @@ body {
     color: #28528E; /* Matching your color palette */
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
-    width: calc(100% - 250px); /* Adjust content width */
 }
 
 #quote-display {
@@ -287,8 +280,14 @@ input[type="checkbox"] {
 
 /* Mobile-Specific */
 @media only screen and (max-width: 768px) {
+
+  body {
+      font-size: 14px;
+  }
+
     #sidebar {
-        width: 60%; /* Smaller sidebar for mobile */
+        width: 100%; /* Smaller sidebar for mobile */
+        height: 100%;
         transform: translateX(-100%); /* Hidden by default */
         z-index: 50; /* Ensure sidebar is on top */
     }
@@ -299,11 +298,16 @@ input[type="checkbox"] {
 
     .mobile-toggle {
         display: block; /* Show toggle button for mobile */
+        transition: transform 0.2s ease;
+    }
+
+    .mobile-toggle:hover {
+        transform: rotate(90deg);
     }
 
     #quote-display {
         width: 90%; /* Adjust to fit within the screen */
-        margin: 10px auto; /* Center on smaller screens */
+        margin-left: 10px; /* Center on smaller screens */
         text-align: center;
     }
 
