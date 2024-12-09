@@ -1,0 +1,340 @@
+/mnt/lustre/scratch/nvme/SLURM/9663802/usccqdma.aSL7b5ZNtd
+OMP_STACKSIZE=0m
+GAUSS_PDEF=16
+GAUSS_MDEF=65536MB
+GAUSS_RDEF=SCF=Direct
+ Entering Gaussian System, Link 0=g16.exe
+ Initial command:
+ /opt/cesga/2020/software/Core/g16/c1/l1.exe "/mnt/lustre/scratch/nvme/SLURM/9663802/usccqdma.aSL7b5ZNtd/Gau-1357526.inp" -scrdir="/mnt/lustre/scratch/nvme/SLURM/9663802/usccqdma.aSL7b5ZNtd/"
+ Default is to use a total of  16 processors:
+                               16 via shared-memory
+                                1 via Linda
+ Entering Link 1 = /opt/cesga/2020/software/Core/g16/c1/l1.exe PID=   1357552.
+  
+ Copyright (c) 1988-2019, Gaussian, Inc.  All Rights Reserved.
+  
+ This is part of the Gaussian(R) 16 program.  It is based on
+ the Gaussian(R) 09 system (copyright 2009, Gaussian, Inc.),
+ the Gaussian(R) 03 system (copyright 2003, Gaussian, Inc.),
+ the Gaussian(R) 98 system (copyright 1998, Gaussian, Inc.),
+ the Gaussian(R) 94 system (copyright 1995, Gaussian, Inc.),
+ the Gaussian 92(TM) system (copyright 1992, Gaussian, Inc.),
+ the Gaussian 90(TM) system (copyright 1990, Gaussian, Inc.),
+ the Gaussian 88(TM) system (copyright 1988, Gaussian, Inc.),
+ the Gaussian 86(TM) system (copyright 1986, Carnegie Mellon
+ University), and the Gaussian 82(TM) system (copyright 1983,
+ Carnegie Mellon University). Gaussian is a federally registered
+ trademark of Gaussian, Inc.
+  
+ This software contains proprietary and confidential information,
+ including trade secrets, belonging to Gaussian, Inc.
+  
+ This software is provided under written license and may be
+ used, copied, transmitted, or stored only in accord with that
+ written license.
+  
+ The following legend is applicable only to US Government
+ contracts under FAR:
+  
+                    RESTRICTED RIGHTS LEGEND
+  
+ Use, reproduction and disclosure by the US Government is
+ subject to restrictions as set forth in subparagraphs (a)
+ and (c) of the Commercial Computer Software - Restricted
+ Rights clause in FAR 52.227-19.
+  
+ Gaussian, Inc.
+ 340 Quinnipiac St., Bldg. 40, Wallingford CT 06492
+  
+  
+ ---------------------------------------------------------------
+ Warning -- This program may not be used in any manner that
+ competes with the business of Gaussian, Inc. or will provide
+ assistance to any competitor of Gaussian, Inc.  The licensee
+ of this program is prohibited from giving any competitor of
+ Gaussian, Inc. access to this program.  By using this program,
+ the user acknowledges that Gaussian, Inc. is engaged in the
+ business of creating and licensing software in the field of
+ computational chemistry and represents and warrants to the
+ licensee that it is not a competitor of Gaussian, Inc. and that
+ it will not use this program in any manner prohibited above.
+ ---------------------------------------------------------------
+  
+
+ Cite this work as:
+ Gaussian 16, Revision C.01,
+ M. J. Frisch, G. W. Trucks, H. B. Schlegel, G. E. Scuseria, 
+ M. A. Robb, J. R. Cheeseman, G. Scalmani, V. Barone, 
+ G. A. Petersson, H. Nakatsuji, X. Li, M. Caricato, A. V. Marenich, 
+ J. Bloino, B. G. Janesko, R. Gomperts, B. Mennucci, H. P. Hratchian, 
+ J. V. Ortiz, A. F. Izmaylov, J. L. Sonnenberg, D. Williams-Young, 
+ F. Ding, F. Lipparini, F. Egidi, J. Goings, B. Peng, A. Petrone, 
+ T. Henderson, D. Ranasinghe, V. G. Zakrzewski, J. Gao, N. Rega, 
+ G. Zheng, W. Liang, M. Hada, M. Ehara, K. Toyota, R. Fukuda, 
+ J. Hasegawa, M. Ishida, T. Nakajima, Y. Honda, O. Kitao, H. Nakai, 
+ T. Vreven, K. Throssell, J. A. Montgomery, Jr., J. E. Peralta, 
+ F. Ogliaro, M. J. Bearpark, J. J. Heyd, E. N. Brothers, K. N. Kudin, 
+ V. N. Staroverov, T. A. Keith, R. Kobayashi, J. Normand, 
+ K. Raghavachari, A. P. Rendell, J. C. Burant, S. S. Iyengar, 
+ J. Tomasi, M. Cossi, J. M. Millam, M. Klene, C. Adamo, R. Cammi, 
+ J. W. Ochterski, R. L. Martin, K. Morokuma, O. Farkas, 
+ J. B. Foresman, and D. J. Fox, Gaussian, Inc., Wallingford CT, 2019.
+ 
+ ******************************************
+ Gaussian 16:  ES64L-G16RevC.01  3-Jul-2019
+                 7-Dec-2024 
+ ******************************************
+ Default route: SCF=Direct
+ -
+ #
+ -
+ 1/38=1,172=1/1;
+ 2/12=2,17=6,18=5,40=1/2;
+ 3/11=9,25=1,30=1/1,2,3;
+ 4//1;
+ 5/5=2,38=5/2;
+ 6/7=2,8=2,9=2,10=2,28=1/1;
+ 99/5=1,9=1/99;
+ ----------------------------------------------------------------------
+ /Users/danielmarcosatanes/Desktop/Tesis/sp3/Estructuras_supporting_gjf
+ /44f/C-CH3/5-CF3-Bipy/OA/OA-TS-Ir(R-H)(Bpin)3/L27-OA-TS-Ir(R-H)(Bpin)3
+ .log
+ ----------------------------------------------------------------------
+ Symbolic Z-matrix:
+ Charge =  0 Multiplicity = 1
+ C                     2.12227  -2.13299  -1.53206 
+ C                     3.00308  -0.5311   -0.10168 
+ C                     4.29345  -0.98443  -0.31981 
+ C                     4.49432  -2.05518  -1.1883 
+ C                     3.39991  -2.6342   -1.80231 
+ C                     0.89777  -2.68282  -2.14339 
+ C                    -1.3916   -2.43756  -2.46552 
+ C                    -1.46541  -3.61413  -3.19385 
+ C                    -0.3017   -4.34959  -3.39294 
+ C                     0.88788  -3.88037  -2.86063 
+ H                     2.78348   0.29811   0.56885 
+ H                     5.50217  -2.41863  -1.38258 
+ H                     3.54152  -3.45491  -2.50034 
+ H                    -2.27479  -1.83588  -2.24559 
+ H                    -0.32165  -5.28444  -3.94919 
+ H                     1.80208  -4.45502  -2.98411 
+ N                     1.94695  -1.09706  -0.69138 
+ N                    -0.23971  -1.97779  -1.95695 
+ Ir                   -0.14287  -0.23369  -0.61597 
+ O                    -2.35069   1.80544  -1.00517 
+ O                    -0.78899   1.80808   1.63804 
+ O                    -1.85102  -1.29266   1.8199 
+ B                    -0.0302    0.74101   1.19018 
+ B                    -2.02148   0.4744   -0.74889 
+ B                    -0.89689  -1.54155   0.84207 
+ O                    -0.47722  -2.86739   0.90722 
+ O                    -3.18918  -0.29447  -0.71505 
+ C                    -4.289     0.62029  -0.58804 
+ C                    -3.74248   1.8691   -1.3277 
+ C                    -2.26639  -2.55944   2.34969 
+ C                    -1.00025  -3.42666   2.12436 
+ C                    -0.40527   2.0948    2.99049 
+ C                     1.03456   1.50706   3.05833 
+ O                     0.9611    0.42093   2.1194 
+ C                    -3.85585   1.762    -2.84408 
+ H                    -3.47533   0.79371  -3.19932 
+ H                    -4.88964   1.885    -3.19517 
+ H                    -3.24099   2.55047  -3.29939 
+ C                    -4.29262   3.19909  -0.85411 
+ H                    -4.05492   3.37378   0.20159 
+ H                    -3.84205   4.01274  -1.43951 
+ H                    -5.38307   3.2497   -0.98663 
+ C                    -5.52885  -0.00241  -1.1927 
+ H                    -6.36998   0.70571  -1.18084 
+ H                    -5.35791  -0.32338  -2.22697 
+ H                    -5.82119  -0.88534  -0.60849 
+ C                    -4.48703   0.87517   0.90209 
+ H                    -4.64017  -0.08524   1.41085 
+ H                    -3.59025   1.33689   1.33854 
+ H                    -5.35817   1.51608   1.09629 
+ C                    -0.49423   3.59196   3.2096 
+ H                    -1.53908   3.91536   3.11128 
+ H                    -0.14483   3.8664    4.21549 
+ H                     0.09832   4.14378   2.46929 
+ C                    -1.38693   1.37251   3.90312 
+ H                    -1.34494   0.28851   3.73858 
+ H                    -1.19953   1.59109   4.96323 
+ H                    -2.40517   1.70201   3.65817 
+ C                     2.10074   2.45981   2.53211 
+ H                     3.05655   1.92316   2.46462 
+ H                     1.84568   2.81552   1.52282 
+ H                     2.24728   3.32841   3.18898 
+ C                     1.44152   0.96635   4.41366 
+ H                     2.45709   0.55401   4.35827 
+ H                     1.44067   1.7652    5.1694 
+ H                     0.77058   0.16761   4.75003 
+ C                     0.05764  -3.21703   3.20014 
+ H                    -0.23365  -3.66921   4.15814 
+ H                     0.99361  -3.6849    2.86971 
+ H                     0.25648  -2.14632   3.3517 
+ C                    -1.26063  -4.9048    1.92109 
+ H                    -1.88163  -5.08589   1.03642 
+ H                    -0.3094   -5.43423   1.77992 
+ H                    -1.76223  -5.33916   2.79814 
+ C                    -3.45425  -3.02705   1.51596 
+ H                    -3.86587  -3.97663   1.88434 
+ H                    -4.24537  -2.26741   1.56124 
+ H                    -3.17141  -3.14155   0.46095 
+ C                    -2.68399  -2.37931   3.79432 
+ H                    -3.5423   -1.69502   3.843 
+ H                    -2.9848   -3.33836   4.24031 
+ H                    -1.8793   -1.95027   4.40262 
+ H                     0.32096   1.3122   -0.76155 
+ C                     1.3787    3.2604   -1.52045 
+ O                     2.56143   2.93364  -1.53199 
+ N                     0.9054    4.24754  -0.69166 
+ C                    -0.4983    4.61017  -0.56948 
+ C                     0.50279   1.08789  -2.40363 
+ C                     0.39499   2.60867  -2.48567 
+ C                     0.72942   3.12015  -3.88697 
+ C                     1.85501   5.08107   0.01525 
+ C                     5.47537  -0.36636   0.35774 
+ F                     5.1423    0.68251   1.10782 
+ F                     6.0852   -1.2594    1.15035 
+ F                     6.38411   0.0348   -0.53775 
+ H                     1.64889   5.08411   1.09631 
+ H                     1.8041    6.11994  -0.34519 
+ H                     2.85853   4.68452  -0.15731 
+ H                    -0.86347   5.17246  -1.4446 
+ H                    -0.60505   5.25644   0.31025 
+ H                    -1.13247   3.72852  -0.41167 
+ H                     1.5352    0.78095  -2.62285 
+ H                    -0.17921   0.65077  -3.14962 
+ H                     0.62628   4.21355  -3.95655 
+ H                     0.05661   2.66795  -4.6283 
+ H                     1.76362   2.8595   -4.14771 
+ H                    -0.63791   2.88507  -2.2461 
+ H                    -2.42226  -3.9475   -3.58725 
+ 
+ Stoichiometry    C35H56B3F3IrN3O7
+ Framework group  C1[X(C35H56B3F3IrN3O7)]
+ Deg. of freedom   318
+ Full point group                 C1      NOp   1
+ Largest Abelian subgroup         C1      NOp   1
+ Largest concise Abelian subgroup C1      NOp   1
+                         Standard orientation:                         
+ ---------------------------------------------------------------------
+ Center     Atomic      Atomic             Coordinates (Angstroms)
+ Number     Number       Type             X           Y           Z
+ ---------------------------------------------------------------------
+      1          6           0        2.122272   -2.132988   -1.532060
+      2          6           0        3.003080   -0.531097   -0.101680
+      3          6           0        4.293451   -0.984426   -0.319810
+      4          6           0        4.494322   -2.055176   -1.188300
+      5          6           0        3.399912   -2.634197   -1.802310
+      6          6           0        0.897772   -2.682819   -2.143390
+      7          6           0       -1.391598   -2.437561   -2.465520
+      8          6           0       -1.465407   -3.614131   -3.193850
+      9          6           0       -0.301696   -4.349590   -3.392940
+     10          6           0        0.887883   -3.880369   -2.860630
+     11          1           0        2.783479    0.298112    0.568850
+     12          1           0        5.502172   -2.418625   -1.382580
+     13          1           0        3.541523   -3.454907   -2.500340
+     14          1           0       -2.274789   -1.835882   -2.245590
+     15          1           0       -0.321646   -5.284440   -3.949190
+     16          1           0        1.802084   -4.455019   -2.984110
+     17          7           0        1.946951   -1.097058   -0.691380
+     18          7           0       -0.239709   -1.977790   -1.956950
+     19         77           0       -0.142870   -0.233690   -0.615970
+     20          8           0       -2.350692    1.805438   -1.005170
+     21          8           0       -0.788992    1.808079    1.638040
+     22          8           0       -1.851019   -1.292662    1.819900
+     23          5           0       -0.030201    0.741010    1.190180
+     24          5           0       -2.021481    0.474398   -0.748890
+     25          5           0       -0.896889   -1.541551    0.842070
+     26          8           0       -0.477218   -2.867391    0.907220
+     27          8           0       -3.189180   -0.294473   -0.715050
+     28          6           0       -4.289001    0.620286   -0.588040
+     29          6           0       -3.742482    1.869097   -1.327700
+     30          6           0       -2.266388   -2.559442    2.349690
+     31          6           0       -1.000247   -3.426661    2.124360
+     32          6           0       -0.405272    2.094800    2.990490
+     33          6           0        1.034558    1.507061    3.058330
+     34          8           0        0.961099    0.420931    2.119400
+     35          6           0       -3.855852    1.761997   -2.844080
+     36          1           0       -3.475331    0.793707   -3.199320
+     37          1           0       -4.889642    1.884996   -3.195170
+     38          1           0       -3.240992    2.550467   -3.299390
+     39          6           0       -4.292623    3.199086   -0.854110
+     40          1           0       -4.054923    3.373776    0.201590
+     41          1           0       -3.842054    4.012737   -1.439510
+     42          1           0       -5.383073    3.249695   -0.986630
+     43          6           0       -5.528850   -0.002415   -1.192700
+     44          1           0       -6.369981    0.705704   -1.180840
+     45          1           0       -5.357910   -0.323385   -2.226970
+     46          1           0       -5.821189   -0.885345   -0.608490
+     47          6           0       -4.487031    0.875166    0.902090
+     48          1           0       -4.640170   -0.085244    1.410850
+     49          1           0       -3.590251    1.336887    1.338540
+     50          1           0       -5.358172    1.516075    1.096290
+     51          6           0       -0.494233    3.591959    3.209600
+     52          1           0       -1.539084    3.915359    3.111280
+     53          1           0       -0.144834    3.866400    4.215490
+     54          1           0        0.098316    4.143780    2.469290
+     55          6           0       -1.386931    1.372509    3.903120
+     56          1           0       -1.344941    0.288509    3.738580
+     57          1           0       -1.199532    1.591089    4.963230
+     58          1           0       -2.405172    1.702008    3.658170
+     59          6           0        2.100738    2.459812    2.532110
+     60          1           0        3.056548    1.923163    2.464620
+     61          1           0        1.845677    2.815522    1.522820
+     62          1           0        2.247277    3.328412    3.188980
+     63          6           0        1.441519    0.966351    4.413660
+     64          1           0        2.457089    0.554012    4.358270
+     65          1           0        1.440668    1.765201    5.169400
+     66          1           0        0.770580    0.167611    4.750030
+     67          6           0        0.057643   -3.217030    3.200140
+     68          1           0       -0.233647   -3.669210    4.158140
+     69          1           0        0.993613   -3.684899    2.869710
+     70          1           0        0.256482   -2.146320    3.351700
+     71          6           0       -1.260626   -4.904801    1.921090
+     72          1           0       -1.881626   -5.085892    1.036420
+     73          1           0       -0.309396   -5.434230    1.779920
+     74          1           0       -1.762226   -5.339162    2.798140
+     75          6           0       -3.454248   -3.027053    1.515960
+     76          1           0       -3.865867   -3.976633    1.884340
+     77          1           0       -4.245368   -2.267414    1.561240
+     78          1           0       -3.171408   -3.141553    0.460950
+     79          6           0       -2.683988   -2.379312    3.794320
+     80          1           0       -3.542299   -1.695023    3.843000
+     81          1           0       -2.984797   -3.338363    4.240310
+     82          1           0       -1.879299   -1.950272    4.402620
+     83          1           0        0.320959    1.312200   -0.761550
+     84          6           0        1.378697    3.260401   -1.520450
+     85          8           0        2.561427    2.933642   -1.531990
+     86          7           0        0.905396    4.247541   -0.691660
+     87          6           0       -0.498304    4.610169   -0.569480
+     88          6           0        0.502789    1.087890   -2.403630
+     89          6           0        0.394987    2.608670   -2.485670
+     90          6           0        0.729417    3.120151   -3.886970
+     91          6           0        1.855005    5.081072    0.015250
+     92          6           0        5.475370   -0.366355    0.357740
+     93          9           0        5.142299    0.682514    1.107820
+     94          9           0        6.085201   -1.259395    1.150350
+     95          9           0        6.384110    0.034805   -0.537750
+     96          1           0        1.648885    5.084111    1.096310
+     97          1           0        1.804094    6.119941   -0.345190
+     98          1           0        2.858526    4.684522   -0.157310
+     99          1           0       -0.863475    5.172459   -1.444600
+    100          1           0       -0.605055    5.256439    0.310250
+    101          1           0       -1.132474    3.728519   -0.411670
+    102          1           0        1.535199    0.780951   -2.622850
+    103          1           0       -0.179211    0.650770   -3.149620
+    104          1           0        0.626276    4.213550   -3.956550
+    105          1           0        0.056607    2.667950   -4.628300
+    106          1           0        1.763617    2.859501   -4.147710
+    107          1           0       -0.637913    2.885069   -2.246100
+    108          1           0       -2.422257   -3.947502   -3.587250
+ ---------------------------------------------------------------------
+ Rotational constants (GHZ):           0.0637075           0.0534076           0.0471322
+ Standard basis: STO-3G (5D, 7F)
+ IA out of range in STO.
+ Error termination via Lnk1e in /opt/cesga/2020/software/Core/g16/c1/l301.exe at Sat Dec  7 22:09:37 2024.
+ Job cpu time:       0 days  0 hours  0 minutes  0.5 seconds.
+ Elapsed time:       0 days  0 hours  0 minutes  0.1 seconds.
+ File lengths (MBytes):  RWF=      6 Int=      0 D2E=      0 Chk=      1 Scr=      1
