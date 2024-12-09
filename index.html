@@ -22,7 +22,7 @@
                 <input type="text" id="sidebar-search" placeholder="Search..." onkeyup="searchMenu()">
             </header>
             <div id="menu">
-                <a href="#" id="home-link" onclick="showHomePage(); setActiveLink('home-link')">Home</a>
+                <a href="#" id="home-link" onclick="showHomePage(); setActiveLink('home-link')" style="font-weight: bold;">Home</a>
             </div>
             <footer>
                 2024 DMA Thesis Viewer. All rights reserved.
@@ -295,6 +295,9 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
             const sectionLink = document.createElement("a");
             sectionLink.textContent = key;
             sectionLink.href = "#";
+            if (key === "Structures") {
+                sectionLink.style.fontWeight = "bold"; // Proper way to apply inline CSS in JavaScript
+            }
             sectionLink.onclick = () => toggleSection(`section-${basePath}-${key}`);
             parent.appendChild(sectionLink);
 
@@ -404,17 +407,19 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
         const content = document.getElementById("content");
         content.innerHTML = `
             <h3 id="moleculeName">${moleculeName}</h3>
-            <div id="jsmolContainer" class="jsmolContainer"></div>
-            <div class="button-container">
-                <button id="resetBtn">Reset</button>
-                <button id="zoomInBtn">Zoom In</button>
-                <button id="zoomOutBtn">Zoom Out</button>
-                <label>
-                    <input type="checkbox" id="spinCheckbox"> Spin
-                </label>
-                <label>
-                    <input type="checkbox" id="vibrationCheckbox"> imaginary freq.
-                </label>
+            <div class="viewer-container">
+              <div id="jsmolContainer" class="jsmolContainer"></div>
+              <div class="button-container">
+                  <button id="resetBtn">Reset</button>
+                  <button id="zoomInBtn">Zoom In</button>
+                  <button id="zoomOutBtn">Zoom Out</button>
+                  <label>
+                      <input type="checkbox" id="spinCheckbox"> Spin
+                  </label>
+                  <label>
+                      <input type="checkbox" id="vibrationCheckbox"> imaginary freq.
+                  </label>
+              </div>
             </div>
         `;
 
