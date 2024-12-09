@@ -152,18 +152,26 @@ body {
     background-color: #6C8B71; /* Change to a different color on hover */
 }
 
+.viewer-container {
+    display: flex;
+    flex-direction: column; /* Stack Jmol and button containers vertically */
+    align-items: center;    /* Center horizontally */
+    justify-content: center; /* Center vertically, if needed */
+    gap: 15px; /* Space between Jmol container and buttons */
+    margin-left: 20px; /* Add space around and center the container itself */
+    width: 80%; /* Optional: Limit width of the overall container */
+    max-width: 900px; /* Optional: Set a maximum width for the layout */
+}
 
 /* Jmol container styling */
 .jsmolContainer {
-    width: calc(100% - 250px);
+    width: 100%;
     height: calc(100vh - 200px);
     margin-left: 20px;  /* Leave space for the sidebar */
     margin-bottom: 2px; /* Adjust spacing below JSmol */
     display: block;
     position: relative;
     overflow: hidden;
-    top: 200;  /* Ensure it starts from the top of the page */
-    left: 0;  /* Align with the left edge */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
@@ -176,6 +184,7 @@ body {
     display: flex;
     padding: 10px;
     gap: 10px;
+    justify-content: center; /* Center the buttons horizontally */
     margin-top: 10px; /* Space between JSmol and buttons */
     margin-left: 20px;  /* Leave space for the sidebar */
 }
@@ -300,6 +309,11 @@ body {
 
     #collapse-btn {
         display: none; /* No collapse button on mobile */
+    }
+
+    .viewer-container {
+        width: 100%; /* Take full width on mobile */
+        padding: 10px;
     }
 
     .jsmolContainer {
