@@ -509,6 +509,7 @@ function createSidebarMenu(data, parent, basePath = "molecules") {
     window.onload = function () {
         const menu = document.getElementById("menu");
         createSidebarMenu(structureData, menu);
+        showRandomQuote();  // Show a random quote when the page loads
     };
 
     function resizeJmol() {
