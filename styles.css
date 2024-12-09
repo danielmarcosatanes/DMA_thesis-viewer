@@ -129,12 +129,11 @@ body {
     color: #4E7890; /* Subtle color for the quote */
     margin: 20px 0;
     padding: 10px;
-    border: 1px solid #D6D6D6;
-    border-radius: 5px;
-    background-color: #F1F1F1; /* Light background to make the quote stand out */
+    background-color: #F4F4F9; /* Light background to make the quote stand out */
+    width: calc(100% - 250px);
+    height: calc(100vh - 200px);
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
+    margin-left: 250px; /* Adjust for sidebar width */
     text-align: center;
 }
 
@@ -148,6 +147,7 @@ body {
     cursor: pointer;
     display: block;
     margin: 20px auto;
+    margin-left: 250px; /* Adjust for sidebar width */
     transition: background-color 0.3s ease;
 }
 
