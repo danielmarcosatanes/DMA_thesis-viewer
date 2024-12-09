@@ -70,6 +70,12 @@ body {
     color: #A85426;
 }
 
+/* Active link styling */
+#menu a.active {
+    font-weight: bold;
+    color: #A85426 !important;
+}
+
 /* Sidebar Footer */
 #sidebar footer {
     color: #28528E;
