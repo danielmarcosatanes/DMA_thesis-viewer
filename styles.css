@@ -135,7 +135,7 @@ body {
 #home-page h2 {
     font-family: 'Georgia', serif; /* Change font */
     font-size: 25px;
-    margin-top: 30px;
+    margin-top: 50px;
     color: #28528E; /* Matching your color palette */
     margin-left: 250px; /* Adjust for sidebar width */
     padding: 20px;
@@ -147,7 +147,7 @@ body {
     font-size: 16px; /* Adjust font size */
     color: #4E7890; /* Set text color */
     text-align: center; /* Center align the text */
-    margin-top: 10px; /* Add space above */
+    margin-top: 5px; /* Add space above */
     line-height: 1.6; /* Add line spacing for readability */
 }
 
@@ -161,6 +161,7 @@ body {
     background-color: #F4F4F9; /* Light background to make the quote stand out */
     width: calc(100% - 250px);
     max-width: 600px;
+    margin-top: 10px; /* Add space above */
     margin-left: 250px; /* Adjust for sidebar width */
     text-align: center;
 }
@@ -193,7 +194,6 @@ body {
     position: relative;
     overflow: hidden;
     top: 200;  /* Ensure it starts from the top of the page */
-    left: 0;  /* Align with the left edge */
     aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
 }
 
