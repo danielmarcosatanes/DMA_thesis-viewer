@@ -411,7 +411,7 @@ body {
         width: 100%; /* Ensure JSmol container fills the space */
         height: calc(100% - 250px); /* Full viewport height with padding for aesthetics */
         max-width: 100%;
-        margin-left: 20px; /* Align with the sidebar */
+
         transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
     }
 
