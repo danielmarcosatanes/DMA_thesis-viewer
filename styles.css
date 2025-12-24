@@ -1,440 +1,153 @@
-/* Global styles */
+/* --- VARIABLES --- */
+:root {
+    --primary: #002147;      /* Oxford Blue */
+    --accent: #2C5364;       /* Teal Grey */
+    --highlight: #e67e22;    /* Pumpkin Orange */
+    --bg: #f1f5f9;           /* Slate Light */
+    --white: #ffffff;
+    --text: #334155;
+    --sidebar-width: 300px;
+}
+
+/* --- BASE --- */
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #F4F4F9;
-    display: flex;
-    height: 100vh;
-    transition: all 0.3s ease-in-out; /* Smooth transition between screen sizes */
+    font-family: 'Inter', sans-serif;
+    margin: 0; background-color: var(--bg);
+    color: var(--text);
+    display: flex; height: 100vh; overflow: hidden;
 }
 
-/* Sidebar container */
-#sidebar {
-    background-color: #D6D6D6;
-    width: 250px; /* Fixed width on larger screens */
-    height: 100vh;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    padding: 0;
-    box-sizing: border-box;
-    overflow-y: auto; /* Allow vertical scrolling */
-    z-index: 1; /* Ensure sidebar is above other content */
-    transform: translateX(-100%); /* Hide sidebar off-screen for mobile */
-    transition: transform 0.3s ease-in-out; /* Smooth slide for mobile */
-}
-
-#sidebar.show {
-    transform: translateX(0); /* Slide in for mobile */
-}
-
-/* Sidebar header */
-#sidebar header {
-    background-color: #DDE5F0;
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-#sidebar header h2 {
-    color: #28528E;
-    font-size: 30px;
-    margin-top: 60px;
-}
-
-#sidebar header input[type="text"] {
-    width: 80%;
-    padding: 5px;
-    margin-top: 5px;
-    border: 1px solid #28528E;
-    border-radius: 5px;
-}
-
-/* Sidebar menu links */
-#menu a {
-    display: block;
-    color: #28528E;
-    text-decoration: none;
-    padding: 8px;
-    margin: 5px 0;
-}
-
-/* Hover effect for sidebar links */
-#menu a:hover {
-    color: #A85426;
-}
-
-/* Active link styling */
-#menu a.active {
-    font-weight: bold;
-    color: #A85426 !important;
-}
-
-#menu div {
-    margin-left: 20px;  /* Indentation for subsections */
-}
-
-/* Sidebar Footer */
-#sidebar footer {
-    color: #28528E;
-    text-align: center;
-    font-size: 12px;
-    margin-top: auto; /* Ensure footer stays at the bottom */
-    padding: 10px 0;
-    background-color: #D6D6D6; /* Same background as sidebar for consistency */
-}
-
-/* Add some space between links */
-#sidebar .subsections {
-    margin-left: 20px;
-}
-
-/* Main content layout */
 #main-container {
-    display: flex;
-    width: 100%;
+    display: flex; width: 100%; height: 100%;
 }
 
+/* --- SIDEBAR --- */
+#sidebar {
+    width: var(--sidebar-width);
+    background: var(--white);
+    border-right: 1px solid #e2e8f0;
+    display: flex; flex-direction: column;
+    z-index: 1000; transition: 0.3s ease;
+}
+
+#sidebar header {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    padding: 2.5rem 1.5rem; color: var(--white);
+}
+
+#sidebar h2 { margin: 0; font-weight: 300; font-size: 1.5rem; letter-spacing: -0.5px; }
+
+#sidebar-search {
+    width: 100%; padding: 10px 12px; margin-top: 1.2rem;
+    border: none; border-radius: 8px; background: rgba(255,255,255,0.15);
+    color: white; outline: none; box-sizing: border-box;
+}
+
+#menu { flex: 1; overflow-y: auto; padding: 1rem 0; }
+
+#menu a {
+    display: block; padding: 10px 20px; color: var(--accent);
+    text-decoration: none; font-size: 0.85rem; transition: 0.2s;
+    border-left: 3px solid transparent;
+}
+
+#menu a:hover { background: #f8fafc; color: var(--highlight); }
+#menu a.active {
+    background: #f1f5f9; color: var(--primary);
+    font-weight: 600; border-left-color: var(--highlight);
+}
+
+.submenu { margin-left: 15px; border-left: 1px dashed #cbd5e1; }
+
+#sidebar footer {
+    padding: 1rem; font-size: 0.7rem; text-align: center;
+    color: #94a3b8; border-top: 1px solid #f1f5f9;
+}
+
+/* --- MAIN CONTENT --- */
 #content {
-    margin-left: 250px; /* Adjust for sidebar width */
-    padding: 20px;
-    width: calc(100% - 250px); /* Adjust content width */
+    flex: 1; overflow-y: auto; padding: 2.5rem;
+    display: flex; flex-direction: column; align-items: center;
 }
 
-/* Smooth transition effect for content */
-#content > div {
-    transition: all 0.3s ease-in-out;
+.container-center { max-width: 1000px; width: 100%; }
+
+/* --- CARDS & VIEWER --- */
+.viewer-card {
+    background: var(--white); border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    padding: 2rem; width: 100%; box-sizing: border-box;
 }
 
-/* Styling the h1 in the home page */
-#home-page h1 {
-    font-family: 'Georgia', serif; /* Change font */
-    font-size: 36px; /* Adjust font size */
-    color: #28528E; /* Set text color */
-    text-align: center; /* Center align the text */
-    margin-top: 20px; /* Add space above */
-}
+.viewer-header { margin-bottom: 1.5rem; }
+.viewer-header h2 { margin: 0; color: var(--primary); font-size: 1.8rem; }
+.file-path { font-size: 0.8rem; color: #94a3b8; font-family: monospace; }
 
-/* Styling the paragraph in the home page */
-#home-page p1 {
-    font-family: 'Arial', sans-serif; /* Change font */
-    font-size: 18px; /* Adjust font size */
-    color: #4E7890; /* Set text color */
-    text-align: center; /* Center align the text */
-    margin-top: 10px; /* Add space above */
-    line-height: 1.6; /* Add line spacing for readability */
-}
-
-/* Style for the Gaussian Tips Section */
-#home-page h2 {
-    font-family: 'Georgia', serif; /* Change font */
-    font-size: 25px;
-    margin-top: 50px;
-    color: #28528E; /* Matching your color palette */
-    margin-left: 250px; /* Adjust for sidebar width */
-    padding: 20px;
-}
-
-/* Styling the paragraph in the home page */
-#home-page p2 {
-    font-family: 'Arial', sans-serif; /* Change font */
-    font-size: 16px; /* Adjust font size */
-    color: #4E7890; /* Set text color */
-    text-align: center; /* Center align the text */
-    margin-top: 5px; /* Add space above */
-    line-height: 1.6; /* Add line spacing for readability */
-}
-
-#quote-display {
-    font-family: 'Georgia', serif; /* Makes the quote appear more elegant */
-    font-style: italic;
-    font-size: 20px;
-    color: #4E7890; /* Subtle color for the quote */
-    margin: 10px auto;
-    padding: 10px;
-    background-color: #F4F4F9; /* Light background to make the quote stand out */
-    width: calc(100% - 250px);
-    max-width: 600px;
-    margin-top: 10px; /* Add space above */
-    margin-left: 250px; /* Adjust for sidebar width */
-    text-align: center;
-}
-
-#new-quote-btn {
-    padding: 10px 20px;
-    background-color: #A85426; /* Use one of your theme colors */
-    color: white;
-    font-size: 15px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    display: block;
-    margin: 20px auto;
-    transition: background-color 0.3s ease;
-}
-
-#new-quote-btn:hover {
-    background-color: #6C8B71; /* Change to a different color on hover */
-}
-
-
-/* Jmol container styling */
 .jsmolContainer {
-    width: calc(100% - 250px);
-    height: calc(100vh - 200px);
-    margin-left: 20px;  /* Leave space for the sidebar */
-    margin-bottom: 2px; /* Adjust spacing below JSmol */
-    display: block;
-    position: relative;
-    overflow: hidden;
-    align: center
-    top: 200;  /* Ensure it starts from the top of the page */
-    aspect-ratio: 1 / 1; /* Maintain square aspect ratio */
+    width: 100% !important; border-radius: 12px;
+    border: 1px solid #f1f5f9; background: #fff;
 }
 
-
-/* Positioning the button container below the JSmol container */
+/* --- CONTROLS --- */
 .button-container {
-    position: relative;
-    bottom: 0;
-    flex-wrap: wrap;
-    display: flex;
-    padding: 10px;
-    gap: 10px;
-    margin-top: 10px; /* Space between JSmol and buttons */
-    margin-left: 20px;  /* Leave space for the sidebar */
+    display: flex; flex-wrap: wrap; gap: 12px; margin-top: 1.5rem;
+    padding: 1.2rem; background: #f8fafc; border-radius: 12px;
+    align-items: center; justify-content: center;
 }
 
-/* Ensure buttons are styled nicely */
-.button-container button {
-    padding: 10px 15px;
-    font-size: 14px;
-    background-color: #DDE5F0;
-    color: #28528E;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+button {
+    background: var(--white); border: 1px solid #e2e8f0; padding: 8px 18px;
+    border-radius: 8px; cursor: pointer; font-weight: 500; transition: 0.2s;
+    color: var(--accent); font-size: 0.9rem;
 }
 
-.button-container button:hover {
-    color: #A85426;
+button:hover { background: var(--primary); color: white; border-color: var(--primary); }
+.btn-highlight { background: var(--highlight); color: white; border: none; }
+.btn-highlight:hover { background: #d35400; }
+
+.controls-group { display: flex; gap: 15px; margin-left: 10px; font-size: 0.9rem; }
+
+/* --- SCI-COMM PANEL --- */
+.info-panel {
+    margin-top: 2rem; padding: 1.5rem; border-left: 4px solid var(--highlight);
+    background: #fffbf7; border-radius: 0 12px 12px 0;
 }
 
-.button-container input[type="checkbox"] {
-    font-size: 14px;
-    margin-left: 10px;
-    margin-top: 5px;
-    color: #28528E;
+.info-panel h4 { margin: 0 0 10px 0; color: var(--primary); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px; }
+.info-panel p { font-family: 'Source Serif Pro', serif; line-height: 1.6; font-size: 1.1rem; }
+
+.meta-badges { display: flex; gap: 10px; margin-top: 15px; }
+.badge { background: #e2e8f0; color: #475569; padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; text-decoration: none; font-weight: 600; }
+
+/* --- HOME PAGE --- */
+#home-page h1 { font-family: 'Source Serif Pro', serif; font-size: 3rem; color: var(--primary); margin-bottom: 1rem; }
+.lead-text { font-size: 1.25rem; color: #64748b; max-width: 700px; margin: 0 auto 2rem auto; line-height: 1.6; }
+
+.quote-card {
+    background: var(--white); padding: 2.5rem; border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin: 3rem 0;
+    border-top: 4px solid var(--highlight); text-align: center;
 }
+.quote-label { color: var(--highlight); font-size: 0.7rem; text-transform: uppercase; font-weight: 800; }
+#quote-display { font-family: 'Source Serif Pro', serif; font-size: 1.4rem; font-style: italic; margin: 1rem 0; color: var(--primary); }
 
-.button-container label {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    color: #28528E;
-    margin-left: 10px; /* Adds space between the checkbox and the label */
-    cursor: pointer; /* Makes it clickable */
-}
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; margin-top: 2rem; }
+.grid-item { background: white; padding: 1.5rem; border-radius: 12px; text-align: left; }
+.grid-item h3 { margin-top: 0; color: var(--primary); font-size: 1.1rem; }
 
-
-/* Mobile Sidebar Toggle Button */
+/* --- RESPONSIVE --- */
 .mobile-toggle {
-    display: none;
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    background-color: transparent;
-    color: #A85426;
-    font-size: 20px;
-    border: none;
-    border-radius: 50%; /* Make the button circular */
-    padding: 10px;
-    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
-    z-index: 1000; /* Ensure button is on top of other content */
+    position: fixed; top: 15px; right: 15px; z-index: 1001;
+    background: var(--primary); color: white; border: none;
+    padding: 12px; border-radius: 50%; width: 50px; height: 50px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2); cursor: pointer; display: none;
 }
 
-/* Desktop Collapse Button */
-#collapse-btn {
-  display: none; /* Hidden by default */
-  font-size: 20px;
-  position: absolute;
-  top: 7px; /* Adjust to align with the top-left corner of the header */
-  left: 7px; /* Adjust to place it to the left of the header */
-  background-color: transparent; /* Default background color when sidebar is closed */
-  color: #A85426; /* Orange color for the button */
-  border: none;
-  border-radius: 50%; /* Make the button circular */
-  padding: 15px; /* Adjust padding to make it round */
-  cursor: pointer;
-  z-index: 2; /* Ensure the button is on top */
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1); /* Optional: Add a shadow for better visibility */
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-/* Collapsed Desktop Sidebar */
-#sidebar.collapsed {
-    width: 0;
-    transform: translateX(-250px);
-}
-
-#content.collapsed {
-    margin-left: 0px;
-    transition: margin-left 0.3s ease; /* Smooth transition */
-}
-
-/* Make Home and Structures links always bold */
-#menu #home-link,
-#menu #structures-link {
-    font-weight: bold;
-}
-
-/* Responsive Design */
-
-/* Mobile-Specific */
-@media only screen and (max-width: 768px) {
-
-  body {
-      font-size: 14px;
-  }
-
-    #sidebar {
-        width: 100%; /* Smaller sidebar for mobile */
-        height: 100%;
-        transform: translateX(-100%); /* Hidden by default */
-        z-index: 50; /* Ensure sidebar is on top */
-    }
-
-    #sidebar.show {
-        transform: translateX(0); /* Show when toggled */
-    }
-
-    .mobile-toggle {
-        display: block; /* Show toggle button for mobile */
-        transition: transform 0.2s ease;
-    }
-
-    .mobile-toggle:hover {
-        transform: rotate(90deg);
-    }
-
-    #quote-display {
-        width: 90%; /* Adjust to fit within the screen */
-        margin-left: 10px; /* Center on smaller screens */
-        text-align: center;
-    }
-
-    #collapse-btn {
-        display: none; /* No collapse button on mobile */
-    }
-
-    .jsmolContainer {
-    width: 100%;
-    height: calc(100vh - 200px); /* Adjust height, leaving space for top elements (adjust '100px' as needed) */
-    margin-left: 0; /* No margin on mobile */
-    top: 50px; /* Ensure it leaves space for the header on mobile */
-    left: 0;
-    z-index: 1; /* Lower than sidebar */
-    }
-
-    .button-container {
-          flex-direction: column;
-          align-items: center;
-          z-index: 10;
-      }
-
-    .button-container button,
-    .button-container label {
-          width: 100%;
-          text-align: center;
-          z-index: 10;
-      }
-
-    #sidebar.show + .jsmolContainer {
-    opacity: 0.5; /* Optional: dim JSmol when sidebar is visible */
-    pointer-events: none; /* Prevent interaction with JSmol when sidebar is open */
-    }
-
-    #content {
-        margin-left: 0; /* Remove static margin to allow dynamic adjustment */
-        width: 100%; /* Ensure it uses full width when sidebar is hidden */
-        transition: margin-left 0.3s ease-in-out; /* Smooth transition */
-    }
-
-    #sidebar.show + #content {
-        margin-left: 70%; /* Adjust dynamically based on sidebar width */
-        width: calc(100% - 70%); /* Match remaining space for the content */
-    }
-
-    #content h1,
-    #content h2,
-    #content h3 {
-        margin-left: 30px; /* Ensure consistent padding */
-        margin-right: 20px; /* Prevent overflow on the right */
-        max-width: calc(100% - 50px); /* Keep the text within visible bounds */
-        word-wrap: break-word;
-    }
-}
-
-/* Desktop-Specific */
-@media only screen and (min-width: 769px) {
-    .mobile-toggle {
-        display: none; /* Hide toggle button on desktop */
-    }
-
-    #collapse-btn {
-        display: block; /* Show collapse button on desktop */
-    }
-
-    #sidebar {
-        transform: translateX(0); /* Always visible on desktop */
-        width: 250px;
-    }
-
-    #content {
-        margin-left: 250px;
-        width: calc(100% - 250px); /* Adjust to fit with sidebar */
-        transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
-    }
-
-    #sidebar.collapsed + #content {
-        margin-left: 0; /* No margin when sidebar is collapsed */
-        width: 100%; /* Expand content to full width */
-        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
-    }
-
-    .jsmolContainer {
-        width: 100%; /* Ensure JSmol container fills the space */
-        height: calc(100% - 250px); /* Full viewport height with padding for aesthetics */
-        max-width: 100%;
-
-        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
-    }
-
-      /* When the sidebar is collapsed, expand the JSmol container */
-      #sidebar.collapsed + #content .jsmolContainer {
-        margin-left: 0; /* No margin when sidebar is collapsed */
-        width: 100%; /* Full width when sidebar is collapsed */
-        transition: width 0.3s ease-in-out, height 0.3s ease-in-out;
-    }
-    #sidebar.collapsed+ #content h1, #content h2, #content h3 {
-        margin-left: 40px; /* Ensure consistent padding */
-        word-wrap: break-word;
-    }
-}
-
-/* Design for subsections */
-#structures-menu {
-    padding-left: 20px;
-    display: none; /* Hidden by default */
-}
-
-.subsections {
-    padding-left: 20px;
-    display: none;
+@media (max-width: 768px) {
+    #sidebar { position: fixed; transform: translateX(-100%); height: 100%; width: 80%; }
+    #sidebar.show { transform: translateX(0); }
+    .mobile-toggle { display: block; }
+    #content { padding: 1.5rem; margin-top: 60px; }
+    .info-grid { grid-template-columns: 1fr; }
+    #home-page h1 { font-size: 2rem; }
 }
