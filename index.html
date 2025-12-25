@@ -347,7 +347,7 @@
                     <span class="mol-badge">${moleculeName.includes('TS') ? 'TS' : 'INT'}</span>
                 </header>
 
-                <div id="jsmolContainer" class="jsmol-box" style="line-height: 0;"></div>
+                <div id="jsmolContainer" class="jsmol-box" style="line-height:0;"></div>
 
                 <div class="toolbar">
                     <div class="tool-group">
@@ -429,7 +429,11 @@
         isDarkMode = !isDarkMode;
         document.body.classList.toggle('dark-mode');
         document.getElementById('theme-text').textContent = isDarkMode ? "Dark Mode" : "Light Mode";
-        if (myJmol) Jmol.script(myJmol, isDarkMode ? "background [x121212]" : "background white");
+
+        if (myJmol) {
+            // Esto cambia el fondo interno del motor JSmol
+            Jmol.script(myJmol, isDarkMode ? "background black" : "background white");
+        }
     }
 
     function searchMenu() {
