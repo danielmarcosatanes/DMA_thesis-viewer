@@ -1,28 +1,27 @@
 /* =======================================================
-   ESTILO COHERENTE: TEAL & GOLD (DANIEL MARCOS STYLE)
+   REDISEÑO: TEAL & GOLD (Daniel Marcos Style)
    ======================================================= */
 
 :root {
     --chem-teal: #006d77;
     --chem-gold: #e29578;
-    --bg-white: #ffffff;
     --text-main: #333333;
     --sidebar-w: 300px;
+    --bg-light: #ffffff;
     --border: #eeeeee;
 }
 
 body.dark-mode {
-    --bg-white: #121212;
+    --bg-light: #121212;
     --text-main: #f0f0f0;
     --border: #333333;
 }
 
-/* --- RESET Y ESTRUCTURA --- */
 * { box-sizing: border-box; }
 
 html, body {
     margin: 0; padding: 0; height: 100%;
-    background-color: var(--bg-white);
+    background-color: var(--bg-light);
 }
 
 body {
@@ -30,12 +29,12 @@ body {
     color: var(--text-main);
 }
 
-/* CONTENEDOR FLEX (Esto arregla que el contenido salga al lado) */
+/* LA CLAVE: El envoltorio flex para poner Sidebar y Contenido de lado */
 #main-wrapper {
     display: flex;
     width: 100%;
     height: 100vh;
-    overflow: hidden;
+    overflow: hidden; /* Evita scroll doble */
 }
 
 /* --- SIDEBAR --- */
@@ -45,8 +44,7 @@ body {
     height: 100%;
     background: #fff;
     border-right: 1px solid var(--border);
-    display: flex;
-    flex-direction: column;
+    display: flex; flex-direction: column;
 }
 
 body.dark-mode #sidebar { background: #1a1a1a; }
@@ -72,14 +70,14 @@ body.dark-mode #sidebar-search { background: #333; border-color: #444; color: wh
 .folder-link.level-0 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 0.8rem; padding-top: 20px !important; color: var(--chem-teal) !important; }
 .submenu { padding-left: 0; border-left: 2px solid #f1f3f5; margin-left: 25px; }
 
-.sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; }
-.sidebar-footer a { color: var(--chem-teal); text-decoration: none; font-weight: bold; }
+.sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--border); text-align: center; }
+.sidebar-footer a { color: var(--chem-teal); text-decoration: none; font-weight: bold; font-size: 0.8rem; }
 
 /* --- CONTENIDO --- */
 #main-content {
-    flex: 1; /* Esto hace que ocupe todo el espacio restante a la derecha */
+    flex: 1;
     height: 100%;
-    overflow-y: auto; /* Permite scroll solo en el área de contenido */
+    overflow-y: auto; /* El scroll ocurre aquí */
     padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
@@ -95,7 +93,7 @@ body.dark-mode #sidebar-search { background: #333; border-color: #444; color: wh
 .mol-header h2 { font-family: 'Montserrat', sans-serif; margin: 0; color: var(--chem-teal); font-size: 2rem; }
 .mol-badge { background: var(--chem-gold); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
 
-.jsmol-box { width: 100% !important; height: 550px !important; border-radius: 12px; border: 1px solid #ddd; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+.jsmol-box { width: 100% !important; height: 500px !important; border-radius: 12px; border: 1px solid #ddd; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
 /* --- TOOLBAR --- */
 .toolbar {
@@ -110,8 +108,10 @@ body.dark-mode #sidebar-search { background: #333; border-color: #444; color: wh
 .btn-outline:hover { color: var(--chem-gold); border-color: var(--chem-gold); background: rgba(226,149,120,0.05); }
 .btn-solid { background: var(--chem-teal); color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
-.sci-panel { margin-top: 3rem; padding: 2rem; background: #fbfbfb; border-radius: 12px; border: 1px solid var(--border); }
+/* --- SCI PANEL --- */
+.sci-panel { margin-top: 3rem; padding: 2rem; background: #fbfbfb; border-radius: 12px; border: 1px solid #border; }
 body.dark-mode .sci-panel { background: #1a1a1a; }
+.sci-panel h3 { font-family: 'Montserrat', sans-serif; color: var(--chem-teal); margin-top: 0; }
 .pro-tip { color: var(--chem-gold); font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; text-transform: uppercase; }
 
 /* --- HOME PAGE --- */
@@ -120,13 +120,13 @@ body.dark-mode .sci-panel { background: #1a1a1a; }
 .lead { font-size: 1.3rem; color: #666; margin-bottom: 3rem; line-height: 1.6; }
 
 .oracle-card { background: var(--chem-teal); color: white; padding: 4rem 2rem; border-radius: 20px; margin: 4rem 0; text-align: center; }
-.oracle-card p { font-family: 'Montserrat', sans-serif; font-style: italic; font-size: 1.5rem; margin: 25px 0; }
+.oracle-card p { font-family: 'Montserrat', sans-serif; font-style: italic; font-size: 1.5rem; margin: 25px 0; color: white !important; }
 .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: white; padding: 12px 24px; border-radius: 6px; cursor: pointer; }
 
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 5rem; text-align: left; }
 .info-item h3 { border-bottom: 2px solid var(--chem-gold); display: inline-block; padding-bottom: 5px; }
 
-/* --- DARK MODE SWITCH --- */
+/* --- THEME SWITCH --- */
 .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
 .theme-switch { display: inline-block; height: 18px; width: 34px; position: relative; }
 .theme-switch input { display:none; }
