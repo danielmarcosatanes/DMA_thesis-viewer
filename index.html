@@ -340,6 +340,9 @@
         // para asegurar que JSmol y GitHub Pages se entiendan.
         const encodedPath = filePath.split('/').map(segment => encodeURIComponent(segment)).join('/');
 
+        // Determinamos el color de fondo de JSmol según el modo actual
+        const jsmolBgColor = isDarkMode ? "#161616" : "#fdfdfd";
+
         content.innerHTML = `
             <div class="molecule-card">
                 <header class="mol-header">
@@ -347,6 +350,7 @@
                     <span class="mol-badge">${moleculeName.includes('TS') ? 'TS' : 'INT'}</span>
                 </header>
 
+                <!-- Contenedor del visor -->
                 <div id="jsmolContainer" class="jsmol-box" style="line-height:0;"></div>
 
                 <div class="toolbar">
@@ -374,17 +378,22 @@
             </div>
         `;
 
+        // IMPORTANTE: Aquí cambiamos el ancho y alto a 100% para que JSmol rellene el jsmol-box
         const Info = {
-            width: "100%", height: 500, j2sPath: "j2s",
-            color: isDarkMode ? "#121212" : "#FFFFFF",
-            use: "HTML5", disableInitialConsole: true
+            width: "100%",
+            height: "100%",
+            j2sPath: "j2s",
+            color: jsmolBgColor, // Sincronizado con el fondo de la tarjeta
+            use: "HTML5",
+            disableInitialConsole: true
         };
+
         myJmol = Jmol.getApplet("myJmol", Info);
         document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
 
-        // El comando load requiere comillas dobles internas para rutas complejas
-        Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set antialiasDisplay on;`);
-
+        // Al cargar el script, forzamos de nuevo el fondo para que no queden bordes negros
+        Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set antialiasDisplay on; background "${jsmolBgColor}";`);
+        
         setActiveLink(moleculeName);
         document.getElementById("main-content").scrollTo({top: 0, behavior: 'smooth'});
     }
