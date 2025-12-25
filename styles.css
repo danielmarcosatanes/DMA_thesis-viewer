@@ -1,5 +1,5 @@
 /* =======================================================
-   REDISEÑO: TEAL & GOLD (Daniel Marcos Style)
+   REDISEÑO: TEAL & GOLD (Daniel Marcos Portfolio Style)
    ======================================================= */
 
 :root {
@@ -29,12 +29,12 @@ body {
     color: var(--text-main);
 }
 
-/* LA CLAVE: El envoltorio flex para poner Sidebar y Contenido de lado */
+/* FIX: Contenedor principal con flex horizontal */
 #main-wrapper {
     display: flex;
     width: 100%;
     height: 100vh;
-    overflow: hidden; /* Evita scroll doble */
+    overflow: hidden;
 }
 
 /* --- SIDEBAR --- */
@@ -70,14 +70,14 @@ body.dark-mode #sidebar-search { background: #333; border-color: #444; color: wh
 .folder-link.level-0 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 0.8rem; padding-top: 20px !important; color: var(--chem-teal) !important; }
 .submenu { padding-left: 0; border-left: 2px solid #f1f3f5; margin-left: 25px; }
 
-.sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--border); text-align: center; }
-.sidebar-footer a { color: var(--chem-teal); text-decoration: none; font-weight: bold; font-size: 0.8rem; }
+.sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; }
+.sidebar-footer a { color: var(--chem-teal); text-decoration: none; font-weight: bold; }
 
 /* --- CONTENIDO --- */
 #main-content {
     flex: 1;
     height: 100%;
-    overflow-y: auto; /* El scroll ocurre aquí */
+    overflow-y: auto;
     padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
@@ -108,8 +108,7 @@ body.dark-mode #sidebar-search { background: #333; border-color: #444; color: wh
 .btn-outline:hover { color: var(--chem-gold); border-color: var(--chem-gold); background: rgba(226,149,120,0.05); }
 .btn-solid { background: var(--chem-teal); color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
-/* --- SCI PANEL --- */
-.sci-panel { margin-top: 3rem; padding: 2rem; background: #fbfbfb; border-radius: 12px; border: 1px solid #border; }
+.sci-panel { margin-top: 3rem; padding: 2rem; background: #fbfbfb; border-radius: 12px; border: 1px solid var(--border); }
 body.dark-mode .sci-panel { background: #1a1a1a; }
 .sci-panel h3 { font-family: 'Montserrat', sans-serif; color: var(--chem-teal); margin-top: 0; }
 .pro-tip { color: var(--chem-gold); font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; text-transform: uppercase; }
