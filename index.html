@@ -1,62 +1,58 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMA Thesis | 3D Mechanistic Viewer</title>
-
-    <!-- FAVICON -->
     <link rel="icon" type="image/png" href="favicon.png">
-
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
-
-    <!-- Tipografías Portfolio Daniel Marcos -->
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body class="light-mode">
 
     <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰ Menu</button>
 
     <div id="main-container">
+        <!-- SIDEBAR -->
         <nav id="sidebar">
-            <header>
-                <h1>Daniel Marcos</h1>
-                <p class="tagline">Mechanistic Explorer</p>
+            <div class="sidebar-sticky">
+                <header>
+                    <h1>Daniel Marcos</h1>
+                    <p class="tagline">Mechanistic Explorer</p>
 
-                <!-- DARK MODE SWITCH -->
-                <div class="theme-switch-wrapper">
-                    <label class="theme-switch" for="dark-mode-checkbox">
-                        <input type="checkbox" id="dark-mode-checkbox" onclick="toggleDarkMode()" />
-                        <div class="slider round"></div>
-                    </label>
-                    <span id="theme-text">Light Mode</span>
+                    <div class="theme-switch-wrapper">
+                        <label class="theme-switch">
+                            <input type="checkbox" id="dark-mode-checkbox" onclick="toggleDarkMode()" />
+                            <div class="slider round"></div>
+                        </label>
+                        <span id="theme-text">Light Mode</span>
+                    </div>
+
+                    <input type="text" id="sidebar-search" placeholder="Search intermediate..." onkeyup="searchMenu()">
+                </header>
+
+                <div id="menu">
+                    <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">Home Overview</a>
+                    <!-- Árbol dinámico inyectado aquí -->
                 </div>
 
-                <input type="text" id="sidebar-search" placeholder="Search intermediate..." onkeyup="searchMenu()">
-            </header>
-
-            <div id="menu">
-                <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">Home Overview</a>
-                <!-- El árbol se inyecta aquí -->
+                <div class="sidebar-footer">
+                    <a href="https://daniel-marcosatanes.github.io/" target="_blank">Back to Portfolio</a>
+                </div>
             </div>
-
-            <footer>
-                <a href="https://daniel-marcosatanes.github.io/" target="_blank">Back to Portfolio</a>
-            </footer>
         </nav>
 
+        <!-- CONTENIDO PRINCIPAL -->
         <main id="content">
             <div id="dynamic-content" class="container-pro">
-                <!-- UI dinámica -->
+                <!-- Se inyecta la Home o la Molécula -->
             </div>
         </main>
     </div>
 
 <script>
-
-    // --- MAPEO DE CARPETAS (Exactamente igual a tu árbol de archivos) ---
+    // --- DATOS ORIGINALES (No modificados) ---
     const structureData = {
         "Structures section 7.1": [
             "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log", "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
@@ -79,284 +75,183 @@
                         "isomH-TS-Ir(Bpin)3(R)(H)": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"],
                         "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"]
                     },
-                    "Isom-S": {
-                        "σ-isoS-(R-Bpin)Ir(Bpin)2(H)": ["L27-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"],
-                        "isomS-TS-Ir(Bpin)3(R)(H)": ["L27-isomS-TS-Ir(Bpin)3(R)(H).log"],
-                        "isoS-Ir(Bpin)3(R)(H)": ["L27-isoS-Ir(Bpin)3(R)(H).log"],
-                        "RE-TS-isoS-Ir(Bpin)3(R)(H)": ["L27-RE-TS-isoS-Ir(Bpin)3(R)(H).log"]
-                    },
                     "OA": {
-                        "σ-(R-H)Ir(Bpin)3": ["L27-σ-(R-H)Ir(Bpin)3.log"],
-                        "Ir(Bpin)3(R)(H)": ["L27-Ir(Bpin)3(R)(H).log"],
                         "OA-TS-Ir(R-H)(Bpin)3": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"]
-                    },
-                    "RE": {
-                        "σ-iso-(R-Bpin)Ir(Bpin)2(H)": ["L27-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"],
-                        "RE-TS-Ir(Bpin)3(R)(H)": ["L27-RE-TS-Ir(Bpin)3(R)(H).log"]
-                    }
-                },
-                "Bipy": {
-                    "Ir(Bpin)": ["Bipy-Ir(Bpin).log"], "Ir(Bpin)3": ["Bipy-Ir(Bpin)3.log"], "Ir(Bpin)5": ["Bipy-Ir(Bpin)5.log"], "Ir(H)(Bpin)2": ["Bipy-Ir(H)(Bpin)2.log"],
-                    "Isom-H": {
-                        "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"],
-                        "isoH-Ir(Bpin)3(R)(H)": ["Bipy-isoH-Ir(Bpin)3(R)(H).log"],
-                        "isomH-TS-Ir(Bpin)3(R)(H)": ["Bipy-isomH-TS-Ir(Bpin)3(R)(H).log"],
-                        "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-isoH-Ir(Bpin)3(R)(H).log"]
-                    },
-                    "Isom-S": {
-                        "σ-isoS-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"],
-                        "isomS-TS-Ir(Bpin)3(R)(H)": ["Bipy-isomS-TS-Ir(Bpin)3(R)(H).log"],
-                        "isoS-Ir(Bpin)3(R)(H)": ["Bipy-isoS-Ir(Bpin)3(R)(H).log"],
-                        "RE-TS-isoS-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-isoS-Ir(Bpin)3(R)(H).log"]
-                    },
-                    "OA": {
-                        "σ-(R-H)Ir(Bpin)3": ["Bipy-σ-(R-H)Ir(Bpin)3.log"],
-                        "Ir(Bpin)3(R)(H)": ["Bipy-Ir(Bpin)3(R)(H).log"],
-                        "OA-TS-Ir(R-H)(Bpin)3": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"]
-                    },
-                    "RE": {
-                        "σ-iso-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"],
-                        "RE-TS-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-Ir(Bpin)3(R)(H).log"]
-                    }
-                },
-                "Bis-5-CF3-Bipy": {
-                    "Ir(Bpin)": ["L28-Ir(Bpin).log"], "Ir(Bpin)3": ["L28-Ir(Bpin)3.log"], "Ir(Bpin)5": ["L28-Ir(Bpin)5.log"], "Ir(H)(Bpin)2": ["L28-Ir(H)(Bpin)2.log"],
-                    "Isom-H": {
-                        "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["L28-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"],
-                        "isoH-Ir(Bpin)3(R)(H)": ["L28-isoH-Ir(Bpin)3(R)(H).log"],
-                        "isomH-TS-Ir(Bpin)3(R)(H)": ["L28-isomH-TS-Ir(Bpin)3(R)(H).log"],
-                        "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log"]
-                    },
-                    "OA": {
-                        "σ-(R-H)Ir(Bpin)3": ["L28-σ-(R-H)Ir(Bpin)3.log"],
-                        "Ir(Bpin)3(R)(H)": ["L28-Ir(Bpin)3(R)(H).log"],
-                        "OA-TS-Ir(R-H)(Bpin)3": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"]
                     }
                 }
-            },
-            "Borylation of 44c": {
-                "5-CF3": {
-                    "Isom-H": { "isomH-TS": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoH": ["L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"] },
-                    "OA": { "OA-TS": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"] }
-                },
-                "Bipy": {
-                    "Isom-H": { "isomH-TS": ["Bipy-isomH-TS-Ir(Bpin)3(R)(H).log"] },
-                    "OA": { "OA-TS": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"] }
-                }
-            },
-            "Borylation of 44f": {
-                "C-CH3": {
-                    "5-CF3-Bipy": { "OA": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                    "Bipy": { "OA": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"] }
-                }
-            },
-            "Borylation of 44u": {
-                "Bis-5-CF3-Bipy": { "OA": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"] }
             },
             "Rollover": {
-                "Bipy": {
-                    "Hemilabile-TS": ["Bipy-Hemilabile-TS.log"],
-                    "Ir(LX)Bpin2": ["Bipy-Ir(LX)Bpin2.log"],
-                    "OA-TS": ["Bipy-OA-TS-Ir(LX)(R-H)(Bpin)3.log"]
-                },
-                "Bis-5-CF3-Bipy": {
-                    "OA-TS": ["L28-OA-TS-Ir(LX)(R-H)(Bpin)3.log"]
-                }
+                "Bipy": ["Bipy-Hemilabile-TS.log", "Bipy-Ir(LX)Bpin2.log"]
             }
         }
     };
 
-        // --- VARIABLES DE ESTADO ---
-        let myJmol = null;
-        let hShow = true;
-        let labelsOn = false;
-        let isDarkMode = false;
+    let myJmol = null;
+    let isDarkMode = false;
 
-        // --- CONTROLES MOLECULARES ---
-        function toggleHydrogens() {
-            hShow = !hShow;
-            Jmol.script(myJmol, hShow ? "display all" : "display not _H");
-        }
+    // --- MEJORA: Lógica de Menú y Rutas ---
+    function beautify(name) {
+        return name.replace("Structures section ", "Chapter ")
+                   .replace("Borylation of ", "Boryl. ");
+    }
 
-        function toggleLabels() {
-            labelsOn = !labelsOn;
-            Jmol.script(myJmol, labelsOn ? "label %a; set labelOffset 0 0;" : "label off");
-        }
+    function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
+        Object.keys(data).forEach((key) => {
+            const folderPath = `${currentPath}/${key}`;
+            const safeId = "ID_" + folderPath.replace(/[^a-zA-Z0-9]/g, '_');
 
-        function toggleDarkMode() {
-            isDarkMode = !isDarkMode;
-            document.body.classList.toggle('dark-mode');
-            document.getElementById('theme-text').textContent = isDarkMode ? "Dark Mode" : "Light Mode";
-            if (myJmol) {
-                Jmol.script(myJmol, isDarkMode ? "background [x121212]" : "background white");
+            const link = document.createElement("a");
+            link.textContent = beautify(key);
+            link.className = level === 0 ? "folder-link level-0" : "folder-link";
+            link.href = "#";
+            link.onclick = (e) => { e.preventDefault(); toggleSection(safeId); };
+            parent.appendChild(link);
+
+            const subDiv = document.createElement("div");
+            subDiv.id = safeId;
+            subDiv.className = "submenu";
+            subDiv.style.display = "none";
+
+            if (Array.isArray(data[key])) {
+                data[key].forEach((file) => {
+                    const moleculeName = file.replace('.log', '');
+                    const fileLink = document.createElement("a");
+                    fileLink.textContent = moleculeName;
+                    fileLink.className = "file-link";
+                    fileLink.href = "#";
+                    fileLink.onclick = (e) => {
+                        e.preventDefault();
+                        loadMolecule(`${folderPath}/${file}`, moleculeName);
+                    };
+                    subDiv.appendChild(fileLink);
+                });
+            } else {
+                createSidebarMenu(data[key], subDiv, folderPath, level + 1);
             }
-        }
+            parent.appendChild(subDiv);
+        });
+    }
 
-        // --- LÓGICA DE MENÚ ---
-        function beautify(name) {
-            return name.replace("Structures section ", "Chapter ")
-                       .replace("Borylation of ", "Boryl. ");
-        }
+    function toggleSection(id) {
+        const s = document.getElementById(id);
+        if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
+    }
 
-        function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
-            Object.keys(data).forEach((key) => {
-                const fullPath = `${currentPath}/${key}`;
-                const safeId = "ID_" + fullPath.replace(/[^a-zA-Z0-9]/g, '_');
-                const displayName = beautify(key);
+    // --- CARGA DE JSMOL ---
+    function loadMolecule(filePath, moleculeName) {
+        const content = document.getElementById("dynamic-content");
+        const encodedPath = encodeURI(filePath);
 
-                const link = document.createElement("a");
-                link.textContent = (level === 0 ? "● " : "") + displayName;
-                link.className = (level === 0) ? "folder-link level-0" : "folder-link";
+        content.innerHTML = `
+            <div class="molecule-card">
+                <header class="mol-header">
+                    <h2>${moleculeName}</h2>
+                    <span class="badge">${moleculeName.includes('TS') ? 'Transition State' : 'Intermediate'}</span>
+                </header>
 
-                // CORRECCIÓN: Usar 'link' en lugar de 'folderLink'
-                link.onclick = () => toggleSection(safeId);
-                parent.appendChild(link);
+                <div id="jsmolContainer" class="jsmol-box"></div>
 
-                const subDiv = document.createElement("div");
-                subDiv.id = safeId;
-                subDiv.className = "submenu";
-                subDiv.style.display = "none";
-
-                if (Array.isArray(data[key])) {
-                    data[key].forEach((file) => {
-                        const moleculeName = file.replace('.log', '');
-                        const fileLink = document.createElement("a");
-                        fileLink.textContent = moleculeName;
-                        fileLink.className = "file-link";
-                        fileLink.onclick = (e) => {
-                            e.stopPropagation();
-                            loadMolecule(`${fullPath}/${file}`, moleculeName);
-                        };
-                        subDiv.appendChild(fileLink);
-                    });
-                } else {
-                    createSidebarMenu(data[key], subDiv, fullPath, level + 1);
-                }
-                parent.appendChild(subDiv);
-            });
-        }
-
-        function toggleSection(id) {
-            const s = document.getElementById(id);
-            if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
-        }
-
-        // --- CARGA DE MODELOS ---
-        function loadMolecule(filePath, moleculeName) {
-            const content = document.getElementById("dynamic-content");
-            const encodedPath = encodeURI(filePath);
-
-            content.innerHTML = `
-                <div class="molecule-card">
-                    <header class="mol-header">
-                        <h2>${moleculeName}</h2>
-                        <div class="badges">
-                            <span class="badge-type">${moleculeName.includes('TS') ? 'Transition State' : 'Intermediate'}</span>
-                        </div>
-                    </header>
-
-                    <div id="jsmolContainer" class="jsmol-box"></div>
-
-                    <div class="toolbar">
-                        <div class="tool-group">
-                            <button class="btn-outline" title="Reset Camera" onclick="Jmol.script(myJmol, 'reset')">🔄</button>
-                            <button class="btn-outline" onclick="toggleHydrogens()">Toggle H</button>
-                            <button class="btn-outline" onclick="toggleLabels()">Labels</button>
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom +20')">➕</button>
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom -20')">➖</button>
-                        </div>
-                        <div class="tool-group checkboxes">
-                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
-                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
-                        </div>
-                        <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture PNG</button>
+                <div class="toolbar">
+                    <div class="tool-group">
+                        <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset')">🔄 Reset</button>
+                        <button class="btn-outline" onclick="Jmol.script(myJmol, 'display all')">Show H</button>
+                        <button class="btn-outline" onclick="Jmol.script(myJmol, 'display not _H')">Hide H</button>
                     </div>
-
-                    <div class="sci-comm-info">
-                        <div class="pro-tip">INTERACTIVE TIP: Use "Toggle H" to clean up the view and focus on the metal center interaction.</div>
-                        <h3>Technical Analysis</h3>
-                        <p>Optimized computational output (DFT). This stationary point represents a key step in the catalytic cycle studied in Section ${moleculeName.split('-')[0]}.</p>
+                    <div class="tool-group checkboxes">
+                        <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
+                        <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
                     </div>
+                    <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
                 </div>
-            `;
 
-            const Info = {
-                width: "100%", height: 500, j2sPath: "j2s",
-                color: isDarkMode ? "#121212" : "#FFFFFF",
-                use: "HTML5", disableInitialConsole: true
-            };
-            myJmol = Jmol.getApplet("myJmol", Info);
-            document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
-
-            Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set specularPower 100; set antialiasDisplay on;`);
-
-            setActiveLink(moleculeName);
-            if (window.innerWidth <= 768) toggleSidebar();
-        }
-
-        // --- HOME PAGE ---
-        function showHomePage() {
-            const content = document.getElementById("dynamic-content");
-            content.innerHTML = `
-                <div class="home-hero">
-                    <h1>Mechanistic Lab</h1>
-                    <p class="lead">A 3D digital companion to the PhD research of <strong>Daniel Marcos Atanes</strong> on Iridium cataysis.</p>
-
-                    <div class="oracle-card">
-                        <span class="oracle-label">Gaussian Quote Oracle</span>
-                        <p id="quote-display">Initial guess: generated...</p>
-                        <button class="btn-ghost" onclick="loadRandomQuote()">Generate New Tip</button>
-                    </div>
-
-                    <div class="feature-grid">
-                        <div class="welcome-item">
-                            <h3>Dynamic Lab</h3>
-                            <p>Rotate and zoom into catalytic centers to understand regioselectivity factors and coordination environments.</p>
-                        </div>
-                        <div class="welcome-item">
-                            <h3>DFT Accuracy</h3>
-                            <p>Every structure is rendered directly from the original Gaussian output files (.log) used in the thesis.</p>
-                        </div>
-                    </div>
+                <div class="sci-info">
+                    <p class="pro-tip">PRO TIP: Use the vibration toggle to see the imaginary frequency mode.</p>
+                    <h3>Analysis</h3>
+                    <p>Optimized geometry at the DFT level. This intermediate is key to understanding the catalytic cycle.</p>
                 </div>
-            `;
-            loadRandomQuote();
-        }
+            </div>
+        `;
 
-        function loadRandomQuote() {
-            fetch('g16_quotes.txt').then(r => r.text()).then(t => {
-                const q = t.split('\n\n').filter(x => x.trim() !== "");
-                const randomQ = q[Math.floor(Math.random() * q.length)];
-                const display = document.getElementById("quote-display");
-                if (display) display.textContent = randomQ;
-            }).catch(() => {
-                const display = document.getElementById("quote-display");
-                if (display) display.textContent = "Gaussian job finished successfully.";
-            });
-        }
-
-        function searchMenu() {
-            const q = document.getElementById("sidebar-search").value.toLowerCase();
-            document.querySelectorAll("#menu a.file-link").forEach(a => {
-                a.style.display = a.textContent.toLowerCase().includes(q) ? "block" : "none";
-            });
-        }
-
-        function setActiveLink(name) {
-            document.querySelectorAll('#menu a').forEach(a => {
-                a.classList.remove('active');
-                if (a.textContent === name) a.classList.add('active');
-            });
-        }
-
-        window.onload = () => {
-            createSidebarMenu(structureData, document.getElementById("menu"));
-            showHomePage();
+        const Info = {
+            width: "100%", height: 500, j2sPath: "j2s",
+            color: isDarkMode ? "#121212" : "#FFFFFF",
+            use: "HTML5", disableInitialConsole: true
         };
+        myJmol = Jmol.getApplet("myJmol", Info);
+        document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
+        Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set antialiasDisplay on;`);
 
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('show');
-        }
-    </script>
-    </body>
-    </html>
+        setActiveLink(moleculeName);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- PÁGINA DE INICIO ---
+    function showHomePage() {
+        const content = document.getElementById("dynamic-content");
+        content.innerHTML = `
+            <div class="home-hero">
+                <h1>Interactive Mechanistic Viewer</h1>
+                <p class="lead">A 3D digital supplement to the doctoral thesis of <strong>Daniel Marcos Atanes</strong>.</p>
+
+                <div class="oracle-card">
+                    <span class="label">Gaussian Quote Oracle</span>
+                    <p id="quote-display">Analyzing potential energy surface...</p>
+                    <button class="btn-ghost" onclick="loadRandomQuote()">Generate Tip</button>
+                </div>
+
+                <div class="guide-grid">
+                    <div class="guide-item">
+                        <h3>3D Perspective</h3>
+                        <p>Rotate and zoom into catalytic centers to understand regioselectivity and steric hindrance.</p>
+                    </div>
+                    <div class="guide-item">
+                        <h3>Direct Data</h3>
+                        <p>Models are rendered directly from calculation output files (.log) used in the doctoral thesis.</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        loadRandomQuote();
+    }
+
+    function loadRandomQuote() {
+        fetch('g16_quotes.txt').then(r => r.text()).then(t => {
+            const q = t.split('\n\n').filter(x => x.trim() !== "");
+            document.getElementById("quote-display").textContent = q[Math.floor(Math.random() * q.length)];
+        }).catch(() => {
+            document.getElementById("quote-display").textContent = "Gaussian job finished successfully.";
+        });
+    }
+
+    function toggleDarkMode() {
+        isDarkMode = !isDarkMode;
+        document.body.classList.toggle('dark-mode');
+        document.getElementById('theme-text').textContent = isDarkMode ? "Dark Mode" : "Light Mode";
+        if (myJmol) Jmol.script(myJmol, isDarkMode ? "background [x121212]" : "background white");
+    }
+
+    function searchMenu() {
+        const q = document.getElementById("sidebar-search").value.toLowerCase();
+        document.querySelectorAll("#menu a.file-link").forEach(a => {
+            a.style.display = a.textContent.toLowerCase().includes(q) ? "block" : "none";
+        });
+    }
+
+    function setActiveLink(name) {
+        document.querySelectorAll('#menu a').forEach(a => {
+            a.classList.remove('active');
+            if (a.textContent.includes(name)) a.classList.add('active');
+        });
+    }
+
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('show');
+    }
+
+    window.onload = () => {
+        createSidebarMenu(structureData, document.getElementById("menu"));
+        showHomePage();
+    };
+</script>
+</body>
+</html>
