@@ -3,326 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMA Thesis Viewer | 3D Structures</title>
+    <title>DMA Thesis | 3D Mechanistic Viewer</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <!-- Coherencia tipográfica con tu web principal -->
+    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰ Menu</button>
 
     <div id="main-container">
+        <!-- Sidebar inspirado en daniel-marcosatanes.github.io -->
         <nav id="sidebar">
             <header>
-                <h1>DMA Thesis</h1>
-                <p class="subtitle">3D Molecule Viewer</p>
-                <input type="text" id="sidebar-search" placeholder="Search structures..." onkeyup="searchMenu()">
+                <h1>Daniel Marcos</h1>
+                <p class="tagline">Computational Chemistry</p>
+                <input type="text" id="sidebar-search" placeholder="Quick search..." onkeyup="searchMenu()">
             </header>
+
             <div id="menu">
-                <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">Home Overview</a>
-                <!-- El árbol se genera aquí -->
+                <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">🏠 Home Overview</a>
+                <!-- El árbol se genera aquí mediante JS -->
             </div>
+
             <footer>
-                <a href="https://daniel-marcosatanes.github.io/" target="_blank">← Back to Portfolio</a>
+                <a href="https://daniel-marcosatanes.github.io/" target="_blank">View Portfolio</a>
             </footer>
         </nav>
 
         <main id="content">
             <div id="dynamic-content" class="container-pro">
-                <!-- Se inyecta por JS -->
+                <!-- Contenido dinámico -->
             </div>
         </main>
     </div>
 
 <script>
-    // --- OBJETO DE DATOS COMPLETO (Sincronizado con tu árbol de archivos) ---
-      const structureData = {
-        "Structures": {
-        "Structures section 7.1": [
-            "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-            "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-            "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-            "5-m-phen-OA-TS-Ir(R-H)(Bpin)3.log",
-            "5-p-phen-OA-TS-Ir(R-H)(Bpin)3.log",
-            "bipy-OA-TS-Ir(R-H)(Bpin)3.log"
+    // --- OBJETO DE DATOS COMPLETO ---
+    const structureData = {
+        "7.1 | Ligand Effects": [
+            "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log", "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
+            "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log", "5-m-phen-OA-TS-Ir(R-H)(Bpin)3.log",
+            "5-p-phen-OA-TS-Ir(R-H)(Bpin)3.log", "bipy-OA-TS-Ir(R-H)(Bpin)3.log"
         ],
-        "Structures section 7.2": {
-            "3-CF3-Bipy": {
-                "Meta": ["3-CF3-Bipy_TS_m-31.log"],
-                "Ortho": ["3-CF3-Bipy_TS_o-2.log"],
-                "Para": ["3-CF3-Bipy_TS_p-1.log"]
-            },
-            "4-CF3-Bipy": {
-                "Meta": ["4-CF3-Bipy_TS_m-8.log"],
-                "Ortho": ["4-CF3-Bipy_TS_o-3.log"],
-                "Para": ["4-CF3-Bipy_TS_p-3.log"]
-            },
-            "5-CF3-Bipy": {
-                "Meta": ["5-CF3-Bipy_TS_m-5.log"],
-                "Ortho": ["5-CF3-Bipy_TSOA_o-1.log"],
-                "Para": ["5-CF3-Bipy_TSOA_p-1.log"]
-            },
-            "Bipy": {
-                "Meta": ["Bipy_TS_m-3.log"],
-                "Ortho": ["Bipy_TS_o-1.log"],
-                "Para": ["Bipy_TS_p-1.log"]
-            }
+        "7.2 | Regioselectivity": {
+            "3-CF3-Bipy": { "Meta": ["3-CF3-Bipy_TS_m-31.log"], "Ortho": ["3-CF3-Bipy_TS_o-2.log"], "Para": ["3-CF3-Bipy_TS_p-1.log"] },
+            "4-CF3-Bipy": { "Meta": ["4-CF3-Bipy_TS_m-8.log"], "Ortho": ["4-CF3-Bipy_TS_o-3.log"], "Para": ["4-CF3-Bipy_TS_p-3.log"] },
+            "5-CF3-Bipy": { "Meta": ["5-CF3-Bipy_TS_m-5.log"], "Ortho": ["5-CF3-Bipy_TSOA_o-1.log"], "Para": ["5-CF3-Bipy_TSOA_p-1.log"] },
+            "Bipy": { "Meta": ["Bipy_TS_m-3.log"], "Ortho": ["Bipy_TS_o-1.log"], "Para": ["Bipy_TS_p-1.log"] }
         },
-        "Structures section 7.3": {
-          "Borylation of 44a": {
-              "5-CF3-Bipy": {
-                  "Ir(Bpin)": ["L27-Ir(Bpin).log"],
-                  "Ir(Bpin)3": ["L27-Ir(Bpin)3.log"],
-                  "Ir(Bpin)5": ["L27-Ir(Bpin)5.log"],
-                  "Ir(H)(Bpin)2": ["L27-Ir(H)(Bpin)2.log"],
-                  "Isom-H": {
-                      "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"],
-                      "isoH-Ir(Bpin)3(R)(H)": ["L27-isoH-Ir(Bpin)3(R)(H).log"],
-                      "isomH-TS-Ir(Bpin)3(R)(H)": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["L27-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"]
-                  },
-                  "Isom-S": {
-                      "RE-TS-isoS-Ir(Bpin)3(R)(H)": ["L27-RE-TS-isoS-Ir(Bpin)3(R)(H).log"],
-                      "isoS-Ir(Bpin)3(R)(H)": ["L27-isoS-Ir(Bpin)3(R)(H).log"],
-                      "isomS-TS-Ir(Bpin)3(R)(H)": ["L27-isomS-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-isoS-(R-Bpin)Ir(Bpin)2(H)": ["L27-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"]
-                  },
-                  "OA": {
-                      "Ir(Bpin)3(R)(H)": ["L27-Ir(Bpin)3(R)(H).log"],
-                      "OA-TS-Ir(R-H)(Bpin)3": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"],
-                      "σ-(R-H)Ir(Bpin)3": ["L27-σ-(R-H)Ir(Bpin)3.log"]
-                  },
-                  "RE": {
-                      "RE-TS-Ir(Bpin)3(R)(H)": ["L27-RE-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-iso-(R-Bpin)Ir(Bpin)2(H)": ["L27-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"]
-                  }
-              },
-              "Bipy": {
-                  "Ir(Bpin)": ["Bipy-Ir(Bpin).log"],
-                  "Ir(Bpin)3": ["Bipy-Ir(Bpin)3.log"],
-                  "Ir(Bpin)5": ["Bipy-Ir(Bpin)5.log"],
-                  "Ir(H)(Bpin)2": ["Bipy-Ir(H)(Bpin)2.log"],
-                  "Isom-H": {
-                      "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-isoH-Ir(Bpin)3(R)(H).log"],
-                      "isoH-Ir(Bpin)3(R)(H)": ["Bipy-isoH-Ir(Bpin)3(R)(H).log"],
-                      "isomH-TS-Ir(Bpin)3(R)(H)": ["Bipy-isomH-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"]
-                  },
-                  "Isom-S": {
-                      "RE-TS-isoS-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-isoS-Ir(Bpin)3(R)(H).log"],
-                      "isoS-Ir(Bpin)3(R)(H)": ["Bipy-isoS-Ir(Bpin)3(R)(H).log"],
-                      "isomS-TS-Ir(Bpin)3(R)(H)": ["Bipy-isomS-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-isoS-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"]
-                  },
-                  "OA": {
-                      "Ir(Bpin)3(R)(H)": ["Bipy-Ir(Bpin)3(R)(H).log"],
-                      "OA-TS-Ir(R-H)(Bpin)3": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"],
-                      "σ-(R-H)Ir(Bpin)3": ["Bipy-σ-(R-H)Ir(Bpin)3.log"]
-                  },
-                  "RE": {
-                      "RE-TS-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-iso-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"]
-                  }
-              },
-              "Bis-5-CF3-Bipy": {
-                  "Ir(Bpin)": ["L28-Ir(Bpin).log"],
-                  "Ir(Bpin)3": ["L28-Ir(Bpin)3.log"],
-                  "Ir(Bpin)5": ["L28-Ir(Bpin)5.log"],
-                  "Ir(H)(Bpin)2": ["L28-Ir(H)(Bpin)2.log"],
-                  "Isom-H": {
-                      "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log"],
-                      "isoH-Ir(Bpin)3(R)(H)": ["L28-isoH-Ir(Bpin)3(R)(H).log"],
-                      "isomH-TS-Ir(Bpin)3(R)(H)": ["L28-isomH-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["L28-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"]
-                  },
-                  "Isom-S": {
-                      "RE-TS-isoS-Ir(Bpin)3(R)(H)": ["L28-RE-TS-isoS-Ir(Bpin)3(R)(H).log"],
-                      "isoS-Ir(Bpin)3(R)(H)": ["L28-isoS-Ir(Bpin)3(R)(H).log"],
-                      "isomS-TS-Ir(Bpin)3(R)(H)": ["L28-isomS-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-isoS-(R-Bpin)Ir(Bpin)2(H)": ["L28-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"]
-                  },
-                  "OA": {
-                      "Ir(Bpin)3(R)(H)": ["L28-Ir(Bpin)3(R)(H).log"],
-                      "OA-TS-Ir(R-H)(Bpin)3": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"],
-                      "σ-(R-H)Ir(Bpin)3": ["L28-σ-(R-H)Ir(Bpin)3.log"]
-                  },
-                  "RE": {
-                      "RE-TS-Ir(Bpin)3(R)(H)": ["L28-RE-TS-Ir(Bpin)3(R)(H).log"],
-                      "σ-iso-(R-Bpin)Ir(Bpin)2(H)": ["L28-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"]
-                  }
-              }
-          },
-        "Borylation of 44c": {
-            "5-CF3-Bipy": {
-                "Isom-H": {
-                    "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"],
-                    "isoH-Ir(Bpin)3(R)(H)": ["L27-isoH-Ir(Bpin)3(R)(H).log"],
-                    "isomH-TS-Ir(Bpin)3(R)(H)": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["L27-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"]
-                },
-                "Isom-S": {
-                    "RE-TS-isoS-Ir(Bpin)3(R)(H)": ["L27-RE-TS-isoS-Ir(Bpin)3(R)(H).log"],
-                    "isoS-Ir(Bpin)3(R)(H)": ["L27-isoS-Ir(Bpin)3(R)(H).log"],
-                    "isomS-TS-Ir(Bpin)3(R)(H)": ["L27-isomS-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-isoS-(R-Bpin)Ir(Bpin)2(H)": ["L27-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"]
-                },
-                "OA": {
-                    "Ir(Bpin)3(R)(H)": ["L27-Ir(Bpin)3(R)(H).log"],
-                    "OA-TS-Ir(R-H)(Bpin)3": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"],
-                    "σ-(R-H)Ir(Bpin)3": ["L27-σ-(R-H)Ir(Bpin)3.log"]
-                },
-                "RE": {
-                    "RE-TS-Ir(Bpin)3(R)(H)": ["L27-RE-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-iso-(R-Bpin)Ir(Bpin)2(H)": ["L27-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"]
-                }
-            },
-            "Bipy": {
-                "Isom-H": {
-                    "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-isoH-Ir(Bpin)3(R)(H).log"],
-                    "isoH-Ir(Bpin)3(R)(H)": ["Bipy-isoH-Ir(Bpin)3(R)(H).log"],
-                    "isomH-TS-Ir(Bpin)3(R)(H)": ["Bipy-isomH-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"]
-                },
-                "Isom-S": {
-                    "RE-TS-isoS-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-isoS-Ir(Bpin)3(R)(H).log"],
-                    "isoS-Ir(Bpin)3(R)(H)": ["Bipy-isoS-Ir(Bpin)3(R)(H).log"],
-                    "isomS-TS-Ir(Bpin)3(R)(H)": ["Bipy-isomS-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-isoS-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"]
-                },
-                "OA": {
-                    "Ir(Bpin)3(R)(H)": ["Bipy-Ir(Bpin)3(R)(H).log"],
-                    "OA-TS-Ir(R-H)(Bpin)3": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"],
-                    "σ-(R-H)Ir(Bpin)3": ["Bipy-σ-(R-H)Ir(Bpin)3.log"]
-                },
-                "RE": {
-                    "RE-TS-Ir(Bpin)3(R)(H)": ["Bipy-RE-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-iso-(R-Bpin)Ir(Bpin)2(H)": ["Bipy-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"]
-                }
-            },
-            "Bis-5-CF3-Bipy": {
-                "Isom-H": {
-                    "RE-TS-isoH-Ir(Bpin)3(R)(H)": ["L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log"],
-                    "isoH-Ir(Bpin)3(R)(H)": ["L28-isoH-Ir(Bpin)3(R)(H).log"],
-                    "isomH-TS-Ir(Bpin)3(R)(H)": ["L28-isomH-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["L28-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"]
-                },
-                "Isom-S": {
-                    "RE-TS-isoS-Ir(Bpin)3(R)(H)": ["L28-RE-TS-isoS-Ir(Bpin)3(R)(H).log"],
-                    "isoS-Ir(Bpin)3(R)(H)": ["L28-isoS-Ir(Bpin)3(R)(H).log"],
-                    "isomS-TS-Ir(Bpin)3(R)(H)": ["L28-isomS-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-isoS-(R-Bpin)Ir(Bpin)2(H)": ["L28-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"]
-                },
-                "OA": {
-                    "Ir(Bpin)3(R)(H)": ["L28-Ir(Bpin)3(R)(H).log"],
-                    "OA-TS-Ir(R-H)(Bpin)3": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"],
-                    "σ-(R-H)Ir(Bpin)3": ["L28-σ-(R-H)Ir(Bpin)3.log"]
-                },
-                "RE": {
-                    "RE-TS-Ir(Bpin)3(R)(H)": ["L28-RE-TS-Ir(Bpin)3(R)(H).log"],
-                    "σ-iso-(R-Bpin)Ir(Bpin)2(H)": ["L28-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"]
-                }
-            }
-        },
-        "Borylation of 44f": {
-            "C-CH3": {
+        "7.3 | Full Mechanism": {
+            "Borylation of 44a": {
                 "5-CF3-Bipy": {
-                    "OA": {
-                        "Ir(Bpin)3(R)(H)": ["L27-Ir(Bpin)3(R)(H).log"],
-                        "OA-TS-Ir(R-H)(Bpin)3": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"],
-                        "σ-(R-H)Ir(Bpin)3": ["L27-σ-(R-H)Ir(Bpin)3.log"]
-                    }
+                    "Catalyst Species": ["L27-Ir(Bpin).log", "L27-Ir(Bpin)3.log", "L27-Ir(Bpin)5.log", "L27-Ir(H)(Bpin)2.log"],
+                    "Isom-H": { "TS": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"], "Int": ["L27-isoH-Ir(Bpin)3(R)(H).log", "L27-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"] },
+                    "OA Step": { "TS": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"], "Int": ["L27-Ir(Bpin)3(R)(H).log", "L27-σ-(R-H)Ir(Bpin)3.log"] }
                 },
                 "Bipy": {
-                    "OA": {
-                        "Ir(Bpin)3(R)(H)": ["Bipy-Ir(Bpin)3(R)(H).log"],
-                        "OA-TS-Ir(R-H)(Bpin)3": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"],
-                        "σ-(R-H)Ir(Bpin)3": ["Bipy-σ-(R-H)Ir(Bpin)3.log"]
-                    }
-                },
-                "Bis-5-CF3-Bipy": {
-                    "OA": {
-                        "Ir(Bpin)3(R)(H)": ["L28-Ir(Bpin)3(R)(H).log"],
-                        "OA-TS-Ir(R-H)(Bpin)3": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"],
-                        "σ-(R-H)Ir(Bpin)3": ["L28-σ-(R-H)Ir(Bpin)3.log"]
-                    }
+                    "OA Step": { "TS": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"], "Int": ["Bipy-Ir(Bpin)3(R)(H).log", "Bipy-σ-(R-H)Ir(Bpin)3.log"] }
                 }
             },
-            "N-CH3": {
-                "5-CF3-Bipy": {
-                    "OA": {
-                        "Ir(Bpin)3(R)(H)": ["L27-Ir(Bpin)3(R)(H).log"],
-                        "OA-TS-Ir(R-H)(Bpin)3": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"],
-                        "σ-(R-H)Ir(Bpin)3": ["L27-σ-(R-H)Ir(Bpin)3.log"]
-                    }
-                },
-                "Bipy": {
-                    "OA": {
-                        "Ir(Bpin)3(R)(H)": ["Bipy-Ir(Bpin)3(R)(H).log"],
-                        "OA-TS-Ir(R-H)(Bpin)3": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"],
-                        "σ-(R-H)Ir(Bpin)3": ["Bipy-σ-(R-H)Ir(Bpin)3.log"]
-                    }
-                },
-                "Bis-5-CF3-Bipy": {
-                    "OA": {
-                        "Ir(Bpin)3(R)(H)": ["L28-Ir(Bpin)3(R)(H).log"],
-                        "OA-TS-Ir(R-H)(Bpin)3": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"],
-                        "σ-(R-H)Ir(Bpin)3": ["L28-σ-(R-H)Ir(Bpin)3.log"]
-                    }
-                }
+            "Rollover Pathway": {
+                "Bipy": ["Bipy-Hemilabile-TS.log", "Bipy-Ir(LX)Bpin2.log", "Bipy-Ligand_C-H-TS.log"],
+                "Bis-5-CF3-Bipy": ["L28-Hemilabile-TS.log", "L28-Ligand_C-H-TS.log", "L28-OA-TS-Ir(LX)(R-H)(Bpin)3.log"]
             }
-        },
-        "Borylation of 44u": {
-          "Bis-5-CF3-Bipy": {
-              "OA": {
-                  "Ir(Bpin)3(R)(H)": ["L28-Ir(Bpin)3(R)(H).log"],
-                  "OA-TS-Ir(R-H)(Bpin)3": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"],
-                  "σ-(R-H)Ir(Bpin)3": ["L28-σ-(R-H)Ir(Bpin)3.log"]
-              }
-          }
-      },
-      "Rollover": {
-          "Bipy": {
-              "Hemilabile-TS": ["Bipy-Hemilabile-TS.log"],
-              "Ir(LX)Bpin2": ["Bipy-Ir(LX)Bpin2.log"],
-              "Ir-(L)-Bpin3": ["Bipy-Ir-(L)-Bpin3.log"],
-              "Ligand_C-H-TS": ["Bipy-Ligand_C-H-TS.log"],
-              "OA-TS-Ir(LX)(R-H)(Bpin)3": ["Bipy-OA-TS-Ir(LX)(R-H)(Bpin)3.log"]
-          },
-          "Bis-5-CF3-Bipy": {
-              "Hemilabile-TS": ["L28-Hemilabile-TS.log"],
-              "Ir(LX)(Bpin)2": ["L28-Ir(LX)(Bpin)2.log"],
-              "Ir-(L)-Bpin3": ["L28-Ir-(L)-Bpin3.log"],
-              "Ligand_C-H-TS": ["L28-Ligand_C-H-TS.log"],
-              "OA-TS-Ir(LX)(R-H)(Bpin)3": ["L28-OA-TS-Ir(LX)(R-H)(Bpin)3.log"]
-          }
         }
-      }
-    }
-  };
+    };
 
+    // Diccionario de explicaciones breves (SciComm)
     const moleculeMetadata = {
-        "bipy-OA-TS-Ir(R-H)(Bpin)3": { "desc": "Oxidative addition Transition State for Bipyridine ligand. Key step in Ir-catalyzed C-H borylation.", "paper": "https://doi.org/10.1002/anie.XXXX" },
-        "Bipy_TS_m-3": { "desc": "Transition state showing the meta-selective C-H activation process.", "paper": "https://doi.org/10.1021/acscatal.XXXX" }
+        "bipy-OA-TS-Ir(R-H)(Bpin)3": { "desc": "This is the classic oxidative addition transition state. Notice the C-H bond stretching as it approaches the Iridium center!", "paper": "https://doi.org/10.1002/anie.XXXX" }
     };
 
     let myJmol = null;
 
-    // --- MEJORA: Lógica de Menú Lateral uniforme ---
-    function createSidebarMenu(data, parent, basePath = "molecules", level = 0) {
+    // --- GENERADOR DE MENÚ (Fix jerarquía 7.1) ---
+    function createSidebarMenu(data, parent, basePath, level = 0) {
         Object.keys(data).forEach((key) => {
-            const isTopLevel = (level === 0 || key.includes("section"));
+            const currentPath = basePath ? `${basePath}/${key}` : `molecules/Structures/${key}`;
+            const safeId = currentPath.replace(/[^a-zA-Z0-9]/g, '_');
 
             if (Array.isArray(data[key])) {
-                // Es un listado de archivos
-                const sectionLink = document.createElement("a");
-                sectionLink.textContent = key;
-                sectionLink.className = isTopLevel ? "folder-link dark" : "folder-link";
-                sectionLink.onclick = () => toggleSection(`section-${basePath}-${key.replace(/\s+/g, '')}`);
-                parent.appendChild(sectionLink);
+                const folderLink = document.createElement("a");
+                folderLink.textContent = key;
+                folderLink.className = (level === 0) ? "folder-link dark" : "folder-link";
+                folderLink.onclick = () => toggleSection(safeId);
+                parent.appendChild(folderLink);
 
                 const subDiv = document.createElement("div");
-                subDiv.id = `section-${basePath}-${key.replace(/\s+/g, '')}`;
+                subDiv.id = safeId;
                 subDiv.className = "submenu";
                 subDiv.style.display = "none";
 
@@ -331,24 +101,22 @@
                     const fileLink = document.createElement("a");
                     fileLink.textContent = moleculeName;
                     fileLink.className = "file-link";
-                    fileLink.onclick = () => loadMolecule(`${basePath}/${key}/${file}`, moleculeName);
+                    fileLink.onclick = () => loadMolecule(`${currentPath}/${file}`, moleculeName);
                     subDiv.appendChild(fileLink);
                 });
                 parent.appendChild(subDiv);
-
-            } else if (typeof data[key] === "object") {
-                // Es una carpeta con más contenido
+            } else {
                 const folderLink = document.createElement("a");
                 folderLink.textContent = key;
-                folderLink.className = isTopLevel ? "folder-link dark" : "folder-link";
-                folderLink.onclick = () => toggleSection(`section-${basePath}-${key.replace(/\s+/g, '')}`);
+                folderLink.className = (level === 0) ? "folder-link dark" : "folder-link";
+                folderLink.onclick = () => toggleSection(safeId);
                 parent.appendChild(folderLink);
 
                 const subfolderDiv = document.createElement("div");
-                subfolderDiv.id = `section-${basePath}-${key.replace(/\s+/g, '')}`;
+                subfolderDiv.id = safeId;
                 subfolderDiv.className = "submenu";
                 subfolderDiv.style.display = "none";
-                createSidebarMenu(data[key], subfolderDiv, `${basePath}/${key}`, level + 1);
+                createSidebarMenu(data[key], subfolderDiv, currentPath, level + 1);
                 parent.appendChild(subfolderDiv);
             }
         });
@@ -356,14 +124,17 @@
 
     function toggleSection(id) {
         const s = document.getElementById(id);
-        if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
+        if (s) s.style.display = s.style.display === "none" ? "block" : "none";
     }
 
+    // --- CARGA DE JSMOL (Fix de espacios en ruta) ---
     function loadMolecule(filePath, moleculeName) {
         const content = document.getElementById("dynamic-content");
-        const meta = moleculeMetadata[moleculeName] || { desc: "Optimized geometry (DFT level). Analyze coordinates and vibrational modes below.", paper: null };
+        const meta = moleculeMetadata[moleculeName] || { desc: "Optimized DFT structure. Use the controls below to analyze vibrations or spin the model." };
 
-        // CORRECCIÓN: He eliminado la línea de "Source: molecules/..."
+        // Codificamos la ruta para GitHub Pages (manejo de espacios)
+        const encodedPath = encodeURI(filePath);
+
         content.innerHTML = `
             <div class="molecule-card">
                 <header class="mol-header">
@@ -374,7 +145,7 @@
 
                 <div class="toolbar">
                     <div class="tool-group">
-                        <button onclick="Jmol.script(myJmol, 'reset')">Reset View</button>
+                        <button onclick="Jmol.script(myJmol, 'reset')">Reset</button>
                         <button onclick="Jmol.script(myJmol, 'zoom +20')">Zoom +</button>
                         <button onclick="Jmol.script(myJmol, 'zoom -20')">Zoom -</button>
                     </div>
@@ -382,30 +153,23 @@
                         <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
                         <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Imaginary Freq.</label>
                     </div>
-                    <button class="btn-save" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Save PNG</button>
+                    <button class="btn-save" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
                 </div>
 
-                <div class="scientific-info">
-                    <h3>Scientific Context</h3>
+                <div class="sci-comm-panel">
+                    <div class="pro-tip">PRO TIP: Right-click the molecule for the full Jmol technical menu.</div>
+                    <h3>About this structure</h3>
                     <p>${meta.desc}</p>
-                    ${meta.paper ? `<a href="${meta.paper}" target="_blank" class="paper-link">Read full paper →</a>` : ''}
+                    ${meta.paper ? `<a href="${meta.paper}" target="_blank" class="paper-btn">Read the Paper →</a>` : ''}
                 </div>
             </div>
         `;
 
-        const Info = {
-            width: "100%",
-            height: 500,
-            j2sPath: "j2s",
-            color: "#FFFFFF",
-            use: "HTML5",
-            disableJ2SLoadMonitor: true,
-            disableInitialConsole: true
-        };
-
+        const Info = { width: "100%", height: 500, j2sPath: "j2s", color: "#FFFFFF", use: "HTML5", disableInitialConsole: true };
         myJmol = Jmol.getApplet("myJmol", Info);
         document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
-        Jmol.script(myJmol, `load '${filePath}'; model 2; set ambientPercent 25; set specularPower 100; set specularPercent 22; set antialiasDisplay on;`);
+
+        Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set specularPower 100; set specularPercent 22; set antialiasDisplay on;`);
 
         setActiveLink(moleculeName);
         if (window.innerWidth <= 768) toggleSidebar();
@@ -415,21 +179,23 @@
         const content = document.getElementById("dynamic-content");
         content.innerHTML = `
             <div class="home-hero">
-                <h1>Interactive Mechanistic Viewer</h1>
-                <p class="lead">A digital supplement to the doctoral thesis of Daniel Marcos Atanes. Explore computational structures and transition states in high resolution.</p>
+                <h1>Mechanistic Gallery</h1>
+                <p class="lead">Interactive 3D supplement to the PhD thesis of <strong>Daniel Marcos Atanes</strong>.</p>
 
-                <div class="oracle-card">
-                    <span class="label">Gaussian Oracle</span>
-                    <p id="quote-display">Loading...</p>
-                    <button class="btn-ghost" onclick="loadRandomQuote()">Next Quote</button>
+                <div class="oracle-container">
+                    <div class="oracle-label">Gaussian Quote of the day</div>
+                    <p id="quote-display">Analyzing the potential energy surface...</p>
+                    <button class="btn-ghost" onclick="loadRandomQuote()">Give me another tip</button>
                 </div>
 
-                <div class="guide">
-                    <div class="guide-item">
-                        <strong>Navigation:</strong> Use the sidebar to browse through chapters 7.1, 7.2, and 7.3.
+                <div class="welcome-grid">
+                    <div class="welcome-item">
+                        <h3>How to use</h3>
+                        <p>Pick a structure from the sidebar. You can rotate them, zoom in on catalytic centers, and even visualize transition state vibrations.</p>
                     </div>
-                    <div class="guide-item">
-                        <strong>Interaction:</strong> Rotate with your mouse, zoom with scroll, and right-click for the advanced Jmol menu.
+                    <div class="welcome-item">
+                        <h3>Sci-Comm</h3>
+                        <p>This viewer aims to make computational chemistry more accessible. Science is better when you can touch it (even if it's virtually).</p>
                     </div>
                 </div>
             </div>
@@ -440,19 +206,16 @@
     function loadRandomQuote() {
         fetch('g16_quotes.txt')
             .then(r => r.text())
-            .then(text => {
-                const quotes = text.split('\n\n').filter(q => q.trim() !== "");
-                document.getElementById("quote-display").textContent = quotes[Math.floor(Math.random() * quotes.length)];
-            })
-            .catch(() => document.getElementById("quote-display").textContent = "Gaussian job finished successfully.");
+            .then(t => {
+                const q = t.split('\n\n').filter(x => x.trim() !== "");
+                document.getElementById("quote-display").textContent = q[Math.floor(Math.random() * q.length)];
+            }).catch(() => document.getElementById("quote-display").textContent = "Link to the real world established.");
     }
 
     function searchMenu() {
         const q = document.getElementById("sidebar-search").value.toLowerCase();
-        document.querySelectorAll("#menu a").forEach(a => {
-            if (!a.classList.contains('folder-link')) {
-                a.style.display = a.textContent.toLowerCase().includes(q) ? "block" : "none";
-            }
+        document.querySelectorAll("#menu a.file-link").forEach(a => {
+            a.style.display = a.textContent.toLowerCase().includes(q) ? "block" : "none";
         });
     }
 
@@ -464,7 +227,7 @@
     }
 
     window.onload = () => {
-        createSidebarMenu(structureData.Structures, document.getElementById("menu"));
+        createSidebarMenu(structureData, document.getElementById("menu"), "");
         showHomePage();
     };
 </script>
