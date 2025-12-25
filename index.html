@@ -368,6 +368,7 @@
                     </div>
 
                     <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
+                    <button class="btn-outline" onclick="copyXYZ()">📋 Copy XYZ</button>
                 </div>
 
                 <div class="sci-panel">
@@ -393,7 +394,7 @@
 
         // Al cargar el script, forzamos de nuevo el fondo para que no queden bordes negros
         Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set antialiasDisplay on; background "${jsmolBgColor}";`);
-        
+
         setActiveLink(moleculeName);
         document.getElementById("main-content").scrollTo({top: 0, behavior: 'smooth'});
     }
@@ -465,6 +466,14 @@
         createSidebarMenu(structureData, document.getElementById("menu-container"));
         showHomePage();
     };
+
+    function copyXYZ() {
+        const xyzData = Jmol.getPropertyAsString(myJmol, "extractModel");
+        navigator.clipboard.writeText(xyzData).then(() => {
+            alert("Coordinates copied to clipboard!");
+        });
+    }
+
 </script>
 </body>
 </html>
