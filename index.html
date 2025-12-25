@@ -4,41 +4,56 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMA Thesis | 3D Mechanistic Viewer</title>
+    <link rel="icon" type="image/png" href="favicon.png">
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
-    <!-- Fuentes coherentes con tu web personal -->
+    <!-- Fuentes coherentes con tu portafolio -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="light-mode">
 
+    <!-- Botón para móviles (solo aparece en pantallas pequeñas) -->
     <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰ Menu</button>
 
-    <div id="main-container">
+    <div id="main-wrapper">
+        <!-- BARRA LATERAL -->
         <nav id="sidebar">
-            <header>
+            <header class="sidebar-header">
                 <h1>Daniel Marcos</h1>
                 <p class="tagline">Mechanistic Explorer</p>
-                <input type="text" id="sidebar-search" placeholder="Search intermediate..." onkeyup="searchMenu()">
+
+                <!-- DARK MODE SWITCH -->
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch">
+                        <input type="checkbox" id="dark-mode-checkbox" onclick="toggleDarkMode()" />
+                        <div class="slider round"></div>
+                    </label>
+                    <span id="theme-text">Light Mode</span>
+                </div>
+
+                <input type="text" id="sidebar-search" placeholder="Search structures..." onkeyup="searchMenu()">
             </header>
 
-            <div id="menu">
-                <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">Home Overview</a>
-                <!-- El árbol se genera aquí mediante JS -->
+            <div id="menu-container">
+                <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">🏠 Home Overview</a>
+                <!-- El menú se genera aquí mediante JS -->
             </div>
 
-            <footer>
+            <div class="sidebar-footer">
                 <a href="https://daniel-marcosatanes.github.io/" target="_blank">Back to Portfolio</a>
-            </footer>
+            </div>
         </nav>
 
-        <main id="content">
-            <div id="dynamic-content" class="container-pro">
-                <!-- UI inyectada dinámicamente -->
+        <!-- ÁREA DE CONTENIDO (Al lado del sidebar) -->
+        <main id="main-content">
+            <div id="dynamic-content" class="container-inner">
+                <!-- Aquí se inyecta la Home o el Visor -->
             </div>
         </main>
     </div>
 
 <script>
+    // --- SECCIÓN PROTEGIDA: MAPEO DE CARPETAS ---
     // --- MAPEO DE CARPETAS (Exactamente igual a tu árbol de archivos) ---
     const structureData = {
         "Structures section 7.1": [
@@ -149,164 +164,174 @@
         }
     };
 
+    // --- VARIABLES DE ESTADO ---
     let myJmol = null;
+    let isDarkMode = false;
+    let hShow = true;
+    let labelsOn = false;
 
-     // --- GENERADOR DE MENÚ RECURSIVO ---
-     function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
-         Object.keys(data).forEach((key) => {
-             const fullPath = `${currentPath}/${key}`;
-             const safeId = "ID_" + fullPath.replace(/[^a-zA-Z0-9]/g, '_');
-             const displayName = beautify(key);
+    // --- FUNCIONES AUXILIARES ---
+    function beautify(name) {
+        return name.replace("Structures section ", "Section ")
+                   .replace("Borylation of ", "Boryl. ");
+    }
 
-             if (Array.isArray(data[key])) {
-                 // Caso: Lista de archivos directa
-                 const folderLink = document.createElement("a");
-                 folderLink.textContent = (level === 0 ? "● " : "") + displayName;
-                 folderLink.className = (level === 0) ? "folder-link level-0" : "folder-link";
-                 folderLink.onclick = () => toggleSection(safeId);
-                 parent.appendChild(folderLink);
+    function toggleDarkMode() {
+        isDarkMode = !isDarkMode;
+        document.body.classList.toggle('dark-mode');
+        document.getElementById('theme-text').textContent = isDarkMode ? "Dark Mode" : "Light Mode";
+        if (myJmol) Jmol.script(myJmol, isDarkMode ? "background [x121212]" : "background white");
+    }
 
-                 const subDiv = document.createElement("div");
-                 subDiv.id = safeId;
-                 subDiv.className = "submenu";
-                 subDiv.style.display = "none";
+    function toggleH() { hShow = !hShow; Jmol.script(myJmol, hShow ? "display all" : "display not _H"); }
+    function toggleLabels() { labelsOn = !labelsOn; Jmol.script(myJmol, labelsOn ? "label %a; set labelOffset 0 0;" : "label off"); }
 
-                 data[key].forEach((file) => {
-                     const moleculeName = file.replace('.log', '');
-                     const fileLink = document.createElement("a");
-                     fileLink.textContent = moleculeName;
-                     fileLink.className = "file-link";
-                     fileLink.onclick = (e) => {
-                         e.stopPropagation();
-                         loadMolecule(`${fullPath}/${file}`, moleculeName);
-                     };
-                     subDiv.appendChild(fileLink);
-                 });
-                 parent.appendChild(subDiv);
-             } else {
-                 // Caso: Carpeta con subcarpetas
-                 const folderLink = document.createElement("a");
-                 folderLink.textContent = (level === 0 ? "● " : "") + displayName;
-                 folderLink.className = (level === 0) ? "folder-link level-0" : "folder-link";
-                 folderLink.onclick = () => toggleSection(safeId);
-                 parent.appendChild(folderLink);
+    // --- LÓGICA DEL MENÚ ---
+    function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
+        Object.keys(data).forEach((key) => {
+            const folderPath = `${currentPath}/${key}`;
+            const safeId = "ID_" + folderPath.replace(/[^a-zA-Z0-9]/g, '_');
+            const displayName = beautify(key);
 
-                 const subfolderDiv = document.createElement("div");
-                 subfolderDiv.id = safeId;
-                 subfolderDiv.className = "submenu";
-                 subfolderDiv.style.display = "none";
-                 createSidebarMenu(data[key], subfolderDiv, fullPath, level + 1);
-                 parent.appendChild(subfolderDiv);
-             }
-         });
-     }
+            const link = document.createElement("a");
+            link.textContent = (level === 0 ? "● " : "") + displayName;
+            link.className = (level === 0) ? "folder-link level-0" : "folder-link";
+            link.onclick = (e) => { e.preventDefault(); toggleSection(safeId); };
+            parent.appendChild(link);
 
-     function toggleSection(id) {
-         const s = document.getElementById(id);
-         if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
-     }
+            const subDiv = document.createElement("div");
+            subDiv.id = safeId;
+            subDiv.className = "submenu";
+            subDiv.style.display = "none";
 
-     // --- CARGA DE JSMOL (Fix rutas con espacios) ---
-     function loadMolecule(filePath, moleculeName) {
-         const content = document.getElementById("dynamic-content");
-         const encodedPath = encodeURI(filePath);
+            if (Array.isArray(data[key])) {
+                data[key].forEach((file) => {
+                    const moleculeName = file.replace('.log', '');
+                    const fileLink = document.createElement("a");
+                    fileLink.textContent = moleculeName;
+                    fileLink.className = "file-link";
+                    fileLink.onclick = (e) => {
+                        e.stopPropagation();
+                        loadMolecule(`${folderPath}/${file}`, moleculeName);
+                    };
+                    subDiv.appendChild(fileLink);
+                });
+            } else {
+                createSidebarMenu(data[key], subDiv, folderPath, level + 1);
+            }
+            parent.appendChild(subDiv);
+        });
+    }
 
-         content.innerHTML = `
-             <div class="molecule-card">
-                 <header class="mol-header">
-                     <h2>${moleculeName}</h2>
-                 </header>
+    function toggleSection(id) {
+        const s = document.getElementById(id);
+        if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
+    }
 
-                 <div id="jsmolContainer" class="jsmol-box"></div>
+    // --- CARGA DE MOLÉCULAS ---
+    function loadMolecule(filePath, moleculeName) {
+        const content = document.getElementById("dynamic-content");
+        const encodedPath = encodeURI(filePath);
 
-                 <div class="toolbar">
-                     <div class="tool-group">
-                         <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset')">Reset View</button>
-                         <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom +20')">Zoom +</button>
-                         <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom -20')">Zoom -</button>
-                     </div>
-                     <div class="tool-group checkboxes">
-                         <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
-                         <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
-                     </div>
-                     <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
-                 </div>
+        content.innerHTML = `
+            <div class="molecule-card">
+                <header class="mol-header">
+                    <h2>${moleculeName}</h2>
+                    <span class="mol-badge">${moleculeName.includes('TS') ? 'TS' : 'INT'}</span>
+                </header>
 
-                 <div class="sci-comm-info">
-                     <div class="pro-tip">PRO TIP: Use the vibration mode to see the reaction coordinate transition!</div>
-                     <h3>About this intermediate</h3>
-                     <p>Computational stationary point optimized at the DFT level. Explore the coordination sphere by rotating the model.</p>
-                 </div>
-             </div>
-         `;
+                <div id="jsmolContainer" class="jsmol-box"></div>
 
-         const Info = { width: "100%", height: 500, j2sPath: "j2s", color: "#FFFFFF", use: "HTML5", disableInitialConsole: true };
-         myJmol = Jmol.getApplet("myJmol", Info);
-         document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
+                <div class="toolbar">
+                    <div class="tool-group">
+                        <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset')">🔄 Reset</button>
+                        <button class="btn-outline" onclick="toggleH()">H-Toggle</button>
+                        <button class="btn-outline" onclick="toggleLabels()">Labels</button>
+                    </div>
+                    <div class="tool-group checkboxes">
+                        <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
+                        <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
+                    </div>
+                    <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
+                </div>
 
-         Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set specularPower 100; set specularPercent 22; set antialiasDisplay on;`);
+                <div class="sci-panel">
+                    <p class="pro-tip">TIP: Transition states are saddle points. Enable vibration to see the reaction vector.</p>
+                    <h3>Technical Overview</h3>
+                    <p>Computational stationary point optimized at the DFT level. Explore the coordination environment by rotating the model.</p>
+                </div>
+            </div>
+        `;
 
-         setActiveLink(moleculeName);
-         if (window.innerWidth <= 768) toggleSidebar();
-     }
+        const Info = {
+            width: "100%", height: 500, j2sPath: "j2s",
+            color: isDarkMode ? "#121212" : "#FFFFFF",
+            use: "HTML5", disableInitialConsole: true
+        };
+        myJmol = Jmol.getApplet("myJmol", Info);
+        document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
+        Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set antialiasDisplay on;`);
 
-     function showHomePage() {
-         const content = document.getElementById("dynamic-content");
-         content.innerHTML = `
-             <div class="home-hero">
-                 <h1>Interactive Mechanistic Viewer</h1>
-                 <p class="lead">A 3D digital companion to my research on <strong>Iridium-catalyzed borylations</strong>.</p>
+        setActiveLink(moleculeName);
+        document.getElementById("main-content").scrollTo({top: 0, behavior: 'smooth'});
+    }
 
-                 <div class="oracle-card">
-                     <span class="oracle-label">Gaussian Quote Oracle</span>
-                     <p id="quote-display">Loading computational wisdom...</p>
-                     <button class="btn-ghost" onclick="loadRandomQuote()">Generate Tip</button>
-                 </div>
+    // --- HOME PAGE ---
+    function showHomePage() {
+        const content = document.getElementById("dynamic-content");
+        content.innerHTML = `
+            <div class="home-hero">
+                <h1>Interactive Mechanistic Viewer</h1>
+                <p class="lead">A 3D digital supplement to the doctoral research of <strong>Daniel Marcos Atanes</strong>.</p>
 
-                 <div class="feature-grid">
-                     <div class="feature-item">
-                         <h3>Dynamic Analysis</h3>
-                         <p>Chemical mechanisms aren't 2D. Rotate, zoom and explore interactions that define regioselectivity.</p>
-                     </div>
-                     <div class="feature-item">
-                         <h3>DFT Precision</h3>
-                         <p>All models are rendered directly from Gaussian output files used in my PhD thesis.</p>
-                     </div>
-                 </div>
-             </div>
-         `;
-         loadRandomQuote();
-     }
+                <div class="oracle-card">
+                    <span class="oracle-label">Gaussian Oracle</span>
+                    <p id="quote-display">Analyzing potential energy surface...</p>
+                    <button class="btn-ghost" onclick="loadRandomQuote()">Generate Tip</button>
+                </div>
 
-     function loadRandomQuote() {
-         fetch('g16_quotes.txt').then(r => r.text()).then(t => {
-             const q = t.split('\n\n').filter(x => x.trim() !== "");
-             document.getElementById("quote-display").textContent = q[Math.floor(Math.random() * q.length)];
-         }).catch(() => {});
-     }
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h3>3D Perspective</h3>
+                        <p>Chemical mechanisms are inherently 3D. Explore steric hindrance and coordination geometries directly.</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Direct Data</h3>
+                        <p>All models use the same coordinate data found in calculation logs from chapters 7.1-7.3.</p>
+                    </div>
+                </div>
+            </div>
+        `;
+        loadRandomQuote();
+    }
 
-     function searchMenu() {
-         const q = document.getElementById("sidebar-search").value.toLowerCase();
-         document.querySelectorAll("#menu a.file-link").forEach(a => {
-             a.style.display = a.textContent.toLowerCase().includes(q) ? "block" : "none";
-         });
-     }
+    function loadRandomQuote() {
+        fetch('g16_quotes.txt').then(r => r.text()).then(t => {
+            const q = t.split('\n\n').filter(x => x.trim() !== "");
+            document.getElementById("quote-display").textContent = q[Math.floor(Math.random() * q.length)];
+        }).catch(() => { document.getElementById("quote-display").textContent = "Gaussian job finished successfully."; });
+    }
 
-     function setActiveLink(name) {
-         document.querySelectorAll('#menu a').forEach(a => {
-             a.classList.remove('active');
-             if (a.textContent === name) a.classList.add('active');
-         });
-     }
+    function searchMenu() {
+        const q = document.getElementById("sidebar-search").value.toLowerCase();
+        document.querySelectorAll("#menu-container a.file-link").forEach(a => {
+            a.style.display = a.textContent.toLowerCase().includes(q) ? "block" : "none";
+        });
+    }
 
-     window.onload = () => {
-         createSidebarMenu(structureData, document.getElementById("menu"));
-         showHomePage();
-     };
+    function setActiveLink(name) {
+        document.querySelectorAll('#menu-container a').forEach(a => {
+            a.classList.remove('active');
+            if (a.textContent === name) a.classList.add('active');
+        });
+    }
 
-     function toggleSidebar() {
-         document.getElementById('sidebar').classList.toggle('show');
-     }
- </script>
- </body>
- </html>
+    function toggleSidebar() { document.getElementById('sidebar').classList.toggle('show'); }
+
+    window.onload = () => {
+        createSidebarMenu(structureData, document.getElementById("menu-container"));
+        showHomePage();
+    };
+</script>
+</body>
+</html>
