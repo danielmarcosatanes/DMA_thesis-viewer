@@ -1,5 +1,5 @@
 /* =======================================================
-   REDISEÑO: TEAL & GOLD (Daniel Marcos Portfolio Style)
+   ESTILO COHERENTE: TEAL & GOLD (Daniel Marcos Style)
    ======================================================= */
 
 :root {
@@ -7,71 +7,27 @@
     --chem-gold: #e29578;
     --text-main: #333333;
     --sidebar-w: 300px;
-    --bg-light: #ffffff;
+    --bg-page: #ffffff;
+    --bg-card: #fdfdfd;
+    --bg-toolbar: #f8f9fa;
     --border: #eeeeee;
 }
 
 /* --- DARK MODE DEFINITIVO --- */
 body.dark-mode {
-    --bg-light: #121212;
-    --text-main: #f0f0f0;
-    --border: #333333;
-    background-color: #121212;
-}
-
-/* Forzar que la tarjeta y todo su contenido sean oscuros */
-body.dark-mode #sidebar,
-body.dark-mode .molecule-card,
-body.dark-mode .jsmol-box,
-body.dark-mode .toolbar,
-body.dark-mode .sci-panel {
-    background-color: #1a1a1a !important;
-    color: #f0f0f0 !important;
-    border-color: #333333 !important;
-}
-
-/* Arreglo específico para los textos de Spin y Vibration */
-body.dark-mode .check-container {
-    color: #f0f0f0 !important;
-}
-
-/* Eliminar el borde azul de enfoque de JSmol y asegurar fondo negro */
-.jsmol-box {
-    background-color: #000 !important; /* Para que coincida con el motor de JSmol */
-    line-height: 0;
-    font-size: 0;
-    border: 1px solid var(--border);
-}
-
-/* Ajuste de la Toolbar en modo oscuro */
-body.dark-mode .btn-outline {
-    background-color: transparent !important;
-    color: var(--chem-teal) !important;
-    border-color: var(--chem-teal) !important;
-}
-
-body.dark-mode .btn-outline:hover {
-    color: var(--chem-gold) !important;
-    border-color: var(--chem-gold) !important;
-}
-
-/* Quitar rebordes extraños en el contenedor de JSmol */
-.jsmol-box {
-    border: none !important; /* JSmol ya tiene su borde interno */
-    overflow: hidden;
-}
-
-/* Panel de información científica en modo oscuro */
-body.dark-mode .sci-panel {
-    background: #1a1a1a !important;
-    border-color: #333 !important;
+    --bg-page: #0a0a0a;
+    --bg-card: #161616;
+    --bg-toolbar: #1f1f1f;
+    --text-main: #e0e0e0;
+    --border: #2a2a2a;
 }
 
 * { box-sizing: border-box; }
 
 html, body {
     margin: 0; padding: 0; height: 100%;
-    background-color: var(--bg-light);
+    background-color: var(--bg-page);
+    transition: background-color 0.3s ease;
 }
 
 body {
@@ -79,12 +35,11 @@ body {
     color: var(--text-main);
 }
 
-/* LA CLAVE: El envoltorio flex para poner Sidebar y Contenido de lado */
 #main-wrapper {
     display: flex;
     width: 100%;
     height: 100vh;
-    overflow: hidden; /* Evita scroll doble */
+    overflow: hidden;
 }
 
 /* --- SIDEBAR --- */
@@ -92,12 +47,11 @@ body {
     width: var(--sidebar-w);
     min-width: var(--sidebar-w);
     height: 100%;
-    background: #fff;
+    background: var(--bg-card);
     border-right: 1px solid var(--border);
     display: flex; flex-direction: column;
+    overflow: hidden;
 }
-
-body.dark-mode #sidebar { background: #1a1a1a; }
 
 .sidebar-header { padding: 3rem 1.5rem 1.5rem; border-bottom: 1px solid var(--border); }
 .sidebar-header h1 {
@@ -107,74 +61,104 @@ body.dark-mode #sidebar { background: #1a1a1a; }
 .tagline { margin: 5px 0 15px; font-size: 0.75rem; text-transform: uppercase; color: var(--chem-gold); font-weight: bold; letter-spacing: 1px; }
 
 #sidebar-search {
-    width: 100%; padding: 10px; background: #f8f9fa; border: 1px solid #ddd;
-    border-radius: 6px; outline: none;
+    width: 100%; padding: 10px; background: var(--bg-toolbar); border: 1px solid var(--border);
+    border-radius: 6px; outline: none; color: var(--text-main);
 }
-body.dark-mode #sidebar-search { background: #333; border-color: #444; color: white; }
 
 #menu-container { flex: 1; overflow-y: auto; padding: 1rem 0; }
-#menu-container a { display: block; padding: 10px 25px; color: #555; text-decoration: none; font-size: 0.9rem; cursor: pointer; }
-#menu-container a:hover { color: var(--chem-teal); background: #f9fafb; }
-#menu-container a.active { font-weight: bold; color: var(--chem-teal); background: rgba(0, 109, 119, 0.05); border-right: 4px solid var(--chem-teal); }
+#menu-container a { display: block; padding: 10px 25px; color: #777; text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+#menu-container a:hover { color: var(--chem-teal); background: var(--bg-toolbar); }
+#menu-container a.active { font-weight: bold; color: var(--chem-teal); background: rgba(0, 109, 119, 0.08); border-right: 4px solid var(--chem-teal); }
 
 .folder-link.level-0 { font-family: 'Montserrat', sans-serif; text-transform: uppercase; font-size: 0.8rem; padding-top: 20px !important; color: var(--chem-teal) !important; }
-.submenu { padding-left: 0; border-left: 2px solid #f1f3f5; margin-left: 25px; }
+.submenu { padding-left: 0; border-left: 1px solid var(--border); margin-left: 25px; }
 
 .sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--border); text-align: center; font-size: 0.8rem; }
-.sidebar-footer a { color: var(--chem-teal); text-decoration: none; font-weight: bold; font-size: 0.8rem; }
+.sidebar-footer a { color: var(--chem-teal); text-decoration: none; font-weight: bold; }
 
 /* --- CONTENIDO --- */
 #main-content {
     flex: 1;
     height: 100%;
     overflow-y: auto;
-    padding: 4rem 2rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: var(--bg-page);
 }
 
-.container-inner { max-width: 900px; width: 100%; }
+.container-inner { max-width: 1000px; width: 100%; }
+
+/* TARJETA DE MOLÉCULA (Aquí estaba el fallo del color blanco) */
+.molecule-card {
+    width: 100%;
+    background-color: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
 
 .mol-header {
     display: flex; justify-content: space-between; align-items: center;
-    border-bottom: 2px solid var(--chem-teal); margin-bottom: 2rem; padding-bottom: 10px;
+    border-bottom: 2px solid var(--chem-teal); margin-bottom: 1.5rem; padding-bottom: 10px;
 }
-.mol-header h2 { font-family: 'Montserrat', sans-serif; margin: 0; color: var(--chem-teal); font-size: 2rem; }
+.mol-header h2 { font-family: 'Montserrat', sans-serif; margin: 0; color: var(--chem-teal); font-size: 1.8rem; }
 .mol-badge { background: var(--chem-gold); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
 
-.jsmol-box { width: 100% !important; height: 550px !important; border-radius: 12px; border: 1px solid #ddd; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+/* VISOR JSMOL */
+.jsmol-box {
+    width: 100% !important;
+    height: 550px !important;
+    border-radius: 8px;
+    background-color: #000; /* Fondo negro siempre para el visor */
+    overflow: hidden;
+    line-height: 0;
+}
 
 /* --- TOOLBAR --- */
 .toolbar {
     display: flex; justify-content: space-between; align-items: center;
-    margin: 1.5rem 0; padding: 1.2rem; background: #fff;
-    border: 1px solid var(--border); border-radius: 10px; gap: 15px; flex-wrap: wrap;
+    margin-top: 1.5rem; padding: 1rem;
+    background: var(--bg-toolbar);
+    border: 1px solid var(--border);
+    border-radius: 8px; gap: 15px; flex-wrap: wrap;
 }
+
+.tool-group { display: flex; gap: 8px; }
+
 .btn-outline {
-    background: transparent; border: 1px solid var(--chem-teal); color: var(--chem-teal);
+    background: var(--bg-card); border: 1px solid var(--chem-teal); color: var(--chem-teal);
     padding: 8px 14px; border-radius: 6px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; cursor: pointer;
+    transition: 0.2s;
 }
-.btn-outline:hover { color: var(--chem-gold); border-color: var(--chem-gold); background: rgba(226,149,120,0.05); }
+.btn-outline:hover { color: var(--chem-gold); border-color: var(--chem-gold); background: rgba(226,149,120,0.1); }
+
 .btn-solid { background: var(--chem-teal); color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer; }
+.btn-solid:hover { background: var(--chem-gold); }
+
+.checkboxes label {
+    font-size: 0.85rem; font-weight: 500; display: flex; align-items: center; gap: 6px; cursor: pointer;
+    color: var(--text-main);
+}
 
 /* --- SCI PANEL --- */
-.sci-panel { margin-top: 3rem; padding: 2rem; background: #fbfbfb; border-radius: 12px; border: 1px solid #border; }
-body.dark-mode .sci-panel { background: #1a1a1a; }
-.sci-panel h3 { font-family: 'Montserrat', sans-serif; color: var(--chem-teal); margin-top: 0; }
-.pro-tip { color: var(--chem-gold); font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; text-transform: uppercase; }
+.sci-panel { margin-top: 2rem; padding: 1.5rem; background: var(--bg-toolbar); border-radius: 8px; border: 1px solid var(--border); }
+.sci-panel h3 { font-family: 'Montserrat', sans-serif; color: var(--chem-teal); margin-top: 0; font-size: 1.2rem; }
+.pro-tip { color: var(--chem-gold); font-weight: bold; font-size: 0.75rem; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px; }
 
 /* --- HOME PAGE --- */
-.home-hero { text-align: center; }
-.home-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3.2rem; color: var(--chem-teal); }
-.lead { font-size: 1.3rem; color: #666; margin-bottom: 3rem; line-height: 1.6; }
+.home-hero { text-align: center; padding-top: 2rem; }
+.home-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3rem; color: var(--chem-teal); }
+.lead { font-size: 1.2rem; color: var(--text-main); opacity: 0.8; margin-bottom: 3rem; line-height: 1.6; }
 
-.oracle-card { background: var(--chem-teal); color: white; padding: 4rem 2rem; border-radius: 20px; margin: 4rem 0; text-align: center; }
+.oracle-card { background: var(--chem-teal); color: white; padding: 3rem 2rem; border-radius: 20px; margin: 4rem 0; text-align: center; }
 .oracle-card p { font-family: 'Montserrat', sans-serif; font-style: italic; font-size: 1.5rem; margin: 25px 0; color: white !important; }
 .btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: white; padding: 12px 24px; border-radius: 6px; cursor: pointer; }
 
 .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 5rem; text-align: left; }
-.info-item h3 { border-bottom: 2px solid var(--chem-gold); display: inline-block; padding-bottom: 5px; }
+.info-item h3 { border-bottom: 2px solid var(--chem-gold); display: inline-block; padding-bottom: 5px; margin-bottom: 15px; }
 
 /* --- THEME SWITCH --- */
 .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
@@ -190,22 +174,10 @@ input:checked + .slider:before { transform: translateX(16px); }
 .mobile-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1100; background: var(--chem-teal); color: white; border: none; padding: 10px; border-radius: 4px; }
 
 @media (max-width: 768px) {
-    #main-wrapper { flex-direction: column; }
-    #sidebar { position: fixed; transform: translateX(-100%); z-index: 1000; width: 85%; }
-    #sidebar.show { transform: translateX(0); }
+    #sidebar { position: fixed; left: -300px; height: 100%; transition: 0.3s; width: 280px; }
+    #sidebar.show { left: 0; }
     .mobile-toggle { display: block; }
     #main-content { padding: 5rem 1rem 2rem; }
     .toolbar { flex-direction: column; align-items: stretch; }
     .info-grid { grid-template-columns: 1fr; }
-}
-
-.tool-group {
-    display: flex;
-    gap: 8px; /* Espacio entre botones del mismo grupo */
-    align-items: center;
-}
-
-.btn-outline {
-    min-width: 40px; /* Asegura que los botones +/- no sean demasiado estrechos */
-    text-align: center;
 }
