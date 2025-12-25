@@ -346,25 +346,30 @@
                     <h2>${moleculeName}</h2>
                     <span class="mol-badge">${moleculeName.includes('TS') ? 'TS' : 'INT'}</span>
                 </header>
-                <div id="jsmolContainer" class="jsmol-box"></div>
+
+                <div id="jsmolContainer" class="jsmol-box" style="line-height: 0;"></div>
+
                 <div class="toolbar">
                     <div class="tool-group">
-                        <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset')">🔄 Reset</button>
-                        <button class="btn-outline" onclick="toggleH()">H-Toggle</button>
-                        <button class="btn-outline" onclick="toggleLabels()">Labels</button>
-                        <button class="btn-outline" title="Zoom In" onclick="Jmol.script(myJmol, 'zoom +20')">➕</button>
-                        <button class="btn-outline" title="Zoom Out" onclick="Jmol.script(myJmol, 'zoom -20')">➖</button>
+                        <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset')">🔄 RESET</button>
+                        <button class="btn-outline" onclick="toggleH()">H-TOGGLE</button>
+                        <button class="btn-outline" onclick="toggleLabels()">LABELS</button>
+                        <button class="btn-outline" style="font-weight:bold" onclick="Jmol.script(myJmol, 'zoom +20')"> + </button>
+                        <button class="btn-outline" style="font-weight:bold" onclick="Jmol.script(myJmol, 'zoom -20')"> - </button>
                     </div>
+
                     <div class="tool-group checkboxes">
-                        <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
-                        <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
+                        <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
+                        <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
                     </div>
+
                     <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
                 </div>
+
                 <div class="sci-panel">
-                    <p class="pro-tip">TIP: Use the "Labels" button to identify specific atoms mentioned in the thesis text.</p>
-                    <h3>Technical Overview</h3>
-                    <p>Computational geometry optimized with DFT. This structure represents a stationary point on the potential energy surface.</p>
+                    <p class="pro-tip">PRO TIP: Use the vibration toggle to see the transition state's movement.</p>
+                    <h3>Analysis</h3>
+                    <p>Computational stationary point optimized at the DFT level. Explore the coordination environment by rotating the model.</p>                </div>
                 </div>
             </div>
         `;
