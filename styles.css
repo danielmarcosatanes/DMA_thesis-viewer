@@ -148,3 +148,14 @@ input:checked + .slider:before { transform: translateX(16px); }
     .toolbar { flex-direction: column; align-items: stretch; }
     .info-grid { grid-template-columns: 1fr; }
 }
+
+.tool-group {
+    display: flex;
+    gap: 8px; /* Espacio entre botones del mismo grupo */
+    align-items: center;
+}
+
+.btn-outline {
+    min-width: 40px; /* Asegura que los botones +/- no sean demasiado estrechos */
+    text-align: center;
+}
