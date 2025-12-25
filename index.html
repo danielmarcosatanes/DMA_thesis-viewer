@@ -6,7 +6,7 @@
     <title>DMA Thesis | 3D Mechanistic Viewer</title>
 
     <!-- FAVICON: Átomo ⚛️ -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
 
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
@@ -22,7 +22,6 @@
             <header class="sidebar-header">
                 <h1>Daniel Marcos</h1>
                 <p class="tagline">Mechanistic Explorer</p>
-
                 <div class="theme-switch-wrapper">
                     <label class="theme-switch">
                         <input type="checkbox" id="dark-mode-checkbox" onclick="toggleDarkMode()" />
@@ -30,12 +29,13 @@
                     </label>
                     <span id="theme-text">Light Mode</span>
                 </div>
-                <input type="text" id="sidebar-search" placeholder="Search intermediate..." onkeyup="searchMenu()">
+                <input type="text" id="sidebar-search" placeholder="Search structure..." onkeyup="searchMenu()">
             </header>
 
+            <!-- EL MENÚ VUELVE A SER UNA LISTA VERTICAL -->
             <div id="menu">
                 <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">🏠 Home Overview</a>
-                <!-- El árbol se inyecta aquí -->
+                <!-- Aquí el JS inyectará las carpetas verticalmente -->
             </div>
 
             <div class="sidebar-footer">
