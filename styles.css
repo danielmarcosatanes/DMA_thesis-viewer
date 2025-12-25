@@ -11,10 +11,53 @@
     --border: #eeeeee;
 }
 
+/* --- MEJORAS ESPECÍFICAS PARA DARK MODE --- */
 body.dark-mode {
     --bg-light: #121212;
     --text-main: #f0f0f0;
     --border: #333333;
+}
+
+/* Arreglo para que no se vea el fondo blanco debajo de JSmol */
+body.dark-mode .molecule-card {
+    background-color: #1a1a1a !important;
+    border-color: #333 !important;
+}
+
+/* Toolbar integrada en modo oscuro */
+body.dark-mode .toolbar {
+    background: #1a1a1a !important;
+    border-color: #333 !important;
+}
+
+/* Color de los textos de los checkboxes en modo oscuro */
+body.dark-mode .check-container {
+    color: #cccccc !important;
+}
+
+/* Botones en modo oscuro para que no brillen demasiado */
+body.dark-mode .btn-outline {
+    color: var(--chem-teal);
+    border-color: var(--chem-teal);
+    background: transparent;
+}
+
+body.dark-mode .btn-outline:hover {
+    color: var(--chem-gold);
+    border-color: var(--chem-gold);
+    background: rgba(226, 149, 120, 0.1);
+}
+
+/* Quitar rebordes extraños en el contenedor de JSmol */
+.jsmol-box {
+    border: none !important; /* JSmol ya tiene su borde interno */
+    overflow: hidden;
+}
+
+/* Panel de información científica en modo oscuro */
+body.dark-mode .sci-panel {
+    background: #1a1a1a !important;
+    border-color: #333 !important;
 }
 
 * { box-sizing: border-box; }
