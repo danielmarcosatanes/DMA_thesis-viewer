@@ -117,6 +117,7 @@
                     }
                 },
                 "Bis-5-CF3-Bipy": {
+                    "Interactive Mechanism": "VIEW_L28_MECHANISM",
                     "Ir(Bpin)": ["L28-Ir(Bpin).log"], "Ir(Bpin)3": ["L28-Ir(Bpin)3.log"], "Ir(Bpin)5": ["L28-Ir(Bpin)5.log"], "Ir(H)(Bpin)2": ["L28-Ir(H)(Bpin)2.log"],
                     "Isom-H": {
                         "σ-isoH-(R-Bpin)Ir(Bpin)2(H)": ["L28-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"],
@@ -268,65 +269,19 @@
         }
     };
 
-    // --- 1. DATOS DEL PERFIL ENERGÉTICO (Añadir debajo de structureData) ---
-    const energyData44a_L28 = [
-        { id: "L28-Ir(Bpin)3", label: "Ir(Bpin)3", energy: 0.0, x: 80, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Ir(Bpin)3/L28-Ir(Bpin)3.log" },
-        { id: "L28-σ-(R-H)Ir(Bpin)3", label: "σ-(R-H)", energy: 0.8, x: 160, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/σ-(R-H)Ir(Bpin)3/L28-σ-(R-H)Ir(Bpin)3.log" },
-        { id: "L28-OA-TS-Ir(R-H)(Bpin)3", label: "OA-TS", energy: 24.3, x: 240, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/OA-TS-Ir(R-H)(Bpin)3/L28-OA-TS-Ir(R-H)(Bpin)3.log" },
-        { id: "L28-Ir(Bpin)3(R)(H)", label: "Ir(Bpin)3(R)(H)", energy: 12.9, x: 320, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/Ir(Bpin)3(R)(H)/L28-Ir(Bpin)3(R)(H).log" },
-        { id: "L28-isomH-TS-Ir(Bpin)3(R)(H)", label: "isomH-TS", energy: 30.5, x: 420, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/isomH-TS-Ir(Bpin)3(R)(H)/L28-isomH-TS-Ir(Bpin)3(R)(H).log", color: "#e67e22" },
-        { id: "L28-isoH-Ir(Bpin)3(R)(H)", label: "isoH-Ir", energy: 18.1, x: 520, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/isoH-Ir(Bpin)3(R)(H)/L28-isoH-Ir(Bpin)3(R)(H).log", color: "#e67e22" },
-        { id: "L28-RE-TS-isoH-Ir(Bpin)3(R)(H)", label: "RE-TS", energy: 32.3, x: 620, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/RE-TS-isoH-Ir(Bpin)3(R)(H)/L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log", color: "#e67e22" }
-    ];
-
-    // --- 2. FUNCIÓN DE RENDERIZADO (Añadir debajo de los datos anteriores) ---
-    function renderEnergyProfile(currentMoleculeId) {
-        const width = 700;
-        const height = 200;
-        const padding = 40;
-        const yScale = (e) => height - padding - (e * (height - 2 * padding) / 35);
-
-        let svgLevels = "";
-        energyData44a_L28.forEach(p => {
-            const y = yScale(p.energy);
-            const isActive = p.id === currentMoleculeId;
-            const color = isActive ? 'var(--chem-gold)' : (p.color || 'var(--chem-teal)');
-
-            svgLevels += `
-                <g class="energy-level" onclick="loadMolecule('${p.path}', '${p.id}')" style="cursor:pointer">
-                    <line x1="${p.x - 20}" y1="${y}" x2="${p.x + 20}" y2="${y}"
-                          stroke="${color}" stroke-width="${isActive ? 5 : 2.5}" />
-                    <text x="${p.x}" y="${y - 12}" text-anchor="middle" font-size="11" fill="${color}" font-weight="${isActive?'bold':'normal'}">${p.energy}</text>
-                    <text x="${p.x}" y="${y + 20}" text-anchor="middle" font-size="9" fill="#888">${p.label}</text>
-                </g>`;
-        });
-
-        return `
-            <div class="energy-profile-box">
-                <h4 class="profile-title">Mechanism Map: 44a Borylation (Ligand L28)</h4>
-                <div class="svg-scroll-container">
-                    <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}">
-                        <line x1="40" y1="${padding}" x2="40" y2="${height-padding}" stroke="#ccc" stroke-width="1" />
-                        <text x="15" y="${height/2}" transform="rotate(-90 15,${height/2})" font-size="10" fill="#999">ΔG (kcal/mol)</text>
-                        ${svgLevels}
-                    </svg>
-                </div>
-                <p class="profile-hint">Interactive: Click any level to jump to the 3D structure</p>
-            </div>`;
-    }
-
-    let myJmol = null;
-    let isDarkMode = false;
-    let hShow = true;
-    let labelsOn = false;
-
-    function beautify(name) {
-        return name.replace("Structures section ", "Section ")
-                   .replace("Borylation of ", "Boryl. ");
-    }
-
     function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
         Object.keys(data).forEach((key) => {
+
+          // --- NUEVO: Detectar el link especial de mecanismo ---
+          if (data[key] === "VIEW_L28_MECHANISM") {
+              const mechLink = document.createElement("a");
+              mechLink.innerHTML = "🗺️ <b>Interactive Mechanism</b>";
+              mechLink.className = "file-link mechanism-btn";
+              mechLink.onclick = (e) => { e.stopPropagation(); showMechanismL28(); };
+              parent.appendChild(mechLink);
+              return;
+          }
+
             const folderPath = `${currentPath}/${key}`;
             const safeId = "ID_" + folderPath.replace(/[^a-zA-Z0-9]/g, '_');
             const displayName = beautify(key);
@@ -387,10 +342,6 @@
         // para asegurar que JSmol y GitHub Pages se entiendan.
         const encodedPath = filePath.split('/').map(segment => encodeURIComponent(segment)).join('/');
 
-        // NUEVO: Lógica para el perfil energético
-        const isL28Mechanism = moleculeName.startsWith("L28");
-        const profileHtml = isL28Mechanism ? renderEnergyProfile(moleculeName) : "";
-
         // Determinamos el color de fondo de JSmol según el modo actual
         const jsmolBgColor = isDarkMode ? "#161616" : "#fdfdfd";
 
@@ -421,9 +372,6 @@
                     <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
                     <button class="btn-outline" onclick="copyXYZ()">📋 Copy XYZ</button>
                 </div>
-
-                <!-- NUEVO: Inyectamos el perfil aquí, entre la toolbar y el panel de análisis -->
-                ${profileHtml}
 
                 <div class="sci-panel">
                     <p class="pro-tip">PRO TIP: Use the vibration toggle to see the transition state's movement.</p>
@@ -526,6 +474,65 @@
         navigator.clipboard.writeText(xyzData).then(() => {
             alert("Coordinates copied to clipboard!");
         });
+    }
+
+    // --- DATOS Y FUNCIONES PARA EL PERFIL ENERGÉTICO ---
+
+    const energyDataL28 = [
+        { id: "L28-Ir(Bpin)3", label: "Resting State", energy: 0.0, x: 80, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Ir(Bpin)3/L28-Ir(Bpin)3.log" },
+        { id: "L28-σ-(R-H)Ir(Bpin)3", label: "σ-complex", energy: 0.8, x: 160, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/σ-(R-H)Ir(Bpin)3/L28-σ-(R-H)Ir(Bpin)3.log" },
+        { id: "L28-OA-TS-Ir(R-H)(Bpin)3", label: "OA-TS", energy: 24.3, x: 240, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/OA-TS-Ir(R-H)(Bpin)3/L28-OA-TS-Ir(R-H)(Bpin)3.log" },
+        { id: "L28-Ir(Bpin)3(R)(H)", label: "Intermediate", energy: 12.9, x: 320, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/Ir(Bpin)3(R)(H)/L28-Ir(Bpin)3(R)(H).log" },
+        { id: "L28-isomH-TS-Ir(Bpin)3(R)(H)", label: "isomH-TS", energy: 30.5, x: 420, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/isomH-TS-Ir(Bpin)3(R)(H)/L28-isomH-TS-Ir(Bpin)3(R)(H).log", color: "#e67e22" },
+        { id: "L28-isoH-Ir(Bpin)3(R)(H)", label: "isoH-Intermediate", energy: 18.1, x: 520, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/isoH-Ir(Bpin)3(R)(H)/L28-isoH-Ir(Bpin)3(R)(H).log", color: "#e67e22" },
+        { id: "L28-RE-TS-isoH-Ir(Bpin)3(R)(H)", label: "RE-TS (H)", energy: 32.3, x: 620, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/RE-TS-isoH-Ir(Bpin)3(R)(H)/L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log", color: "#e67e22" }
+    ];
+
+    function showMechanismL28() {
+        const content = document.getElementById("dynamic-content");
+        const bg = isDarkMode ? "#161616" : "#fdfdfd";
+
+        content.innerHTML = `
+            <div class="home-hero">
+                <h1 style="font-size: 2.5rem;">Mechanism Explorer: 44a + L28</h1>
+                <p class="lead">Interactive Energy Profile. Click on the levels to inspect the 3D structure.</p>
+
+                <div id="jsmolContainer" class="jsmol-box" style="height: 450px !important;"></div>
+
+                <div class="energy-profile-card">
+                    <svg width="100%" viewBox="0 0 700 200" style="overflow: visible;">
+                        ${renderSvgLevels()}
+                    </svg>
+                </div>
+
+                <div class="sci-panel" id="mech-desc">
+                    <p>Select a stationary point from the diagram above to analyze the geometry.</p>
+                </div>
+            </div>
+        `;
+
+        const Info = { width: "100%", height: "100%", j2sPath: "j2s", color: bg, use: "HTML5", disableInitialConsole: true };
+        myJmol = Jmol.getApplet("myJmol", Info);
+        document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
+        setActiveLink("Interactive Mechanism");
+    }
+
+    function renderSvgLevels() {
+        const height = 180;
+        const yScale = (e) => height - 30 - (e * (height - 60) / 35);
+        let html = `<line x1="40" y1="20" x2="40" y2="${height-20}" stroke="#ccc" stroke-width="1" />`;
+
+        energyDataL28.forEach(p => {
+            const y = yScale(p.energy);
+            const color = p.color || 'var(--chem-teal)';
+            html += `
+                <g style="cursor:pointer" onclick="loadMolecule('${p.path}', '${p.id}')">
+                    <line x1="${p.x-20}" y1="${y}" x2="${p.x+20}" y2="${y}" stroke="${color}" stroke-width="4" />
+                    <text x="${p.x}" y="${y-10}" text-anchor="middle" font-size="12" fill="${color}" font-weight="bold">${p.energy}</text>
+                    <text x="${p.x}" y="${y+20}" text-anchor="middle" font-size="9" fill="#888">${p.label}</text>
+                </g>`;
+        });
+        return html;
     }
 
 </script>
