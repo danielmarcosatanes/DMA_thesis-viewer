@@ -1,170 +1,141 @@
-/* --- PALETA DE COLOR COHERENTE CON TU WEB --- */
+/* --- VARIABLES DANIEL MARCOS BRANDING --- */
 :root {
-    --oxford-blue: #002147;
-    --text-color: #1a1a1a;
-    --light-grey: #f8f9fa;
-    --border-color: #e5e7eb;
-    --accent: #0056b3;
-    --sidebar-width: 300px;
+    --oxford-blue: #002147;   /* Tu color corporativo */
+    --accent-blue: #0056b3;
+    --text-main: #1a1a1a;
+    --bg-light: #fdfdfd;
+    --border: #e2e8f0;
+    --sidebar-w: 300px;
 }
 
 /* --- BASE --- */
 body {
     font-family: 'Inter', sans-serif;
     margin: 0; background-color: #fff;
-    color: var(--text-color);
+    color: var(--text-main);
     display: flex; height: 100vh; overflow: hidden;
-    -webkit-font-smoothing: antialiased;
 }
 
 h1, h2, h3, .folder-link.dark {
     font-family: 'Lora', serif;
     font-weight: 700;
+    color: var(--oxford-blue);
 }
 
 #main-container { display: flex; width: 100%; height: 100%; }
 
-/* --- SIDEBAR ACADÉMICO --- */
+/* --- SIDEBAR (Estilo Daniel Marcos) --- */
 #sidebar {
-    width: var(--sidebar-width);
+    width: var(--sidebar-w);
     background: #fff;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid var(--border);
     display: flex; flex-direction: column;
     z-index: 100; transition: 0.3s;
 }
 
 #sidebar header {
-    padding: 2.5rem 1.5rem;
+    padding: 3rem 1.5rem;
     background-color: var(--oxford-blue);
     color: white;
 }
 
-#sidebar header h1 { margin: 0; font-size: 1.8rem; font-weight: 700; }
-.subtitle { margin: 5px 0 0; font-size: 0.85rem; opacity: 0.8; font-weight: 400; text-transform: uppercase; letter-spacing: 1px; }
+#sidebar header h1 { margin: 0; font-size: 1.8rem; color: white; }
+.tagline { margin: 5px 0 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; opacity: 0.7; }
 
 #sidebar-search {
-    width: 100%; margin-top: 20px; padding: 10px 12px;
-    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-    border-radius: 6px; color: white; outline: none;
+    width: 100%; margin-top: 20px; padding: 10px;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px; color: white; outline: none; font-size: 0.9rem;
 }
 
-#menu { flex: 1; overflow-y: auto; padding: 1.5rem 0; }
+#menu { flex: 1; overflow-y: auto; padding: 1rem 0; }
 
-/* Enlaces del Sidebar */
 #menu a {
-    display: block; padding: 10px 25px;
-    color: var(--text-color); text-decoration: none;
-    font-size: 0.95rem; cursor: pointer;
-    transition: all 0.2s ease;
+    display: block; padding: 8px 25px;
+    color: var(--text-main); text-decoration: none;
+    font-size: 0.9rem; cursor: pointer; transition: 0.2s;
 }
 
-#menu a:hover { color: var(--accent); background: var(--light-grey); }
-#menu a.active { font-weight: bold; border-right: 5px solid var(--oxford-blue); background: var(--light-grey); color: var(--oxford-blue); }
+#menu a:hover { color: var(--accent-blue); background: #f8fafc; }
+#menu a.active { font-weight: bold; background: #f1f5f9; border-right: 4px solid var(--oxford-blue); }
 
-/* Estilo para las cabeceras de Sección (7.1, 7.2...) */
+/* Estilo para Secciones (7.1, 7.2...) */
 .folder-link.dark {
-    color: var(--oxford-blue) !important;
-    text-transform: none;
-    font-size: 1.1rem;
-    letter-spacing: 0;
-    padding-top: 15px !important;
-    border-bottom: 1px solid #eee;
-    margin-bottom: 5px;
+    font-size: 1rem; padding-top: 20px !important;
+    border-bottom: 1px solid #f0f0f0; margin-bottom: 5px;
 }
+.folder-link { font-weight: 600; color: #555 !important; }
 
-.folder-link { font-weight: 600; color: #4b5563 !important; }
+.submenu { padding-left: 15px; margin-bottom: 10px; border-left: 1px solid #eee; margin-left: 20px; }
 
-.submenu {
-    padding-left: 15px;
-    margin-bottom: 15px;
-    border-left: 1px solid #f3f4f6;
-    margin-left: 20px;
-}
-
-#sidebar footer {
-    padding: 1.5rem; border-top: 1px solid var(--border-color);
-    text-align: center; font-size: 0.85rem; background: var(--light-grey);
-}
-#sidebar footer a { color: var(--oxford-blue); text-decoration: none; font-weight: 700; }
+#sidebar footer { padding: 1.5rem; border-top: 1px solid var(--border); text-align: center; }
+#sidebar footer a { color: var(--oxford-blue); text-decoration: none; font-weight: bold; font-size: 0.8rem; }
 
 /* --- CONTENIDO --- */
-#content {
-    flex: 1; overflow-y: auto; padding: 4rem 2rem;
-    display: flex; flex-direction: column; align-items: center;
-}
+#content { flex: 1; overflow-y: auto; padding: 4rem 2rem; display: flex; flex-direction: column; align-items: center; }
+.container-pro { max-width: 900px; width: 100%; }
 
-.container-pro { max-width: 950px; width: 100%; }
-
-/* Tarjeta Molécula */
-.molecule-card { width: 100%; }
-
-.mol-header { border-bottom: 3px solid var(--oxford-blue); margin-bottom: 2rem; padding-bottom: 0.5rem; }
-.mol-header h2 { margin: 0; color: var(--oxford-blue); font-size: 2.2rem; }
+.mol-header { border-bottom: 3px solid var(--oxford-blue); margin-bottom: 2rem; }
+.mol-header h2 { margin: 0 0 10px 0; font-size: 2.2rem; }
 
 .jsmol-box {
-    width: 100% !important; height: 550px !important;
-    border: 1px solid var(--border-color); border-radius: 12px;
-    background: #fff; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    width: 100% !important; border: 1px solid var(--border); border-radius: 8px;
+    box-shadow: 0 15px 35px rgba(0,33,71,0.05); background: #fff;
 }
 
-/* --- TOOLBAR --- */
+/* --- TOOLBAR RECUPERADA --- */
 .toolbar {
     display: flex; justify-content: space-between; align-items: center;
-    margin-top: 2rem; padding: 1.2rem; background: var(--light-grey);
-    border-radius: 10px; flex-wrap: wrap; gap: 20px;
-    border: 1px solid #eef0f2;
+    margin-top: 1.5rem; padding: 1rem; background: #f8fafc;
+    border-radius: 8px; flex-wrap: wrap; gap: 15px; border: 1px solid var(--border);
 }
 
-.tool-group { display: flex; gap: 10px; align-items: center; }
+.tool-group { display: flex; gap: 10px; }
 
 button {
-    background: #fff; border: 1px solid #d1d5db;
-    padding: 9px 18px; border-radius: 6px; cursor: pointer;
-    font-size: 0.9rem; color: var(--oxford-blue); font-weight: 600;
-    transition: all 0.2s;
+    background: #fff; border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 4px; cursor: pointer;
+    font-size: 0.85rem; font-weight: 600; color: var(--oxford-blue); transition: 0.2s;
 }
+button:hover { background: var(--oxford-blue); color: #fff; }
 
-button:hover { border-color: var(--oxford-blue); background: #fff; transform: translateY(-1px); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+.btn-save { background: var(--accent-blue); color: #fff; border: none; }
 
-.btn-save { background: var(--oxford-blue); color: #fff; border: none; }
-.btn-save:hover { background: #003366; color: #fff; }
+/* --- SCI-COMM STYLING --- */
+.sci-comm-panel { margin-top: 2.5rem; padding: 2rem; background: #fff; border-radius: 12px; border: 1px solid var(--border); }
+.sci-comm-panel h3 { margin-top: 0; font-size: 1.4rem; }
+.sci-comm-panel p { font-family: 'Lora', serif; line-height: 1.7; font-size: 1.15rem; color: #444; }
 
-.check-container { font-size: 0.9rem; font-weight: 500; display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.pro-tip { font-size: 0.75rem; color: var(--accent-blue); font-weight: bold; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
 
-/* --- SECCIÓN CIENTÍFICA --- */
-.scientific-info { margin-top: 2.5rem; padding: 2rem; background: var(--light-grey); border-radius: 12px; border-left: 5px solid var(--oxford-blue); }
-.scientific-info h3 { margin-top: 0; font-size: 1.3rem; color: var(--oxford-blue); }
-.scientific-info p { font-family: 'Lora', serif; line-height: 1.7; font-size: 1.15rem; color: #374151; }
-.paper-link { color: var(--accent); font-weight: 700; text-decoration: none; font-size: 0.95rem; display: inline-block; margin-top: 10px; }
+.paper-btn { display: inline-block; margin-top: 15px; color: var(--oxford-blue); font-weight: 700; text-decoration: none; border-bottom: 2px solid; }
 
-/* --- HOME PAGE --- */
-.home-hero { text-align: center; }
-.home-hero h1 { font-size: 3.2rem; color: var(--oxford-blue); margin-bottom: 1.5rem; }
-.lead { font-size: 1.3rem; color: #4b5563; max-width: 750px; margin: 0 auto 2.5rem; line-height: 1.6; }
+/* --- HOME PAGE (Toque desenfadado) --- */
+.home-hero h1 { font-size: 3.5rem; margin-bottom: 1rem; }
+.lead { font-size: 1.3rem; color: #666; max-width: 650px; margin: 0 auto 3rem; line-height: 1.6; }
 
-.oracle-card {
-    background: var(--light-grey); padding: 3rem 2rem; border-radius: 16px;
-    margin: 3rem 0; border: 1px solid var(--border-color);
+.oracle-container {
+    background: var(--oxford-blue); color: white; padding: 3rem 2rem; border-radius: 20px;
+    margin: 4rem 0; box-shadow: 0 20px 40px rgba(0,33,71,0.2);
 }
-.oracle-card .label { color: #6b7280; font-size: 0.75rem; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; }
-#quote-display { font-family: 'Lora', serif; font-style: italic; font-size: 1.4rem; margin: 20px 0; color: var(--oxford-blue); line-height: 1.5; }
+.oracle-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; opacity: 0.6; }
+#quote-display { font-family: 'Lora', serif; font-style: italic; font-size: 1.5rem; line-height: 1.4; margin-bottom: 25px; }
 
-.guide { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 3rem; }
-.guide-item { background: #fff; padding: 2rem; border-radius: 12px; text-align: left; font-size: 1rem; border: 1px solid var(--border-color); }
-.guide-item strong { color: var(--oxford-blue); font-size: 1.1rem; display: block; margin-bottom: 8px; }
+.welcome-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 3rem; }
+.welcome-item { text-align: left; padding: 1rem; }
+.welcome-item h3 { color: var(--accent-blue); font-size: 1.2rem; }
 
 /* --- MOBILE --- */
 .mobile-toggle {
     position: fixed; top: 15px; left: 15px; z-index: 1001;
     background: var(--oxford-blue); color: white; border: none;
-    padding: 12px 18px; border-radius: 6px; display: none; font-weight: bold;
+    padding: 10px 15px; border-radius: 4px; display: none;
 }
 
 @media (max-width: 768px) {
     #sidebar { position: fixed; transform: translateX(-100%); width: 85%; height: 100%; }
     #sidebar.show { transform: translateX(0); }
     .mobile-toggle { display: block; }
-    #content { padding: 2rem 1rem; margin-top: 50px; }
-    .toolbar { flex-direction: column; align-items: stretch; }
-    .guide { grid-template-columns: 1fr; }
+    #content { padding: 1.5rem; margin-top: 50px; }
+    .welcome-grid { grid-template-columns: 1fr; }
 }
