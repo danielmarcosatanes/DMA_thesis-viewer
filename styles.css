@@ -11,41 +11,48 @@
     --border: #eeeeee;
 }
 
-/* --- MEJORAS ESPECÍFICAS PARA DARK MODE --- */
+/* --- DARK MODE DEFINITIVO --- */
 body.dark-mode {
     --bg-light: #121212;
     --text-main: #f0f0f0;
     --border: #333333;
+    background-color: #121212;
 }
 
-/* Arreglo para que no se vea el fondo blanco debajo de JSmol */
-body.dark-mode .molecule-card {
+/* Forzar que la tarjeta y todo su contenido sean oscuros */
+body.dark-mode #sidebar,
+body.dark-mode .molecule-card,
+body.dark-mode .jsmol-box,
+body.dark-mode .toolbar,
+body.dark-mode .sci-panel {
     background-color: #1a1a1a !important;
-    border-color: #333 !important;
+    color: #f0f0f0 !important;
+    border-color: #333333 !important;
 }
 
-/* Toolbar integrada en modo oscuro */
-body.dark-mode .toolbar {
-    background: #1a1a1a !important;
-    border-color: #333 !important;
-}
-
-/* Color de los textos de los checkboxes en modo oscuro */
+/* Arreglo específico para los textos de Spin y Vibration */
 body.dark-mode .check-container {
-    color: #cccccc !important;
+    color: #f0f0f0 !important;
 }
 
-/* Botones en modo oscuro para que no brillen demasiado */
+/* Eliminar el borde azul de enfoque de JSmol y asegurar fondo negro */
+.jsmol-box {
+    background-color: #000 !important; /* Para que coincida con el motor de JSmol */
+    line-height: 0;
+    font-size: 0;
+    border: 1px solid var(--border);
+}
+
+/* Ajuste de la Toolbar en modo oscuro */
 body.dark-mode .btn-outline {
-    color: var(--chem-teal);
-    border-color: var(--chem-teal);
-    background: transparent;
+    background-color: transparent !important;
+    color: var(--chem-teal) !important;
+    border-color: var(--chem-teal) !important;
 }
 
 body.dark-mode .btn-outline:hover {
-    color: var(--chem-gold);
-    border-color: var(--chem-gold);
-    background: rgba(226, 149, 120, 0.1);
+    color: var(--chem-gold) !important;
+    border-color: var(--chem-gold) !important;
 }
 
 /* Quitar rebordes extraños en el contenedor de JSmol */
