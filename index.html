@@ -53,77 +53,269 @@
     </div>
 
 <script>
-    // --- SECCIÓN PROTEGIDA: MAPEO DE CARPETAS ---
-    // --- MAPEO DE CARPETAS (Exactamente igual a tu árbol de archivos) ---
-    const structureData = {
-      "Structures section 7.1": [
-          "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log", "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-          "5-m-phen-OA-TS-Ir(R-H)(Bpin)3.log", "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-          "5-p-phen-OA-TS-Ir(R-H)(Bpin)3.log", "bipy-OA-TS-Ir(R-H)(Bpin)3.log"
-      ],
-      "Structures section 7.2": {
-          "3-CF3-Bipy": { "Meta": ["3-CF3-Bipy_TS_m-31.log"], "Ortho": ["3-CF3-Bipy_TS_o-2.log"], "Para": ["3-CF3-Bipy_TS_p-1.log"] },
-          "4-CF3-Bipy": { "Meta": ["4-CF3-Bipy_TS_m-8.log"], "Ortho": ["4-CF3-Bipy_TS_o-3.log"], "Para": ["4-CF3-Bipy_TS_p-3.log"] },
-          "5-CF3-Bipy": { "Meta": ["5-CF3-Bipy_TS_m-5.log"], "Ortho": ["5-CF3-Bipy_TSOA_o-1.log"], "Para": ["5-CF3-Bipy_TSOA_p-1.log"] },
-          "Bipy": { "Meta": ["Bipy_TS_m-3.log"], "Ortho": ["Bipy_TS_o-1.log"], "Para": ["Bipy_TS_p-1.log"] }
-      },
-      "Structures section 7.3": {
-          "Borylation of 44a": {
-              "5-CF3-Bipy": {
-                  "Catalyst": ["L27-Ir(Bpin).log", "L27-Ir(Bpin)3.log", "L27-Ir(Bpin)5.log", "L27-Ir(H)(Bpin)2.log"],
-                  "Isom-H": { "σ-isoH": ["L27-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"], "isoH": ["L27-isoH-Ir(Bpin)3(R)(H).log"], "isomH-TS": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoH": ["L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"] },
-                  "Isom-S": { "σ-isoS": ["L27-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"], "isomS-TS": ["L27-isomS-TS-Ir(Bpin)3(R)(H).log"], "isoS": ["L27-isoS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoS": ["L27-RE-TS-isoS-Ir(Bpin)3(R)(H).log"] },
-                  "OA": { "σ-(R-H)": ["L27-σ-(R-H)Ir(Bpin)3.log"], "Ir-R-H": ["L27-Ir(Bpin)3(R)(H).log"], "OA-TS": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                  "RE": { "σ-iso": ["L27-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"], "RE-TS": ["L27-RE-TS-Ir(Bpin)3(R)(H).log"] }
-              },
-              "Bipy": {
-                  "Catalyst": ["Bipy-Ir(Bpin).log", "Bipy-Ir(Bpin)3.log", "Bipy-Ir(Bpin)5.log", "Bipy-Ir(H)(Bpin)2.log"],
-                  "Isom-H": { "σ-isoH": ["Bipy-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"], "isoH": ["Bipy-isoH-Ir(Bpin)3(R)(H).log"], "isomH-TS": ["Bipy-isomH-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoH": ["Bipy-RE-TS-isoH-Ir(Bpin)3(R)(H).log"] },
-                  "Isom-S": { "σ-isoS": ["Bipy-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"], "isomS-TS": ["Bipy-isomS-TS-Ir(Bpin)3(R)(H).log"], "isoS": ["Bipy-isoS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoS": ["Bipy-RE-TS-isoS-Ir(Bpin)3(R)(H).log"] },
-                  "OA": { "σ-(R-H)": ["Bipy-σ-(R-H)Ir(Bpin)3.log"], "Ir-R-H": ["Bipy-Ir(Bpin)3(R)(H).log"], "OA-TS": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                  "RE": { "σ-iso": ["Bipy-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"], "RE-TS": ["Bipy-RE-TS-Ir(Bpin)3(R)(H).log"] }
-              },
-              "Bis-5-CF3-Bipy": {
-                  "Catalyst": ["L28-Ir(Bpin).log", "L28-Ir(Bpin)3.log", "L28-Ir(Bpin)5.log", "L28-Ir(H)(Bpin)2.log"],
-                  "Isom-H": { "σ-isoH": ["L28-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"], "isoH": ["L28-isoH-Ir(Bpin)3(R)(H).log"], "isomH-TS": ["L28-isomH-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoH": ["L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log"] },
-                  "Isom-S": { "σ-isoS": ["L28-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"], "isomS-TS": ["L28-isomS-TS-Ir(Bpin)3(R)(H).log"], "isoS": ["L28-isoS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoS": ["L28-RE-TS-isoS-Ir(Bpin)3(R)(H).log"] },
-                  "OA": { "σ-(R-H)": ["L28-σ-(R-H)Ir(Bpin)3.log"], "Ir-R-H": ["L28-Ir(Bpin)3(R)(H).log"], "OA-TS": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                  "RE": { "σ-iso": ["L28-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"], "RE-TS": ["L28-RE-TS-Ir(Bpin)3(R)(H).log"] }
-              }
-          },
-          "Borylation of 44c": {
-              "5-CF3": {
-                  "Isom-H": { "isomH-TS": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoH": ["L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"] },
-                  "Isom-S": { "isomS-TS": ["L27-isomS-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoS": ["L27-RE-TS-isoS-Ir(Bpin)3(R)(H).log"] },
-                  "OA": { "OA-TS": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                  "RE": { "RE-TS": ["L27-RE-TS-Ir(Bpin)3(R)(H).log"] }
-              },
-              "Bipy": {
-                  "Isom-H": { "isomH-TS": ["Bipy-isomH-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoH": ["Bipy-RE-TS-isoH-Ir(Bpin)3(R)(H).log"] },
-                  "OA": { "OA-TS": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"] }
-              }
-          },
-          "Borylation of 44f": {
-              "C-CH3": {
-                  "5-CF3-Bipy": { "OA": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                  "Bipy": { "OA": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                  "Bis-5-CF3-Bipy": { "OA": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"] }
-              },
-              "N-CH3": {
-                  "5-CF3-Bipy": { "OA": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                  "Bipy": { "OA": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"] },
-                  "Bis-5-CF3-Bipy": { "OA": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"] }
-              }
-          },
-          "Borylation of 44u": {
-              "Bis-5-CF3-Bipy": { "OA": ["L28-OA-TS-Ir(R-H)(Bpin)3.log"] }
-          },
-          "Rollover": {
-              "Bipy": ["Bipy-Hemilabile-TS.log", "Bipy-Ir-(L)-Bpin3.log", "Bipy-Ir(LX)Bpin2.log", "Bipy-Ligand_C-H-TS.log", "Bipy-OA-TS-Ir(LX)(R-H)(Bpin)3.log"],
-              "Bis-5-CF3-Bipy": ["L28-Hemilabile-TS.log", "L28-Ir-(L)-Bpin3.log", "L28-Ir(LX)(Bpin)2.log", "L28-Ligand_C-H-TS.log", "L28-OA-TS-Ir(LX)(R-H)(Bpin)3.log"]
-          }
-      }
-  };
+
+    // --- MAPEO DE CARPETAS (Sincronizado exactamente con el árbol del servidor) ---
+        const structureData = {
+            "Structures section 7.1": [
+                "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
+                "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
+                "5-m-phen-OA-TS-Ir(R-H)(Bpin)3.log",
+                "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
+                "5-p-phen-OA-TS-Ir(R-H)(Bpin)3.log",
+                "bipy-OA-TS-Ir(R-H)(Bpin)3.log"
+            ],
+            "Structures section 7.2": {
+                "3-CF3-Bipy": {
+                    "Meta": ["3-CF3-Bipy_TS_m-31.log"],
+                    "Ortho": ["3-CF3-Bipy_TS_o-2.log"],
+                    "Para": ["3-CF3-Bipy_TS_p-1.log"]
+                },
+                "4-CF3-Bipy": {
+                    "Meta": ["4-CF3-Bipy_TS_m-8.log"],
+                    "Ortho": ["4-CF3-Bipy_TS_o-3.log"],
+                    "Para": ["4-CF3-Bipy_TS_p-3.log"]
+                },
+                "5-CF3-Bipy": {
+                    "Meta": ["5-CF3-Bipy_TS_m-5.log"],
+                    "Ortho": ["5-CF3-Bipy_TSOA_o-1.log"],
+                    "Para": ["5-CF3-Bipy_TSOA_p-1.log"]
+                },
+                "Bipy": {
+                    "Meta": ["Bipy_TS_m-3.log"],
+                    "Ortho": ["Bipy_TS_o-1.log"],
+                    "Para": ["Bipy_TS_p-1.log"]
+                }
+            },
+            "Structures section 7.3": {
+                "Borylation of 44a": {
+                    "5-CF3-Bipy": {
+                        "Ir(Bpin)": ["L27-Ir(Bpin).log"],
+                        "Ir(Bpin)3": ["L27-Ir(Bpin)3.log"],
+                        "Ir(Bpin)5": ["L27-Ir(Bpin)5.log"],
+                        "Ir(H)(Bpin)2": ["L27-Ir(H)(Bpin)2.log"],
+                        "Isom-H": [
+                            "L27-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L27-isoH-Ir(Bpin)3(R)(H).log",
+                            "L27-isomH-TS-Ir(Bpin)3(R)(H).log",
+                            "L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "Isom-S": [
+                            "L27-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L27-isomS-TS-Ir(Bpin)3(R)(H).log",
+                            "L27-isoS-Ir(Bpin)3(R)(H).log",
+                            "L27-RE-TS-isoS-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "OA": [
+                            "L27-σ-(R-H)Ir(Bpin)3.log",
+                            "L27-Ir(Bpin)3(R)(H).log",
+                            "L27-OA-TS-Ir(R-H)(Bpin)3.log"
+                        ],
+                        "RE": [
+                            "L27-σ-iso-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L27-RE-TS-Ir(Bpin)3(R)(H).log"
+                        ]
+                    },
+                    "Bipy": {
+                        "Ir(Bpin)": ["Bipy-Ir(Bpin).log"],
+                        "Ir(Bpin)3": ["Bipy-Ir(Bpin)3.log"],
+                        "Ir(Bpin)5": ["Bipy-Ir(Bpin)5.log"],
+                        "Ir(H)(Bpin)2": ["Bipy-Ir(H)(Bpin)2.log"],
+                        "Isom-H": [
+                            "Bipy-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log",
+                            "Bipy-isoH-Ir(Bpin)3(R)(H).log",
+                            "Bipy-isomH-TS-Ir(Bpin)3(R)(H).log",
+                            "Bipy-RE-TS-isoH-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "Isom-S": [
+                            "Bipy-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log",
+                            "Bipy-isomS-TS-Ir(Bpin)3(R)(H).log",
+                            "Bipy-isoS-Ir(Bpin)3(R)(H).log",
+                            "Bipy-RE-TS-isoS-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "OA": [
+                            "Bipy-σ-(R-H)Ir(Bpin)3.log",
+                            "Bipy-Ir(Bpin)3(R)(H).log",
+                            "Bipy-OA-TS-Ir(R-H)(Bpin)3.log"
+                        ],
+                        "RE": [
+                            "Bipy-σ-iso-(R-Bpin)Ir(Bpin)2(H).log",
+                            "Bipy-RE-TS-Ir(Bpin)3(R)(H).log"
+                        ]
+                    },
+                    "Bis-5-CF3-Bipy": {
+                        "Ir(Bpin)": ["L28-Ir(Bpin).log"],
+                        "Ir(Bpin)3": ["L28-Ir(Bpin)3.log"],
+                        "Ir(Bpin)5": ["L28-Ir(Bpin)5.log"],
+                        "Ir(H)(Bpin)2": ["L28-Ir(H)(Bpin)2.log"],
+                        "Isom-H": [
+                            "L28-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L28-isoH-Ir(Bpin)3(R)(H).log",
+                            "L28-isomH-TS-Ir(Bpin)3(R)(H).log",
+                            "L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "Isom-S": [
+                            "L28-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L28-isomS-TS-Ir(Bpin)3(R)(H).log",
+                            "L28-isoS-Ir(Bpin)3(R)(H).log",
+                            "L28-RE-TS-isoS-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "OA": [
+                            "L28-σ-(R-H)Ir(Bpin)3.log",
+                            "L28-Ir(Bpin)3(R)(H).log",
+                            "L28-OA-TS-Ir(R-H)(Bpin)3.log"
+                        ],
+                        "RE": [
+                            "L28-σ-iso-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L28-RE-TS-Ir(Bpin)3(R)(H).log"
+                        ]
+                    }
+                },
+                "Borylation of 44c": {
+                    "5-CF3": {
+                        "Isom-H": [
+                            "L27-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L27-isoH-Ir(Bpin)3(R)(H).log",
+                            "L27-isomH-TS-Ir(Bpin)3(R)(H).log",
+                            "L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "Isom-S": [
+                            "L27-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L27-isomS-TS-Ir(Bpin)3(R)(H).log",
+                            "L27-isoS-Ir(Bpin)3(R)(H).log",
+                            "L27-RE-TS-isoS-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "OA": [
+                            "L27-σ-(R-H)Ir(Bpin)3.log",
+                            "L27-Ir(Bpin)3(R)(H).log",
+                            "L27-OA-TS-Ir(R-H)(Bpin)3.log"
+                        ],
+                        "RE": [
+                            "L27-σ-iso-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L27-RE-TS-Ir(Bpin)3(R)(H).log"
+                        ]
+                    },
+                    "Bipy": {
+                        "Isom-H": [
+                            "Bipy-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log",
+                            "Bipy-isoH-Ir(Bpin)3(R)(H).log",
+                            "Bipy-isomH-TS-Ir(Bpin)3(R)(H).log",
+                            "Bipy-RE-TS-isoH-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "Isom-S": [
+                            "Bipy-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log",
+                            "Bipy-isomS-TS-Ir(Bpin)3(R)(H).log",
+                            "Bipy-isoS-Ir(Bpin)3(R)(H).log",
+                            "Bipy-RE-TS-isoS-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "OA": [
+                            "Bipy-σ-(R-H)Ir(Bpin)3.log",
+                            "Bipy-Ir(Bpin)3(R)(H).log",
+                            "Bipy-OA-TS-Ir(R-H)(Bpin)3.log"
+                        ],
+                        "RE": [
+                            "Bipy-σ-iso-(R-Bpin)Ir(Bpin)2(H).log",
+                            "Bipy-RE-TS-Ir(Bpin)3(R)(H).log"
+                        ]
+                    },
+                    "Bis-5-CF3-Bipy": {
+                        "Isom-H": [
+                            "L28-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L28-isoH-Ir(Bpin)3(R)(H).log",
+                            "L28-isomH-TS-Ir(Bpin)3(R)(H).log",
+                            "L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "Isom-S": [
+                            "L28-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L28-isomS-TS-Ir(Bpin)3(R)(H).log",
+                            "L28-isoS-Ir(Bpin)3(R)(H).log",
+                            "L28-RE-TS-isoS-Ir(Bpin)3(R)(H).log"
+                        ],
+                        "OA": [
+                            "L28-σ-(R-H)Ir(Bpin)3.log",
+                            "L28-Ir(Bpin)3(R)(H).log",
+                            "L28-OA-TS-Ir(R-H)(Bpin)3.log"
+                        ],
+                        "RE": [
+                            "L28-σ-iso-(R-Bpin)Ir(Bpin)2(H).log",
+                            "L28-RE-TS-Ir(Bpin)3(R)(H).log"
+                        ]
+                    }
+                },
+                "Borylation of 44f": {
+                    "C-CH3": {
+                        "5-CF3-Bipy": {
+                            "OA": [
+                                "L27-σ-(R-H)Ir(Bpin)3.log",
+                                "L27-Ir(Bpin)3(R)(H).log",
+                                "L27-OA-TS-Ir(R-H)(Bpin)3.log"
+                            ]
+                        },
+                        "Bipy": {
+                            "OA": [
+                                "Bipy-σ-(R-H)Ir(Bpin)3.log",
+                                "Bipy-Ir(Bpin)3(R)(H).log",
+                                "Bipy-OA-TS-Ir(R-H)(Bpin)3.log"
+                            ]
+                        },
+                        "Bis-5-CF3-Bipy": {
+                            "OA": [
+                                "L28-σ-(R-H)Ir(Bpin)3.log",
+                                "L28-Ir(Bpin)3(R)(H).log",
+                                "L28-OA-TS-Ir(R-H)(Bpin)3.log"
+                            ]
+                        }
+                    },
+                    "N-CH3": {
+                        "5-CF3-Bipy": {
+                            "OA": [
+                                "L27-σ-(R-H)Ir(Bpin)3.log",
+                                "L27-Ir(Bpin)3(R)(H).log",
+                                "L27-OA-TS-Ir(R-H)(Bpin)3.log"
+                            ]
+                        },
+                        "Bipy": {
+                            "OA": [
+                                "Bipy-σ-(R-H)Ir(Bpin)3.log",
+                                "Bipy-Ir(Bpin)3(R)(H).log",
+                                "Bipy-OA-TS-Ir(R-H)(Bpin)3.log"
+                            ]
+                        },
+                        "Bis-5-CF3-Bipy": {
+                            "OA": [
+                                "L28-σ-(R-H)Ir(Bpin)3.log",
+                                "L28-Ir(Bpin)3(R)(H).log",
+                                "L28-OA-TS-Ir(R-H)(Bpin)3.log"
+                            ]
+                        }
+                    }
+                },
+                "Borylation of 44u": {
+                    "Bis-5-CF3-Bipy": {
+                        "OA": [
+                            "L28-σ-(R-H)Ir(Bpin)3.log",
+                            "L28-Ir(Bpin)3(R)(H).log",
+                            "L28-OA-TS-Ir(R-H)(Bpin)3.log"
+                        ]
+                    }
+                },
+                "Rollover": {
+                    "Bipy": [
+                        "Bipy-Hemilabile-TS.log",
+                        "Bipy-Ir-(L)-Bpin3.log",
+                        "Bipy-Ir(LX)Bpin2.log",
+                        "Bipy-Ligand_C-H-TS.log",
+                        "Bipy-OA-TS-Ir(LX)(R-H)(Bpin)3.log"
+                    ],
+                    "Bis-5-CF3-Bipy": [
+                        "L28-Hemilabile-TS.log",
+                        "L28-Ir-(L)-Bpin3.log",
+                        "L28-Ir(LX)(Bpin)2.log",
+                        "L28-Ligand_C-H-TS.log",
+                        "L28-OA-TS-Ir(LX)(R-H)(Bpin)3.log"
+                    ]
+                }
+            }
+        };
 
     // --- VARIABLES DE ESTADO ---
     let myJmol = null;
