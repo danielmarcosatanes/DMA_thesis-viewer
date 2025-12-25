@@ -3,136 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMA Thesis | 3D Mechanistic Viewer</title>
+    <title>DMA Thesis Viewer | 3D Mechanistic Gallery</title>
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
-    <!-- Coherencia tipográfica con tu web principal -->
-    <link href="https://fonts.googleapis.com/css2?family=Lora:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
 
     <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰ Menu</button>
 
     <div id="main-container">
-        <!-- Sidebar inspirado en daniel-marcosatanes.github.io -->
         <nav id="sidebar">
             <header>
                 <h1>Daniel Marcos</h1>
                 <p class="tagline">Computational Chemistry</p>
-                <input type="text" id="sidebar-search" placeholder="Quick search..." onkeyup="searchMenu()">
+                <input type="text" id="sidebar-search" placeholder="Search intermediate..." onkeyup="searchMenu()">
             </header>
 
             <div id="menu">
-                <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">🏠 Home Overview</a>
-                <!-- El árbol se genera aquí mediante JS -->
+                <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">Home Overview</a>
+                <!-- Árbol inyectado aquí -->
             </div>
 
             <footer>
-                <a href="https://daniel-marcosatanes.github.io/" target="_blank">View Portfolio</a>
+                <a href="https://daniel-marcosatanes.github.io/" target="_blank">Back to Portfolio</a>
             </footer>
         </nav>
 
         <main id="content">
             <div id="dynamic-content" class="container-pro">
-                <!-- Contenido dinámico -->
+                <!-- Se inyecta la UI -->
             </div>
         </main>
     </div>
 
 <script>
-    // --- OBJETO DE DATOS COMPLETO ---
+    // --- MAPEO REAL DE CARPETAS (No tocar nombres de carpetas) ---
     const structureData = {
-        "7.1 | Ligand Effects": [
+        "Structures section 7.1": [
             "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log", "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
-            "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log", "5-m-phen-OA-TS-Ir(R-H)(Bpin)3.log",
+            "5-m-phen-OA-TS-Ir(R-H)(Bpin)3.log", "5-OR-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
             "5-p-phen-OA-TS-Ir(R-H)(Bpin)3.log", "bipy-OA-TS-Ir(R-H)(Bpin)3.log"
         ],
-        "7.2 | Regioselectivity": {
+        "Structures section 7.2": {
             "3-CF3-Bipy": { "Meta": ["3-CF3-Bipy_TS_m-31.log"], "Ortho": ["3-CF3-Bipy_TS_o-2.log"], "Para": ["3-CF3-Bipy_TS_p-1.log"] },
             "4-CF3-Bipy": { "Meta": ["4-CF3-Bipy_TS_m-8.log"], "Ortho": ["4-CF3-Bipy_TS_o-3.log"], "Para": ["4-CF3-Bipy_TS_p-3.log"] },
             "5-CF3-Bipy": { "Meta": ["5-CF3-Bipy_TS_m-5.log"], "Ortho": ["5-CF3-Bipy_TSOA_o-1.log"], "Para": ["5-CF3-Bipy_TSOA_p-1.log"] },
             "Bipy": { "Meta": ["Bipy_TS_m-3.log"], "Ortho": ["Bipy_TS_o-1.log"], "Para": ["Bipy_TS_p-1.log"] }
         },
-        "7.3 | Full Mechanism": {
+        "Structures section 7.3": {
             "Borylation of 44a": {
                 "5-CF3-Bipy": {
-                    "Catalyst Species": ["L27-Ir(Bpin).log", "L27-Ir(Bpin)3.log", "L27-Ir(Bpin)5.log", "L27-Ir(H)(Bpin)2.log"],
-                    "Isom-H": { "TS": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"], "Int": ["L27-isoH-Ir(Bpin)3(R)(H).log", "L27-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"] },
-                    "OA Step": { "TS": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"], "Int": ["L27-Ir(Bpin)3(R)(H).log", "L27-σ-(R-H)Ir(Bpin)3.log"] }
+                    "Catalyst": ["L27-Ir(Bpin).log", "L27-Ir(Bpin)3.log", "L27-Ir(Bpin)5.log", "L27-Ir(H)(Bpin)2.log"],
+                    "Isom-H": { "σ-isoH": ["L27-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"], "isoH": ["L27-isoH-Ir(Bpin)3(R)(H).log"], "isomH-TS": ["L27-isomH-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoH": ["L27-RE-TS-isoH-Ir(Bpin)3(R)(H).log"] },
+                    "Isom-S": { "σ-isoS": ["L27-σ-isoS-(R-Bpin)Ir(Bpin)2(H).log"], "isomS-TS": ["L27-isomS-TS-Ir(Bpin)3(R)(H).log"], "isoS": ["L27-isoS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoS": ["L27-RE-TS-isoS-Ir(Bpin)3(R)(H).log"] },
+                    "OA": { "σ-(R-H)": ["L27-σ-(R-H)Ir(Bpin)3.log"], "Ir-R-H": ["L27-Ir(Bpin)3(R)(H).log"], "OA-TS": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"] },
+                    "RE": { "σ-iso": ["L27-σ-iso-(R-Bpin)Ir(Bpin)2(H).log"], "RE-TS": ["L27-RE-TS-Ir(Bpin)3(R)(H).log"] }
                 },
                 "Bipy": {
-                    "OA Step": { "TS": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"], "Int": ["Bipy-Ir(Bpin)3(R)(H).log", "Bipy-σ-(R-H)Ir(Bpin)3.log"] }
+                    "Catalyst": ["Bipy-Ir(Bpin).log", "Bipy-Ir(Bpin)3.log", "Bipy-Ir(Bpin)5.log", "Bipy-Ir(H)(Bpin)2.log"],
+                    "Isom-H": { "σ-isoH": ["Bipy-σ-isoH-(R-Bpin)Ir(Bpin)2(H).log"], "isoH": ["Bipy-isoH-Ir(Bpin)3(R)(H).log"], "isomH-TS": ["Bipy-isomH-TS-Ir(Bpin)3(R)(H).log"], "RE-TS-isoH": ["Bipy-RE-TS-isoH-Ir(Bpin)3(R)(H).log"] },
+                    "OA": { "σ-(R-H)": ["Bipy-σ-(R-H)Ir(Bpin)3.log"], "Ir-R-H": ["Bipy-Ir(Bpin)3(R)(H).log"], "OA-TS": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"] }
                 }
             },
-            "Rollover Pathway": {
-                "Bipy": ["Bipy-Hemilabile-TS.log", "Bipy-Ir(LX)Bpin2.log", "Bipy-Ligand_C-H-TS.log"],
+            "Borylation of 44c": {
+                "5-CF3": { "OA": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"], "RE": ["L27-RE-TS-Ir(Bpin)3(R)(H).log"] },
+                "Bipy": { "OA": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"], "RE": ["Bipy-RE-TS-Ir(Bpin)3(R)(H).log"] }
+            },
+            "Borylation of 44f": { "C-CH3": ["L27-OA-TS-Ir(R-H)(Bpin)3.log"], "N-CH3": ["Bipy-OA-TS-Ir(R-H)(Bpin)3.log"] },
+            "Rollover": {
+                "Bipy": ["Bipy-Hemilabile-TS.log", "Bipy-Ir-(L)-Bpin3.log", "Bipy-Ir(LX)Bpin2.log", "Bipy-Ligand_C-H-TS.log", "Bipy-OA-TS-Ir(LX)(R-H)(Bpin)3.log"],
                 "Bis-5-CF3-Bipy": ["L28-Hemilabile-TS.log", "L28-Ligand_C-H-TS.log", "L28-OA-TS-Ir(LX)(R-H)(Bpin)3.log"]
             }
         }
     };
 
-    // Diccionario de explicaciones breves (SciComm)
-    const moleculeMetadata = {
-        "bipy-OA-TS-Ir(R-H)(Bpin)3": { "desc": "This is the classic oxidative addition transition state. Notice the C-H bond stretching as it approaches the Iridium center!", "paper": "https://doi.org/10.1002/anie.XXXX" }
+    // --- MEJORAS DE TEXTO (NOMBRES "BONITOS") ---
+    const sectionNames = {
+        "Structures section 7.1": "Section 7.1 | Ligand Effects",
+        "Structures section 7.2": "Section 7.2 | Regioselectivity",
+        "Structures section 7.3": "Section 7.3 | Full Mechanism"
     };
 
     let myJmol = null;
 
-    // --- GENERADOR DE MENÚ (Fix jerarquía 7.1) ---
-    function createSidebarMenu(data, parent, basePath, level = 0) {
+    // --- GENERADOR DE MENÚ RECURSIVO ---
+    function createSidebarMenu(data, parent, currentPath, level = 0) {
         Object.keys(data).forEach((key) => {
-            const currentPath = basePath ? `${basePath}/${key}` : `molecules/Structures/${key}`;
-            const safeId = currentPath.replace(/[^a-zA-Z0-9]/g, '_');
+            const folderPath = currentPath ? `${currentPath}/${key}` : `molecules/Structures/${key}`;
+            const safeId = "ID_" + folderPath.replace(/[^a-zA-Z0-9]/g, '_');
+            const displayName = sectionNames[key] || key;
+
+            const link = document.createElement("a");
+            link.textContent = displayName;
+
+            if (level === 0) link.className = "folder-link dark";
+            else if (typeof data[key] === "object" && !Array.isArray(data[key])) link.className = "folder-link";
+            else link.className = "file-link-group";
+
+            link.onclick = () => toggleSection(safeId);
+            parent.appendChild(link);
+
+            const subDiv = document.createElement("div");
+            subDiv.id = safeId;
+            subDiv.className = "submenu";
+            subDiv.style.display = "none";
 
             if (Array.isArray(data[key])) {
-                const folderLink = document.createElement("a");
-                folderLink.textContent = key;
-                folderLink.className = (level === 0) ? "folder-link dark" : "folder-link";
-                folderLink.onclick = () => toggleSection(safeId);
-                parent.appendChild(folderLink);
-
-                const subDiv = document.createElement("div");
-                subDiv.id = safeId;
-                subDiv.className = "submenu";
-                subDiv.style.display = "none";
-
                 data[key].forEach((file) => {
                     const moleculeName = file.replace('.log', '');
                     const fileLink = document.createElement("a");
                     fileLink.textContent = moleculeName;
                     fileLink.className = "file-link";
-                    fileLink.onclick = () => loadMolecule(`${currentPath}/${file}`, moleculeName);
+                    fileLink.onclick = (e) => {
+                        e.stopPropagation();
+                        loadMolecule(`${folderPath}/${file}`, moleculeName);
+                    };
                     subDiv.appendChild(fileLink);
                 });
-                parent.appendChild(subDiv);
             } else {
-                const folderLink = document.createElement("a");
-                folderLink.textContent = key;
-                folderLink.className = (level === 0) ? "folder-link dark" : "folder-link";
-                folderLink.onclick = () => toggleSection(safeId);
-                parent.appendChild(folderLink);
-
-                const subfolderDiv = document.createElement("div");
-                subfolderDiv.id = safeId;
-                subfolderDiv.className = "submenu";
-                subfolderDiv.style.display = "none";
-                createSidebarMenu(data[key], subfolderDiv, currentPath, level + 1);
-                parent.appendChild(subfolderDiv);
+                createSidebarMenu(data[key], subDiv, folderPath, level + 1);
             }
+            parent.appendChild(subDiv);
         });
     }
 
     function toggleSection(id) {
         const s = document.getElementById(id);
-        if (s) s.style.display = s.style.display === "none" ? "block" : "none";
+        if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
     }
 
-    // --- CARGA DE JSMOL (Fix de espacios en ruta) ---
+    // --- CARGA DE JSMOL (Fix de error 404 / espacios) ---
     function loadMolecule(filePath, moleculeName) {
         const content = document.getElementById("dynamic-content");
-        const meta = moleculeMetadata[moleculeName] || { desc: "Optimized DFT structure. Use the controls below to analyze vibrations or spin the model." };
-
-        // Codificamos la ruta para GitHub Pages (manejo de espacios)
+        // Codificación crucial para GitHub Pages
         const encodedPath = encodeURI(filePath);
 
         content.innerHTML = `
@@ -145,22 +149,21 @@
 
                 <div class="toolbar">
                     <div class="tool-group">
-                        <button onclick="Jmol.script(myJmol, 'reset')">Reset</button>
+                        <button onclick="Jmol.script(myJmol, 'reset')">Reset View</button>
                         <button onclick="Jmol.script(myJmol, 'zoom +20')">Zoom +</button>
                         <button onclick="Jmol.script(myJmol, 'zoom -20')">Zoom -</button>
                     </div>
                     <div class="tool-group">
                         <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
-                        <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Imaginary Freq.</label>
+                        <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibrational Mode</label>
                     </div>
-                    <button class="btn-save" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
+                    <button class="btn-save" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Download Capture</button>
                 </div>
 
                 <div class="sci-comm-panel">
-                    <div class="pro-tip">PRO TIP: Right-click the molecule for the full Jmol technical menu.</div>
-                    <h3>About this structure</h3>
-                    <p>${meta.desc}</p>
-                    ${meta.paper ? `<a href="${meta.paper}" target="_blank" class="paper-btn">Read the Paper →</a>` : ''}
+                    <div class="pro-tip">INTERACTIVE INSIGHT: Transition states are the peaks of the energy mountain. Use the "Vibration" toggle to visualize the reaction coordinate.</div>
+                    <h3>Structure Details</h3>
+                    <p>Computational output optimized at the DFT level. This specific intermediate represents a key stationary point in the catalytic borylation cycle.</p>
                 </div>
             </div>
         `;
@@ -169,6 +172,7 @@
         myJmol = Jmol.getApplet("myJmol", Info);
         document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
 
+        // Carga con ruta codificada y comillas dobles
         Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set specularPower 100; set specularPercent 22; set antialiasDisplay on;`);
 
         setActiveLink(moleculeName);
@@ -179,23 +183,23 @@
         const content = document.getElementById("dynamic-content");
         content.innerHTML = `
             <div class="home-hero">
-                <h1>Mechanistic Gallery</h1>
-                <p class="lead">Interactive 3D supplement to the PhD thesis of <strong>Daniel Marcos Atanes</strong>.</p>
+                <h1>Mechanistic Lab</h1>
+                <p class="lead">A digital 3D companion to the PhD research of <strong>Daniel Marcos Atanes</strong>.</p>
 
                 <div class="oracle-container">
-                    <div class="oracle-label">Gaussian Quote of the day</div>
-                    <p id="quote-display">Analyzing the potential energy surface...</p>
-                    <button class="btn-ghost" onclick="loadRandomQuote()">Give me another tip</button>
+                    <div class="oracle-label">Gaussian Quote Oracle</div>
+                    <p id="quote-display">Initial guess: established.</p>
+                    <button class="btn-ghost" onclick="loadRandomQuote()">New Random Quote</button>
                 </div>
 
                 <div class="welcome-grid">
                     <div class="welcome-item">
-                        <h3>How to use</h3>
-                        <p>Pick a structure from the sidebar. You can rotate them, zoom in on catalytic centers, and even visualize transition state vibrations.</p>
+                        <h3>Why 3D?</h3>
+                        <p>Chemical reactions aren't flat. This viewer allows you to rotate molecules to understand steric hindrance and orbital alignment that lead to regioselectivity.</p>
                     </div>
                     <div class="welcome-item">
-                        <h3>Sci-Comm</h3>
-                        <p>This viewer aims to make computational chemistry more accessible. Science is better when you can touch it (even if it's virtually).</p>
+                        <h3>Technical Note</h3>
+                        <p>Models are rendered from Gaussian .log files. You can access the full technical menu by right-clicking anywhere on the 3D model.</p>
                     </div>
                 </div>
             </div>
@@ -204,12 +208,10 @@
     }
 
     function loadRandomQuote() {
-        fetch('g16_quotes.txt')
-            .then(r => r.text())
-            .then(t => {
-                const q = t.split('\n\n').filter(x => x.trim() !== "");
-                document.getElementById("quote-display").textContent = q[Math.floor(Math.random() * q.length)];
-            }).catch(() => document.getElementById("quote-display").textContent = "Link to the real world established.");
+        fetch('g16_quotes.txt').then(r => r.text()).then(t => {
+            const q = t.split('\n\n').filter(x => x.trim() !== "");
+            document.getElementById("quote-display").textContent = q[Math.floor(Math.random() * q.length)];
+        }).catch(() => {});
     }
 
     function searchMenu() {
@@ -230,6 +232,10 @@
         createSidebarMenu(structureData, document.getElementById("menu"), "");
         showHomePage();
     };
+
+    function toggleSidebar() {
+        document.getElementById('sidebar').classList.toggle('show');
+    }
 </script>
 </body>
 </html>
