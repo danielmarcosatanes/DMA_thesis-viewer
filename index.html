@@ -430,8 +430,8 @@
         document.body.classList.toggle('dark-mode');
         document.getElementById('theme-text').textContent = isDarkMode ? "Dark Mode" : "Light Mode";
 
+        // Cambiamos el fondo interno del visor JSmol
         if (myJmol) {
-            // Esto cambia el fondo interno del motor JSmol
             Jmol.script(myJmol, isDarkMode ? "background black" : "background white");
         }
     }
