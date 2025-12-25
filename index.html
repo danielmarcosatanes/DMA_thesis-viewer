@@ -149,191 +149,164 @@
         }
     };
 
-        // --- FUNCIONES AUXILIARES ---
-        function beautify(name) {
-            return name.replace("Structures section ", "Chapter ")
-                       .replace("Borylation of ", "Boryl. ");
-        }
+    let myJmol = null;
 
-        // --- VARIABLES DE ESTADO Y JSMOL ---
-        let myJmol = null;
-        let hShow = true;
-        let labelsOn = false;
-        let isDarkMode = false;
+     // --- GENERADOR DE MENÚ RECURSIVO ---
+     function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
+         Object.keys(data).forEach((key) => {
+             const fullPath = `${currentPath}/${key}`;
+             const safeId = "ID_" + fullPath.replace(/[^a-zA-Z0-9]/g, '_');
+             const displayName = beautify(key);
 
-        // --- GENERADOR DE MENÚ RECURSIVO ---
-        function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
-            Object.keys(data).forEach((key) => {
-                const fullPath = `${currentPath}/${key}`;
-                const safeId = "ID_" + fullPath.replace(/[^a-zA-Z0-9]/g, '_');
-                const displayName = beautify(key);
+             if (Array.isArray(data[key])) {
+                 // Caso: Lista de archivos directa
+                 const folderLink = document.createElement("a");
+                 folderLink.textContent = (level === 0 ? "● " : "") + displayName;
+                 folderLink.className = (level === 0) ? "folder-link level-0" : "folder-link";
+                 folderLink.onclick = () => toggleSection(safeId);
+                 parent.appendChild(folderLink);
 
-                if (Array.isArray(data[key])) {
-                    // Carpeta con lista de archivos
-                    const folderLink = document.createElement("a");
-                    folderLink.textContent = (level === 0 ? "● " : "") + displayName;
-                    folderLink.className = (level === 0) ? "folder-link level-0" : "folder-link";
-                    folderLink.onclick = () => toggleSection(safeId);
-                    parent.appendChild(folderLink);
+                 const subDiv = document.createElement("div");
+                 subDiv.id = safeId;
+                 subDiv.className = "submenu";
+                 subDiv.style.display = "none";
 
-                    const subDiv = document.createElement("div");
-                    subDiv.id = safeId;
-                    subDiv.className = "submenu";
-                    subDiv.style.display = "none";
+                 data[key].forEach((file) => {
+                     const moleculeName = file.replace('.log', '');
+                     const fileLink = document.createElement("a");
+                     fileLink.textContent = moleculeName;
+                     fileLink.className = "file-link";
+                     fileLink.onclick = (e) => {
+                         e.stopPropagation();
+                         loadMolecule(`${fullPath}/${file}`, moleculeName);
+                     };
+                     subDiv.appendChild(fileLink);
+                 });
+                 parent.appendChild(subDiv);
+             } else {
+                 // Caso: Carpeta con subcarpetas
+                 const folderLink = document.createElement("a");
+                 folderLink.textContent = (level === 0 ? "● " : "") + displayName;
+                 folderLink.className = (level === 0) ? "folder-link level-0" : "folder-link";
+                 folderLink.onclick = () => toggleSection(safeId);
+                 parent.appendChild(folderLink);
 
-                    data[key].forEach((file) => {
-                        const moleculeName = file.replace('.log', '');
-                        const fileLink = document.createElement("a");
-                        fileLink.textContent = moleculeName;
-                        fileLink.className = "file-link";
-                        fileLink.onclick = (e) => {
-                            e.stopPropagation();
-                            loadMolecule(`${fullPath}/${file}`, moleculeName);
-                        };
-                        subDiv.appendChild(fileLink);
-                    });
-                    parent.appendChild(subDiv);
-                } else {
-                    // Carpeta con subcarpetas
-                    const folderLink = document.createElement("a");
-                    folderLink.textContent = (level === 0 ? "● " : "") + displayName;
-                    folderLink.className = (level === 0) ? "folder-link level-0" : "folder-link";
-                    folderLink.onclick = () => toggleSection(safeId);
-                    parent.appendChild(folderLink);
+                 const subfolderDiv = document.createElement("div");
+                 subfolderDiv.id = safeId;
+                 subfolderDiv.className = "submenu";
+                 subfolderDiv.style.display = "none";
+                 createSidebarMenu(data[key], subfolderDiv, fullPath, level + 1);
+                 parent.appendChild(subfolderDiv);
+             }
+         });
+     }
 
-                    const subfolderDiv = document.createElement("div");
-                    subfolderDiv.id = safeId;
-                    subfolderDiv.className = "submenu";
-                    subfolderDiv.style.display = "none";
-                    createSidebarMenu(data[key], subfolderDiv, fullPath, level + 1);
-                    parent.appendChild(subfolderDiv);
-                }
-            });
-        }
+     function toggleSection(id) {
+         const s = document.getElementById(id);
+         if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
+     }
 
-        function toggleSection(id) {
-            const s = document.getElementById(id);
-            if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
-        }
+     // --- CARGA DE JSMOL (Fix rutas con espacios) ---
+     function loadMolecule(filePath, moleculeName) {
+         const content = document.getElementById("dynamic-content");
+         const encodedPath = encodeURI(filePath);
 
-        // --- CARGA DE JSMOL ---
-        function loadMolecule(filePath, moleculeName) {
-            const content = document.getElementById("dynamic-content");
-            const encodedPath = encodeURI(filePath);
+         content.innerHTML = `
+             <div class="molecule-card">
+                 <header class="mol-header">
+                     <h2>${moleculeName}</h2>
+                 </header>
 
-            content.innerHTML = `
-                <div class="molecule-card">
-                    <header class="mol-header">
-                        <h2>${moleculeName}</h2>
-                        <div class="badges">
-                            <span class="badge-type">${moleculeName.includes('TS') ? 'Transition State' : 'Intermediate'}</span>
-                        </div>
-                    </header>
+                 <div id="jsmolContainer" class="jsmol-box"></div>
 
-                    <div id="jsmolContainer" class="jsmol-box"></div>
+                 <div class="toolbar">
+                     <div class="tool-group">
+                         <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset')">Reset View</button>
+                         <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom +20')">Zoom +</button>
+                         <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom -20')">Zoom -</button>
+                     </div>
+                     <div class="tool-group checkboxes">
+                         <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
+                         <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
+                     </div>
+                     <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
+                 </div>
 
-                    <div class="toolbar">
-                        <div class="tool-group">
-                            <button class="btn-outline" title="Reset Camera" onclick="Jmol.script(myJmol, 'reset')">🔄</button>
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom +20')">Zoom +</button>
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom -20')">Zoom -</button>
-                        </div>
+                 <div class="sci-comm-info">
+                     <div class="pro-tip">PRO TIP: Use the vibration mode to see the reaction coordinate transition!</div>
+                     <h3>About this intermediate</h3>
+                     <p>Computational stationary point optimized at the DFT level. Explore the coordination sphere by rotating the model.</p>
+                 </div>
+             </div>
+         `;
 
-                        <div class="tool-group">
-                            <button class="btn-outline" id="hToggle" onclick="toggleHydrogens()">Toggle H</button>
-                            <button class="btn-outline" id="labelToggle" onclick="toggleLabels()">Labels</button>
-                        </div>
+         const Info = { width: "100%", height: 500, j2sPath: "j2s", color: "#FFFFFF", use: "HTML5", disableInitialConsole: true };
+         myJmol = Jmol.getApplet("myJmol", Info);
+         document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
 
-                        <div class="tool-group checkboxes">
-                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
-                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
-                        </div>
+         Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set specularPower 100; set specularPercent 22; set antialiasDisplay on;`);
 
-                        <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
-                    </div>
+         setActiveLink(moleculeName);
+         if (window.innerWidth <= 768) toggleSidebar();
+     }
 
-                    <div class="sci-comm-info">
-                        <div class="pro-tip">PRO TIP: Frequencies are loaded directly from the .log output. Enable vibration to visualize the transition mode.</div>
-                        <h3>Technical Analysis</h3>
-                        <p>Computational intermediate optimized at the DFT level. Explore coordination and sterics by rotating the 3D model.</p>
-                    </div>
-                </div>
-            `;
+     function showHomePage() {
+         const content = document.getElementById("dynamic-content");
+         content.innerHTML = `
+             <div class="home-hero">
+                 <h1>Interactive Mechanistic Viewer</h1>
+                 <p class="lead">A 3D digital companion to my research on <strong>Iridium-catalyzed borylations</strong>.</p>
 
-            const Info = { width: "100%", height: 550, j2sPath: "j2s", color: "#FFFFFF", use: "HTML5", disableInitialConsole: true };
-            myJmol = Jmol.getApplet("myJmol", Info);
-            document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
+                 <div class="oracle-card">
+                     <span class="oracle-label">Gaussian Quote Oracle</span>
+                     <p id="quote-display">Loading computational wisdom...</p>
+                     <button class="btn-ghost" onclick="loadRandomQuote()">Generate Tip</button>
+                 </div>
 
-            Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set specularPower 100; set antialiasDisplay on;`);
+                 <div class="feature-grid">
+                     <div class="feature-item">
+                         <h3>Dynamic Analysis</h3>
+                         <p>Chemical mechanisms aren't 2D. Rotate, zoom and explore interactions that define regioselectivity.</p>
+                     </div>
+                     <div class="feature-item">
+                         <h3>DFT Precision</h3>
+                         <p>All models are rendered directly from Gaussian output files used in my PhD thesis.</p>
+                     </div>
+                 </div>
+             </div>
+         `;
+         loadRandomQuote();
+     }
 
-            setActiveLink(moleculeName);
-            if (window.innerWidth <= 768) toggleSidebar();
-        }
+     function loadRandomQuote() {
+         fetch('g16_quotes.txt').then(r => r.text()).then(t => {
+             const q = t.split('\n\n').filter(x => x.trim() !== "");
+             document.getElementById("quote-display").textContent = q[Math.floor(Math.random() * q.length)];
+         }).catch(() => {});
+     }
 
-        // --- PÁGINA DE INICIO Y GAUSSIAN TIPS ---
-        function showHomePage() {
-            const content = document.getElementById("dynamic-content");
-            content.innerHTML = `
-                <div class="home-hero">
-                    <h1>Interactive Mechanistic Viewer</h1>
-                    <p class="lead">A 3D digital companion to my research on <strong>Iridium-catalyzed borylations</strong>.</p>
+     function searchMenu() {
+         const q = document.getElementById("sidebar-search").value.toLowerCase();
+         document.querySelectorAll("#menu a.file-link").forEach(a => {
+             a.style.display = a.textContent.toLowerCase().includes(q) ? "block" : "none";
+         });
+     }
 
-                    <div class="oracle-card">
-                        <span class="oracle-label">Gaussian Quote Oracle</span>
-                        <p id="quote-display">Loading computational wisdom...</p>
-                        <button class="btn-ghost" onclick="loadRandomQuote()">Generate New Tip</button>
-                    </div>
+     function setActiveLink(name) {
+         document.querySelectorAll('#menu a').forEach(a => {
+             a.classList.remove('active');
+             if (a.textContent === name) a.classList.add('active');
+         });
+     }
 
-                    <div class="feature-grid">
-                        <div class="feature-item">
-                            <h3>3D Exploration</h3>
-                            <p>Chemical mechanisms are not 2D. Rotate and zoom to understand the steric factors driving regioselectivity.</p>
-                        </div>
-                        <div class="feature-item">
-                            <h3>Full Transparency</h3>
-                            <p>Every structure is rendered directly from the calculation output files (.log) used in the thesis.</p>
-                        </div>
-                    </div>
-                </div>
-            `;
-            loadRandomQuote();
-        }
+     window.onload = () => {
+         createSidebarMenu(structureData, document.getElementById("menu"));
+         showHomePage();
+     };
 
-        function loadRandomQuote() {
-            fetch('g16_quotes.txt').then(r => r.text()).then(t => {
-                const q = t.split('\n\n').filter(x => x.trim() !== "");
-                const randomQ = q[Math.floor(Math.random() * q.length)];
-                const display = document.getElementById("quote-display");
-                if (display) display.textContent = randomQ;
-            }).catch(() => {
-                const display = document.getElementById("quote-display");
-                if (display) display.textContent = "Gaussian job finished successfully.";
-            });
-        }
-
-        function searchMenu() {
-            const q = document.getElementById("sidebar-search").value.toLowerCase();
-            document.querySelectorAll("#menu a.file-link").forEach(a => {
-                const match = a.textContent.toLowerCase().includes(q);
-                a.style.display = match ? "block" : "none";
-            });
-        }
-
-        function setActiveLink(name) {
-            document.querySelectorAll('#menu a').forEach(a => {
-                a.classList.remove('active');
-                if (a.textContent === name) a.classList.add('active');
-            });
-        }
-
-        window.onload = () => {
-            createSidebarMenu(structureData, document.getElementById("menu"));
-            showHomePage();
-        };
-
-        function toggleSidebar() {
-            document.getElementById('sidebar').classList.toggle('show');
-        }
-    </script>
-    </body>
-    </html>
+     function toggleSidebar() {
+         document.getElementById('sidebar').classList.toggle('show');
+     }
+ </script>
+ </body>
+ </html>
