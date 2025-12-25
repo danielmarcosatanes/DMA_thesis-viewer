@@ -4,13 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMA Thesis | 3D Mechanistic Viewer</title>
+
+    <!-- FAVICON: Para que funcione, sube una imagen de 32x32px llamada favicon.png a tu carpeta raíz -->
+    <link rel="icon" type="image/png" href="favicon.png">
+
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
-    <!-- Fuentes coherentes con tu web personal -->
+
+    <!-- Tipografías coherentes con tu portafolio personal -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="light-mode"> <!-- Clase inicial para el modo claro -->
 
+    <!-- Botón para móviles -->
     <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰ Menu</button>
 
     <div id="main-container">
@@ -18,6 +24,16 @@
             <header>
                 <h1>Daniel Marcos</h1>
                 <p class="tagline">Mechanistic Explorer</p>
+
+                <!-- INTERRUPTOR DE MODO OSCURO (Sci-Comm Touch) -->
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="dark-mode-checkbox">
+                        <input type="checkbox" id="dark-mode-checkbox" onclick="toggleDarkMode()" />
+                        <div class="slider round"></div>
+                    </label>
+                    <span id="theme-text">Light Mode</span>
+                </div>
+
                 <input type="text" id="sidebar-search" placeholder="Search intermediate..." onkeyup="searchMenu()">
             </header>
 
@@ -33,7 +49,7 @@
 
         <main id="content">
             <div id="dynamic-content" class="container-pro">
-                <!-- UI inyectada dinámicamente -->
+                <!-- Aquí se inyecta la Home o el Visor de Moléculas -->
             </div>
         </main>
     </div>
@@ -149,15 +165,39 @@
         }
     };
 
-        // --- FUNCIONES AUXILIARES ---
+        // --- VARIABLES GLOBALES DE ESTADO ---
+        let myJmol = null;
+        let hShow = true;
+        let labelsOn = false;
+        let isDarkMode = false;
+
+        // --- FUNCIONES DE CONTROL JSMOL ---
+        function toggleHydrogens() {
+            hShow = !hShow;
+            Jmol.script(myJmol, hShow ? "display all" : "display not _H");
+        }
+
+        function toggleLabels() {
+            labelsOn = !labelsOn;
+            Jmol.script(myJmol, labelsOn ? "label %a; set labelOffset 0 0;" : "label off");
+        }
+
+        function toggleDarkMode() {
+            isDarkMode = !isDarkMode;
+            document.body.classList.toggle('dark-mode');
+            document.getElementById('theme-text').textContent = isDarkMode ? "Dark Mode" : "Light Mode";
+            // Actualizamos el fondo de JSmol en tiempo real
+            if (myJmol) {
+                Jmol.script(myJmol, isDarkMode ? "background [x121212]" : "background white");
+            }
+        }
+
+        // --- NAVEGACIÓN Y MENÚ ---
         function beautify(name) {
             return name.replace("Structures section ", "Chapter ")
                        .replace("Borylation of ", "Boryl. ");
         }
 
-        let myJmol = null;
-
-        // --- GENERADOR DE MENÚ RECURSIVO ---
         function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
             Object.keys(data).forEach((key) => {
                 const fullPath = `${currentPath}/${key}`;
@@ -165,7 +205,6 @@
                 const displayName = beautify(key);
 
                 if (Array.isArray(data[key])) {
-                    // Carpeta con lista de archivos
                     const folderLink = document.createElement("a");
                     folderLink.textContent = (level === 0 ? "● " : "") + displayName;
                     folderLink.className = (level === 0) ? "folder-link level-0" : "folder-link";
@@ -190,7 +229,6 @@
                     });
                     parent.appendChild(subDiv);
                 } else {
-                    // Carpeta con subcarpetas
                     const folderLink = document.createElement("a");
                     folderLink.textContent = (level === 0 ? "● " : "") + displayName;
                     folderLink.className = (level === 0) ? "folder-link level-0" : "folder-link";
@@ -212,7 +250,6 @@
             if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
         }
 
-        // --- CARGA DE JSMOL ---
         function loadMolecule(filePath, moleculeName) {
             const content = document.getElementById("dynamic-content");
             const encodedPath = encodeURI(filePath);
@@ -221,32 +258,41 @@
                 <div class="molecule-card">
                     <header class="mol-header">
                         <h2>${moleculeName}</h2>
+                        <div class="badges">
+                            <span class="badge-type">${moleculeName.includes('TS') ? 'Transition State' : 'Intermediate'}</span>
+                        </div>
                     </header>
 
                     <div id="jsmolContainer" class="jsmol-box"></div>
 
                     <div class="toolbar">
                         <div class="tool-group">
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset')">Reset View</button>
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom +20')">Zoom +</button>
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom -20')">Zoom -</button>
+                            <button class="btn-outline" title="Reset Camera" onclick="Jmol.script(myJmol, 'reset')">🔄</button>
+                            <button class="btn-outline" onclick="toggleHydrogens()">Toggle H</button>
+                            <button class="btn-outline" onclick="toggleLabels()">Labels</button>
+                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom +20')">➕</button>
+                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'zoom -20')">➖</button>
                         </div>
                         <div class="tool-group checkboxes">
-                            <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
-                            <label><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
+                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
+                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration</label>
                         </div>
-                        <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
+                        <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture PNG</button>
                     </div>
 
                     <div class="sci-comm-info">
-                        <div class="pro-tip">PRO TIP: Frequencies are loaded directly from the .log output. Enable vibration to visualize the transition mode.</div>
-                        <h3>Technical Analysis</h3>
-                        <p>Computational intermediate optimized at the DFT level. Explore coordination and sterics by rotating the 3D model.</p>
+                        <div class="pro-tip">INTERACTIVE TIP: Use "Toggle H" to focus on the metal center and "Vibration" to see the reaction coordinate.</div>
+                        <h3>Structure Insights</h3>
+                        <p>Computational output optimized at the DFT level. This stationary point is part of the mechanistic study on Iridium cataysis.</p>
                     </div>
                 </div>
             `;
 
-            const Info = { width: "100%", height: 550, j2sPath: "j2s", color: "#FFFFFF", use: "HTML5", disableInitialConsole: true };
+            const Info = {
+                width: "100%", height: 500, j2sPath: "j2s",
+                color: isDarkMode ? "#121212" : "#FFFFFF",
+                use: "HTML5", disableInitialConsole: true
+            };
             myJmol = Jmol.getApplet("myJmol", Info);
             document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
 
@@ -256,28 +302,27 @@
             if (window.innerWidth <= 768) toggleSidebar();
         }
 
-        // --- PÁGINA DE INICIO Y GAUSSIAN TIPS ---
         function showHomePage() {
             const content = document.getElementById("dynamic-content");
             content.innerHTML = `
                 <div class="home-hero">
                     <h1>Interactive Mechanistic Viewer</h1>
-                    <p class="lead">A 3D digital companion to my research on <strong>Iridium-catalyzed borylations</strong>.</p>
+                    <p class="lead">A 3D digital supplement to the research of <strong>Daniel Marcos Atanes</strong> on Iridium cataysis.</p>
 
                     <div class="oracle-card">
                         <span class="oracle-label">Gaussian Quote Oracle</span>
-                        <p id="quote-display">Loading computational wisdom...</p>
+                        <p id="quote-display">Initial guess: generated...</p>
                         <button class="btn-ghost" onclick="loadRandomQuote()">Generate New Tip</button>
                     </div>
 
                     <div class="feature-grid">
-                        <div class="feature-item">
-                            <h3>3D Exploration</h3>
-                            <p>Chemical mechanisms are not 2D. Rotate and zoom to understand the steric factors driving regioselectivity.</p>
+                        <div class="welcome-item">
+                            <h3>3D Perspective</h3>
+                            <p>Rotate and zoom into catalytic centers to understand regioselectivity factors and steric hindrance.</p>
                         </div>
-                        <div class="feature-item">
-                            <h3>Full Transparency</h3>
-                            <p>Every structure is rendered directly from the calculation output files (.log) used in the thesis.</p>
+                        <div class="welcome-item">
+                            <h3>Direct Data</h3>
+                            <p>Models are rendered directly from calculation output files (.log) used in the doctoral thesis.</p>
                         </div>
                     </div>
                 </div>
@@ -289,19 +334,16 @@
             fetch('g16_quotes.txt').then(r => r.text()).then(t => {
                 const q = t.split('\n\n').filter(x => x.trim() !== "");
                 const randomQ = q[Math.floor(Math.random() * q.length)];
-                const display = document.getElementById("quote-display");
-                if (display) display.textContent = randomQ;
+                document.getElementById("quote-display").textContent = randomQ;
             }).catch(() => {
-                const display = document.getElementById("quote-display");
-                if (display) display.textContent = "Gaussian job finished successfully.";
+                document.getElementById("quote-display").textContent = "Gaussian job finished successfully.";
             });
         }
 
         function searchMenu() {
             const q = document.getElementById("sidebar-search").value.toLowerCase();
             document.querySelectorAll("#menu a.file-link").forEach(a => {
-                const match = a.textContent.toLowerCase().includes(q);
-                a.style.display = match ? "block" : "none";
+                a.style.display = a.textContent.toLowerCase().includes(q) ? "block" : "none";
             });
         }
 
