@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DMA Thesis | 3D Mechanistic Viewer</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💻</text></svg>">
+
+    <!-- FAVICON: Átomo ⚛️ -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚛️</text></svg>">
+
     <link rel="stylesheet" href="styles.css">
     <script type="text/javascript" src="JSmol.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
@@ -14,10 +17,12 @@
     <button id="sidebar-toggle" class="mobile-toggle" onclick="toggleSidebar()">☰ Menu</button>
 
     <div id="main-wrapper">
+        <!-- SIDEBAR -->
         <nav id="sidebar">
             <header class="sidebar-header">
                 <h1>Daniel Marcos</h1>
                 <p class="tagline">Mechanistic Explorer</p>
+
                 <div class="theme-switch-wrapper">
                     <label class="theme-switch">
                         <input type="checkbox" id="dark-mode-checkbox" onclick="toggleDarkMode()" />
@@ -25,12 +30,12 @@
                     </label>
                     <span id="theme-text">Light Mode</span>
                 </div>
-                <input type="text" id="sidebar-search" placeholder="Search structure..." onkeyup="searchMenu()">
+                <input type="text" id="sidebar-search" placeholder="Search intermediate..." onkeyup="searchMenu()">
             </header>
 
-            <!-- FIX: ID cambiado a 'menu' para coincidir con el script -->
             <div id="menu">
                 <a href="#" id="home-link" class="active" onclick="showHomePage(); setActiveLink('home-link')">🏠 Home Overview</a>
+                <!-- El árbol se inyecta aquí -->
             </div>
 
             <div class="sidebar-footer">
@@ -38,23 +43,27 @@
             </div>
         </nav>
 
+        <!-- CONTENIDO PRINCIPAL -->
         <main id="main-content">
-            <div id="dynamic-content" class="container-inner"></div>
+            <div id="dynamic-content" class="container-inner">
+                <!-- Se inyecta por JS -->
+            </div>
         </main>
     </div>
 
 <script>
-    // --- 1. CONSTANTES Y DATOS (Siempre al principio para evitar errores) ---
+    // --- 1. DATOS DEL PERFIL ENERGÉTICO ---
     const energyDataL28 = [
         { id: "L28-Ir(Bpin)3", label: "Resting State", energy: 0.0, x: 80, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Ir(Bpin)3/L28-Ir(Bpin)3.log" },
         { id: "L28-σ-(R-H)Ir(Bpin)3", label: "σ-complex", energy: 0.8, x: 160, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/σ-(R-H)Ir(Bpin)3/L28-σ-(R-H)Ir(Bpin)3.log" },
         { id: "L28-OA-TS-Ir(R-H)(Bpin)3", label: "OA-TS", energy: 24.3, x: 240, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/OA-TS-Ir(R-H)(Bpin)3/L28-OA-TS-Ir(R-H)(Bpin)3.log" },
         { id: "L28-Ir(Bpin)3(R)(H)", label: "Intermediate", energy: 12.9, x: 320, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/OA/Ir(Bpin)3(R)(H)/L28-Ir(Bpin)3(R)(H).log" },
-        { id: "L28-isomH-TS-Ir(Bpin)3(R)(H)", label: "isomH-TS", energy: 30.5, x: 420, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/isomH-TS-Ir(Bpin)3(R)(H)/L28-isomH-TS-Ir(Bpin)3(R)(H).log", color: "#e67e22" },
-        { id: "L28-isoH-Ir(Bpin)3(R)(H)", label: "isoH-Intermediate", energy: 18.1, x: 520, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/isoH-Ir(Bpin)3(R)(H)/L28-isoH-Ir(Bpin)3(R)(H).log", color: "#e67e22" },
-        { id: "L28-RE-TS-isoH-Ir(Bpin)3(R)(H)", label: "RE-TS (H)", energy: 32.3, x: 620, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/RE-TS-isoH-Ir(Bpin)3(R)(H)/L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log", color: "#e67e22" }
+        { id: "L28-isomH-TS-Ir(Bpin)3(R)(H)", label: "isomH-TS", energy: 30.5, x: 420, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/isomH-TS-Ir(Bpin)3(R)(H)/L28-isomH-TS-Ir(Bpin)3(R)(H).log", color: "#e29578" },
+        { id: "L28-isoH-Ir(Bpin)3(R)(H)", label: "isoH-Intermediate", energy: 18.1, x: 520, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/isoH-Ir(Bpin)3(R)(H)/L28-isoH-Ir(Bpin)3(R)(H).log", color: "#e29578" },
+        { id: "L28-RE-TS-isoH-Ir(Bpin)3(R)(H)", label: "RE-TS (H)", energy: 32.3, x: 620, path: "molecules/Structures/Structures section 7.3/Borylation of 44a/Bis-5-CF3-Bipy/Isom-H/RE-TS-isoH-Ir(Bpin)3(R)(H)/L28-RE-TS-isoH-Ir(Bpin)3(R)(H).log", color: "#e29578" }
     ];
-    // --- MAPEO QUIRÚRGICO (Sincronizado con el nivel 6 de tu árbol) ---
+
+    // ---2. MAPEO DE CARPETAS ---
     const structureData = {
         "Structures section 7.1": [
             "4-m-bipy-OA-TS-Ir(R-H)(Bpin)3.log", "4-p-bipy-OA-TS-Ir(R-H)(Bpin)3.log",
@@ -270,11 +279,10 @@
         }
     };
 
-        // --- 2. FUNCIONES DE APOYO ---
+        // --- 3. VARIABLES Y FUNCIONES DE APOYO ---
         let myJmol = null;
         let isDarkMode = false;
         let hShow = true;
-        let labelsOn = false;
 
         function beautify(name) {
             return name.replace("Structures section ", "Section ")
@@ -285,16 +293,19 @@
             isDarkMode = !isDarkMode;
             document.body.classList.toggle('dark-mode');
             document.getElementById('theme-text').textContent = isDarkMode ? "Dark Mode" : "Light Mode";
-            if (myJmol) Jmol.script(myJmol, isDarkMode ? "background black" : "background white");
+            if (myJmol) {
+                const newBg = isDarkMode ? "#161616" : "#fdfdfd";
+                Jmol.script(myJmol, `background "${newBg}";`);
+            }
         }
 
-        // --- 3. LÓGICA DEL MENÚ ---
+        // --- 4. GENERADOR DE MENÚ ---
         function createSidebarMenu(data, parent, currentPath = "molecules/Structures", level = 0) {
             if (!parent) return;
             Object.keys(data).forEach((key) => {
                 if (data[key] === "VIEW_L28_MECHANISM") {
                     const mechLink = document.createElement("a");
-                    mechLink.innerHTML = "🗺️ <b>Interactive Mechanism</b>";
+                    mechLink.innerHTML = "🗺️ <b>Interactive Map</b>";
                     mechLink.className = "file-link mechanism-btn";
                     mechLink.onclick = (e) => { e.stopPropagation(); showMechanismL28(); };
                     parent.appendChild(mechLink);
@@ -340,7 +351,7 @@
             if (s) s.style.display = (s.style.display === "none" || s.style.display === "") ? "block" : "none";
         }
 
-        // --- 4. CARGA DE MODELOS ---
+        // --- 5. CARGA DE MODELOS ---
         function loadMolecule(filePath, moleculeName) {
             const content = document.getElementById("dynamic-content");
             const encodedPath = filePath.split('/').map(seg => encodeURIComponent(seg)).join('/');
@@ -356,8 +367,7 @@
                     <div class="toolbar">
                         <div class="tool-group">
                             <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset')">🔄 RESET</button>
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'display all')">H-ON</button>
-                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'display not _H')">H-OFF</button>
+                            <button class="btn-outline" onclick="Jmol.script(myJmol, hShow=!hShow ? 'display not _H':'display all')">H-Toggle</button>
                             <button class="btn-outline btn-zoom" onclick="Jmol.script(myJmol, 'zoom +20')">+</button>
                             <button class="btn-outline btn-zoom" onclick="Jmol.script(myJmol, 'zoom -20')">-</button>
                         </div>
@@ -369,9 +379,9 @@
                         <button class="btn-outline" onclick="copyXYZ()">📋 Copy XYZ</button>
                     </div>
                     <div class="sci-panel">
-                        <p class="pro-tip">TIP: Transition states represent reaction barriers. Enable vibration to see the movement.</p>
-                        <h3>Analysis</h3>
-                        <p>Optimized geometry at the DFT level. Explore the coordination environment by rotating the model.</p>
+                        <p class="pro-tip">TIP: Transitions states represent barriers. Enable vibration to visualize the mode.</p>
+                        <h3>Technical Overview</h3>
+                        <p>DFT-optimized geometry representing a stationary point in the catalytic cycle.</p>
                     </div>
                 </div>
             `;
@@ -380,36 +390,31 @@
             myJmol = Jmol.getApplet("myJmol", Info);
             document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
             Jmol.script(myJmol, `load "${encodedPath}"; model 2; set ambientPercent 25; set antialiasDisplay on; background "${jsmolBgColor}";`);
-
             setActiveLink(moleculeName);
-            document.getElementById("main-content").scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // --- 5. MECANISMO INTERACTIVO L28 ---
+        // --- 6. MECANISMO INTERACTIVO ---
         function showMechanismL28() {
             const content = document.getElementById("dynamic-content");
             const bg = isDarkMode ? "#161616" : "#fdfdfd";
 
             content.innerHTML = `
                 <div class="home-hero">
-                    <h1 style="font-size: 2.2rem; color: var(--chem-teal);">Mechanism Explorer: 44a + L28</h1>
-                    <p class="lead">Interactive Energy Profile. Click on the levels to load the 3D structure.</p>
+                    <h1>Interactive Mechanism Map</h1>
+                    <p class="lead">Click on any energy level to load the 3D structure above.</p>
                     <div id="jsmolContainer" class="jsmol-box" style="height: 400px !important; margin-bottom:20px;"></div>
                     <div class="energy-profile-card">
                         <svg width="100%" viewBox="0 0 700 180" style="overflow: visible;">
                             ${renderSvgLevels()}
                         </svg>
                     </div>
-                    <div class="sci-panel" id="mech-desc">
-                        <p>Select a stationary point from the diagram above to analyze the geometry.</p>
-                    </div>
+                    <div class="sci-panel"><p>Explore the potential energy surface for 44a + L28.</p></div>
                 </div>
             `;
 
             const Info = { width: "100%", height: "100%", j2sPath: "j2s", color: bg, use: "HTML5", disableInitialConsole: true };
             myJmol = Jmol.getApplet("myJmol", Info);
             document.getElementById("jsmolContainer").innerHTML = Jmol.getAppletHtml(myJmol);
-            setActiveLink("Interactive Mechanism");
         }
 
         function renderSvgLevels() {
@@ -419,31 +424,30 @@
             energyDataL28.forEach(p => {
                 const y = yScale(p.energy);
                 const color = p.color || 'var(--chem-teal)';
-                html += `
-                    <g style="cursor:pointer" onclick="loadMolecule('${p.path}', '${p.id}')">
-                        <line x1="${p.x-20}" y1="${y}" x2="${p.x+20}" y2="${y}" stroke="${color}" stroke-width="4" />
-                        <text x="${p.x}" y="${y-10}" text-anchor="middle" font-size="12" fill="${color}" font-weight="bold">${p.energy}</text>
-                        <text x="${p.x}" y="${y+20}" text-anchor="middle" font-size="9" fill="#888">${p.label}</text>
-                    </g>`;
+                html += `<g style="cursor:pointer" onclick="loadMolecule('${p.path}', '${p.id}')">
+                    <line x1="${p.x-20}" y1="${y}" x2="${p.x+20}" y2="${y}" stroke="${color}" stroke-width="4" />
+                    <text x="${p.x}" y="${y-10}" text-anchor="middle" font-size="12" fill="${color}" font-weight="bold">${p.energy}</text>
+                    <text x="${p.x}" y="${y+20}" text-anchor="middle" font-size="9" fill="#888">${p.label}</text>
+                </g>`;
             });
             return html;
         }
 
-        // --- 6. UTILIDADES ---
+        // --- 7. HOME & UTILIDADES ---
         function showHomePage() {
             const content = document.getElementById("dynamic-content");
             content.innerHTML = `
                 <div class="home-hero">
                     <h1>Interactive Mechanistic Viewer</h1>
-                    <p class="lead">A 3D digital companion to the doctoral thesis of <strong>Daniel Marcos Atanes</strong>.</p>
+                    <p class="lead">A 3D digital companion to the doctoral research of Daniel Marcos Atanes.</p>
                     <div class="oracle-card">
                         <span class="oracle-label">Gaussian Oracle</span>
                         <p id="quote-display">Analyzing potential energy surface...</p>
                         <button class="btn-ghost" onclick="loadRandomQuote()">Generate Tip</button>
                     </div>
                     <div class="info-grid">
-                        <div class="info-item"><h3>3D Perspective</h3><p>Chemical mechanisms are inherently 3D. Explore steric hindrance directly.</p></div>
-                        <div class="info-item"><h3>Thesis Data</h3><p>Models are rendered directly from original calculation logs.</p></div>
+                        <div class="info-item"><h3>3D Context</h3><p>Rotate and zoom into catalytic centers to understand regioselectivity.</p></div>
+                        <div class="info-item"><h3>Raw Data</h3><p>Models are rendered directly from the calculation logs.</p></div>
                     </div>
                 </div>
             `;
@@ -478,9 +482,8 @@
 
         function toggleSidebar() { document.getElementById('sidebar').classList.toggle('show'); }
 
-        // --- 7. INICIO ---
         window.onload = () => {
-            // CORRECCIÓN: Usar 'menu' que es el ID real en el HTML
+            // CORRECCIÓN: Usar 'menu' que es el ID real
             createSidebarMenu(structureData, document.getElementById("menu"));
             showHomePage();
         };
