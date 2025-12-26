@@ -335,42 +335,32 @@
                     <div id="jsmolContainer" class="jsmol-box" style="line-height:0;"></div>
 
                     <div class="toolbar">
-                        <!-- GRUPO 1: Navegación básica -->
+                        <!-- Grupo Navegación -->
                         <div class="tool-group">
-                            <button class="btn-outline" title="Reset View" onclick="Jmol.script(myJmol, 'reset; zoom 100; set antialiasDisplay on;')">🔄 Reset</button>
+                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'reset; zoom 100;')">🔄 Reset</button>
                             <button class="btn-outline btn-zoom" onclick="Jmol.script(myJmol, 'zoom +20')">+</button>
                             <button class="btn-outline btn-zoom" onclick="Jmol.script(myJmol, 'zoom -20')">-</button>
                         </div>
 
-                        <!-- GRUPO 2: Estilos Visuales (Botones de acción rápida) -->
+                        <!-- Grupo Estilos -->
                         <div class="tool-group">
-                            <button class="btn-outline" title="Ball and Stick" onclick="Jmol.script(myJmol, 'cpk 20%; wireframe 0.15;')">Stick</button>
-                            <button class="btn-outline" title="Spacefill" onclick="Jmol.script(myJmol, 'cpk 100%')">Sphere</button>
+                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'cpk 20%; wireframe 0.15;')">Stick</button>
+                            <button class="btn-outline" onclick="Jmol.script(myJmol, 'cpk 100%')">Sphere</button>
                         </div>
 
-                        <!-- GRUPO 3: Toggles Interactivos (Checkboxes: Mejor para estados on/off) -->
+                        <!-- Grupo Toggles (Nombres más cortos para ganar espacio) -->
                         <div class="tool-group checkboxes">
-                            <label class="check-container" title="Show/Hide Hydrogens">
-                                <input type="checkbox" checked onchange="Jmol.script(myJmol, this.checked ? 'display all' : 'display not _H')"> H
-                            </label>
-                            <label class="check-container" title="Toggle Van der Waals Surface">
-                                <input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'isosurface vdw; color isosurface translucent 0.5' : 'isosurface off')"> Surface
-                            </label>
-                            <label class="check-container" title="Show atom labels">
-                                <input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'label %a; set labelOffset 0 0' : 'label off')"> Labels
-                            </label>
-                            <label class="check-container" title="Enable Rotation">
-                                <input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin
-                            </label>
-                            <label class="check-container" title="Visualize transition state frequency">
-                                <input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vibration
-                            </label>
+                            <label class="check-container"><input type="checkbox" checked onchange="Jmol.script(myJmol, this.checked ? 'display all' : 'display not _H')"> H</label>
+                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'isosurface vdw; color isosurface translucent 0.5' : 'isosurface off')"> Surface</label>
+                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'label %a; set labelOffset 0 0' : 'label off')"> Labels</label>
+                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'spin on' : 'spin off')"> Spin</label>
+                            <label class="check-container"><input type="checkbox" onchange="Jmol.script(myJmol, this.checked ? 'vibration on' : 'vibration off')"> Vib.</label>
                         </div>
 
-                        <!-- GRUPO 4: Exportación -->
+                        <!-- Grupo Export -->
                         <div class="tool-group">
                             <button class="btn-solid" onclick="Jmol.script(myJmol, 'write PNGJ \\'${moleculeName}.png\\'')">📸 Capture</button>
-                            <button class="btn-outline" title="Copy XYZ Coordinates" onclick="copyXYZ()">📋 XYZ</button>
+                            <button class="btn-outline" onclick="copyXYZ()">📋 XYZ</button>
                         </div>
                     </div>
 
