@@ -178,3 +178,39 @@ input:checked + .slider:before { transform: translateX(16px); }
     color: var(--chem-teal) !important;
     font-weight: 700 !important;
 }
+
+/* 1. Ampliamos el ancho máximo para dar aire a los botones */
+.container-inner {
+    max-width: 1150px; /* Subimos de 900px a 1150px */
+    width: 95%;
+}
+
+/* 2. Compactamos la toolbar */
+.toolbar {
+    display: flex;
+    justify-content: space-between; /* Distribuye grupos a los extremos */
+    align-items: center;
+    gap: 10px; /* Espacio reducido entre grupos */
+    padding: 0.8rem 1rem; /* Menos relleno vertical */
+    flex-wrap: nowrap; /* Evitamos que salte de línea en escritorio */
+    overflow-x: auto; /* Si la pantalla es muy pequeña, permite scroll horizontal en la barra */
+}
+
+/* 3. Botones más compactos */
+.btn-outline, .btn-solid {
+    padding: 6px 12px; /* Reducimos el padding ligeramente */
+    font-size: 0.8rem;
+    white-space: nowrap; /* Evita que el texto del botón se rompa */
+}
+
+/* 4. Checkboxes más juntos */
+.tool-group.checkboxes {
+    gap: 12px;
+    background: rgba(0, 109, 119, 0.03); /* Un toque de color de fondo muy sutil */
+    padding: 5px 10px;
+    border-radius: 6px;
+}
+
+.check-container {
+    font-size: 0.75rem; /* Letra un poco más pequeña para los toggles */
+}
