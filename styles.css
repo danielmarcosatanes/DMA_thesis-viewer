@@ -1,5 +1,5 @@
 /* =======================================================
-   REDISEÑO: TEAL & GOLD (Daniel Marcos Portfolio Style)
+   ESTILO COHERENTE: TEAL & GOLD (Daniel Marcos Style)
    ======================================================= */
 
 :root {
@@ -7,26 +7,26 @@
     --chem-gold: #e29578;
     --text-main: #333333;
     --sidebar-w: 300px;
-    --bg-light: #ffffff;
+    --bg-page: #ffffff;
     --bg-card: #fdfdfd;
     --bg-toolbar: #f8f9fa;
     --border: #eeeeee;
 }
 
-/* --- DARK MODE --- */
 body.dark-mode {
-    --bg-light: #0a0a0a;
+    --bg-page: #0a0a0a;
     --bg-card: #161616;
     --bg-toolbar: #1f1f1f;
-    --text-main: #e0e0e0;
-    --border: #2a2a2a;
+    --text-main: #f0f0f0;
+    --border: #333333;
 }
 
 * { box-sizing: border-box; }
 
 html, body {
     margin: 0; padding: 0; height: 100%;
-    background-color: var(--bg-light);
+    background-color: var(--bg-page);
+    transition: background-color 0.3s ease;
 }
 
 body {
@@ -41,7 +41,7 @@ body {
     overflow: hidden;
 }
 
-/* --- SIDEBAR (Lista Vertical) --- */
+/* --- SIDEBAR (Forzado vertical) --- */
 #sidebar {
     width: var(--sidebar-w);
     min-width: var(--sidebar-w);
@@ -50,10 +50,7 @@ body {
     border-right: 1px solid var(--border);
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
-
-body.dark-mode #sidebar { background: #1a1a1a; }
 
 .sidebar-header { padding: 3rem 1.5rem 1.5rem; border-bottom: 1px solid var(--border); }
 .sidebar-header h1 {
@@ -67,8 +64,26 @@ body.dark-mode #sidebar { background: #1a1a1a; }
     border-radius: 6px; outline: none; color: var(--text-main);
 }
 
-#menu { flex: 1; overflow-y: auto; padding: 1rem 0; display: flex; flex-direction: column; }
-#menu a { display: block; width: 100%; padding: 10px 25px; color: #666; text-decoration: none; font-size: 0.9rem; cursor: pointer; }
+/* ANOTACIÓN: El contenedor del menú ahora fuerza lista vertical */
+#menu {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 0;
+    display: flex;
+    flex-direction: column;
+}
+
+#menu a {
+    display: block;
+    width: 100%;
+    padding: 12px 25px;
+    color: #666;
+    text-decoration: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    text-align: left;
+}
+
 #menu a:hover { color: var(--chem-teal); background: var(--bg-toolbar); }
 #menu a.active { font-weight: bold; color: var(--chem-teal); background: rgba(0, 109, 119, 0.08); border-right: 4px solid var(--chem-teal); }
 
@@ -83,52 +98,60 @@ body.dark-mode #sidebar { background: #1a1a1a; }
     flex: 1;
     height: 100%;
     overflow-y: auto;
-    padding: 3rem 2rem;
+    padding: 4rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-.container-inner { max-width: 1000px; width: 100%; }
+.container-inner { max-width: 900px; width: 100%; }
 
-/* --- HOME HERO (DISEÑO BONITO) --- */
-.home-hero { text-align: center; width: 100%; }
-.home-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3.5rem; color: var(--chem-teal); margin-bottom: 1rem; }
-.lead { font-size: 1.4rem; color: #666; max-width: 700px; margin: 0 auto 3rem; line-height: 1.6; }
-
-.oracle-card {
-    background: var(--chem-teal);
-    color: white !important;
-    padding: 4rem 2rem;
-    border-radius: 20px;
-    margin: 4rem 0;
-    text-align: center;
-    box-shadow: 0 20px 40px rgba(0, 109, 119, 0.2);
-}
-.oracle-card p { font-family: 'Montserrat', sans-serif; font-style: italic; font-size: 1.6rem; margin: 25px 0; color: white !important; }
-.oracle-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 3px; opacity: 0.8; font-weight: bold; }
-.btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: white; padding: 12px 24px; border-radius: 6px; cursor: pointer; transition: 0.3s; }
-.btn-ghost:hover { background: rgba(255,255,255,0.1); border-color: white; }
-
-.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 5rem; text-align: left;}
-.info-item h3 { border-bottom: 3px solid var(--chem-gold); display: inline-block; padding-bottom: 5px; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; }
-
-/* --- MOLECULE CARD & VISOR --- */
-.molecule-card { width: 100%; background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; margin-bottom: 2rem; }
+.molecule-card { width: 100%; background-color: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; padding: 2rem; margin-bottom: 2rem; }
 .mol-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--chem-teal); margin-bottom: 1.5rem; padding-bottom: 10px; }
 .mol-header h2 { font-family: 'Montserrat', sans-serif; margin: 0; color: var(--chem-teal); font-size: 2rem; }
 .mol-badge { background: var(--chem-gold); color: white; padding: 4px 12px; border-radius: 20px; font-size: 0.7rem; font-weight: bold; }
 
-.jsmol-box { width: 100% !important; height: 550px !important; border-radius: 8px; background-color: var(--bg-card); overflow: hidden; border: 1px solid var(--border); }
+.jsmol-box { width: 100% !important; height: 500px !important; border-radius: 12px; border: 1px solid #ddd; background: #fff; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
 
-.toolbar { display: flex; justify-content: space-between; align-items: center; margin-top: 15px; padding: 1.2rem; background: var(--bg-toolbar); border: 1px solid var(--border); border-radius: 10px; gap: 15px; flex-wrap: wrap; }
-.tool-group { display: flex; gap: 8px; align-items: center; }
-
-.btn-outline { background: #fff; border: 1px solid var(--chem-teal); color: var(--chem-teal); padding: 8px 14px; border-radius: 6px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; cursor: pointer; }
-body.dark-mode .btn-outline { background: transparent; }
+/* --- TOOLBAR --- */
+.toolbar {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-top: 2rem; padding: 1.2rem; background: var(--bg-toolbar);
+    border: 1px solid var(--border); border-radius: 10px; gap: 15px; flex-wrap: wrap;
+}
+.btn-outline {
+    background: transparent; border: 1px solid var(--chem-teal); color: var(--chem-teal);
+    padding: 8px 14px; border-radius: 6px; font-size: 0.75rem; text-transform: uppercase; font-weight: bold; cursor: pointer;
+}
 .btn-outline:hover { color: var(--chem-gold); border-color: var(--chem-gold); background: rgba(226,149,120,0.05); }
 .btn-solid { background: var(--chem-teal); color: white; border: none; padding: 10px 18px; border-radius: 6px; font-weight: bold; cursor: pointer; }
 
+.sci-panel { margin-top: 3rem; padding: 1.5rem; background: #fbfbfb; border-radius: 8px; border: 1px solid var(--border); }
+body.dark-mode .sci-panel { background: #1a1a1a; }
+.pro-tip { color: var(--chem-gold); font-weight: bold; font-size: 0.8rem; margin-bottom: 10px; text-transform: uppercase; }
+
+/* --- ATOM LEGEND --- */
+.atom-legend { display: flex; flex-wrap: wrap; gap: 15px; margin-top: 20px; justify-content: center; border-top: 1px solid var(--border); padding-top: 15px; }
+.legend-item { display: flex; align-items: center; gap: 6px; font-size: 0.8rem; font-weight: 500; }
+.dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+
+/* --- HOME PAGE & CITATION --- */
+.home-hero { text-align: center; }
+.home-hero h1 { font-family: 'Montserrat', sans-serif; font-size: 3.2rem; color: var(--chem-teal); }
+.lead { font-size: 1.3rem; color: #666; margin-bottom: 3rem; line-height: 1.6; }
+
+.oracle-card { background: var(--chem-teal); color: white; padding: 3rem 2rem; border-radius: 20px; margin: 4rem 0; text-align: center; }
+.oracle-card p { font-family: 'Montserrat', sans-serif; font-style: italic; font-size: 1.5rem; margin: 25px 0; color: white !important; }
+.btn-ghost { background: transparent; border: 1px solid rgba(255,255,255,0.4); color: white; padding: 12px 24px; border-radius: 6px; cursor: pointer; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 5rem; text-align: left; }
+.info-item h3 { border-bottom: 2px solid var(--chem-gold); display: inline-block; padding-bottom: 5px; }
+
+.citation-box { margin-top: 5rem; padding: 2rem; background: var(--bg-toolbar); border-radius: 12px; text-align: left; border: 1px dashed var(--chem-teal); }
+.citation-box h3 { color: var(--chem-teal); font-size: 1.1rem; margin-top: 0; }
+.citation-box p { font-size: 0.95rem; line-height: 1.6; font-family: 'Roboto', sans-serif; }
+
+/* --- THEME SWITCH --- */
 .theme-switch-wrapper { display: flex; align-items: center; gap: 10px; margin-bottom: 15px; }
 .theme-switch { display: inline-block; height: 18px; width: 34px; position: relative; }
 .theme-switch input { display:none; }
@@ -136,14 +159,15 @@ body.dark-mode .btn-outline { background: transparent; }
 .slider:before { background-color: #fff; content: ""; height: 12px; width: 12px; left: 3px; bottom: 3px; position: absolute; transition: .4s; border-radius: 50%; }
 input:checked + .slider { background-color: var(--chem-teal); }
 input:checked + .slider:before { transform: translateX(16px); }
+#theme-text { font-size: 0.65rem; font-weight: bold; color: #999; text-transform: uppercase; }
 
 /* --- MOBILE --- */
 .mobile-toggle { display: none; position: fixed; top: 15px; left: 15px; z-index: 1100; background: var(--chem-teal); color: white; border: none; padding: 10px; border-radius: 4px; }
 
 @media (max-width: 768px) {
-    #main-wrapper { flex-direction: column; }
     #sidebar { position: fixed; left: -300px; z-index: 1000; width: 280px; transition: 0.3s; }
     #sidebar.show { left: 0; }
     .mobile-toggle { display: block; }
     #main-content { padding: 5rem 1rem 2rem; }
+    .info-grid { grid-template-columns: 1fr; }
 }
